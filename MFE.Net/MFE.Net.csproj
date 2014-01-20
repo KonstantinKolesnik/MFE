@@ -41,6 +41,7 @@
     <Compile Include="Tcp\TcpSession.cs" />
     <Compile Include="Tcp\TcpSessionDataReceivedEventHandler.cs" />
     <Compile Include="Tcp\TcpSessionEventHandler.cs" />
+    <Compile Include="Udp\FixedTimeService.cs" />
     <Compile Include="WebSocket\WSServer.cs" />
     <Compile Include="WebSocket\WSConstants.cs" />
     <Compile Include="WebSocket\WSDataFrame.cs" />
@@ -52,6 +53,7 @@
     <Reference Include="Microsoft.SPOT.Native">
     </Reference>
     <Reference Include="Microsoft.SPOT.Net" />
+    <Reference Include="Microsoft.SPOT.Time" />
     <Reference Include="System" />
     <Reference Include="System.Http" />
     <Reference Include="System.IO" />
@@ -65,4 +67,5 @@
       <Name>MFE.Core</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
 </Project>
