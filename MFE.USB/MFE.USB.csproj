@@ -1,15 +1,16 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
-    <AssemblyName>MFE.Core</AssemblyName>
+    <AssemblyName>MFE.USB</AssemblyName>
     <OutputType>Library</OutputType>
-    <RootNamespace>MFE.Core</RootNamespace>
+    <RootNamespace>MFE.USB</RootNamespace>
     <ProjectTypeGuids>{b69e3092-b931-443c-abe7-7e7b65f2a37f};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <ProductVersion>9.0.21022</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{8EE96EBA-F6D8-4433-A72E-AED3A5A0EFDA}</ProjectGuid>
-    <TargetFrameworkVersion>v4.3</TargetFrameworkVersion>
+    <ProjectGuid>{F0DA6247-97C4-43DC-99B6-A763AF5225C2}</ProjectGuid>
+    <TargetFrameworkVersion>v4.2</TargetFrameworkVersion>
     <NetMfTargetsBaseDir Condition="'$(NetMfTargetsBaseDir)'==''">$(MSBuildExtensionsPath32)\Microsoft\.NET Micro Framework\</NetMfTargetsBaseDir>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -31,11 +32,18 @@
   <Import Project="$(NetMfTargetsBaseDir)$(TargetFrameworkVersion)\CSharp.Targets" />
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="SHA.cs" />
-    <Compile Include="Utils.cs" />
+    <Compile Include="USBDeviceManager.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Reference Include="GHI.Premium.System, Version=4.2.11.1, Culture=neutral, processorArchitecture=MSIL" />
+    <Reference Include="GHI.Premium.USBHost, Version=4.2.11.1, Culture=neutral, processorArchitecture=MSIL" />
     <Reference Include="Microsoft.SPOT.Native">
     </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\MFE.Core\MFE.Core.csproj">
+      <Project>{8EE96EBA-F6D8-4433-A72E-AED3A5A0EFDA}</Project>
+      <Name>MFE.Core</Name>
+    </ProjectReference>
   </ItemGroup>
 </Project>

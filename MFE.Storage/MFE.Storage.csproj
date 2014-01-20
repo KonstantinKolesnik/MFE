@@ -1,15 +1,16 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
-    <AssemblyName>MFE.Core</AssemblyName>
+    <AssemblyName>MFE.Storage</AssemblyName>
     <OutputType>Library</OutputType>
-    <RootNamespace>MFE.Core</RootNamespace>
+    <RootNamespace>MFE.Storage</RootNamespace>
     <ProjectTypeGuids>{b69e3092-b931-443c-abe7-7e7b65f2a37f};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <ProductVersion>9.0.21022</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{8EE96EBA-F6D8-4433-A72E-AED3A5A0EFDA}</ProjectGuid>
-    <TargetFrameworkVersion>v4.3</TargetFrameworkVersion>
+    <ProjectGuid>{B3AF4DFB-585D-477A-981A-0F5E69EC7A89}</ProjectGuid>
+    <TargetFrameworkVersion>v4.2</TargetFrameworkVersion>
     <NetMfTargetsBaseDir Condition="'$(NetMfTargetsBaseDir)'==''">$(MSBuildExtensionsPath32)\Microsoft\.NET Micro Framework\</NetMfTargetsBaseDir>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -30,12 +31,24 @@
   </PropertyGroup>
   <Import Project="$(NetMfTargetsBaseDir)$(TargetFrameworkVersion)\CSharp.Targets" />
   <ItemGroup>
+    <Compile Include="Drive.cs" />
+    <Compile Include="DriveManager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="SHA.cs" />
-    <Compile Include="Utils.cs" />
+    <Compile Include="DriveEventHandler.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Reference Include="GHI.Premium.IO, Version=4.2.11.1, Culture=neutral, processorArchitecture=MSIL" />
+    <Reference Include="GHI.Premium.System, Version=4.2.11.1, Culture=neutral, processorArchitecture=MSIL" />
+    <Reference Include="GHI.Premium.USBHost, Version=4.2.11.1, Culture=neutral, processorArchitecture=MSIL" />
+    <Reference Include="Microsoft.SPOT.IO" />
     <Reference Include="Microsoft.SPOT.Native">
     </Reference>
+    <Reference Include="System.IO" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\MFE.Core\MFE.Core.csproj">
+      <Project>{8EE96EBA-F6D8-4433-A72E-AED3A5A0EFDA}</Project>
+      <Name>MFE.Core</Name>
+    </ProjectReference>
   </ItemGroup>
 </Project>

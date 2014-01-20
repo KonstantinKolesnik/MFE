@@ -1,15 +1,16 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
-    <AssemblyName>MFE.Core</AssemblyName>
+    <AssemblyName>MFE.Net.Messaging</AssemblyName>
     <OutputType>Library</OutputType>
-    <RootNamespace>MFE.Core</RootNamespace>
+    <RootNamespace>MFE.Net.Messaging</RootNamespace>
     <ProjectTypeGuids>{b69e3092-b931-443c-abe7-7e7b65f2a37f};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <ProductVersion>9.0.21022</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{8EE96EBA-F6D8-4433-A72E-AED3A5A0EFDA}</ProjectGuid>
-    <TargetFrameworkVersion>v4.3</TargetFrameworkVersion>
+    <ProjectGuid>{632B23F9-A020-4C66-93A3-DE9AF4529CB9}</ProjectGuid>
+    <TargetFrameworkVersion>v4.2</TargetFrameworkVersion>
     <NetMfTargetsBaseDir Condition="'$(NetMfTargetsBaseDir)'==''">$(MSBuildExtensionsPath32)\Microsoft\.NET Micro Framework\</NetMfTargetsBaseDir>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -30,12 +31,24 @@
   </PropertyGroup>
   <Import Project="$(NetMfTargetsBaseDir)$(TargetFrameworkVersion)\CSharp.Targets" />
   <ItemGroup>
+    <Compile Include="NetworkMessage.cs" />
+    <Compile Include="NetworkMessageDelimiters.cs" />
+    <Compile Include="NetworkMessageEventHandler.cs" />
+    <Compile Include="NetworkMessageFormat.cs" />
+    <Compile Include="NetworkMessageReceiver.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="SHA.cs" />
-    <Compile Include="Utils.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Reference Include="MFDpwsExtensions" />
     <Reference Include="Microsoft.SPOT.Native">
     </Reference>
+    <Reference Include="System.IO" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\MFE.Core\MFE.Core.csproj">
+      <Project>{03D2EE7A-7DE1-4329-804E-6823D20A53B2}</Project>
+      <Name>MFE.Core</Name>
+    </ProjectReference>
   </ItemGroup>
 </Project>
