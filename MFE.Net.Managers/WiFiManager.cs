@@ -62,52 +62,6 @@ namespace MFE.Net.Managers
         #region Public methods
         public void Start()
         {
-            //wifi_RS21.NetworkDown += new Gadgeteer.Modules.Module.NetworkModule.NetworkEventHandler(wifi_NetworkDown);
-            //wifi_RS21.NetworkUp += new Gadgeteer.Modules.Module.NetworkModule.NetworkEventHandler(wifi_NetworkUp);
-
-            //// use the router's DHCP server to set my network info
-            //if (!wifi_RS21.Interface.NetworkInterface.IsDhcpEnabled)
-            //    wifi_RS21.UseDHCP();
-
-            //// look for avaiable networks
-            ////GHI.Premium.Net.WiFiNetworkInfo[] scanResults = wifi_RS21.Interface.Scan();
-            ////foreach (GHI.Premium.Net.WiFiNetworkInfo result in scanResults)
-            ////{
-            ////    Debug.Print("****" + result.SSID + "****");
-            ////    Debug.Print("ChannelNumber = " + result.ChannelNumber);
-            ////    Debug.Print("networkType = " + result.networkType);
-            ////    Debug.Print("PhysicalAddress = " + GetMACAddress(result.PhysicalAddress));
-            ////    Debug.Print("RSSI = " + result.RSSI);
-            ////    Debug.Print("SecMode = " + result.SecMode);
-            ////}
-
-            //// locate a specific network
-            //WiFiNetworkInfo[] nis = wifi_RS21.Interface.Scan(ssid);
-            //while (nis == null)
-            //{
-            //    Thread.Sleep(500);
-            //    Debug.Print("Searching for WiFi access point with required SSID...\n");
-            //    nis = wifi_RS21.Interface.Scan(ssid);
-            //}
-            //Debug.Print(WiFiNetworkInfoToString(nis[0]));
-            //wifi_RS21.Interface.Join(nis[0], password);
-
-            //if (Started != null)
-            //    Started(this, EventArgs.Empty);
-
-            //return;
-
-
-
-
-
-            //portNetworkLED.Start();
-
-            //wifi.UpdateFirmware();
-            //if (!wifi_RS21.Interface.NetworkInterface.IsDhcpEnabled)
-            //    wifi_RS21.UseDHCP();
-
-
             if (EnableWiFi())
             {
                 //WiFiNetworkInfo ni = Scan();
@@ -115,40 +69,10 @@ namespace MFE.Net.Managers
 
                 if (Connect(ni) && EnableDHCP())
                 {
-                    //portNetworkLED.DutyCycle = ledToVcc ? 0 : 1;
                     if (Started != null)
                         Started(this, EventArgs.Empty);
-
-                    //Debug.Print("Test DNS");
-                    //try
-                    //{
-                    //    IPHostEntry myIP = Dns.GetHostEntry("www.ghielectronics.com");
-                    //    if (myIP != null)
-                    //        Debug.Print(myIP.HostName + ": " + myIP.AddressList[0].ToString());
-                    //}
-                    //catch (SocketException e)
-                    //{
-                    //    Debug.Print("Faild to Get the host entry of the FQN from DNS server!");
-                    //    if (e.ErrorCode == 11003)
-                    //        Debug.Print("Re-Enable the module.");
-                    //    throw;
-                    //}
-
-                    return;
                 }
             }
-
-            //portNetworkLED.DutyCycle = ledToVcc ? 1 : 0;
-            //portNetworkLED.Stop();
-        }
-
-        public void OnBeforeMessage()
-        {
-            //portNetworkLED.DutyCycle = ledToVcc ? 1 : 0;
-        }
-        public void OnAfterMessage()
-        {
-            //portNetworkLED.DutyCycle = ledToVcc ? 0 : 1;
         }
         #endregion
 

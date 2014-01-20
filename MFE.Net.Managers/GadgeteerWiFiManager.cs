@@ -25,10 +25,8 @@ namespace MFE.Net.Managers
         #endregion
 
         #region Constructor
-        public GadgeteerWiFiManager(WiFi_RS21 wifi_RS21, string ssid, string password)//, Cpu.PWMChannel pinNetworkStatusLED)
+        public GadgeteerWiFiManager(WiFi_RS21 wifi_RS21, string ssid, string password)
         {
-            //portNetworkLED = new PWM(pinNetworkStatusLED, 1, 0.5, true); // blink LED with 1 Hz
-
             wifiModule = wifi_RS21;
             wifi = wifi_RS21.Interface;
             wifi.WirelessConnectivityChanged += wifi_WirelessConnectivityChanged;
@@ -42,8 +40,6 @@ namespace MFE.Net.Managers
         #region Public methods
         public void Start()
         {
-            //portNetworkLED.Start();
-
             try
             {
                 if (!wifi.IsOpen)
