@@ -1,9 +1,8 @@
-using System;
 using Microsoft.SPOT;
 using Microsoft.SPOT.Time;
-using System.Net.Sockets;
+using System;
 using System.Net;
-using System.Threading;
+using System.Net.Sockets;
 
 namespace MFE.Net.Udp
 {
