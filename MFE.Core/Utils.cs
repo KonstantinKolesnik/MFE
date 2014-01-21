@@ -89,7 +89,6 @@ namespace MFE.Core
             string hex = "0123456789ABCDEF";
             return new string(new char[] { hex[(number & 0xF0) >> 4], hex[number & 0x0F] });
         }
-
     }
 
     static class ConvertBase64My

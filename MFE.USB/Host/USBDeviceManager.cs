@@ -3,17 +3,14 @@ using GHI.Premium.USBHost;
 using MFE.Core;
 using System;
 
-namespace MFE.USB
+namespace MFE.USB.Host
 {
     public static class USBDeviceManager
     {
         #region Properties
         public static USBH_Device[] Devices
         {
-            get
-            {
-                return USBHostController.GetDevices();
-            }
+            get { return USBHostController.GetDevices(); }
         }
         #endregion
 
@@ -30,9 +27,9 @@ namespace MFE.USB
             {
                 try
                 {
-                    USBHostController.DeviceConnectedEvent += new USBH_DeviceConnectionEventHandler(USBDevice_Connected);
-                    USBHostController.DeviceDisconnectedEvent += new USBH_DeviceConnectionEventHandler(USBDevice_Disconnected);
-                    USBHostController.DeviceBadConnectionEvent += new USBH_DeviceConnectionEventHandler(USBDevice_BadConnection);
+                    USBHostController.DeviceConnectedEvent += USBDevice_Connected;
+                    USBHostController.DeviceDisconnectedEvent += USBDevice_Disconnected;
+                    USBHostController.DeviceBadConnectionEvent += USBDevice_BadConnection;
                 }
                 catch (Exception) { }
             }

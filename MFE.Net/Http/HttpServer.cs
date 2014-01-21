@@ -423,6 +423,69 @@ namespace MFE.Net.Http
                 }
             }
         }
+        public void SendStream(byte[] data, string contentType, HttpListenerResponse response)
+        {
+            response.StatusCode = (int)HttpStatusCode.OK;
+            response.ContentType = contentType;
+            response.ContentLength64 = (long)data.Length;
+            
+            response.OutputStream.Write(data, 0, data.Length);
+
+            if (OnResponse != null)
+                OnResponse(response);
+        }
+
+        public static string DefineContentType(string path)
+        {
+            string ext = Path.GetExtension(path).ToLower();
+
+            switch (ext)
+            {
+                case ".htm":
+                case ".html":
+                case ".htmls":
+                    return "text/html";
+                case ".js":
+                    return "text/javascript";
+                //return "application/javascript";
+                case ".jpe":
+                case ".jpg":
+                case ".jpeg":
+                    return "image/jpeg";
+                case ".gif":
+                    return "image/gif";
+                case ".png":
+                    return "image/png";
+                case ".ico":
+                    return "image/x-icon";
+                case ".pdf":
+                    return "application/pdf";
+                case ".svg":
+                    return "image/svg+xml";
+                case ".css":
+                    return "text/css";
+                case ".xml":
+                    return "text/xml";
+                case ".json":
+                    return "application/json";
+                case ".arj":
+                case ".lzh":
+                case ".exe":
+                case ".rar":
+                case ".tar":
+                case ".zip":
+                    return "application/octet-stream";
+                case ".mid":
+                case ".midi":
+                    return "application/x-midi";
+                case ".mp3":
+                    return "audio/mpeg";
+                case ".swf":
+                    return "application/x-shockwave-flash";
+                default:
+                    return "text/plain";
+            }
+        }
         #endregion
 
         #region Private methods
@@ -681,57 +744,6 @@ namespace MFE.Net.Http
             strRet += "<br>Use following credentials to access it:<br> User Name: Igor<br> Password: MyPassword<br>";
 
             return strRet;
-        }
-        private static string DefineContentType(string path)
-        {
-            string ext = Path.GetExtension(path).ToLower();
-
-            switch (ext)
-            {
-                case ".htm":
-                case ".html":
-                case ".htmls":
-                    return "text/html";
-                case ".js":
-                    return "text/javascript";
-                //return "application/javascript";
-                case ".jpe":
-                case ".jpg":
-                case ".jpeg":
-                    return "image/jpeg";
-                case ".gif":
-                    return "image/gif";
-                case ".png":
-                    return "image/png";
-                case ".ico":
-                    return "image/x-icon";
-                case ".pdf":
-                    return "application/pdf";
-                case ".svg":
-                    return "image/svg+xml";
-                case ".css":
-                    return "text/css";
-                case ".xml":
-                    return "text/xml";
-                case ".json":
-                    return "application/json";
-                case ".arj":
-                case ".lzh":
-                case ".exe":
-                case ".rar":
-                case ".tar":
-                case ".zip":
-                    return "application/octet-stream";
-                case ".mid":
-                case ".midi":
-                    return "application/x-midi";
-                case ".mp3":
-                    return "audio/mpeg";
-                case ".swf":
-                    return "application/x-shockwave-flash";
-                default:
-                    return "text/plain";
-            }
         }
         #endregion
     }

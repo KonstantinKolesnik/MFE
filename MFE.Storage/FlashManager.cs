@@ -10,7 +10,7 @@ namespace MFE.Storage
         #endregion
 
         #region Load / save
-        public static object RestoreFromFlash(Type dataType, uint id)
+        public static object LoadFromFlash(Type dataType, uint id)
         {
             ewr = ExtendedWeakReference.RecoverOrCreate(dataType, id, ExtendedWeakReference.c_SurvivePowerdown | ExtendedWeakReference.c_SurviveBoot);
 

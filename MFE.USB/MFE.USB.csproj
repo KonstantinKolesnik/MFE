@@ -31,12 +31,17 @@
   </PropertyGroup>
   <Import Project="$(NetMfTargetsBaseDir)$(TargetFrameworkVersion)\CSharp.Targets" />
   <ItemGroup>
+    <Compile Include="Client\USBCDCDevice.cs" />
+    <Compile Include="Client\USBHIDDevice.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="USBDeviceManager.cs" />
+    <Compile Include="Host\USBDeviceManager.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Reference Include="GHI.Premium.Hardware, Version=4.2.11.1, Culture=neutral, processorArchitecture=MSIL" />
     <Reference Include="GHI.Premium.System, Version=4.2.11.1, Culture=neutral, processorArchitecture=MSIL" />
+    <Reference Include="GHI.Premium.USBClient, Version=4.2.11.1, Culture=neutral, processorArchitecture=MSIL" />
     <Reference Include="GHI.Premium.USBHost, Version=4.2.11.1, Culture=neutral, processorArchitecture=MSIL" />
+    <Reference Include="Microsoft.SPOT.Hardware.Usb" />
     <Reference Include="Microsoft.SPOT.Native">
     </Reference>
   </ItemGroup>
