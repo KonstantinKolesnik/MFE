@@ -11,8 +11,9 @@ using System.Threading;
 
 namespace MFE.Net.Http
 {
-    public delegate void GETRequestEventHandler(string path, Hashtable parameters, HttpListenerResponse response);
+    public delegate void RequestEventHandler(HttpListenerRequest request);
     public delegate void ResponseEventHandler(HttpListenerResponse response);
+    public delegate void GETRequestEventHandler(string path, Hashtable parameters, HttpListenerResponse response);
 
     public class HttpServer
     {
@@ -300,6 +301,8 @@ namespace MFE.Net.Http
 
         #region Events
         public event GETRequestEventHandler OnGetRequest;
+
+        public event RequestEventHandler OnRequest;
         public event ResponseEventHandler OnResponse;
         #endregion
 
@@ -317,40 +320,46 @@ namespace MFE.Net.Http
                 // SKU == 3 indicates the device is the emulator.
                 // The emulator and the device use different certificate types.  The emulator requires the use of a .PFX certficate, whereas the device simply
                 // requires a CER certificate with appended private key. In addtion, the .PFX certificate requires a password ("NetMF").
-                //
                 if (Utils.IsEmulator)
                     listener.HttpsCert = new X509Certificate(m_emulatorCertData, "NetMF");
                 else
                 {
                     string serverCertAsString = Resource1.GetString(Resource1.StringResources.cert_device_microsoft_com);
-                    byte[] serverCertAsArray = Encoding.UTF8.GetBytes(serverCertAsString);
-                    listener.HttpsCert = new X509Certificate(serverCertAsArray);
+                    listener.HttpsCert = new X509Certificate(Encoding.UTF8.GetBytes(serverCertAsString));
                 }
             }
 
             listener.Start();
             isStopped = false;
 
-            new Thread(delegate
+            new Thread(() =>
             {
                 while (!isStopped)
                 {
-                    HttpListenerContext context = null;
-
                     try
                     {
                         if (!listener.IsListening)
                             listener.Start();
 
-                        context = listener.GetContext();
-                        switch (context.Request.HttpMethod.ToUpper())
-                        {
-                            case "GET": ProcessClientGetRequest(context); break;
-                            case "POST": ProcessClientPostRequest(context); break;
-                        }
+                        HttpListenerContext context = listener.GetContext();
 
-                        if (context.Response != null)
-                            context.Response.Close();
+                        // see http://netmf.codeplex.com/workitem/2157
+                        new Thread(() =>
+                        {
+                            if (OnRequest != null)
+                                OnRequest(context.Request);
+
+                            switch (context.Request.HttpMethod.ToUpper())
+                            {
+                                case "GET": ProcessClientGetRequest(context); break;
+                                case "POST": ProcessClientPostRequest(context); break;
+                            }
+
+                            // for test:
+                            //SendStream(Encoding.UTF8.GetBytes("<html><body>" + DateTime.Now + "</body></html>"), "text/html", context.Response);
+
+                            context.Close();
+                        }).Start();
                     }
                     //catch (InvalidOperationException ex)
                     //{
@@ -369,16 +378,15 @@ namespace MFE.Net.Http
                     catch (Exception ex)
                     {
                         //Thread.Sleep(1000);
-                        if (context != null)
-                            context.Close();
+                        //if (context != null)
+                        //    context.Close();
                     }
                 }
 
                 // stopped
                 listener.Close();
                 listener = null;
-            }
-            ) { Priority = ThreadPriority.Normal }.Start();
+            }) { Priority = ThreadPriority.Normal }.Start();
         }
         public void Stop()
         {
@@ -415,8 +423,6 @@ namespace MFE.Net.Http
 
                         if (OnResponse != null)
                             OnResponse(response);
-
-                        Thread.Sleep(0);
                     }
 
                     fs.Close();

@@ -50,9 +50,15 @@ namespace MFE.Net.Udp
             timeZoneOffset = offsetInMinutes;
         }
 
+        // US
+        //private static int dstOffset = 60; // 1 hour (US 2013)
+        //private static string dstStart = "Mar Sun>=8"; // 2nd Sunday March (US 2013)
+        //private static string dstEnd = "Nov Sun>=1"; // 1st Sunday Nov (US 2013)
+        // EU
         private static int dstOffset = 60; // 1 hour (US 2013)
-        private static string dstStart = "Mar Sun>=8"; // 2nd Sunday March (US 2013)
-        private static string dstEnd = "Nov Sun>=1"; // 1st Sunday Nov (US 2013)
+        private static string dstStart = "Mar lastSun @1";
+        private static string dstEnd = "Oct lastSun @1";
+
         /// <summary>
         /// Set dst information
         /// </summary>
