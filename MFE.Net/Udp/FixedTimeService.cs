@@ -126,10 +126,8 @@ namespace MFE.Net.Udp
 
             return CheckResults(tolerance, ntpTime);
         }
-
         public static TimeServiceStatus UpdateNow(byte[] serverAddress, uint tolerance)
         {
-
             DateTime ntpTime = GetTimeFromNTP(serverAddress);
             if (ntpTime == DateTime.MinValue)
                 ntpTime = GetTimeFromNTP(serverAddress);  // try again (1 timeout = 5 seconds later)
@@ -141,9 +139,7 @@ namespace MFE.Net.Udp
         public static void ForcedSync(object sender, EventArgs e)
         {
             if (Settings.ForceSyncAtWakeUp)
-            {
                 UpdateNow(Settings.Tolerance);
-            }
         }
 
         // check and return status
@@ -153,8 +149,7 @@ namespace MFE.Net.Udp
             {
                 // fail: call failEvent 
                 status.Flags = TimeServiceStatus.TimeServiceStatusFlags.SyncFailed;
-                TimeSyncFailedEventArgs failEvent = new TimeSyncFailedEventArgs(DateTime.Now, errorCode);
-                TimeSyncFailed(null, failEvent);
+                TimeSyncFailed(null, new TimeSyncFailedEventArgs(DateTime.Now, errorCode));
             }
             else
             {
@@ -165,11 +160,9 @@ namespace MFE.Net.Udp
                 if (System.Math.Abs(status.SyncTimeOffset) > tolerance)
                 {
                     SetUtcTime(ntpTime.Ticks);
-                    SystemTimeChangedEventArgs changedEvent = new SystemTimeChangedEventArgs(DateTime.Now);
-                    SystemTimeChanged(null, changedEvent);
+                    SystemTimeChanged(null, new SystemTimeChangedEventArgs(DateTime.Now));
                 }
-                SystemTimeChangedEventArgs checkedEvent = new SystemTimeChangedEventArgs(DateTime.Now);
-                SystemTimeChecked(null, checkedEvent);
+                SystemTimeChecked(null, new SystemTimeChangedEventArgs(DateTime.Now));
             }
             return status;
         }
@@ -332,7 +325,5 @@ namespace MFE.Net.Udp
             dstDate = dstDate.AddHours(timeOfChange);
             return dstDate;
         }
-
     }
-
 }

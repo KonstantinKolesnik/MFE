@@ -89,6 +89,7 @@ namespace MFE.Net.Tcp
 
                     serverSocket.Close();
                     serverSocket = null;
+                    sessions.Clear();
                 }).Start();
             }
         }
