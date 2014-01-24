@@ -1,4 +1,3 @@
-using Microsoft.SPOT;
 using System;
 
 namespace Gadgeteer.Modules.LoveElectronics
@@ -8,15 +7,15 @@ namespace Gadgeteer.Modules.LoveElectronics
     /// </summary>
     public class PHTemp : Module
     {
-        private const uint m_EWRId = 4294900000;
-        private const int m_VoltageReferencePH = 1024;
-        private const double m_VoltageReferenceTemp = 2.048;
+        private const double m_VoltageReference = 2.048;
+        private const float rBridge = 1000; //"01B", 1kOm
         private const MCP342XChannel channelPH = MCP342XChannel.Channel1;
         private const MCP342XChannel channelTemp = MCP342XChannel.Channel2;
         private const string connectionError = "Device has not been connected. Call 'Connect()' first or check connection and address jumper settings.";
 
         private uint socketNumber;
-        private MCP342X adc; // MCP3427E
+        private MCP342X adc; // MCP342x device
+        private int clockRate = 400; //kHz
         private bool isConnected;
         private PHTemp.PHTempSettings settings;
 
@@ -59,8 +58,13 @@ namespace Gadgeteer.Modules.LoveElectronics
             this.socketNumber = (uint)socketNumber;
             Socket socket = Socket.GetSocket(socketNumber, true, this, null);
             socket.EnsureTypeIsSupported('I', this);
-            
-            settings = LoadSettingsFromFlash();
+
+            settings = new PHTemp.PHTempSettings()
+            {
+                pHOffset = 0,
+                pHSlope = 54.2,
+                TemperatureCurve = GetExampleTemperatureCurveDataPoints(PHTemp.RTDType.Pt1000)
+            };
         }
         #endregion
 
@@ -80,36 +84,37 @@ namespace Gadgeteer.Modules.LoveElectronics
         /// <returns></returns>
         public bool Connect(PHTemp.JumperState j1, PHTemp.JumperState j2)
         {
-            ushort address = 0;
+            ushort userAddress = 0;
 
             if (j1 == PHTemp.JumperState.Floating && j2 == PHTemp.JumperState.Floating)
-                address = 0;
+                userAddress = 0;
             else if (j1 == PHTemp.JumperState.Low && j2 == PHTemp.JumperState.Low)
-                address = 0;
+                userAddress = 0;
             else if (j1 == PHTemp.JumperState.Low && j2 == PHTemp.JumperState.Floating)
-                address = 1;
+                userAddress = 1;
             else if (j1 == PHTemp.JumperState.Low && j2 == PHTemp.JumperState.High)
-                address = 2;
+                userAddress = 2;
             else if (j1 == PHTemp.JumperState.High && j2 == PHTemp.JumperState.Low)
-                address = 4;
+                userAddress = 4;
             else if (j1 == PHTemp.JumperState.High && j2 == PHTemp.JumperState.Floating)
-                address = 5;
+                userAddress = 5;
             else if (j1 == PHTemp.JumperState.High && j2 == PHTemp.JumperState.High)
-                address = 6;
+                userAddress = 6;
             else if (j1 == PHTemp.JumperState.Floating && j2 == PHTemp.JumperState.Low)
-                address = 3;
+                userAddress = 3;
             else if (j1 == PHTemp.JumperState.Floating && j2 == PHTemp.JumperState.High)
-                address = 7;
+                userAddress = 7;
 
-            address = (ushort)(address | 104);
-
-            adc = new MCP342X(address, 400);
-            //if (adc.GetConfiguration() == 0)
-            //    return false;
+            ushort address = (ushort)(userAddress | 104); // 1101xxx, xxx = user address
+            adc = new MCP342X(address, clockRate);
+            if (adc.ReadConfiguration() == 0)
+                return false;
 
             adc.Channel = MCP342XChannel.Channel1;
             adc.Gain = MCP342XGain.x1;
             adc.Resolution = MCP324XResolution.SixteenBits;
+            adc.ConversionMode = MCP342XConversionMode.Continuous;
+            
             isConnected = true;
 
             return true;
@@ -473,41 +478,6 @@ namespace Gadgeteer.Modules.LoveElectronics
             return dataPoints;
         }
 
-        private PHTemp.PHTempSettings LoadSettingsFromFlash()
-        {
-            ExtendedWeakReference reference = ExtendedWeakReference.RecoverOrCreate(typeof(PHTemp.PHTempSettings), socketNumber, 3);
-            reference.Priority = 10000000;
-            PHTemp.PHTempSettings result = reference.Target as PHTemp.PHTempSettings;
-
-            if (result == null) // create new settings
-            {
-                var r = 1000; //"01B"
-                result = new PHTemp.PHTempSettings()
-                {
-                    pHOffset = 0,
-                    pHSlope = 54.2,
-                    ResistorValues = new double[3] { r, r, r },
-                    TemperatureCurve = GetExampleTemperatureCurveDataPoints(PHTemp.RTDType.Pt1000)
-                };
-
-                reference.Target = result;
-            }
-            reference.PushBackIntoRecoverList();
-
-            return result;
-        }
-        /// <summary>
-        /// Save the settings of the module (pH offset/slope, temperature curves) etc. to the ExtendedWeakReference storage if the Mainboard supports it.
-        /// </summary>
-        public void SaveSettingsToFlash()
-        {
-            ExtendedWeakReference reference = ExtendedWeakReference.RecoverOrCreate(typeof(PHTemp.PHTempSettings), socketNumber, 3);
-            reference.Priority = 10000000;
-            reference.Target = settings;
-            reference.PushBackIntoRecoverList();
-        }
-
-
         /// <summary>
         /// Returns the raw value of the RTD returned by the ADC in milliVolts;
         /// </summary>
@@ -526,16 +496,16 @@ namespace Gadgeteer.Modules.LoveElectronics
         public double ReadTemperature()
         {
             double volts = ReadRawTemperature() / 1000;
-            double r1 = settings.ResistorValues[0];
-            double r2 = settings.ResistorValues[1];
-            double r3 = settings.ResistorValues[2];
-            double t1 = (r1 + r2) * (volts / 2.048);
+            double r1 = rBridge;
+            double r2 = rBridge;
+            double r3 = rBridge;
+            double t1 = (r1 + r2) * (volts / m_VoltageReference);
             double rx = (r1 * r3 + r3 * t1) / (r2 - t1);
 
             //double k = 2.048 / volts;
             //double rx = (r3 * (r1 + r2) + k * r2) / (k * r1 - (r1 + r2));
 
-            
+
             if (rx <= settings.TemperatureCurve[0].Resistance)
                 throw new Exception(string.Concat("The resistance (", rx, " Ohms) was out of range of the supplied temperature curve."));
 
@@ -587,12 +557,11 @@ namespace Gadgeteer.Modules.LoveElectronics
         public double ReadTempCompensatedPH()
         {
             double temperatureSlopeModification = 0.1984 * ReadTemperature();
-            
+
             double value = ReadRawPH();
             value = value - 1024 + phOffset;
             return 7 - value / (phSlope + temperatureSlopeModification);
         }
-
 
         /// <summary>
         /// Set the resolution of the analog to digital converter.
@@ -607,9 +576,6 @@ namespace Gadgeteer.Modules.LoveElectronics
             adc.Resolution = resolution;
         }
 
-
-
-
         /// <summary>
         /// The address jumper states.
         /// </summary>
@@ -618,6 +584,16 @@ namespace Gadgeteer.Modules.LoveElectronics
             Low,
             Floating,
             High
+        }
+
+        /// <summary>
+        /// Data points of the RTD sensor curve to calculate the temperature.
+        /// </summary>
+        [Serializable]
+        public struct RTDDataPoint
+        {
+            public int Temperature;
+            public double Resistance;
         }
 
         public enum RTDType : byte
@@ -632,27 +608,11 @@ namespace Gadgeteer.Modules.LoveElectronics
             NTC_Type105
         }
 
-        [Serializable]
         private class PHTempSettings
         {
             public double pHOffset;
             public double pHSlope;
-            public double[] ResistorValues;
             public PHTemp.RTDDataPoint[] TemperatureCurve;
-
-            public PHTempSettings()
-            {
-            }
-        }
-
-        /// <summary>
-        /// Data points of the RTD sensor curve to calculate the temperature.
-        /// </summary>
-        [Serializable]
-        public struct RTDDataPoint
-        {
-            public int Temperature;
-            public double Resistance;
         }
     }
 }
