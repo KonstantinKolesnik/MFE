@@ -2,7 +2,7 @@
 namespace Gadgeteer.Modules.LoveElectronics
 {
     /// <summary>Use One-Shot if very low power consuption is required</summary>
-    public enum MCP342XConversionMode
+    public enum MCP342xConversionMode
     {
         /// <summary>
         /// Requests a value, waits for conversion then returns value

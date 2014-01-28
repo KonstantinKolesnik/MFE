@@ -5,24 +5,33 @@ using System.Threading;
 
 namespace Gadgeteer.Modules.LoveElectronics
 {
-    // from Love Electronics
-    class MCP342X : SharedI2CDevice
+    public class MCP342
     {
-        private const ushort AddressBase = 0x68; // 104 decimal, 11010000
-        private const int Clock = 100; // KHz
+        private const ushort ADDRESS_BASE = 0x68; // 104 decimal, 1101000
+        private const int CLOCK_RATE = 400; // KHz
+        private const int TIME_OUT = 1000; // 1 sec
+        private const string TIME_OUT_ERROR = "Error attepting to read MCP342x data, zero bytes transferred";
 
-        private MCP342XConversionMode conversionMode = MCP342XConversionMode.Continuous;
-        private MCP324XResolution resolution = MCP324XResolution.TwelveBits;
-        private MCP342XChannel channel = MCP342XChannel.Channel1;
-        private MCP342XGain gain = MCP342XGain.x1;
+        private ushort address = ADDRESS_BASE;
+        private MCP342xConversionMode conversionMode = MCP342xConversionMode.Continuous;
+        private MCP324xResolution resolution = MCP324xResolution.TwelveBits;
+        private MCP342xChannel channel = MCP342xChannel.Channel1;
+        private MCP342xGain gain = MCP342xGain.x1;
 
+        private I2CDevice device = null;
+        private I2CDevice.I2CTransaction[] xConfigAction = null;
+        private I2CDevice.I2CTransaction[] xReadAction = null;
+        private byte[] configReg = new byte[1];
+        private byte[] dataReg = new byte[5];
+
+        // params:
+        private double[] lsbValues = new double[4] { 0.001, 0.00025, 0.0000625, 0.000015625 };
         private double lsbVolts = 0.001;
-        private Int32 countsMask;
-        private Int32 maxValue;
+        private int countsMask;
+        private int maxValue;
         private double gainDivisor;
 
-
-        public MCP342XConversionMode ConversionMode
+        public MCP342xConversionMode ConversionMode
         {
             get { return conversionMode; }
             set
@@ -34,7 +43,7 @@ namespace Gadgeteer.Modules.LoveElectronics
                 }
             }
         }
-        public MCP324XResolution Resolution
+        public MCP324xResolution Resolution
         {
             get { return resolution; }
             set
@@ -46,7 +55,7 @@ namespace Gadgeteer.Modules.LoveElectronics
                 }
             }
         }
-        public MCP342XChannel Channel
+        public MCP342xChannel Channel
         {
             get { return channel; }
             set
@@ -58,7 +67,186 @@ namespace Gadgeteer.Modules.LoveElectronics
                 }
             }
         }
-        public MCP342XGain Gain
+        public MCP342xGain Gain
+        {
+            get { return gain; }
+            set
+            {
+                if (gain != value)
+                {
+                    gain = value;
+                    WriteConfiguration();
+                }
+            }
+        }
+
+        public MCP342() : this(MCP342xJumperState.Floating, MCP342xJumperState.Floating)
+        {
+        }
+        public MCP342(MCP342xJumperState j1, MCP342xJumperState j2)
+        {
+            address = CalculateAddress(j1, j2);
+            xConfigAction = new I2CDevice.I2CTransaction[1] { I2CDevice.CreateWriteTransaction(configReg) };
+            xReadAction = new I2CDevice.I2CTransaction[1] { I2CDevice.CreateReadTransaction(dataReg) };
+            
+            device = new I2CDevice(new I2CDevice.Configuration(address, CLOCK_RATE));
+
+            CalculateParams();
+        }
+
+        public byte ReadConfiguration()
+        {
+            if (device.Execute(xReadAction, TIME_OUT) == 0)
+                throw new Exception(TIME_OUT_ERROR);
+
+            return dataReg[Resolution == MCP324xResolution.EighteenBits ? 3 : 2];
+        }
+        public void WriteConfiguration()
+        {
+            configReg[0] = (byte)((ushort)Gain +
+                                 ((ushort)Resolution << 2) +
+                                 ((ushort)ConversionMode << 4) +
+                                 ((ushort)Channel << 5));
+
+            // request for conversion if One-Shot Mode;
+            // no effect for Continious mode
+            configReg[0] |= 0x80; // set bit 7
+
+            if (device.Execute(xConfigAction, TIME_OUT) == 0)
+                throw new Exception(TIME_OUT_ERROR);
+            else
+            {
+                // Block here until enough time has elapsed for the current conversion to have completed
+                int[] conversionTimes = new int[4] { 5, 17, 67, 267 }; // ms
+                Thread.Sleep(conversionTimes[(byte)Resolution]);
+            }
+
+            CalculateParams();
+        }
+
+        public double ReadVolts()
+        {
+            int data = ReadData();
+
+            if (data > maxValue)
+                data -= maxValue * 2;
+
+            return (data * lsbVolts) / gainDivisor;
+        }
+        public int ReadData()
+        {
+            if (ConversionMode == MCP342xConversionMode.OneShot) // to set bit 7 to request conversion if One-Shot Mode
+                WriteConfiguration();
+
+            //if (device.Execute(xReadAction, TIME_OUT) == 0)
+            //    throw new Exception(TIME_OUT_ERROR);
+
+            byte config;
+            do
+            {
+                config = ReadConfiguration();
+            }
+            while (config >> 7 != 0); // conversion result is ready 
+
+
+            int Counts = 0;
+            if (Resolution == MCP324xResolution.EighteenBits) // 3 data bytes + config byte
+                Counts = (((Int32)dataReg[0]) << 16) + (((Int32)dataReg[1]) << 8) + (Int32)dataReg[2];
+            else // 2 data bytes + config byte
+                Counts = (((Int32)dataReg[0]) << 8) + (Int32)dataReg[1];
+
+            return Counts &= countsMask;
+        }
+
+        public static ushort CalculateAddress(MCP342xJumperState j1, MCP342xJumperState j2)
+        {
+            ushort userAddress = 0;
+
+            if (j1 == MCP342xJumperState.Floating && j2 == MCP342xJumperState.Floating)
+                userAddress = 0;
+            else if (j1 == MCP342xJumperState.Low && j2 == MCP342xJumperState.Low)
+                userAddress = 0;
+            else if (j1 == MCP342xJumperState.Low && j2 == MCP342xJumperState.Floating)
+                userAddress = 1;
+            else if (j1 == MCP342xJumperState.Low && j2 == MCP342xJumperState.High)
+                userAddress = 2;
+            else if (j1 == MCP342xJumperState.High && j2 == MCP342xJumperState.Low)
+                userAddress = 4;
+            else if (j1 == MCP342xJumperState.High && j2 == MCP342xJumperState.Floating)
+                userAddress = 5;
+            else if (j1 == MCP342xJumperState.High && j2 == MCP342xJumperState.High)
+                userAddress = 6;
+            else if (j1 == MCP342xJumperState.Floating && j2 == MCP342xJumperState.Low)
+                userAddress = 3;
+            else if (j1 == MCP342xJumperState.Floating && j2 == MCP342xJumperState.High)
+                userAddress = 7;
+
+            return (ushort)(userAddress | ADDRESS_BASE); // 1101xxx, xxx = user address
+        }
+
+        private void CalculateParams()
+        {
+            lsbVolts = lsbValues[(ushort)Resolution];
+            countsMask = (1 << (12 + (int)Resolution * 2)) - 1;
+            maxValue = 1 << (11 + (int)Resolution * 2);
+            gainDivisor = Math.Pow(2.0, (double)Gain);
+        }
+    }
+
+    // from Love Electronics
+    class MCP342X : SharedI2CDevice
+    {
+        private const ushort AddressBase = 0x68; // 104 decimal, 1101000
+        private const int Clock = 400; // KHz
+
+        private MCP342xConversionMode conversionMode = MCP342xConversionMode.Continuous;
+        private MCP324xResolution resolution = MCP324xResolution.TwelveBits;
+        private MCP342xChannel channel = MCP342xChannel.Channel1;
+        private MCP342xGain gain = MCP342xGain.x1;
+
+        private double lsbVolts = 0.001;
+        private Int32 countsMask;
+        private Int32 maxValue;
+        private double gainDivisor;
+
+
+        public MCP342xConversionMode ConversionMode
+        {
+            get { return conversionMode; }
+            set
+            {
+                if (conversionMode != value)
+                {
+                    conversionMode = value;
+                    WriteConfiguration();
+                }
+            }
+        }
+        public MCP324xResolution Resolution
+        {
+            get { return resolution; }
+            set
+            {
+                if (resolution != value)
+                {
+                    resolution = value;
+                    WriteConfiguration();
+                }
+            }
+        }
+        public MCP342xChannel Channel
+        {
+            get { return channel; }
+            set
+            {
+                if (channel != value)
+                {
+                    channel = value;
+                    WriteConfiguration();
+                }
+            }
+        }
+        public MCP342xGain Gain
         {
             get { return gain; }
             set
@@ -115,7 +303,7 @@ namespace Gadgeteer.Modules.LoveElectronics
         /// </summary>
         /// <param name="channel"></param>
         /// <returns>Value in mV from a 2.048V reference.</returns>
-        public double ReadChannel(MCP342XChannel channel)
+        public double ReadChannel(MCP342xChannel channel)
         {
             Channel = channel;
             return ReadValue();
@@ -128,7 +316,7 @@ namespace Gadgeteer.Modules.LoveElectronics
         protected double ReadValue()
         {
             // request for conversion if One-Shot Mode;
-            if (conversionMode == MCP342XConversionMode.OneShot)
+            if (conversionMode == MCP342xConversionMode.OneShot)
                 WriteConfiguration();
 
             byte[] data;
@@ -141,7 +329,7 @@ namespace Gadgeteer.Modules.LoveElectronics
             while (data[2] >> 7 != 0); // conversion result is ready 
 
             Int32 Counts = 0;
-            if (resolution == MCP324XResolution.EighteenBits)
+            if (resolution == MCP324xResolution.EighteenBits)
                 Counts = (((Int32)data[0]) << 16) + (((Int32)data[1]) << 8) + (Int32)data[2];
             else
                 Counts = (((Int32)data[0]) << 8) + (Int32)data[1];
@@ -179,8 +367,6 @@ namespace Gadgeteer.Modules.LoveElectronics
         }
     }
 
-
-
     // from https://www.ghielectronics.com/community/codeshare/entry/307
     /// <summary>
     /// A class to manage the MicroChip MCP342x delta-sigma ADC series</summary>
@@ -193,10 +379,10 @@ namespace Gadgeteer.Modules.LoveElectronics
         private const int EmxI2cClock = 400; // KHz
 
         private ushort baseAddressOffset = 0;
-        private MCP342XGain gain = MCP342XGain.x1;
-        private MCP342XChannel channel = MCP342XChannel.Channel1;
-        private MCP324XResolution resolution = MCP324XResolution.TwelveBits;
-        private MCP342XConversionMode conversionMode = MCP342XConversionMode.Continuous;
+        private MCP342xGain gain = MCP342xGain.x1;
+        private MCP342xChannel channel = MCP342xChannel.Channel1;
+        private MCP324xResolution resolution = MCP324xResolution.TwelveBits;
+        private MCP342xConversionMode conversionMode = MCP342xConversionMode.Continuous;
 
         private bool configDirty = true;
         private int timeOut = 100; // ms
@@ -264,28 +450,28 @@ namespace Gadgeteer.Modules.LoveElectronics
         }
         /// <summary>Sets the gain of the internal programmable amplifier</summary>
         /// <param name='Gain'>Gain multiplier of the pre-ADC amplifier</param>
-        public void SetGain(MCP342XGain Gain)
+        public void SetGain(MCP342xGain Gain)
         {
             gain = Gain;
             configDirty = true;
         }
         /// <summary>Selects the input channel to be read</summary>
         /// <param name='Ch'>Channel Number</param>
-        public void SetInputChannel(MCP342XChannel Ch)
+        public void SetInputChannel(MCP342xChannel Ch)
         {
             channel = Ch;
             configDirty = true;
         }
         /// <summary>Selects the operating mode that defines conversion timing</summary>
         /// <param name='cm'>Conversion Mode</param>
-        public void SetConversionMode(MCP342XConversionMode cm)
+        public void SetConversionMode(MCP342xConversionMode cm)
         {
             conversionMode = cm;
             configDirty = true;
         }
         /// <summary>Specifies the number of bits of resolution provided - (more bits, slower conversion rate)</summary>
         /// <param name='res'>Bits of resolution required</param>
-        public void SetResolution(MCP324XResolution res)
+        public void SetResolution(MCP324xResolution res)
         {
             resolution = res;
             configDirty = true;
@@ -307,7 +493,7 @@ namespace Gadgeteer.Modules.LoveElectronics
         /// <param name='res'>Bits of resolution required</param>
         /// <param name='cm'>Conversion Mode</param>
         /// <param name='Gain'>Gain multiplier of the pre-ADC amplifier</param>
-        public Mcp342x(MCP342XChannel ch, MCP324XResolution res, MCP342XConversionMode cm, MCP342XGain g)
+        public Mcp342x(MCP342xChannel ch, MCP324xResolution res, MCP342xConversionMode cm, MCP342xGain g)
         {
             channel = ch;
             resolution = res;
@@ -320,7 +506,7 @@ namespace Gadgeteer.Modules.LoveElectronics
         /// <param name='cm'>Conversion Mode</param>
         /// <param name='Gain'>Gain multiplier of the pre-ADC amplifier</param>
         /// <param name='Offset'>See datasheet, only required for MCP3423/4 or MCP3422 where Address-Option is NOT A0</param>
-        public Mcp342x(MCP342XChannel ch, MCP324XResolution res, MCP342XConversionMode cm, MCP342XGain g, ushort addrOffset)
+        public Mcp342x(MCP342xChannel ch, MCP324xResolution res, MCP342xConversionMode cm, MCP342xGain g, ushort addrOffset)
             : this (ch, res, cm, g)
         {
             baseAddressOffset = addrOffset;
@@ -345,13 +531,13 @@ namespace Gadgeteer.Modules.LoveElectronics
         {
             if (configDirty)
                 ConfigDevice();
-            if (conversionMode == MCP342XConversionMode.OneShot)
+            if (conversionMode == MCP342xConversionMode.OneShot)
                 WriteConfigReg();
 
             Int32 Counts = 0;
             if (device.Execute(xReadAction, timeOut) == 0)
                 throw new Exception("Error attepting to read MCP342x data, zero bytes transferred");
-            else if (resolution == MCP324XResolution.EighteenBits)
+            else if (resolution == MCP324xResolution.EighteenBits)
                 Counts = (((Int32)dataReg[0]) << 16) + (((Int32)dataReg[1]) << 8) + (Int32)dataReg[2];
             else
                 Counts = (((Int32)dataReg[0]) << 8) + (Int32)dataReg[1];

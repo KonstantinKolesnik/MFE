@@ -5,7 +5,7 @@ namespace Gadgeteer.Modules.LoveElectronics
     /// The resolution of the MCP324X
     /// Resolution affects convertion time (more bits, slower conversion)
     /// </summary>
-    public enum MCP324XResolution : byte
+    public enum MCP324xResolution : byte
     {
         /// <summary>
         /// Twelve Bit resolution.

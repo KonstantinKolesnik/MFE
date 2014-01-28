@@ -1,7 +1,7 @@
 
 namespace Gadgeteer.Modules.LoveElectronics
 {
-    public enum MCP342XChannel : byte
+    public enum MCP342xChannel : byte
     {
         Channel1,
         Channel2,
