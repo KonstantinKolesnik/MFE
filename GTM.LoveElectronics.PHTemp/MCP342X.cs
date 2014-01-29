@@ -5,6 +5,64 @@ using System.Threading;
 
 namespace Gadgeteer.Modules.LoveElectronics
 {
+    /// <summary>The resolution of the MCP324X. Resolution affects convertion time (more bits, slower conversion)</summary>
+    public enum MCP324xResolution : byte
+    {
+        /// <summary>
+        /// Twelve Bit resolution.
+        /// </summary>
+        TwelveBits,
+        /// <summary>
+        /// Fourteen Bit resolution.
+        /// </summary>
+        FourteenBits,
+        /// <summary>
+        /// Sixteen Bit resolution.
+        /// </summary>
+        SixteenBits,
+        /// <summary>
+        /// Eighteen Bit resolution.
+        /// </summary>
+        EighteenBits
+    }
+
+    public enum MCP342xChannel : byte
+    {
+        Channel1,
+        Channel2,
+        Channel3,
+        Channel4
+    }
+
+    /// <summary>Use One-Shot if very low power consuption is required</summary>
+    public enum MCP342xConversionMode
+    {
+        /// <summary>
+        /// Requests a value, waits for conversion then returns value
+        /// </summary
+        OneShot,
+        Continuous
+    }
+
+    /// <summary>Selects the gain factor for the input signal</summary>
+    public enum MCP342xGain : byte
+    {
+        x1,
+        x2,
+        x4,
+        x8
+    }
+
+    public enum MCP342xJumperState : byte
+    {
+        Low,
+        Floating,
+        High
+    }
+
+    //----------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+    // my
     public class MCP342
     {
         private const ushort ADDRESS_BASE = 0x68; // 104 decimal, 1101000
@@ -192,6 +250,7 @@ namespace Gadgeteer.Modules.LoveElectronics
             gainDivisor = Math.Pow(2.0, (double)Gain);
         }
     }
+    //----------------------------------------------------------------------------------------------------------------------------------------------------------------
 
     // from Love Electronics
     class MCP342X : SharedI2CDevice
@@ -366,6 +425,7 @@ namespace Gadgeteer.Modules.LoveElectronics
             //return 2048 / possible * (double)dataValue;
         }
     }
+    //----------------------------------------------------------------------------------------------------------------------------------------------------------------
 
     // from https://www.ghielectronics.com/community/codeshare/entry/307
     /// <summary>
