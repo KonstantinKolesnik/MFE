@@ -70,7 +70,6 @@ namespace Gadgeteer.Modules.LoveElectronics
         private const int TIME_OUT = 1000; // 1 sec
         private const string TIME_OUT_ERROR = "Error attepting to read MCP342x data, zero bytes transferred";
 
-        private ushort address = ADDRESS_BASE;
         private MCP342xConversionMode conversionMode = MCP342xConversionMode.Continuous;
         private MCP324xResolution resolution = MCP324xResolution.TwelveBits;
         private MCP342xChannel channel = MCP342xChannel.Channel1;
@@ -143,12 +142,10 @@ namespace Gadgeteer.Modules.LoveElectronics
         }
         public MCP342(MCP342xJumperState j1, MCP342xJumperState j2)
         {
-            address = CalculateAddress(j1, j2);
+            device = new I2CDevice(new I2CDevice.Configuration(CalculateAddress(j1, j2), CLOCK_RATE));
             xConfigAction = new I2CDevice.I2CTransaction[1] { I2CDevice.CreateWriteTransaction(configReg) };
             xReadAction = new I2CDevice.I2CTransaction[1] { I2CDevice.CreateReadTransaction(dataReg) };
             
-            device = new I2CDevice(new I2CDevice.Configuration(address, CLOCK_RATE));
-
             CalculateParams();
         }
 
@@ -218,28 +215,28 @@ namespace Gadgeteer.Modules.LoveElectronics
 
         public static ushort CalculateAddress(MCP342xJumperState j1, MCP342xJumperState j2)
         {
-            ushort userAddress = 0;
+            ushort addressOffset = 0;
 
             if (j1 == MCP342xJumperState.Floating && j2 == MCP342xJumperState.Floating)
-                userAddress = 0;
+                addressOffset = 0;
             else if (j1 == MCP342xJumperState.Low && j2 == MCP342xJumperState.Low)
-                userAddress = 0;
+                addressOffset = 0;
             else if (j1 == MCP342xJumperState.Low && j2 == MCP342xJumperState.Floating)
-                userAddress = 1;
+                addressOffset = 1;
             else if (j1 == MCP342xJumperState.Low && j2 == MCP342xJumperState.High)
-                userAddress = 2;
+                addressOffset = 2;
             else if (j1 == MCP342xJumperState.High && j2 == MCP342xJumperState.Low)
-                userAddress = 4;
+                addressOffset = 4;
             else if (j1 == MCP342xJumperState.High && j2 == MCP342xJumperState.Floating)
-                userAddress = 5;
+                addressOffset = 5;
             else if (j1 == MCP342xJumperState.High && j2 == MCP342xJumperState.High)
-                userAddress = 6;
+                addressOffset = 6;
             else if (j1 == MCP342xJumperState.Floating && j2 == MCP342xJumperState.Low)
-                userAddress = 3;
+                addressOffset = 3;
             else if (j1 == MCP342xJumperState.Floating && j2 == MCP342xJumperState.High)
-                userAddress = 7;
+                addressOffset = 7;
 
-            return (ushort)(userAddress | ADDRESS_BASE); // 1101xxx, xxx = user address
+            return (ushort)(addressOffset | ADDRESS_BASE); // 1101xxx, xxx = addressOffset; (104...111)
         }
 
         private void CalculateParams()

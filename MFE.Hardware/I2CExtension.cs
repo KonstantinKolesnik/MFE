@@ -1,3 +1,4 @@
+using Microsoft.SPOT;
 using Microsoft.SPOT.Hardware;
 using System;
 using System.Collections;
@@ -40,7 +41,6 @@ namespace MFE.Hardware
             int result = device.Execute(config, new I2CDevice.I2CTransaction[] { I2CDevice.CreateWriteTransaction(data) }, timeout);
             return (result == data.Length);
         }
-
         public static void SetRegister(this I2CDevice device, I2CDevice.Configuration config, int timeout, byte register, params byte[] value)
         {
             if (!TrySetRegister(device, config, timeout, register, value))
@@ -61,7 +61,6 @@ namespace MFE.Hardware
             result = output[0];
             return true;
         }
-
         public static byte GetRegister(this I2CDevice device, I2CDevice.Configuration config, int timeout, byte register)
         {
             byte result;
@@ -81,7 +80,6 @@ namespace MFE.Hardware
 
             return true;
         }
-
         public static byte[] GetRegisters(this I2CDevice device, I2CDevice.Configuration config, int timeout, byte register, int size)
         {
             byte[] result = new byte[size];
@@ -106,7 +104,6 @@ namespace MFE.Hardware
 
             return device.TrySetRegister(config, timeout, register, newValue);
         }
-
         public static void SetBit(this I2CDevice device, I2CDevice.Configuration config, int timeout, byte register, byte bitNum, bool value)
         {
             if (!device.TrySetBit(config, timeout, register, bitNum, value))
@@ -125,7 +122,6 @@ namespace MFE.Hardware
             oldValue |= value;
             return device.TrySetRegister(config, timeout, register, oldValue);
         }
-
         public static void SetBits(this I2CDevice device, I2CDevice.Configuration config, int timeout, byte register, byte bitstart, byte length, byte value)
         {
             if (!device.TrySetBits(config, timeout, register, bitstart, length, value))
@@ -146,7 +142,6 @@ namespace MFE.Hardware
 
             return true;
         }
-
         public static bool GetBit(this I2CDevice device, I2CDevice.Configuration config, int timeout, byte register, byte bitNum)
         {
             bool result;
@@ -171,7 +166,6 @@ namespace MFE.Hardware
             data = value;
             return true;
         }
-
         public static byte GetBits(this I2CDevice device, I2CDevice.Configuration config, int timeout, byte register, byte bitStart, byte length)
         {
             byte result;
@@ -185,15 +179,19 @@ namespace MFE.Hardware
         {
             ArrayList res = new ArrayList();
 
-            for (int address = startAddress; address < endAddress; address++)
+            I2CDevice.Configuration device = null;
+            I2CDevice bus = new I2CDevice(device);
+
+            for (int address = startAddress; address <= endAddress; address++)
             {
-                I2CDevice.Configuration config = new I2CDevice.Configuration((ushort)(address >> 1), clockRate);
-                I2CDevice device = new I2CDevice(config);
-                byte data = 0x00;
+                device = new I2CDevice.Configuration((ushort)address, clockRate);
+                //byte data = 0x00;
 
                 var xActions = new I2CDevice.I2CTransaction[1];
-                xActions[0] = I2CDevice.CreateWriteTransaction(new byte[] { (byte)(address >> 8), (byte)(address & 0xFF), data });
-                int result = device.Execute(config, xActions, 1000);
+                //xActions[0] = I2CDevice.CreateWriteTransaction(new byte[] { (byte)(address >> 8), (byte)(address & 0xFF), data });
+                xActions[0] = I2CDevice.CreateReadTransaction(new byte[1]);
+
+                int result = bus.Execute(device, xActions, 1000);
                 if (result != 0)
                 {
                     res.Add(address);
@@ -203,6 +201,21 @@ namespace MFE.Hardware
             }
 
             return res;
+
+
+
+
+            //var socket = Socket.GetSocket(13, true, null, null);
+            //var i2c = new I2CBus(socket, 1, 100, null);
+
+            //byte[] b = new byte[5];
+            //int i = i2c.Read(b, 1000);
+            //Debug.Print(b[0].ToString() + i);
+
+            //byte[] b = new byte[1];
+            //int i = i2c.WriteRead(new byte[] {0x00}, b, 1000);
+            //Debug.Print(b[0].ToString() + i);
+            //- See more at: https://www.ghielectronics.com/community/forum/topic?id=13503&page=2#msg137894
         }
     }
 }
