@@ -8,6 +8,30 @@ namespace MFE.Hardware
 {
     public static class I2CExtension
     {
+        public static ArrayList Scan(this I2CDevice device, int startAddress, int endAddress, int clockRate = 100)
+        {
+            ArrayList res = new ArrayList();
+
+            for (int address = startAddress; address <= endAddress; address++)
+            {
+                var ConfigSav = device.Config;
+                device.Config = new I2CDevice.Configuration((ushort)address, clockRate);
+
+                var xActions = new I2CDevice.I2CTransaction[1];
+                xActions[0] = I2CDevice.CreateReadTransaction(new byte[1]);
+
+                int result = device.Execute(xActions, 1000);
+                if (result != 0)
+                    res.Add(address);
+
+                device.Config = ConfigSav;
+
+                Thread.Sleep(5); // Mandatory after each Write transaction !!!
+            }
+
+            return res;
+        }
+
         public static int Execute(this I2CDevice device, I2CDevice.Configuration config, I2CDevice.I2CTransaction[] transactions, int timeout)
         {
             var ConfigSav = device.Config;
@@ -130,7 +154,6 @@ namespace MFE.Hardware
 
         public static bool TryGetBit(this I2CDevice device, I2CDevice.Configuration config, int timeout, byte register, byte bitNum, out bool result)
         {
-
             byte value;
             if (!device.TryGetRegister(config, timeout, register, out value))
             {
@@ -185,37 +208,18 @@ namespace MFE.Hardware
             for (int address = startAddress; address <= endAddress; address++)
             {
                 device = new I2CDevice.Configuration((ushort)address, clockRate);
-                //byte data = 0x00;
 
                 var xActions = new I2CDevice.I2CTransaction[1];
-                //xActions[0] = I2CDevice.CreateWriteTransaction(new byte[] { (byte)(address >> 8), (byte)(address & 0xFF), data });
                 xActions[0] = I2CDevice.CreateReadTransaction(new byte[1]);
 
                 int result = bus.Execute(device, xActions, 1000);
                 if (result != 0)
-                {
                     res.Add(address);
-                    //Debug.Print("Address : " + address.ToString() + " - result is: " + result.ToString());
-                }
+
                 Thread.Sleep(5); // Mandatory after each Write transaction !!!
             }
 
             return res;
-
-
-
-
-            //var socket = Socket.GetSocket(13, true, null, null);
-            //var i2c = new I2CBus(socket, 1, 100, null);
-
-            //byte[] b = new byte[5];
-            //int i = i2c.Read(b, 1000);
-            //Debug.Print(b[0].ToString() + i);
-
-            //byte[] b = new byte[1];
-            //int i = i2c.WriteRead(new byte[] {0x00}, b, 1000);
-            //Debug.Print(b[0].ToString() + i);
-            //- See more at: https://www.ghielectronics.com/community/forum/topic?id=13503&page=2#msg137894
         }
     }
 }
