@@ -58,9 +58,7 @@ namespace MFE.Hardware
 
             data[0] = register;
             for (int i = 0; i < value.Length; i++)
-            {
                 data[i + 1] = value[i];
-            }
 
             int result = device.Execute(config, new I2CDevice.I2CTransaction[] { I2CDevice.CreateWriteTransaction(data) }, timeout);
             return (result == data.Length);
@@ -97,12 +95,10 @@ namespace MFE.Hardware
         public static bool TryGetRegisters(this I2CDevice device, I2CDevice.Configuration config, int timeout, byte register, byte[] result)
         {
             int bytesTransfered = device.Execute(config, new I2CDevice.I2CTransaction[] { I2CDevice.CreateWriteTransaction(new byte[] { register }) }, timeout);
+            Thread.Sleep(5); // Mandatory after each Write transaction !!!
             bytesTransfered += device.Execute(config, new I2CDevice.I2CTransaction[] { I2CDevice.CreateReadTransaction(result) }, timeout);
 
-            if (bytesTransfered != result.Length + 1)
-                return false;
-
-            return true;
+            return bytesTransfered == result.Length + 1;
         }
         public static byte[] GetRegisters(this I2CDevice device, I2CDevice.Configuration config, int timeout, byte register, int size)
         {
@@ -196,30 +192,6 @@ namespace MFE.Hardware
                 return result;
             else
                 throw new Exception();
-        }
-
-        public static ArrayList Scan(int startAddress, int endAddress, int clockRate = 100)
-        {
-            ArrayList res = new ArrayList();
-
-            I2CDevice.Configuration device = null;
-            I2CDevice bus = new I2CDevice(device);
-
-            for (int address = startAddress; address <= endAddress; address++)
-            {
-                device = new I2CDevice.Configuration((ushort)address, clockRate);
-
-                var xActions = new I2CDevice.I2CTransaction[1];
-                xActions[0] = I2CDevice.CreateReadTransaction(new byte[1]);
-
-                int result = bus.Execute(device, xActions, 1000);
-                if (result != 0)
-                    res.Add(address);
-
-                Thread.Sleep(5); // Mandatory after each Write transaction !!!
-            }
-
-            return res;
         }
     }
 }
