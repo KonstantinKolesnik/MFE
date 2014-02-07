@@ -19,7 +19,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GTM.LoveElectronics.PHTemp"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MFE.Hardware", "MFE.Hardware\MFE.Hardware.csproj", "{958D1DE8-C499-47DF-B192-DE712379089B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GTM.MFE.Display_22", "GTM.MFE.Display_22\GTM.MFE.Display_22.csproj", "{F7F328E7-6E2A-49BD-8BEF-771E024B04E8}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GTM.MFE.Displays", "GTM.MFE.Displays\GTM.MFE.Displays.csproj", "{F7F328E7-6E2A-49BD-8BEF-771E024B04E8}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

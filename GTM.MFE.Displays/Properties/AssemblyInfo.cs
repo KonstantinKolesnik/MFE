@@ -5,12 +5,12 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("GTM.MFE.Display_22")]
+[assembly: AssemblyTitle("GTM.MFE.Displays")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("Bukmop")]
-[assembly: AssemblyProduct("GTM.MFE.Display_22")]
-[assembly: AssemblyCopyright("Copyright © Bukmop 2014")]
+[assembly: AssemblyCompany("Konstantin Kolesnik")]
+[assembly: AssemblyProduct("GTM.MFE.Displays")]
+[assembly: AssemblyCopyright("Copyright © Konstantin Kolesnik")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 

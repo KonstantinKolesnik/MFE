@@ -6,7 +6,7 @@ using System.Threading;
 using GT = Gadgeteer;
 using GTI = Gadgeteer.Interfaces;
 
-namespace GTM.MFE.Display_22
+namespace GTM.MFE.Displays
 {
     /// <summary>
     /// A Display 2.2" module for Microsoft .NET Gadgeteer
@@ -19,7 +19,7 @@ namespace GTM.MFE.Display_22
         private GT.Socket socket;
         private GTI.DigitalOutput resetPin;
         private GTI.DigitalOutput backlightPin;
-        private GTI.DigitalOutput rs;
+        private GTI.DigitalOutput rs; // TFT D/C
 
         private byte[] byteArray;
         private ushort[] shortArray;
