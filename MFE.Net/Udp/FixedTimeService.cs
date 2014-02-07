@@ -3,6 +3,7 @@ using Microsoft.SPOT.Time;
 using System;
 using System.Net;
 using System.Net.Sockets;
+using System.Threading;
 
 namespace MFE.Net.Udp
 {
@@ -27,6 +28,7 @@ namespace MFE.Net.Udp
     /// </summary>
     public static class FixedTimeService
     {
+        private static Timer timeSyncTimer = null;
         private static TimeServiceStatus status = new TimeServiceStatus();
         public static TimeServiceStatus LastSyncStatus
         {
@@ -87,22 +89,19 @@ namespace MFE.Net.Udp
             //Microsoft.SPOT.Hardware.Utility.SetLocalTime(now);
         }
 
-        private static System.Threading.Timer timeSyncTimer = null;
         public static void Start()
         {
-            DateTime past = new DateTime(2013, 1, 1);
+            DateTime past = new DateTime(2014, 1, 1);
             if ((DateTime.Now < past) && (Settings.ForceSyncAtWakeUp))
-            {
                 AutoUpdate(null);
-            }
-            timeSyncTimer = new System.Threading.Timer(new System.Threading.TimerCallback(AutoUpdate), null,
+
+            timeSyncTimer = new Timer(new TimerCallback(AutoUpdate), null,
                     TimeSpan.FromTicks(TimeSpan.TicksPerSecond * Settings.RefreshTime),
                     TimeSpan.FromTicks(TimeSpan.TicksPerSecond * Settings.RefreshTime));
         }
-
         public static void Stop()
         {
-            timeSyncTimer.Change(System.Threading.Timeout.Infinite, System.Threading.Timeout.Infinite);
+            timeSyncTimer.Change(Timeout.Infinite, Timeout.Infinite);
         }
 
         private static void AutoUpdate(object state)

@@ -8,28 +8,28 @@ namespace MFE.Hardware
 {
     public static class I2CExtension
     {
-        public static ArrayList Scan(this I2CDevice device, int startAddress, int endAddress, int clockRate = 100)
+        public static ArrayList Scan(this I2CDevice device, ushort startAddress, ushort endAddress, int clockRate, int timeout)
         {
-            ArrayList res = new ArrayList();
+            ArrayList addresses = new ArrayList();
 
-            for (int address = startAddress; address <= endAddress; address++)
+            for (ushort address = startAddress; address <= endAddress; address++)
             {
                 var ConfigSav = device.Config;
-                device.Config = new I2CDevice.Configuration((ushort)address, clockRate);
+                device.Config = new I2CDevice.Configuration(address, clockRate);
 
                 var xActions = new I2CDevice.I2CTransaction[1];
                 xActions[0] = I2CDevice.CreateReadTransaction(new byte[1]);
 
-                int result = device.Execute(xActions, 1000);
+                int result = device.Execute(xActions, timeout);
                 if (result != 0)
-                    res.Add(address);
+                    addresses.Add(address);
 
                 device.Config = ConfigSav;
 
-                Thread.Sleep(5); // Mandatory after each Write transaction !!!
+                //Thread.Sleep(5); // Mandatory after each Write transaction !!!
             }
 
-            return res;
+            return addresses;
         }
 
         public static int Execute(this I2CDevice device, I2CDevice.Configuration config, I2CDevice.I2CTransaction[] transactions, int timeout)
