@@ -11,8 +11,19 @@ namespace GTM.MFE.Displays
     /// <summary>
     /// A Display 2.2" module for Microsoft .NET Gadgeteer
     /// </summary>
-    public class Display_22 : Module.DisplayModule // ILI9341 LCD controller
+    public class Display : Module.DisplayModule // ILI9341 LCD controller
     {
+        byte			fch, fcl, bch, bcl;
+		byte			orient;
+		long			disp_x_size, disp_y_size;
+		byte			display_model, display_transfer_mode, display_serial_mode;
+        //regtype			*P_RS, *P_WR, *P_CS, *P_RST, *P_SDA, *P_SCL, *P_ALE;
+        //regsize			B_RS, B_WR, B_CS, B_RST, B_SDA, B_SCL, B_ALE;
+        //_current_font	cfont;
+		bool			_transparent;
+
+
+
         private GTI.SPI spi;
         private GTI.SPI.Configuration spiConfig;
         private SPI.Configuration netMFSpiConfig;
@@ -48,27 +59,115 @@ namespace GTM.MFE.Displays
 
         /// <summary>Constructor</summary>
         /// <param name="socketNumber">The socket that this module is plugged in to.</param>
-        public Display_22(int socketNumber)
+        public Display(ModelType model, int socketNumber)
             : base(WPFRenderOptions.Intercept)
         {
-			byteArray = new byte[1];
+            ushort[] dsx = {239, 239, 239, 239, 239, 239, 175, 175, 239, 127, 127, 239, 271, 479, 239, 239, 239, 239, 239, 239, 479, 319, 239, 175, 127, 239, 239, 319, 319};
+            ushort[] dsy = {319, 399, 319, 319, 319, 319, 219, 219, 399, 159, 127, 319, 479, 799, 319, 319, 319, 319, 319, 319, 799, 479, 319, 219, 159, 319, 319, 479, 479};
+            byte[] dtm = { 16, 16, 16, 8, 8, 16, 8, (byte)TransferMode.SERIAL_4PIN, 16, (byte)TransferMode.SERIAL_5PIN, (byte)TransferMode.SERIAL_5PIN, 16, 16, 16, 8, 16, (byte)TransferMode.LATCHED_16, 8, 16, 8, 16, 16, 16, 8, (byte)TransferMode.SERIAL_5PIN, (byte)TransferMode.SERIAL_5PIN, (byte)TransferMode.SERIAL_4PIN, 16, 16 };
+
+            disp_x_size = dsx[(byte)model];
+            disp_y_size = dsy[(byte)model];
+            display_transfer_mode = dtm[(byte)model];
+            display_model = (byte)model;
+
+            if (display_transfer_mode == (byte)TransferMode.SERIAL_4PIN)
+            {
+                display_transfer_mode = 1;
+                display_serial_mode = (byte)TransferMode.SERIAL_4PIN;
+            }
+            if (display_transfer_mode == (byte)TransferMode.SERIAL_5PIN)
+            {
+                display_transfer_mode = 1;
+                display_serial_mode = (byte)TransferMode.SERIAL_5PIN;
+            }
+
+            if (display_transfer_mode != 1)
+            {
+                //_set_direction_registers(display_transfer_mode);
+                //P_RS = portOutputRegister(digitalPinToPort(RS));
+                //B_RS = digitalPinToBitMask(RS);
+                //P_WR = portOutputRegister(digitalPinToPort(WR));
+                //B_WR = digitalPinToBitMask(WR);
+                //P_CS = portOutputRegister(digitalPinToPort(CS));
+                //B_CS = digitalPinToBitMask(CS);
+                //P_RST = portOutputRegister(digitalPinToPort(RST));
+                //B_RST = digitalPinToBitMask(RST);
+                //if (display_transfer_mode == LATCHED_16)
+                //{
+                //    P_ALE = portOutputRegister(digitalPinToPort(SER));
+                //    B_ALE = digitalPinToBitMask(SER);
+                //    pinMode(SER, OUTPUT);
+                //    cbi(P_ALE, B_ALE);
+                //    pinMode(8, OUTPUT);
+                //    digitalWrite(8, LOW);
+                //}
+                //pinMode(RS, OUTPUT);
+                //pinMode(WR, OUTPUT);
+                //pinMode(CS, OUTPUT);
+                //pinMode(RST, OUTPUT);
+            }
+            else
+            {
+                //P_SDA = portOutputRegister(digitalPinToPort(RS));
+                //B_SDA = digitalPinToBitMask(RS);
+                //P_SCL = portOutputRegister(digitalPinToPort(WR));
+                //B_SCL = digitalPinToBitMask(WR);
+                //P_CS = portOutputRegister(digitalPinToPort(CS));
+                //B_CS = digitalPinToBitMask(CS);
+                //P_RST = portOutputRegister(digitalPinToPort(RST));
+                //B_RST = digitalPinToBitMask(RST);
+                //if (display_serial_mode != SERIAL_4PIN)
+                //{
+                //    P_RS = portOutputRegister(digitalPinToPort(SER));
+                //    B_RS = digitalPinToBitMask(SER);
+                //    pinMode(SER, OUTPUT);
+                //}
+                //pinMode(RS, OUTPUT);
+                //pinMode(WR, OUTPUT);
+                //pinMode(CS, OUTPUT);
+                //pinMode(RST, OUTPUT);
+            }
+
+
+
+
+
+
+
+
+
+            
+            
+            
+            
+            
+            
+            byteArray = new byte[1];
 			shortArray = new ushort[2];
 
             socket = Socket.GetSocket(socketNumber, true, this, null);
             socket.EnsureTypeIsSupported('S', this);
+            /*
+             * Serial peripheral interface (SPI).
+             * Pin 7 is the master-out/slave-in (MOSI) line, pin 8 is the master-in/slave-out (MISO) line, and pin 9 is the clock (SCK) line.
+             * In addition, pins 3, 4 and 5 are general-purpose input/outputs, with pin 3 supporting interrupt capabilities.
+            */
 
-			resetPin = new GTI.DigitalOutput(socket, Socket.Pin.Three, false, this);
-			backlightPin = new GTI.DigitalOutput(socket, Socket.Pin.Four, false, this);
-			rs = new GTI.DigitalOutput(socket, Socket.Pin.Five, false, this);
+            resetPin = new GTI.DigitalOutput(socket, Socket.Pin.Three, false, this); // pin 3
+			backlightPin = new GTI.DigitalOutput(socket, Socket.Pin.Four, false, this); // pin 4
+            rs = new GTI.DigitalOutput(socket, Socket.Pin.Five, false, this); // pin 5
 
-			spiConfig = new GTI.SPI.Configuration(false, 0, 0, false, true, 12000);
-			netMFSpiConfig = new SPI.Configuration(socket.CpuPins[6], spiConfig.ChipSelectActiveState, spiConfig.ChipSelectSetupTime, spiConfig.ChipSelectHoldTime, spiConfig.ClockIdleState, spiConfig.ClockEdge, spiConfig.ClockRateKHz, socket.SPIModule);
-			spi = new GTI.SPI(socket, spiConfig, GTI.SPI.Sharing.Shared, socket, Socket.Pin.Six, this);
+            // chip select - pin 6
 
-			Reset();
-			ConfigureDisplay();
-			Clear();
-			SetBacklight(true);
+            spiConfig = new GTI.SPI.Configuration(false, 0, 0, false, true, 12000);
+            netMFSpiConfig = new SPI.Configuration(socket.CpuPins[6], spiConfig.ChipSelectActiveState, spiConfig.ChipSelectSetupTime, spiConfig.ChipSelectHoldTime, spiConfig.ClockIdleState, spiConfig.ClockEdge, spiConfig.ClockRateKHz, socket.SPIModule);
+            //spi = new GTI.SPI(socket, spiConfig, GTI.SPI.Sharing.Shared, socket, Socket.Pin.Six, this);
+
+            Reset();
+            //ConfigureDisplay();
+            //Clear();
+            SetBacklight(true);
 		}
 
         /// <summary>

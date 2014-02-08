@@ -1,7 +1,7 @@
 
 namespace GTM.MFE.Displays
 {
-    public enum InterfaceType
+    public enum TransferMode: byte
     {
         SERIAL_4PIN		= 4,
         SERIAL_5PIN		= 5,

@@ -32,10 +32,10 @@
   <Import Project="$(NetMfTargetsBaseDir)$(TargetFrameworkVersion)\CSharp.Targets" />
   <ItemGroup>
     <Compile Include="ControllerType.cs" />
-    <Compile Include="InterfaceType.cs" />
+    <Compile Include="TransferMode.cs" />
     <Compile Include="ModelType.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Display_22.cs" />
+    <Compile Include="Display.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="Gadgeteer, Version=2.42.0.0, Culture=neutral, processorArchitecture=MSIL" />
