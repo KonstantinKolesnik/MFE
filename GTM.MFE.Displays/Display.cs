@@ -1,18 +1,24 @@
 ﻿using Gadgeteer;
 using Gadgeteer.Modules;
+using GHI.Premium.System;
 using Microsoft.SPOT;
 using Microsoft.SPOT.Hardware;
+using System;
 using System.Threading;
 using GT = Gadgeteer;
 using GTI = Gadgeteer.Interfaces;
 
 namespace GTM.MFE.Displays
 {
+    //N18 =>    ITDB18SP        ST7735
+    //          TFT01_22SP      ILI9341	(Serial 5Pin)
+
     /// <summary>
-    /// A Display 2.2" module for Microsoft .NET Gadgeteer
+    /// A Display module for Microsoft .NET Gadgeteer
     /// </summary>
-    public class Display : Module.DisplayModule // ILI9341 LCD controller
+    public class Display : Module.DisplayModule
     {
+        #region Fields
         byte			fch, fcl, bch, bcl;
 		byte			orient;
 		long			disp_x_size, disp_y_size;
@@ -28,13 +34,16 @@ namespace GTM.MFE.Displays
         private GTI.SPI.Configuration spiConfig;
         private SPI.Configuration netMFSpiConfig;
         private GT.Socket socket;
-        private GTI.DigitalOutput resetPin;
-        private GTI.DigitalOutput backlightPin;
-        private GTI.DigitalOutput rs; // TFT D/C
 
-        private byte[] byteArray;
-        private ushort[] shortArray;
+        // chip select - pin 6
+        private GTI.DigitalOutput pinReset;
+        private GTI.DigitalOutput pinBacklight;
+        private GTI.DigitalOutput pinDc; // TFT D/C
 
+        private ushort[] shortArray = new ushort[2];
+        #endregion
+
+        #region Properties
         /// <summary>
         /// Gets the width of the display.
         /// </summary>
@@ -56,30 +65,33 @@ namespace GTM.MFE.Displays
         {
             get { return 320; }
         }
+        #endregion
 
+        #region Constructor
         /// <summary>Constructor</summary>
         /// <param name="socketNumber">The socket that this module is plugged in to.</param>
         public Display(ModelType model, int socketNumber)
             : base(WPFRenderOptions.Intercept)
         {
+            #region UTFT
             ushort[] dsx = {239, 239, 239, 239, 239, 239, 175, 175, 239, 127, 127, 239, 271, 479, 239, 239, 239, 239, 239, 239, 479, 319, 239, 175, 127, 239, 239, 319, 319};
             ushort[] dsy = {319, 399, 319, 319, 319, 319, 219, 219, 399, 159, 127, 319, 479, 799, 319, 319, 319, 319, 319, 319, 799, 479, 319, 219, 159, 319, 319, 479, 479};
-            byte[] dtm = { 16, 16, 16, 8, 8, 16, 8, (byte)TransferMode.SERIAL_4PIN, 16, (byte)TransferMode.SERIAL_5PIN, (byte)TransferMode.SERIAL_5PIN, 16, 16, 16, 8, 16, (byte)TransferMode.LATCHED_16, 8, 16, 8, 16, 16, 16, 8, (byte)TransferMode.SERIAL_5PIN, (byte)TransferMode.SERIAL_5PIN, (byte)TransferMode.SERIAL_4PIN, 16, 16 };
+            byte[] dtm = { 16, 16, 16, 8, 8, 16, 8, (byte)DisplayTransferMode.SERIAL_4PIN, 16, (byte)DisplayTransferMode.SERIAL_5PIN, (byte)DisplayTransferMode.SERIAL_5PIN, 16, 16, 16, 8, 16, (byte)DisplayTransferMode.LATCHED_16, 8, 16, 8, 16, 16, 16, 8, (byte)DisplayTransferMode.SERIAL_5PIN, (byte)DisplayTransferMode.SERIAL_5PIN, (byte)DisplayTransferMode.SERIAL_4PIN, 16, 16 };
 
             disp_x_size = dsx[(byte)model];
             disp_y_size = dsy[(byte)model];
             display_transfer_mode = dtm[(byte)model];
             display_model = (byte)model;
 
-            if (display_transfer_mode == (byte)TransferMode.SERIAL_4PIN)
+            if (display_transfer_mode == (byte)DisplayTransferMode.SERIAL_4PIN)
             {
                 display_transfer_mode = 1;
-                display_serial_mode = (byte)TransferMode.SERIAL_4PIN;
+                display_serial_mode = (byte)DisplayTransferMode.SERIAL_4PIN;
             }
-            if (display_transfer_mode == (byte)TransferMode.SERIAL_5PIN)
+            if (display_transfer_mode == (byte)DisplayTransferMode.SERIAL_5PIN)
             {
                 display_transfer_mode = 1;
-                display_serial_mode = (byte)TransferMode.SERIAL_5PIN;
+                display_serial_mode = (byte)DisplayTransferMode.SERIAL_5PIN;
             }
 
             if (display_transfer_mode != 1)
@@ -128,23 +140,7 @@ namespace GTM.MFE.Displays
                 //pinMode(CS, OUTPUT);
                 //pinMode(RST, OUTPUT);
             }
-
-
-
-
-
-
-
-
-
-            
-            
-            
-            
-            
-            
-            byteArray = new byte[1];
-			shortArray = new ushort[2];
+            #endregion
 
             socket = Socket.GetSocket(socketNumber, true, this, null);
             socket.EnsureTypeIsSupported('S', this);
@@ -154,29 +150,29 @@ namespace GTM.MFE.Displays
              * In addition, pins 3, 4 and 5 are general-purpose input/outputs, with pin 3 supporting interrupt capabilities.
             */
 
-            resetPin = new GTI.DigitalOutput(socket, Socket.Pin.Three, false, this); // pin 3
-			backlightPin = new GTI.DigitalOutput(socket, Socket.Pin.Four, false, this); // pin 4
-            rs = new GTI.DigitalOutput(socket, Socket.Pin.Five, false, this); // pin 5
-
-            // chip select - pin 6
+            pinReset = new GTI.DigitalOutput(socket, Socket.Pin.Three, false, this); // pin 3
+			pinBacklight = new GTI.DigitalOutput(socket, Socket.Pin.Four, false, this); // pin 4
+            pinDc = new GTI.DigitalOutput(socket, Socket.Pin.Five, false, this); // pin 5
 
             spiConfig = new GTI.SPI.Configuration(false, 0, 0, false, true, 12000);
             netMFSpiConfig = new SPI.Configuration(socket.CpuPins[6], spiConfig.ChipSelectActiveState, spiConfig.ChipSelectSetupTime, spiConfig.ChipSelectHoldTime, spiConfig.ClockIdleState, spiConfig.ClockEdge, spiConfig.ClockRateKHz, socket.SPIModule);
-            //spi = new GTI.SPI(socket, spiConfig, GTI.SPI.Sharing.Shared, socket, Socket.Pin.Six, this);
+            spi = new GTI.SPI(socket, spiConfig, GTI.SPI.Sharing.Shared, socket, Socket.Pin.Six, this);
 
             Reset();
-            //ConfigureDisplay();
-            //Clear();
+            ConfigureDisplay();
+            Clear();
             SetBacklight(true);
 		}
+        #endregion
 
+        #region Public methods
         /// <summary>
         /// Enables or disables the display backlight.
         /// </summary>
         /// <param name="state">The state to set the backlight to.</param>
         public void SetBacklight(bool state)
         {
-            backlightPin.Write(state);
+            pinBacklight.Write(state);
         }
 
         /// <summary>
@@ -184,8 +180,8 @@ namespace GTM.MFE.Displays
         /// </summary>
         public void Clear()
         {
-            uint w = Width / 2;//64
-            uint h = Height / 2;//80
+            uint w = Width / 2;
+            uint h = Height / 2;
 
             byte[] data = new byte[w * h * 2]; //zero-init'd by default
 
@@ -203,9 +199,12 @@ namespace GTM.MFE.Displays
         /// <param name="y">Starting Y position of the image.</param>
         public void Draw(Bitmap bmp, uint x = 0, uint y = 0)
         {
-            byte[] vram = new byte[bmp.Width * bmp.Height * 2];
-            Module.Mainboard.NativeBitmapConverter(bmp.GetBitmap(), vram, Mainboard.BPP.BPP16_BGR_BE);
-            DrawRaw(vram, (uint)bmp.Width, (uint)bmp.Height, x, y);
+            if (Module.Mainboard.NativeBitmapConverter == null)
+                Module.Mainboard.NativeBitmapConverter = new Mainboard.BitmapConvertBPP(BitmapConverter);
+
+            byte[] rawData = new byte[bmp.Width * bmp.Height * 2];
+            Module.Mainboard.NativeBitmapConverter(bmp.GetBitmap(), rawData, Mainboard.BPP.BPP16_BGR_BE);
+            DrawRaw(rawData, (uint)bmp.Width, (uint)bmp.Height, x, y);
         }
 
         /// <summary>
@@ -230,7 +229,9 @@ namespace GTM.MFE.Displays
             WriteCommand(0x2C);
             WriteData(rawData);
         }
+        #endregion
 
+        #region Private methods
         /// <summary>
         /// Renders Bitmap data on the display device. 
         /// </summary>
@@ -243,7 +244,7 @@ namespace GTM.MFE.Displays
                 {
                     SetClippingArea(0, 0, (uint)bitmap.Width - 1, (uint)bitmap.Height - 1);
                     WriteCommand(0x2C);
-                    rs.Write(true);
+                    pinDc.Write(true);
                     Mainboard.NativeBitmapCopyToSpi(bitmap, netMFSpiConfig, 0, 0, bitmap.Width, bitmap.Height, GT.Mainboard.BPP.BPP16_BGR_BE);
                 }
                 else
@@ -257,9 +258,9 @@ namespace GTM.MFE.Displays
 
         private void Reset()
         {
-            resetPin.Write(false);
+            pinReset.Write(false);
             Thread.Sleep(150);
-            resetPin.Write(true);
+            pinReset.Write(true);
         }
 
         private void ConfigureDisplay()
@@ -268,9 +269,118 @@ namespace GTM.MFE.Displays
             lcdConfig.LCDControllerEnabled = false;
             lcdConfig.Width = Width;
             lcdConfig.Height = Height;
-
             DisplayModule.SetLCDConfig(lcdConfig);
 
+
+            #region N22
+            WriteCommand(0xCB);
+            WriteData(0x39);
+            WriteData(0x2C);
+            WriteData(0x00);
+            WriteData(0x34);
+            WriteData(0x02);
+
+            WriteCommand(0xCF);
+            WriteData(0x00);
+            WriteData(0XC1);
+            WriteData(0X30);
+
+            WriteCommand(0xE8);
+            WriteData(0x85);
+            WriteData(0x00);
+            WriteData(0x78);
+
+            WriteCommand(0xEA);
+            WriteData(0x00);
+            WriteData(0x00);
+
+            WriteCommand(0xED);
+            WriteData(0x64);
+            WriteData(0x03);
+            WriteData(0X12);
+            WriteData(0X81);
+
+            WriteCommand(0xF7);
+            WriteData(0x20);
+
+            WriteCommand(0xC0);    //Power control 
+            WriteData(0x23);   //VRH[5:0] 
+
+            WriteCommand(0xC1);    //Power control 
+            WriteData(0x10);   //SAP[2:0];BT[3:0] 
+
+            WriteCommand(0xC5);    //VCM control 
+            WriteData(0x3e);   //Contrast
+            WriteData(0x28);
+
+            WriteCommand(0xC7);    //VCM control2 
+            WriteData(0x86);   //--
+
+            WriteCommand(0x36);    // Memory Access Control 
+            WriteData(0x48);
+
+            WriteCommand(0x3A);
+            WriteData(0x55);
+
+            WriteCommand(0xB1);
+            WriteData(0x00);
+            WriteData(0x18);
+
+            WriteCommand(0xB6);    // Display Function Control 
+            WriteData(0x08);
+            WriteData(0x82);
+            WriteData(0x27);
+            /* 
+                WriteCommand(0xF2);    // 3Gamma Function Disable 
+                WriteData(0x00); 
+ 
+                WriteCommand(0x26);    //Gamma curve selected 
+                WriteData(0x01); 
+
+                WriteCommand(0xE0);    //Set Gamma 
+                WriteData(0x0F); 
+                WriteData(0x31); 
+                WriteData(0x2B); 
+                WriteData(0x0C); 
+                WriteData(0x0E); 
+                WriteData(0x08); 
+                WriteData(0x4E); 
+                WriteData(0xF1); 
+                WriteData(0x37); 
+                WriteData(0x07); 
+                WriteData(0x10); 
+                WriteData(0x03); 
+                WriteData(0x0E); 
+                WriteData(0x09); 
+                WriteData(0x00); 
+
+                WriteCommand(0XE1);    //Set Gamma 
+                WriteData(0x00); 
+                WriteData(0x0E); 
+                WriteData(0x14); 
+                WriteData(0x03); 
+                WriteData(0x11); 
+                WriteData(0x07); 
+                WriteData(0x31); 
+                WriteData(0xC1); 
+                WriteData(0x48); 
+                WriteData(0x08); 
+                WriteData(0x0F); 
+                WriteData(0x0C); 
+                WriteData(0x31); 
+                WriteData(0x36); 
+                WriteData(0x0F); 
+            */
+            WriteCommand(0x11);    //Exit Sleep 
+            Thread.Sleep(120);
+
+            WriteCommand(0x29);    //Display on 
+            WriteCommand(0x2c);
+            #endregion
+
+            return;
+
+            #region N18
             WriteCommand(0x11); //Sleep exit 
             Thread.Sleep(120);
 
@@ -340,6 +450,7 @@ namespace GTM.MFE.Displays
             WriteData(0x05);
 
             WriteCommand(0x29);//Display on
+            #endregion
         }
 
         private void SetClippingArea(uint x, uint y, uint w, uint h)
@@ -357,26 +468,32 @@ namespace GTM.MFE.Displays
 
         private void WriteCommand(byte command)
         {
-            byteArray[0] = command;
-
-            rs.Write(false);
-            spi.Write(byteArray);
+            pinDc.Write(false);
+            spi.Write(new byte[1] { command });
         }
 
         private void WriteData(byte data)
         {
-            byteArray[0] = data;
-            WriteData(byteArray);
+            WriteData(new byte[1] { data });
         }
         private void WriteData(byte[] data)
         {
-            rs.Write(true);
+            pinDc.Write(true);
             spi.Write(data);
         }
         private void WriteData(ushort[] data)
         {
-            rs.Write(true);
+            pinDc.Write(true);
             spi.Write(data);
         }
+
+        private void BitmapConverter(byte[] bitmapBytes, byte[] pixelBytes, GT.Mainboard.BPP bpp)
+        {
+            if (bpp != GT.Mainboard.BPP.BPP16_BGR_BE)
+                throw new ArgumentOutOfRangeException("bpp", "Only BPP16_BGR_LE supported");
+
+            Util.BitmapConvertBPP(bitmapBytes, pixelBytes, Util.BPP_Type.BPP16_BGR_BE);
+        }
+        #endregion
     }
 }

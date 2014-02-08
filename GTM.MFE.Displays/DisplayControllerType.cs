@@ -1,7 +1,7 @@
 
 namespace GTM.MFE.Displays
 {
-    public enum ControllerType
+    public enum DisplayControllerType
     {
         HX8347A			= 0,
         ILI9327			= 1,
