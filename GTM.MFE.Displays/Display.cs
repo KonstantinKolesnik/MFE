@@ -146,7 +146,7 @@ namespace GTM.MFE.Displays
             socket.EnsureTypeIsSupported('S', this);
             /*
              * Serial peripheral interface (SPI).
-             * Pin 7 is the master-out/slave-in (MOSI) line, pin 8 is the master-in/slave-out (MISO) line, and pin 9 is the clock (SCK) line.
+             * Pin 7 is MOSI line, pin 8 is MISO line, pin 9 is SCK line.
              * In addition, pins 3, 4 and 5 are general-purpose input/outputs, with pin 3 supporting interrupt capabilities.
             */
 

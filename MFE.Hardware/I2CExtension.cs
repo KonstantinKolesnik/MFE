@@ -8,6 +8,8 @@ namespace MFE.Hardware
 {
     public static class I2CExtension
     {
+        private static int writePause = 0;
+
         public static ArrayList Scan(this I2CDevice device, ushort startAddress, ushort endAddress, int clockRate, int timeout)
         {
             ArrayList addresses = new ArrayList();
@@ -26,7 +28,7 @@ namespace MFE.Hardware
 
                 device.Config = ConfigSav;
 
-                //Thread.Sleep(5); // Mandatory after each Write transaction !!!
+                //Thread.Sleep(writePause); // Mandatory after each Write transaction !!!
             }
 
             return addresses;
@@ -75,6 +77,7 @@ namespace MFE.Hardware
             result = 0;
 
             int bytesTransfered = device.Execute(config, new I2CDevice.I2CTransaction[] { I2CDevice.CreateWriteTransaction(new byte[] { register }) }, timeout);
+            Thread.Sleep(writePause); // Mandatory after each Write transaction !!!
             bytesTransfered += device.Execute(config, new I2CDevice.I2CTransaction[] { I2CDevice.CreateReadTransaction(output) }, timeout);
 
             if (bytesTransfered != 2)
@@ -95,7 +98,7 @@ namespace MFE.Hardware
         public static bool TryGetRegisters(this I2CDevice device, I2CDevice.Configuration config, int timeout, byte register, byte[] result)
         {
             int bytesTransfered = device.Execute(config, new I2CDevice.I2CTransaction[] { I2CDevice.CreateWriteTransaction(new byte[] { register }) }, timeout);
-            Thread.Sleep(5); // Mandatory after each Write transaction !!!
+            Thread.Sleep(writePause); // Mandatory after each Write transaction !!!
             bytesTransfered += device.Execute(config, new I2CDevice.I2CTransaction[] { I2CDevice.CreateReadTransaction(result) }, timeout);
 
             return bytesTransfered == result.Length + 1;
@@ -105,12 +108,12 @@ namespace MFE.Hardware
             byte[] result = new byte[size];
 
             int bytesTransfered = device.Execute(config, new I2CDevice.I2CTransaction[] { I2CDevice.CreateWriteTransaction(new byte[] { register }) }, timeout);
+            Thread.Sleep(writePause); // Mandatory after each Write transaction !!!
             bytesTransfered += device.Execute(config, new I2CDevice.I2CTransaction[] { I2CDevice.CreateReadTransaction(result) }, timeout);
 
             if (bytesTransfered != result.Length + 1)
-            {
                 throw new Exception();
-            }
+
             return result;
         }
 
