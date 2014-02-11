@@ -117,6 +117,18 @@ namespace MFE.Hardware
             return result;
         }
 
+        public static bool TryGetRegisters2(this I2CDevice device, I2CDevice.Configuration config, int timeout, byte register, byte param, byte[] result)
+        {
+            byte[] data = new byte[2] { register, param };
+
+            int bytesTransfered = device.Execute(config, new I2CDevice.I2CTransaction[] { I2CDevice.CreateWriteTransaction(data) }, timeout);
+            Thread.Sleep(writePause); // Mandatory after each Write transaction !!!
+            bytesTransfered += device.Execute(config, new I2CDevice.I2CTransaction[] { I2CDevice.CreateReadTransaction(result) }, timeout);
+
+            return bytesTransfered == result.Length + 2;
+        }
+
+
         public static bool TrySetBit(this I2CDevice device, I2CDevice.Configuration config, int timeout, byte register, byte bitNum, bool value)
         {
             byte oldValue;
