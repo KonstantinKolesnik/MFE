@@ -89,27 +89,6 @@ namespace MFE.Core
             string hex = "0123456789ABCDEF";
             return new string(new char[] { hex[(number & 0xF0) >> 4], hex[number & 0x0F] });
         }
-
-
-        //public static int NewExecute(this I2CDevice pDev, I2CDevice.Configuration pConfig, I2CDevice.I2CTransaction[] xActions, int timeout)
-        //{
-        //    var ConfigSav = pDev.Config;
-        //    pDev.Config = pConfig;
-        //    var RetVal = pDev.Execute(xActions, timeout);
-        //    pDev.Config = ConfigSav;
-        //    return RetVal;
-        //}
-
-        //public static void Broadcast(this I2CDevice pDev, I2CDevice.Configuration[] pConf, I2CDevice.I2CTransaction[] xActions, int timeout)
-        //{
-        //    var ConfigSav = pDev.Config;
-        //    foreach (I2CDevice.Configuration cnf in pConf)
-        //    {
-        //        pDev.Config = cnf;
-        //        pDev.Execute(xActions, timeout);
-        //    }
-        //    pDev.Config = ConfigSav;
-        //}
     }
 
     static class ConvertBase64My
