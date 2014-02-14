@@ -90,6 +90,14 @@ namespace MFE.Hardware
 
             return bytesTransfered == result.Length + data.Length;
         }
+        public static bool TryGet(this I2CDevice device, I2CDevice.Configuration config, int timeout, byte[] parameters, byte[] result)
+        {
+            int bytesTransfered = device.Execute(config, new I2CDevice.I2CTransaction[] { I2CDevice.CreateWriteTransaction(parameters) }, timeout);
+            Thread.Sleep(writePause);
+            bytesTransfered += device.Execute(config, new I2CDevice.I2CTransaction[] { I2CDevice.CreateReadTransaction(result) }, timeout);
+
+            return bytesTransfered == result.Length + parameters.Length;
+        }
 
         public static byte GetRegister(this I2CDevice device, I2CDevice.Configuration config, int timeout, byte register)
         {
