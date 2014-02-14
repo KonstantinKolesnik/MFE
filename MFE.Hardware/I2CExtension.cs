@@ -145,6 +145,12 @@ namespace MFE.Hardware
             int result = device.Execute(config, new I2CDevice.I2CTransaction[] { I2CDevice.CreateWriteTransaction(data) }, timeout);
             return (result == data.Length);
         }
+        public static bool TrySet(this I2CDevice device, I2CDevice.Configuration config, int timeout, byte[] parameters)
+        {
+            int result = device.Execute(config, new I2CDevice.I2CTransaction[] { I2CDevice.CreateWriteTransaction(parameters) }, timeout);
+            return (result == parameters.Length);
+        }
+        
         public static void SetRegister(this I2CDevice device, I2CDevice.Configuration config, int timeout, byte register, params byte[] value)
         {
             if (!TrySetRegister(device, config, timeout, register, value))
