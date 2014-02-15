@@ -12,9 +12,9 @@ namespace MFE.Graphics.Media
         private Bitmap bitmap;
         private int translationX = 0;
         private int translationY = 0;
-        //private int dx = 0;
-        //private int dy = 0;
-        private Rect clipRect = Rect.Empty;
+        private int dx = 0;
+        private int dy = 0;
+        private Rect clipRect = Rect.Empty; // in screen coords
 
         private Stack clippingRectangles = new Stack();
         //private ArrayList clippingRectangles = new ArrayList();
@@ -33,9 +33,15 @@ namespace MFE.Graphics.Media
         {
             get { return bitmap.Height; }
         }
-        public Rect ClippingRectangle
+        public Rect ClippingRectangle // in screen coords
         {
             get { return clipRect; }
+        }
+        
+        //this.GetTranslation = function () { return new Point(translationX, translationY); }
+        public Point Translation
+        {
+            get { return new Point(translationX, translationY); }
         }
         #endregion
 
@@ -43,19 +49,20 @@ namespace MFE.Graphics.Media
         public DrawingContext(Bitmap bmp)
         {
             bitmap = bmp;
+            clipRect = new Rect(0, 0, bitmap.Width, bitmap.Height); // in screen coords
         }
         public DrawingContext(int width, int height)
+            : this(new Bitmap(width, height))
         {
-            bitmap = new Bitmap(width, height);
         }
+        #endregion
+
         public void Dispose()
         {
             bitmap.Dispose();
             bitmap = null;
             GC.SuppressFinalize(this);
         }
-        #endregion
-
         internal void Close()
         {
             bitmap = null;
@@ -180,28 +187,28 @@ namespace MFE.Graphics.Media
         #endregion
 
         #region Clipping
-        public void PushClippingRectangle(Rect rect) // in screen coordinates
+        public void PushClippingRectangle(Rect ctrlScreenArea) // in screen coordinates
         {
-            if (rect.Width < 0 || rect.Height < 0)
+            if (ctrlScreenArea.Width < 0 || ctrlScreenArea.Height < 0)
                 throw new ArgumentException();
 
-            //dx = rect.X - translationX;
-            //dy = rect.Y - translationY;
-            translationX = rect.X;
-            translationY = rect.Y;
+            dx = ctrlScreenArea.X - translationX;
+            dy = ctrlScreenArea.Y - translationY;
+            translationX += dx;
+            translationY += dy;
 
-            Rect res = rect;
+            Rect rect = ctrlScreenArea;
             if (clippingRectangles.Count > 0)
             {
                 Rect previousRect = (Rect)clippingRectangles.Peek();
                 //Rect previousRect = (Rect)clippingRectangles[clippingRectangles.Count - 1];
-                res = rect.Intersection(previousRect);
+                rect = ctrlScreenArea.Intersection(previousRect);
             }
-            clippingRectangles.Push(res);
-            //clippingRectangles.Add(res);
-            clipRect = res;
+            clippingRectangles.Push(rect);
+            //clippingRectangles.Add(rect);
+            clipRect = rect;
 
-            bitmap.SetClippingRectangle(res.X, res.Y, res.Width, res.Height);
+            bitmap.SetClippingRectangle(rect.X, rect.Y, rect.Width, rect.Height);
         }
         public void PopClippingRectangle()
         {
@@ -210,24 +217,28 @@ namespace MFE.Graphics.Media
                 clippingRectangles.Pop();
                 //clippingRectangles.RemoveAt(clippingRectangles.Count - 1);
 
-                //Rect res;
-                //if (clippingRectangles.Count == 0)
-                //    res = new Rect(0, 0, bitmap.Width, bitmap.Height);
-                //else
-                //    res = (Rect)clippingRectangles.Peek();
+                Rect rect;
+                if (clippingRectangles.Count == 0)
+                    rect = new Rect(0, 0, bitmap.Width, bitmap.Height);
+                else
+                    rect = (Rect)clippingRectangles.Peek();
 
-                //translationX -= dx;
-                //translationY -= dy;
+                translationX -= dx;
+                translationY -= dy;
 
-                //clipRect = res;
+                clipRect = rect;
 
                 //bitmap.SetClippingRectangle(res.X, res.Y, res.Width, res.Height);
             }
             else
             {
-                Rect res = new Rect(0, 0, bitmap.Width, bitmap.Height);
-                clipRect = res;
-                bitmap.SetClippingRectangle(res.X, res.Y, res.Width, res.Height);
+                Rect rect = new Rect(0, 0, bitmap.Width, bitmap.Height);
+                clipRect = rect;
+
+                translationX -= dx;
+                translationY -= dy;
+
+                //bitmap.SetClippingRectangle(rect.X, rect.Y, rect.Width, rect.Height);
             }
         }
         #endregion

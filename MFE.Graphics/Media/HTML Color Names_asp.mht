@@ -1,0 +1,4250 @@
+From: "Saved by Windows Internet Explorer 9"
+Subject: HTML Color Names
+Date: Thu, 22 Dec 2011 19:02:14 +0200
+MIME-Version: 1.0
+Content-Type: multipart/related;
+	type="text/html";
+	boundary="----=_NextPart_000_0000_01CCC0DC.37A9BA30"
+X-MimeOLE: Produced By Microsoft MimeOLE V6.1.7601.17514
+
+This is a multi-part message in MIME format.
+
+------=_NextPart_000_0000_01CCC0DC.37A9BA30
+Content-Type: text/html;
+	charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
+Content-Location: http://www.w3schools.com/html/html_colornames.asp
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<!DOCTYPE html><HTML lang=3D"en-US"><HEAD><TITLE>HTML Color =
+Names</TITLE><LINK=20
+rel=3D"shortcut icon" type=3D"image/x-icon" href=3D"/favicon.ico">
+<META content=3D"text/html; charset=3DISO-8859-1" =
+http-equiv=3D"Content-Type">
+<META name=3D"Keywords" =
+content=3D"html,css,tutorial,html5,dhtml,css3,xsl,xslt,xhtml,javascript,j=
+query,asp,ado,net,vbscript,dom,sql,colors,soap,php,rss,authoring,programm=
+ing,training,learning,quiz,beginner's =
+guide,primer,lessons,school,howto,reference,examples,samples,source =
+code,tags,demos,tips,links,FAQ,tag list,forms,frames,color =
+table,w3c,cascading style sheets,active server pages,dynamic =
+html,internet,database,development,Web building,Webmaster,html guide">
+<META name=3D"Description" content=3D"Free HTML XHTML CSS JavaScript =
+jQuery XML DOM XSL XSLT RSS AJAX ASP .NET PHP SQL tutorials, references, =
+examples for web building.">
+<SCRIPT type=3D"text/javascript">=0A=
+<!--=0A=
+var gaJsHost =3D (("https:" =3D=3D document.location.protocol) ? =
+"https://ssl." : "http://www.");=0A=
+document.write(unescape("%3Cscript src=3D'" + gaJsHost + =
+"google-analytics.com/ga.js' type=3D'text/javascript'%3E%3C/script%3E"));=0A=
+//-->=0A=
+</SCRIPT>
+
+<SCRIPT type=3D"text/javascript">=0A=
+<!--=0A=
+function searchfield_focus(obj)=0A=
+{=0A=
+obj.style.color=3D""=0A=
+obj.style.fontStyle=3D""=0A=
+if (obj.value=3D=3D"Search w3schools.com")=0A=
+	{=0A=
+	obj.value=3D""=0A=
+	}=0A=
+}=0A=
+=0A=
+var pageTracker =3D _gat._getTracker("UA-3855518-1");=0A=
+pageTracker._initData();=0A=
+pageTracker._trackPageview();=0A=
+=0A=
+var addr=3Ddocument.location.href;=0A=
+function displayError()=0A=
+{=0A=
+document.getElementById("err_url").value=3Daddr;=0A=
+document.getElementById("err_form").style.display=3D"block";=0A=
+document.getElementById("err_desc").focus();=0A=
+hideSent();=0A=
+}=0A=
+function hideError()=0A=
+{=0A=
+document.getElementById("err_form").style.display=3D"none";=0A=
+}=0A=
+function hideSent()=0A=
+{=0A=
+document.getElementById("err_sent").style.display=3D"none";=0A=
+}=0A=
+function sendErr()=0A=
+{=0A=
+var xmlhttp;=0A=
+var err_url=3Ddocument.getElementById("err_url").value;=0A=
+var err_email=3Ddocument.getElementById("err_email").value;=0A=
+var err_desc=3Ddocument.getElementById("err_desc").value;=0A=
+if (window.XMLHttpRequest)=0A=
+  {// code for IE7+, Firefox, Chrome, Opera, Safari=0A=
+  xmlhttp=3Dnew XMLHttpRequest();=0A=
+  }=0A=
+else=0A=
+  {// code for IE6, IE5=0A=
+  xmlhttp=3Dnew ActiveXObject("Microsoft.XMLHTTP");=0A=
+  }=0A=
+=0A=
+xmlhttp.open("POST","/err_sup.asp",true);=0A=
+xmlhttp.setRequestHeader("Content-type","application/x-www-form-urlencode=
+d");=0A=
+xmlhttp.send("err_url=3D" + err_url + "&err_email=3D" + err_email + =
+"&err_desc=3D" + escape(err_desc));=0A=
+hideError();=0A=
+document.getElementById("err_sent").style.display=3D"block";=0A=
+}=0A=
+=0A=
+function click_expandingMenuHeader(obj,sectionName)=0A=
+{=0A=
+var x=3Ddocument.getElementById("cssprop_" + =
+sectionName).parentNode.className;=0A=
+if (x.indexOf("expandingMenuNotSelected")>-1)=0A=
+	{=0A=
+	x=3Dx.replace("expandingMenuNotSelected","expandingMenuSelected");=0A=
+	document.getElementById("cssprop_" + =
+sectionName).parentNode.className=3Dx;=0A=
+	document.getElementById("cssprop_" + =
+sectionName).style.display=3D"block";=0A=
+	}=0A=
+else=0A=
+	{=0A=
+	x=3Dx.replace("expandingMenuSelected","expandingMenuNotSelected");=0A=
+	document.getElementById("cssprop_" + =
+sectionName).parentNode.className=3Dx;=0A=
+	document.getElementById("cssprop_" + =
+sectionName).style.display=3D"none";=0A=
+	}=0A=
+}=0A=
+=0A=
+//-->=0A=
+</SCRIPT>
+<!--[if lt IE 7]>
+<style>
+#leftcolumn{margin-left:0}
+</style>
+<![endif]--><LINK rel=3D"stylesheet" type=3D"text/css" =
+href=3D"http://www.w3schools.com/stdtheme.css">
+<META name=3D"GENERATOR" content=3D"MSHTML 9.00.8112.16437"></HEAD>
+<BODY><!-- effective measure code -->
+<SCRIPT type=3D"text/javascript">=0A=
+  (function() {=0A=
+    var em =3D document.createElement('script'); em.type =3D =
+'text/javascript'; em.async =3D true;=0A=
+    em.src =3D ('https:' =3D=3D document.location.protocol ? =
+'https://me-ssl' : 'http://me-cdn') + '.effectivemeasure.net/em.js';=0A=
+    var s =3D document.getElementsByTagName('script')[0]; =
+s.parentNode.insertBefore(em, s);=0A=
+  })();=0A=
+</SCRIPT>
+<NOSCRIPT>&lt; img src=3D"//me.effectivemeasure.net/em_image" alt=3D""=20
+style=3D"position:absolute; left:-5px;" /&gt;</NOSCRIPT><!-- end =
+effective measure code -->
+<DIV style=3D"width: 100%; margin-top: 0px; margin-bottom: 0px; =
+position: relative;">
+<A id=3D"top"></A>
+<DIV style=3D"width: 960px; margin-top: 5px; margin-right: auto; =
+margin-left: auto;">
+<DIV style=3D"margin: 0px; padding: 0px; width: 960px; height: 74px;">
+<DIV style=3D"width: 340px; text-align: left; float: left;"><A =
+href=3D"http://www.w3schools.com/"><IMG=20
+style=3D"border: 0px currentColor; margin-top: 5px;" =
+alt=3D"W3Schools.com" =
+src=3D"http://www.w3schools.com/images/w3schoolslogo.gif"=20
+width=3D"336" height=3D"69"></A></DIV>
+<DIV style=3D"width: 300px; text-align: right; margin-top: 20px; =
+margin-right: 14px; margin-bottom: 5px; float: right;">
+<DIV style=3D"display: none;" id=3D"google_translate_element"></DIV>
+<DIV style=3D"margin-bottom: 14px;" id=3D"translate_link"><A =
+class=3D"topnav" =
+onclick=3D"document.getElementById('google_translate_element').style.disp=
+lay=3D'inline';document.getElementById('translate_link').style.display=3D=
+'none';return false;"=20
+href=3D"http://www.w3schools.com/html/html_colornames.asp#">TRANSLATE</A>=
+</DIV>
+<FORM style=3D"font-size: 11px;" method=3D"get" name=3D"searchform" =
+action=3D"http://www.google.com/search"=20
+target=3D"_blank"><INPUT name=3D"sitesearch" value=3D"www.w3schools.com" =
+
+type=3D"hidden"><INPUT style=3D"margin: 0px; width: 150px; color: =
+rgb(128, 128, 128); font-style: italic;"=20
+onfocus=3D"searchfield_focus(this)" name=3D"as_q" value=3D"Search =
+w3schools.com" size=3D"20"=20
+type=3D"text"><INPUT style=3D"margin: 0px;" title=3D"Search" =
+value=3D"Search" type=3D"submit"></FORM>
+</DIV></DIV>
+<DIV style=3D"width: 960px; height: 25px; clear: both;" id=3D"topnav">
+<DIV style=3D"width: 400px; text-align: left; padding-top: 6px; =
+padding-left: 15px; font-size: 90%; word-spacing: 12px; float: left; =
+white-space: nowrap;"><A=20
+class=3D"topnav" href=3D"http://www.w3schools.com/default.asp" =
+target=3D"_top">HOME=20
+</A><A class=3D"topnav" =
+href=3D"http://www.w3schools.com/html/default.asp" target=3D"_top">HTML=20
+</A><A class=3D"topnav" =
+href=3D"http://www.w3schools.com/css/default.asp" target=3D"_top">CSS=20
+</A><A class=3D"topnav" =
+href=3D"http://www.w3schools.com/xml/default.asp" target=3D"_top">XML=20
+</A><A class=3D"topnav" href=3D"http://www.w3schools.com/js/default.asp" =
+target=3D"_top">JAVASCRIPT=20
+</A><A class=3D"topnav" =
+href=3D"http://www.w3schools.com/asp/default.asp" target=3D"_top">ASP=20
+</A><A class=3D"topnav" =
+href=3D"http://www.w3schools.com/php/default.asp" target=3D"_top">PHP=20
+</A><A class=3D"topnav" =
+href=3D"http://www.w3schools.com/sql/default.asp" target=3D"_top">SQL=20
+</A><A class=3D"topnav" =
+href=3D"http://www.w3schools.com/sitemap/default.asp"=20
+target=3D"_top">MORE...</A></DIV>
+<DIV style=3D"width: 280px; text-align: right; color: rgb(136, 136, =
+136); padding-top: 7px; padding-right: 13px; font-size: 80%; =
+word-spacing: 6px; float: right; white-space: nowrap;"><A=20
+class=3D"topnav" =
+href=3D"http://www.w3schools.com/sitemap/default.asp#references"=20
+target=3D"_top">REFERENCES</A> |	<A class=3D"topnav" =
+href=3D"http://www.w3schools.com/sitemap/default.asp#examples"=20
+target=3D"_top">EXAMPLES</A> |	<A class=3D"topnav" =
+href=3D"http://www.w3schools.com/forum/default.asp"=20
+target=3D"_top">FORUM</A> |	<A class=3D"topnav" =
+href=3D"http://www.w3schools.com/about/default.asp"=20
+target=3D"_top">ABOUT</A></DIV></DIV>
+<DIV style=3D"margin: 0px; padding: 0px; width: 960px; height: 94px; =
+overflow: hidden; position: relative;">
+<SCRIPT type=3D"text/javascript" =
+src=3D"http://partner.googleadservices.com/gampad/google_service.js">=0A=
+</SCRIPT>
+
+<SCRIPT type=3D"text/javascript">=0A=
+GS_googleAddAdSenseService("ca-pub-3440800076797949");=0A=
+GS_googleEnableAllServices();=0A=
+</SCRIPT>
+
+<SCRIPT type=3D"text/javascript">=0A=
+=0A=
+GA_googleAddSlot("ca-pub-3440800076797949", "MainLeaderboard");=0A=
+GA_googleAddSlot("ca-pub-3440800076797949", "SmallPS");=0A=
+GA_googleAddSlot("ca-pub-3440800076797949", "LargePS");=0A=
+GA_googleAddSlot("ca-pub-3440800076797949", "BottomBanner");=0A=
+=0A=
+GA_googleAddSlot("ca-pub-3440800076797949", "TopRectangle");=0A=
+</SCRIPT>
+
+<SCRIPT type=3D"text/javascript">=0A=
+GA_googleFetchAds();=0A=
+</SCRIPT>
+<!-- TopRectangle -->
+<SCRIPT type=3D"text/javascript">=0A=
+GA_googleFillSlot("TopRectangle");=0A=
+</SCRIPT>
+
+<DIV style=3D"margin: 0px; padding: 0px; top: 0px; width: 728px; height: =
+90px; right: 0px; overflow: hidden; position: absolute;"><!-- =
+MainLeaderboard -->
+<SCRIPT type=3D"text/javascript">=0A=
+GA_googleFillSlot("MainLeaderboard");=0A=
+</SCRIPT>
+</DIV></DIV>
+<DIV style=3D"margin: 0px; padding: 0px; width: 960px;">
+<DIV style=3D"margin: 5px 0px 0px; padding: 0px; width: 170px; float: =
+left;" id=3D"leftcolumn">
+<H2 class=3D"left"><SPAN class=3D"left_h2">HTML</SPAN> Basic</H2><A =
+href=3D"http://www.w3schools.com/html/default.asp"=20
+target=3D"_top">HTML HOME</A><BR><A =
+href=3D"http://www.w3schools.com/html/html_intro.asp"=20
+target=3D"_top">HTML Introduction</A><BR><A =
+href=3D"http://www.w3schools.com/html/html_getstarted.asp"=20
+target=3D"_top">HTML Get Started</A><BR><A =
+href=3D"http://www.w3schools.com/html/html_primary.asp"=20
+target=3D"_top">HTML Basic</A><BR><A =
+href=3D"http://www.w3schools.com/html/html_elements.asp"=20
+target=3D"_top">HTML Elements</A><BR><A =
+href=3D"http://www.w3schools.com/html/html_attributes.asp"=20
+target=3D"_top">HTML Attributes</A><BR><A =
+href=3D"http://www.w3schools.com/html/html_headings.asp"=20
+target=3D"_top">HTML Headings</A><BR><A =
+href=3D"http://www.w3schools.com/html/html_paragraphs.asp"=20
+target=3D"_top">HTML Paragraphs</A><BR><A =
+href=3D"http://www.w3schools.com/html/html_formatting.asp"=20
+target=3D"_top">HTML Formatting</A><BR><A =
+href=3D"http://www.w3schools.com/html/html_fonts.asp"=20
+target=3D"_top">HTML Fonts</A><BR><A =
+href=3D"http://www.w3schools.com/html/html_styles.asp"=20
+target=3D"_top">HTML Styles</A><BR><A =
+href=3D"http://www.w3schools.com/html/html_links.asp"=20
+target=3D"_top">HTML Links</A><BR><A =
+href=3D"http://www.w3schools.com/html/html_images.asp"=20
+target=3D"_top">HTML Images</A><BR><A =
+href=3D"http://www.w3schools.com/html/html_tables.asp"=20
+target=3D"_top">HTML Tables</A><BR><A =
+href=3D"http://www.w3schools.com/html/html_lists.asp"=20
+target=3D"_top">HTML Lists</A><BR><A =
+href=3D"http://www.w3schools.com/html/html_forms.asp"=20
+target=3D"_top">HTML Forms</A><BR><A =
+href=3D"http://www.w3schools.com/html/html_frames.asp"=20
+target=3D"_top">HTML Frames</A><BR><A =
+href=3D"http://www.w3schools.com/html/html_iframe.asp"=20
+target=3D"_top">HTML Iframes</A><BR><A =
+href=3D"http://www.w3schools.com/html/html_colors.asp"=20
+target=3D"_top">HTML Colors</A><BR><A style=3D"font-weight: bold;" =
+href=3D"http://www.w3schools.com/html/html_colornames.asp"=20
+target=3D"_top">HTML Colornames</A><BR><A =
+href=3D"http://www.w3schools.com/html/html_colorvalues.asp"=20
+target=3D"_top">HTML Colorvalues</A><BR><A =
+href=3D"http://www.w3schools.com/html/html_quick.asp"=20
+target=3D"_top">HTML Quick List</A><BR><BR>
+<H2 class=3D"left"><SPAN class=3D"left_h2">HTML</SPAN> Advanced</H2><A =
+href=3D"http://www.w3schools.com/html/html_layout.asp"=20
+target=3D"_top">HTML Layout</A><BR><A =
+href=3D"http://www.w3schools.com/html/html_doctype.asp"=20
+target=3D"_top">HTML Doctypes</A><BR><A =
+href=3D"http://www.w3schools.com/html/html_css.asp"=20
+target=3D"_top">HTML CSS</A><BR><A =
+href=3D"http://www.w3schools.com/html/html_head.asp"=20
+target=3D"_top">HTML Head</A><BR><A =
+href=3D"http://www.w3schools.com/html/html_meta.asp"=20
+target=3D"_top">HTML Meta</A><BR><A =
+href=3D"http://www.w3schools.com/html/html_scripts.asp"=20
+target=3D"_top">HTML Scripts</A><BR><A =
+href=3D"http://www.w3schools.com/html/html_entities.asp"=20
+target=3D"_top">HTML Entities</A><BR><A =
+href=3D"http://www.w3schools.com/html/html_url.asp"=20
+target=3D"_top">HTML URLs</A><BR><A =
+href=3D"http://www.w3schools.com/html/html_urlencode.asp"=20
+target=3D"_top">HTML URL Encode</A><BR><A =
+href=3D"http://www.w3schools.com/html/html_webserver.asp"=20
+target=3D"_top">HTML Webserver</A><BR><A =
+href=3D"http://www.w3schools.com/html/html_summary.asp"=20
+target=3D"_top">HTML Summary</A><BR><BR>
+<H2 class=3D"left"><SPAN class=3D"left_h2">HTML</SPAN> Media</H2><A =
+href=3D"http://www.w3schools.com/html/html_media.asp"=20
+target=3D"_top">HTML Media</A><BR><A =
+href=3D"http://www.w3schools.com/html/html_sounds.asp"=20
+target=3D"_top">HTML  Audio</A><BR><A =
+href=3D"http://www.w3schools.com/html/html_object.asp"=20
+target=3D"_top">HTML Object</A><BR><A =
+href=3D"http://www.w3schools.com/html/html_videos.asp"=20
+target=3D"_top">HTML Video</A><BR><A =
+href=3D"http://www.w3schools.com/html/html_youtube.asp"=20
+target=3D"_top">HTML YouTube</A><BR><A =
+href=3D"http://www.w3schools.com/html/html_mediatags.asp"=20
+target=3D"_top">HTML Media Tags</A><BR><BR>
+<H2 class=3D"left"><SPAN class=3D"left_h2">HTML</SPAN> XHTML</H2><A =
+href=3D"http://www.w3schools.com/html/html_xhtml.asp"=20
+target=3D"_top">XHTML Intro</A><BR><A =
+href=3D"http://www.w3schools.com/html/html_xhtml_syntax.asp"=20
+target=3D"_top">XHTML Syntax</A><BR><A =
+href=3D"http://www.w3schools.com/html/html_xhtml_dtd.asp"=20
+target=3D"_top">XHTML Doctype</A><BR><BR>
+<H2 class=3D"left"><SPAN class=3D"left_h2">HTML</SPAN> Examples</H2><A =
+href=3D"http://www.w3schools.com/html/html_examples.asp"=20
+target=3D"_top">HTML Examples</A><BR><A =
+href=3D"http://www.w3schools.com/html/html_quiz.asp"=20
+target=3D"_top">HTML Quiz</A><BR><A =
+href=3D"http://www.w3schools.com/html/html_exam.asp"=20
+target=3D"_top">HTML Certificate</A><BR><BR>
+<H2 class=3D"left"><SPAN class=3D"left_h2">HTML</SPAN> References</H2><A =
+href=3D"http://www.w3schools.com/tags/default.asp"=20
+target=3D"_top">HTML Tag List</A><BR><A =
+href=3D"http://www.w3schools.com/tags/ref_standardattributes.asp"=20
+target=3D"_top">HTML Attributes</A><BR><A =
+href=3D"http://www.w3schools.com/tags/ref_eventattributes.asp"=20
+target=3D"_top">HTML Events</A><BR><A =
+href=3D"http://www.w3schools.com/tags/ref_colornames.asp"=20
+target=3D"_top">HTML Colornames</A><BR><A =
+href=3D"http://www.w3schools.com/tags/ref_colorpicker.asp"=20
+target=3D"_top">HTML Colorpicker</A><BR><A =
+href=3D"http://www.w3schools.com/tags/ref_charactersets.asp"=20
+target=3D"_top">HTML Character Sets</A><BR><A =
+href=3D"http://www.w3schools.com/tags/ref_ascii.asp"=20
+target=3D"_top">HTML ASCII</A><BR><A =
+href=3D"http://www.w3schools.com/tags/ref_entities.asp"=20
+target=3D"_top">HTML ISO-8859-1</A><BR><A =
+href=3D"http://www.w3schools.com/tags/ref_symbols.asp"=20
+target=3D"_top">HTML Symbols</A><BR><A =
+href=3D"http://www.w3schools.com/tags/ref_urlencode.asp"=20
+target=3D"_top">HTML URL Encode</A><BR><A =
+href=3D"http://www.w3schools.com/tags/ref_language_codes.asp"=20
+target=3D"_top">HTML Lang Codes</A><BR><A =
+href=3D"http://www.w3schools.com/tags/ref_httpmessages.asp"=20
+target=3D"_top">HTML Status Codes</A><BR><BR>
+<H2 class=3D"left"><SPAN class=3D"left_h2">HTML5</SPAN></H2><A =
+href=3D"http://www.w3schools.com/html5/default.asp"=20
+target=3D"_top">HTML5 Tutorial</A><BR><A =
+href=3D"http://www.w3schools.com/html5/html5_reference.asp"=20
+target=3D"_top">HTML5 Reference</A><BR><BR><A =
+href=3D"http://www.w3schools.com/cn/html/default.asp"=20
+target=3D"_top"><IMG style=3D"top: 2px; margin-right: 3px; position: =
+relative;" alt=3D"Chinese"=20
+src=3D"http://www.w3schools.com/html/chinese.jpg">Chinese =
+Version</A><BR></DIV>
+<DIV style=3D"margin: 0px; padding: 4px 5px 8px 0px; width: 634px; =
+color: rgb(0, 0, 0); float: left; background-color: rgb(255, 255, =
+255);">
+<H1>HTML <SPAN class=3D"color_h1">Color Names</SPAN></H1>
+<DIV class=3D"chapter">
+<DIV class=3D"prev"><A class=3D"chapter" =
+href=3D"http://www.w3schools.com/html/html_colors.asp">=AB=20
+Previous</A></DIV>
+<DIV class=3D"next"><A class=3D"chapter" =
+href=3D"http://www.w3schools.com/html/html_colorvalues.asp">Next=20
+Chapter =BB</A></DIV></DIV>
+<HR>
+
+<H2>Color Names Supported by All Browsers</H2>
+<P>147 color names are defined in the HTML and CSS color specification =
+(17=20
+ standard colors plus 130 more). The table below lists them all, along =
+with=20
+their  hexadecimal values.</P>
+<P><IMG border=3D"0" alt=3D"Remark" =
+src=3D"http://www.w3schools.com/images/lamp.gif">=20
+<B>Tip:</B> The 17  standard colors are: aqua, black, blue, fuchsia, =
+gray, grey,=20
+green, lime,  maroon, navy, olive, purple, red, silver, teal, white, and =
+
+yellow.</P>
+<P>Click on a color name (or a hex value) to view the color as the=20
+ background-color along with different text colors:</P>
+<HR>
+
+<H2>Sorted by Color Name</H2>
+<P><A href=3D"http://www.w3schools.com/html/html_colorvalues.asp">Same =
+list sorted=20
+by hex values</A></P>
+<TABLE class=3D"reference">
+  <TBODY>
+  <TR>
+    <TH width=3D"25%" align=3D"left">Color Name</TH>
+    <TH width=3D"15%" align=3D"left">HEX</TH>
+    <TH width=3D"43%" align=3D"left">Color</TH>
+    <TH width=3D"11%" align=3D"left">Shades</TH>
+    <TH align=3D"left">Mix</TH></TR>
+  <TR>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_color_tryit.asp?color=3DAliceBl=
+ue"=20
+      target=3D"_blank">AliceBlue</A>&nbsp;</TD>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_color_tryit.asp?hex=3DF0F8FF"=20
+      target=3D"_blank">#F0F8FF</A></TD>
+    <TD bgColor=3D"#f0f8ff">&nbsp;</TD>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_colorpicker.asp?colorhex=3DF0F8=
+FF">Shades</A></TD>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_colormixer.asp?colorbottom=3DF0=
+F8FF&amp;colortop=3DFFFFFF">Mix</A></TD>
+  </TR>
+  <TR>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_color_tryit.asp?color=3DAntique=
+White"=20
+      target=3D"_blank">AntiqueWhite</A>&nbsp;</TD>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_color_tryit.asp?hex=3DFAEBD7"=20
+      target=3D"_blank">#FAEBD7</A></TD>
+    <TD bgColor=3D"#faebd7">&nbsp;</TD>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_colorpicker.asp?colorhex=3DFAEB=
+D7">Shades</A></TD>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_colormixer.asp?colorbottom=3DFA=
+EBD7&amp;colortop=3DFFFFFF">Mix</A></TD>
+  </TR>
+  <TR>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_color_tryit.asp?color=3DAqua"=20
+      target=3D"_blank">Aqua</A>&nbsp;</TD>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_color_tryit.asp?hex=3D00FFFF"=20
+      target=3D"_blank">#00FFFF</A></TD>
+    <TD bgColor=3D"#00ffff">&nbsp;</TD>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_colorpicker.asp?colorhex=3D00FF=
+FF">Shades</A></TD>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_colormixer.asp?colorbottom=3D00=
+FFFF&amp;colortop=3DFFFFFF">Mix</A></TD>
+  </TR>
+  <TR>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_color_tryit.asp?color=3DAquamar=
+ine"=20
+      target=3D"_blank">Aquamarine</A>&nbsp;</TD>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_color_tryit.asp?hex=3D7FFFD4"=20
+      target=3D"_blank">#7FFFD4</A></TD>
+    <TD bgColor=3D"#7fffd4">&nbsp;</TD>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_colorpicker.asp?colorhex=3D7FFF=
+D4">Shades</A></TD>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_colormixer.asp?colorbottom=3D7F=
+FFD4&amp;colortop=3DFFFFFF">Mix</A></TD>
+  </TR>
+  <TR>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_color_tryit.asp?color=3DAzure" =
+
+      target=3D"_blank">Azure</A>&nbsp;</TD>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_color_tryit.asp?hex=3DF0FFFF"=20
+      target=3D"_blank">#F0FFFF</A></TD>
+    <TD bgColor=3D"#f0ffff">&nbsp;</TD>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_colorpicker.asp?colorhex=3DF0FF=
+FF">Shades</A></TD>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_colormixer.asp?colorbottom=3DF0=
+FFFF&amp;colortop=3DFFFFFF">Mix</A></TD>
+  </TR>
+  <TR>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_color_tryit.asp?color=3DBeige" =
+
+      target=3D"_blank">Beige</A>&nbsp;</TD>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_color_tryit.asp?hex=3DF5F5DC"=20
+      target=3D"_blank">#F5F5DC</A></TD>
+    <TD bgColor=3D"#f5f5dc">&nbsp;</TD>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_colorpicker.asp?colorhex=3DF5F5=
+DC">Shades</A></TD>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_colormixer.asp?colorbottom=3DF5=
+F5DC&amp;colortop=3DFFFFFF">Mix</A></TD>
+  </TR>
+  <TR>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_color_tryit.asp?color=3DBisque"=
+=20
+      target=3D"_blank">Bisque</A>&nbsp;</TD>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_color_tryit.asp?hex=3DFFE4C4"=20
+      target=3D"_blank">#FFE4C4</A></TD>
+    <TD bgColor=3D"#ffe4c4">&nbsp;</TD>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_colorpicker.asp?colorhex=3DFFE4=
+C4">Shades</A></TD>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_colormixer.asp?colorbottom=3DFF=
+E4C4&amp;colortop=3DFFFFFF">Mix</A></TD>
+  </TR>
+  <TR>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_color_tryit.asp?color=3DBlack" =
+
+      target=3D"_blank">Black</A>&nbsp;</TD>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_color_tryit.asp?hex=3D000000"=20
+      target=3D"_blank">#000000</A></TD>
+    <TD bgColor=3D"#000000">&nbsp;</TD>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_colorpicker.asp?colorhex=3D0000=
+00">Shades</A></TD>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_colormixer.asp?colorbottom=3D00=
+0000&amp;colortop=3DFFFFFF">Mix</A></TD>
+  </TR>
+  <TR>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_color_tryit.asp?color=3DBlanche=
+dAlmond"=20
+      target=3D"_blank">BlanchedAlmond</A>&nbsp;</TD>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_color_tryit.asp?hex=3DFFEBCD"=20
+      target=3D"_blank">#FFEBCD</A></TD>
+    <TD bgColor=3D"#ffebcd">&nbsp;</TD>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_colorpicker.asp?colorhex=3DFFEB=
+CD">Shades</A></TD>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_colormixer.asp?colorbottom=3DFF=
+EBCD&amp;colortop=3DFFFFFF">Mix</A></TD>
+  </TR>
+  <TR>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_color_tryit.asp?color=3DBlue"=20
+      target=3D"_blank">Blue</A>&nbsp;</TD>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_color_tryit.asp?hex=3D0000FF"=20
+      target=3D"_blank">#0000FF</A></TD>
+    <TD bgColor=3D"#0000ff">&nbsp;</TD>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_colorpicker.asp?colorhex=3D0000=
+FF">Shades</A></TD>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_colormixer.asp?colorbottom=3D00=
+00FF&amp;colortop=3DFFFFFF">Mix</A></TD>
+  </TR>
+  <TR>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_color_tryit.asp?color=3DBlueVio=
+let"=20
+      target=3D"_blank">BlueViolet</A>&nbsp;</TD>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_color_tryit.asp?hex=3D8A2BE2"=20
+      target=3D"_blank">#8A2BE2</A></TD>
+    <TD bgColor=3D"#8a2be2">&nbsp;</TD>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_colorpicker.asp?colorhex=3D8A2B=
+E2">Shades</A></TD>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_colormixer.asp?colorbottom=3D8A=
+2BE2&amp;colortop=3DFFFFFF">Mix</A></TD>
+  </TR>
+  <TR>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_color_tryit.asp?color=3DBrown" =
+
+      target=3D"_blank">Brown</A>&nbsp;</TD>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_color_tryit.asp?hex=3DA52A2A"=20
+      target=3D"_blank">#A52A2A</A></TD>
+    <TD bgColor=3D"#a52a2a">&nbsp;</TD>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_colorpicker.asp?colorhex=3DA52A=
+2A">Shades</A></TD>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_colormixer.asp?colorbottom=3DA5=
+2A2A&amp;colortop=3DFFFFFF">Mix</A></TD>
+  </TR>
+  <TR>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_color_tryit.asp?color=3DBurlyWo=
+od"=20
+      target=3D"_blank">BurlyWood</A>&nbsp;</TD>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_color_tryit.asp?hex=3DDEB887"=20
+      target=3D"_blank">#DEB887</A></TD>
+    <TD bgColor=3D"#deb887">&nbsp;</TD>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_colorpicker.asp?colorhex=3DDEB8=
+87">Shades</A></TD>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_colormixer.asp?colorbottom=3DDE=
+B887&amp;colortop=3DFFFFFF">Mix</A></TD>
+  </TR>
+  <TR>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_color_tryit.asp?color=3DCadetBl=
+ue"=20
+      target=3D"_blank">CadetBlue</A>&nbsp;</TD>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_color_tryit.asp?hex=3D5F9EA0"=20
+      target=3D"_blank">#5F9EA0</A></TD>
+    <TD bgColor=3D"#5f9ea0">&nbsp;</TD>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_colorpicker.asp?colorhex=3D5F9E=
+A0">Shades</A></TD>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_colormixer.asp?colorbottom=3D5F=
+9EA0&amp;colortop=3DFFFFFF">Mix</A></TD>
+  </TR>
+  <TR>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_color_tryit.asp?color=3DChartre=
+use"=20
+      target=3D"_blank">Chartreuse</A>&nbsp;</TD>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_color_tryit.asp?hex=3D7FFF00"=20
+      target=3D"_blank">#7FFF00</A></TD>
+    <TD bgColor=3D"#7fff00">&nbsp;</TD>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_colorpicker.asp?colorhex=3D7FFF=
+00">Shades</A></TD>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_colormixer.asp?colorbottom=3D7F=
+FF00&amp;colortop=3DFFFFFF">Mix</A></TD>
+  </TR>
+  <TR>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_color_tryit.asp?color=3DChocola=
+te"=20
+      target=3D"_blank">Chocolate</A>&nbsp;</TD>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_color_tryit.asp?hex=3DD2691E"=20
+      target=3D"_blank">#D2691E</A></TD>
+    <TD bgColor=3D"#d2691e">&nbsp;</TD>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_colorpicker.asp?colorhex=3DD269=
+1E">Shades</A></TD>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_colormixer.asp?colorbottom=3DD2=
+691E&amp;colortop=3DFFFFFF">Mix</A></TD>
+  </TR>
+  <TR>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_color_tryit.asp?color=3DCoral" =
+
+      target=3D"_blank">Coral</A>&nbsp;</TD>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_color_tryit.asp?hex=3DFF7F50"=20
+      target=3D"_blank">#FF7F50</A></TD>
+    <TD bgColor=3D"#ff7f50">&nbsp;</TD>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_colorpicker.asp?colorhex=3DFF7F=
+50">Shades</A></TD>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_colormixer.asp?colorbottom=3DFF=
+7F50&amp;colortop=3DFFFFFF">Mix</A></TD>
+  </TR>
+  <TR>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_color_tryit.asp?color=3DCornflo=
+werBlue"=20
+      target=3D"_blank">CornflowerBlue</A>&nbsp;</TD>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_color_tryit.asp?hex=3D6495ED"=20
+      target=3D"_blank">#6495ED</A></TD>
+    <TD bgColor=3D"#6495ed">&nbsp;</TD>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_colorpicker.asp?colorhex=3D6495=
+ED">Shades</A></TD>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_colormixer.asp?colorbottom=3D64=
+95ED&amp;colortop=3DFFFFFF">Mix</A></TD>
+  </TR>
+  <TR>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_color_tryit.asp?color=3DCornsil=
+k"=20
+      target=3D"_blank">Cornsilk</A>&nbsp;</TD>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_color_tryit.asp?hex=3DFFF8DC"=20
+      target=3D"_blank">#FFF8DC</A></TD>
+    <TD bgColor=3D"#fff8dc">&nbsp;</TD>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_colorpicker.asp?colorhex=3DFFF8=
+DC">Shades</A></TD>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_colormixer.asp?colorbottom=3DFF=
+F8DC&amp;colortop=3DFFFFFF">Mix</A></TD>
+  </TR>
+  <TR>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_color_tryit.asp?color=3DCrimson=
+"=20
+      target=3D"_blank">Crimson</A>&nbsp;</TD>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_color_tryit.asp?hex=3DDC143C"=20
+      target=3D"_blank">#DC143C</A></TD>
+    <TD bgColor=3D"#dc143c">&nbsp;</TD>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_colorpicker.asp?colorhex=3DDC14=
+3C">Shades</A></TD>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_colormixer.asp?colorbottom=3DDC=
+143C&amp;colortop=3DFFFFFF">Mix</A></TD>
+  </TR>
+  <TR>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_color_tryit.asp?color=3DCyan"=20
+      target=3D"_blank">Cyan</A>&nbsp;</TD>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_color_tryit.asp?hex=3D00FFFF"=20
+      target=3D"_blank">#00FFFF</A></TD>
+    <TD bgColor=3D"#00ffff">&nbsp;</TD>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_colorpicker.asp?colorhex=3D00FF=
+FF">Shades</A></TD>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_colormixer.asp?colorbottom=3D00=
+FFFF&amp;colortop=3DFFFFFF">Mix</A></TD>
+  </TR>
+  <TR>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_color_tryit.asp?color=3DDarkBlu=
+e"=20
+      target=3D"_blank">DarkBlue</A>&nbsp;</TD>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_color_tryit.asp?hex=3D00008B"=20
+      target=3D"_blank">#00008B</A></TD>
+    <TD bgColor=3D"#00008b">&nbsp;</TD>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_colorpicker.asp?colorhex=3D0000=
+8B">Shades</A></TD>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_colormixer.asp?colorbottom=3D00=
+008B&amp;colortop=3DFFFFFF">Mix</A></TD>
+  </TR>
+  <TR>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_color_tryit.asp?color=3DDarkCya=
+n"=20
+      target=3D"_blank">DarkCyan</A>&nbsp;</TD>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_color_tryit.asp?hex=3D008B8B"=20
+      target=3D"_blank">#008B8B</A></TD>
+    <TD bgColor=3D"#008b8b">&nbsp;</TD>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_colorpicker.asp?colorhex=3D008B=
+8B">Shades</A></TD>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_colormixer.asp?colorbottom=3D00=
+8B8B&amp;colortop=3DFFFFFF">Mix</A></TD>
+  </TR>
+  <TR>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_color_tryit.asp?color=3DDarkGol=
+denRod"=20
+      target=3D"_blank">DarkGoldenRod</A>&nbsp;</TD>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_color_tryit.asp?hex=3DB8860B"=20
+      target=3D"_blank">#B8860B</A></TD>
+    <TD bgColor=3D"#b8860b">&nbsp;</TD>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_colorpicker.asp?colorhex=3DB886=
+0B">Shades</A></TD>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_colormixer.asp?colorbottom=3DB8=
+860B&amp;colortop=3DFFFFFF">Mix</A></TD>
+  </TR>
+  <TR>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_color_tryit.asp?color=3DDarkGra=
+y"=20
+      target=3D"_blank">DarkGray</A>&nbsp;</TD>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_color_tryit.asp?hex=3DA9A9A9"=20
+      target=3D"_blank">#A9A9A9</A></TD>
+    <TD bgColor=3D"#a9a9a9">&nbsp;</TD>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_colorpicker.asp?colorhex=3DA9A9=
+A9">Shades</A></TD>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_colormixer.asp?colorbottom=3DA9=
+A9A9&amp;colortop=3DFFFFFF">Mix</A></TD>
+  </TR>
+  <TR>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_color_tryit.asp?color=3DDarkGre=
+y"=20
+      target=3D"_blank">DarkGrey</A>&nbsp;</TD>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_color_tryit.asp?hex=3DA9A9A9"=20
+      target=3D"_blank">#A9A9A9</A></TD>
+    <TD bgColor=3D"#a9a9a9">&nbsp;</TD>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_colorpicker.asp?colorhex=3DA9A9=
+A9">Shades</A></TD>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_colormixer.asp?colorbottom=3DA9=
+A9A9&amp;colortop=3DFFFFFF">Mix</A></TD>
+  </TR>
+  <TR>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_color_tryit.asp?color=3DDarkGre=
+en"=20
+      target=3D"_blank">DarkGreen</A>&nbsp;</TD>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_color_tryit.asp?hex=3D006400"=20
+      target=3D"_blank">#006400</A></TD>
+    <TD bgColor=3D"#006400">&nbsp;</TD>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_colorpicker.asp?colorhex=3D0064=
+00">Shades</A></TD>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_colormixer.asp?colorbottom=3D00=
+6400&amp;colortop=3DFFFFFF">Mix</A></TD>
+  </TR>
+  <TR>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_color_tryit.asp?color=3DDarkKha=
+ki"=20
+      target=3D"_blank">DarkKhaki</A>&nbsp;</TD>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_color_tryit.asp?hex=3DBDB76B"=20
+      target=3D"_blank">#BDB76B</A></TD>
+    <TD bgColor=3D"#bdb76b">&nbsp;</TD>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_colorpicker.asp?colorhex=3DBDB7=
+6B">Shades</A></TD>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_colormixer.asp?colorbottom=3DBD=
+B76B&amp;colortop=3DFFFFFF">Mix</A></TD>
+  </TR>
+  <TR>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_color_tryit.asp?color=3DDarkMag=
+enta"=20
+      target=3D"_blank">DarkMagenta</A>&nbsp;</TD>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_color_tryit.asp?hex=3D8B008B"=20
+      target=3D"_blank">#8B008B</A></TD>
+    <TD bgColor=3D"#8b008b">&nbsp;</TD>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_colorpicker.asp?colorhex=3D8B00=
+8B">Shades</A></TD>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_colormixer.asp?colorbottom=3D8B=
+008B&amp;colortop=3DFFFFFF">Mix</A></TD>
+  </TR>
+  <TR>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_color_tryit.asp?color=3DDarkOli=
+veGreen"=20
+      target=3D"_blank">DarkOliveGreen</A>&nbsp;</TD>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_color_tryit.asp?hex=3D556B2F"=20
+      target=3D"_blank">#556B2F</A></TD>
+    <TD bgColor=3D"#556b2f">&nbsp;</TD>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_colorpicker.asp?colorhex=3D556B=
+2F">Shades</A></TD>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_colormixer.asp?colorbottom=3D55=
+6B2F&amp;colortop=3DFFFFFF">Mix</A></TD>
+  </TR>
+  <TR>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_color_tryit.asp?color=3DDarkora=
+nge"=20
+      target=3D"_blank">Darkorange</A>&nbsp;</TD>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_color_tryit.asp?hex=3DFF8C00"=20
+      target=3D"_blank">#FF8C00</A></TD>
+    <TD bgColor=3D"#ff8c00">&nbsp;</TD>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_colorpicker.asp?colorhex=3DFF8C=
+00">Shades</A></TD>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_colormixer.asp?colorbottom=3DFF=
+8C00&amp;colortop=3DFFFFFF">Mix</A></TD>
+  </TR>
+  <TR>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_color_tryit.asp?color=3DDarkOrc=
+hid"=20
+      target=3D"_blank">DarkOrchid</A>&nbsp;</TD>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_color_tryit.asp?hex=3D9932CC"=20
+      target=3D"_blank">#9932CC</A></TD>
+    <TD bgColor=3D"#9932cc">&nbsp;</TD>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_colorpicker.asp?colorhex=3D9932=
+CC">Shades</A></TD>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_colormixer.asp?colorbottom=3D99=
+32CC&amp;colortop=3DFFFFFF">Mix</A></TD>
+  </TR>
+  <TR>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_color_tryit.asp?color=3DDarkRed=
+"=20
+      target=3D"_blank">DarkRed</A>&nbsp;</TD>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_color_tryit.asp?hex=3D8B0000"=20
+      target=3D"_blank">#8B0000</A></TD>
+    <TD bgColor=3D"#8b0000">&nbsp;</TD>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_colorpicker.asp?colorhex=3D8B00=
+00">Shades</A></TD>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_colormixer.asp?colorbottom=3D8B=
+0000&amp;colortop=3DFFFFFF">Mix</A></TD>
+  </TR>
+  <TR>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_color_tryit.asp?color=3DDarkSal=
+mon"=20
+      target=3D"_blank">DarkSalmon</A>&nbsp;</TD>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_color_tryit.asp?hex=3DE9967A"=20
+      target=3D"_blank">#E9967A</A></TD>
+    <TD bgColor=3D"#e9967a">&nbsp;</TD>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_colorpicker.asp?colorhex=3DE996=
+7A">Shades</A></TD>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_colormixer.asp?colorbottom=3DE9=
+967A&amp;colortop=3DFFFFFF">Mix</A></TD>
+  </TR>
+  <TR>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_color_tryit.asp?color=3DDarkSea=
+Green"=20
+      target=3D"_blank">DarkSeaGreen</A>&nbsp;</TD>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_color_tryit.asp?hex=3D8FBC8F"=20
+      target=3D"_blank">#8FBC8F</A></TD>
+    <TD bgColor=3D"#8fbc8f">&nbsp;</TD>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_colorpicker.asp?colorhex=3D8FBC=
+8F">Shades</A></TD>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_colormixer.asp?colorbottom=3D8F=
+BC8F&amp;colortop=3DFFFFFF">Mix</A></TD>
+  </TR>
+  <TR>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_color_tryit.asp?color=3DDarkSla=
+teBlue"=20
+      target=3D"_blank">DarkSlateBlue</A>&nbsp;</TD>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_color_tryit.asp?hex=3D483D8B"=20
+      target=3D"_blank">#483D8B</A></TD>
+    <TD bgColor=3D"#483d8b">&nbsp;</TD>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_colorpicker.asp?colorhex=3D483D=
+8B">Shades</A></TD>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_colormixer.asp?colorbottom=3D48=
+3D8B&amp;colortop=3DFFFFFF">Mix</A></TD>
+  </TR>
+  <TR>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_color_tryit.asp?color=3DDarkSla=
+teGray"=20
+      target=3D"_blank">DarkSlateGray</A>&nbsp;</TD>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_color_tryit.asp?hex=3D2F4F4F"=20
+      target=3D"_blank">#2F4F4F</A></TD>
+    <TD bgColor=3D"#2f4f4f">&nbsp;</TD>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_colorpicker.asp?colorhex=3D2F4F=
+4F">Shades</A></TD>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_colormixer.asp?colorbottom=3D2F=
+4F4F&amp;colortop=3DFFFFFF">Mix</A></TD>
+  </TR>
+  <TR>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_color_tryit.asp?color=3DDarkSla=
+teGrey"=20
+      target=3D"_blank">DarkSlateGrey</A>&nbsp;</TD>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_color_tryit.asp?hex=3D2F4F4F"=20
+      target=3D"_blank">#2F4F4F</A></TD>
+    <TD bgColor=3D"#2f4f4f">&nbsp;</TD>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_colorpicker.asp?colorhex=3D2F4F=
+4F">Shades</A></TD>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_colormixer.asp?colorbottom=3D2F=
+4F4F&amp;colortop=3DFFFFFF">Mix</A></TD>
+  </TR>
+  <TR>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_color_tryit.asp?color=3DDarkTur=
+quoise"=20
+      target=3D"_blank">DarkTurquoise</A>&nbsp;</TD>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_color_tryit.asp?hex=3D00CED1"=20
+      target=3D"_blank">#00CED1</A></TD>
+    <TD bgColor=3D"#00ced1">&nbsp;</TD>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_colorpicker.asp?colorhex=3D00CE=
+D1">Shades</A></TD>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_colormixer.asp?colorbottom=3D00=
+CED1&amp;colortop=3DFFFFFF">Mix</A></TD>
+  </TR>
+  <TR>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_color_tryit.asp?color=3DDarkVio=
+let"=20
+      target=3D"_blank">DarkViolet</A>&nbsp;</TD>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_color_tryit.asp?hex=3D9400D3"=20
+      target=3D"_blank">#9400D3</A></TD>
+    <TD bgColor=3D"#9400d3">&nbsp;</TD>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_colorpicker.asp?colorhex=3D9400=
+D3">Shades</A></TD>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_colormixer.asp?colorbottom=3D94=
+00D3&amp;colortop=3DFFFFFF">Mix</A></TD>
+  </TR>
+  <TR>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_color_tryit.asp?color=3DDeepPin=
+k"=20
+      target=3D"_blank">DeepPink</A>&nbsp;</TD>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_color_tryit.asp?hex=3DFF1493"=20
+      target=3D"_blank">#FF1493</A></TD>
+    <TD bgColor=3D"#ff1493">&nbsp;</TD>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_colorpicker.asp?colorhex=3DFF14=
+93">Shades</A></TD>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_colormixer.asp?colorbottom=3DFF=
+1493&amp;colortop=3DFFFFFF">Mix</A></TD>
+  </TR>
+  <TR>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_color_tryit.asp?color=3DDeepSky=
+Blue"=20
+      target=3D"_blank">DeepSkyBlue</A>&nbsp;</TD>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_color_tryit.asp?hex=3D00BFFF"=20
+      target=3D"_blank">#00BFFF</A></TD>
+    <TD bgColor=3D"#00bfff">&nbsp;</TD>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_colorpicker.asp?colorhex=3D00BF=
+FF">Shades</A></TD>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_colormixer.asp?colorbottom=3D00=
+BFFF&amp;colortop=3DFFFFFF">Mix</A></TD>
+  </TR>
+  <TR>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_color_tryit.asp?color=3DDimGray=
+"=20
+      target=3D"_blank">DimGray</A>&nbsp;</TD>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_color_tryit.asp?hex=3D696969"=20
+      target=3D"_blank">#696969</A></TD>
+    <TD bgColor=3D"#696969">&nbsp;</TD>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_colorpicker.asp?colorhex=3D6969=
+69">Shades</A></TD>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_colormixer.asp?colorbottom=3D69=
+6969&amp;colortop=3DFFFFFF">Mix</A></TD>
+  </TR>
+  <TR>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_color_tryit.asp?color=3DDimGrey=
+"=20
+      target=3D"_blank">DimGrey</A>&nbsp;</TD>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_color_tryit.asp?hex=3D696969"=20
+      target=3D"_blank">#696969</A></TD>
+    <TD bgColor=3D"#696969">&nbsp;</TD>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_colorpicker.asp?colorhex=3D6969=
+69">Shades</A></TD>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_colormixer.asp?colorbottom=3D69=
+6969&amp;colortop=3DFFFFFF">Mix</A></TD>
+  </TR>
+  <TR>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_color_tryit.asp?color=3DDodgerB=
+lue"=20
+      target=3D"_blank">DodgerBlue</A>&nbsp;</TD>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_color_tryit.asp?hex=3D1E90FF"=20
+      target=3D"_blank">#1E90FF</A></TD>
+    <TD bgColor=3D"#1e90ff">&nbsp;</TD>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_colorpicker.asp?colorhex=3D1E90=
+FF">Shades</A></TD>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_colormixer.asp?colorbottom=3D1E=
+90FF&amp;colortop=3DFFFFFF">Mix</A></TD>
+  </TR>
+  <TR>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_color_tryit.asp?color=3DFireBri=
+ck"=20
+      target=3D"_blank">FireBrick</A>&nbsp;</TD>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_color_tryit.asp?hex=3DB22222"=20
+      target=3D"_blank">#B22222</A></TD>
+    <TD bgColor=3D"#b22222">&nbsp;</TD>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_colorpicker.asp?colorhex=3DB222=
+22">Shades</A></TD>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_colormixer.asp?colorbottom=3DB2=
+2222&amp;colortop=3DFFFFFF">Mix</A></TD>
+  </TR>
+  <TR>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_color_tryit.asp?color=3DFloralW=
+hite"=20
+      target=3D"_blank">FloralWhite</A>&nbsp;</TD>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_color_tryit.asp?hex=3DFFFAF0"=20
+      target=3D"_blank">#FFFAF0</A></TD>
+    <TD bgColor=3D"#fffaf0">&nbsp;</TD>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_colorpicker.asp?colorhex=3DFFFA=
+F0">Shades</A></TD>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_colormixer.asp?colorbottom=3DFF=
+FAF0&amp;colortop=3DFFFFFF">Mix</A></TD>
+  </TR>
+  <TR>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_color_tryit.asp?color=3DForestG=
+reen"=20
+      target=3D"_blank">ForestGreen</A>&nbsp;</TD>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_color_tryit.asp?hex=3D228B22"=20
+      target=3D"_blank">#228B22</A></TD>
+    <TD bgColor=3D"#228b22">&nbsp;</TD>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_colorpicker.asp?colorhex=3D228B=
+22">Shades</A></TD>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_colormixer.asp?colorbottom=3D22=
+8B22&amp;colortop=3DFFFFFF">Mix</A></TD>
+  </TR>
+  <TR>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_color_tryit.asp?color=3DFuchsia=
+"=20
+      target=3D"_blank">Fuchsia</A>&nbsp;</TD>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_color_tryit.asp?hex=3DFF00FF"=20
+      target=3D"_blank">#FF00FF</A></TD>
+    <TD bgColor=3D"#ff00ff">&nbsp;</TD>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_colorpicker.asp?colorhex=3DFF00=
+FF">Shades</A></TD>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_colormixer.asp?colorbottom=3DFF=
+00FF&amp;colortop=3DFFFFFF">Mix</A></TD>
+  </TR>
+  <TR>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_color_tryit.asp?color=3DGainsbo=
+ro"=20
+      target=3D"_blank">Gainsboro</A>&nbsp;</TD>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_color_tryit.asp?hex=3DDCDCDC"=20
+      target=3D"_blank">#DCDCDC</A></TD>
+    <TD bgColor=3D"#dcdcdc">&nbsp;</TD>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_colorpicker.asp?colorhex=3DDCDC=
+DC">Shades</A></TD>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_colormixer.asp?colorbottom=3DDC=
+DCDC&amp;colortop=3DFFFFFF">Mix</A></TD>
+  </TR>
+  <TR>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_color_tryit.asp?color=3DGhostWh=
+ite"=20
+      target=3D"_blank">GhostWhite</A>&nbsp;</TD>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_color_tryit.asp?hex=3DF8F8FF"=20
+      target=3D"_blank">#F8F8FF</A></TD>
+    <TD bgColor=3D"#f8f8ff">&nbsp;</TD>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_colorpicker.asp?colorhex=3DF8F8=
+FF">Shades</A></TD>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_colormixer.asp?colorbottom=3DF8=
+F8FF&amp;colortop=3DFFFFFF">Mix</A></TD>
+  </TR>
+  <TR>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_color_tryit.asp?color=3DGold"=20
+      target=3D"_blank">Gold</A>&nbsp;</TD>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_color_tryit.asp?hex=3DFFD700"=20
+      target=3D"_blank">#FFD700</A></TD>
+    <TD bgColor=3D"#ffd700">&nbsp;</TD>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_colorpicker.asp?colorhex=3DFFD7=
+00">Shades</A></TD>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_colormixer.asp?colorbottom=3DFF=
+D700&amp;colortop=3DFFFFFF">Mix</A></TD>
+  </TR>
+  <TR>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_color_tryit.asp?color=3DGoldenR=
+od"=20
+      target=3D"_blank">GoldenRod</A>&nbsp;</TD>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_color_tryit.asp?hex=3DDAA520"=20
+      target=3D"_blank">#DAA520</A></TD>
+    <TD bgColor=3D"#daa520">&nbsp;</TD>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_colorpicker.asp?colorhex=3DDAA5=
+20">Shades</A></TD>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_colormixer.asp?colorbottom=3DDA=
+A520&amp;colortop=3DFFFFFF">Mix</A></TD>
+  </TR>
+  <TR>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_color_tryit.asp?color=3DGray"=20
+      target=3D"_blank">Gray</A>&nbsp;</TD>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_color_tryit.asp?hex=3D808080"=20
+      target=3D"_blank">#808080</A></TD>
+    <TD bgColor=3D"#808080">&nbsp;</TD>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_colorpicker.asp?colorhex=3D8080=
+80">Shades</A></TD>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_colormixer.asp?colorbottom=3D80=
+8080&amp;colortop=3DFFFFFF">Mix</A></TD>
+  </TR>
+  <TR>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_color_tryit.asp?color=3DGrey"=20
+      target=3D"_blank">Grey</A>&nbsp;</TD>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_color_tryit.asp?hex=3D808080"=20
+      target=3D"_blank">#808080</A></TD>
+    <TD bgColor=3D"#808080">&nbsp;</TD>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_colorpicker.asp?colorhex=3D8080=
+80">Shades</A></TD>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_colormixer.asp?colorbottom=3D80=
+8080&amp;colortop=3DFFFFFF">Mix</A></TD>
+  </TR>
+  <TR>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_color_tryit.asp?color=3DGreen" =
+
+      target=3D"_blank">Green</A>&nbsp;</TD>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_color_tryit.asp?hex=3D008000"=20
+      target=3D"_blank">#008000</A></TD>
+    <TD bgColor=3D"#008000">&nbsp;</TD>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_colorpicker.asp?colorhex=3D0080=
+00">Shades</A></TD>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_colormixer.asp?colorbottom=3D00=
+8000&amp;colortop=3DFFFFFF">Mix</A></TD>
+  </TR>
+  <TR>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_color_tryit.asp?color=3DGreenYe=
+llow"=20
+      target=3D"_blank">GreenYellow</A>&nbsp;</TD>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_color_tryit.asp?hex=3DADFF2F"=20
+      target=3D"_blank">#ADFF2F</A></TD>
+    <TD bgColor=3D"#adff2f">&nbsp;</TD>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_colorpicker.asp?colorhex=3DADFF=
+2F">Shades</A></TD>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_colormixer.asp?colorbottom=3DAD=
+FF2F&amp;colortop=3DFFFFFF">Mix</A></TD>
+  </TR>
+  <TR>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_color_tryit.asp?color=3DHoneyDe=
+w"=20
+      target=3D"_blank">HoneyDew</A>&nbsp;</TD>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_color_tryit.asp?hex=3DF0FFF0"=20
+      target=3D"_blank">#F0FFF0</A></TD>
+    <TD bgColor=3D"#f0fff0">&nbsp;</TD>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_colorpicker.asp?colorhex=3DF0FF=
+F0">Shades</A></TD>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_colormixer.asp?colorbottom=3DF0=
+FFF0&amp;colortop=3DFFFFFF">Mix</A></TD>
+  </TR>
+  <TR>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_color_tryit.asp?color=3DHotPink=
+"=20
+      target=3D"_blank">HotPink</A>&nbsp;</TD>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_color_tryit.asp?hex=3DFF69B4"=20
+      target=3D"_blank">#FF69B4</A></TD>
+    <TD bgColor=3D"#ff69b4">&nbsp;</TD>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_colorpicker.asp?colorhex=3DFF69=
+B4">Shades</A></TD>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_colormixer.asp?colorbottom=3DFF=
+69B4&amp;colortop=3DFFFFFF">Mix</A></TD>
+  </TR>
+  <TR>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_color_tryit.asp?color=3DIndianR=
+ed"=20
+      target=3D"_blank">IndianRed </A>&nbsp;</TD>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_color_tryit.asp?hex=3DCD5C5C"=20
+      target=3D"_blank">#CD5C5C</A></TD>
+    <TD bgColor=3D"#cd5c5c">&nbsp;</TD>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_colorpicker.asp?colorhex=3DCD5C=
+5C">Shades</A></TD>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_colormixer.asp?colorbottom=3DCD=
+5C5C&amp;colortop=3DFFFFFF">Mix</A></TD>
+  </TR>
+  <TR>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_color_tryit.asp?color=3DIndigo"=
+=20
+      target=3D"_blank">Indigo  </A>&nbsp;</TD>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_color_tryit.asp?hex=3D4B0082"=20
+      target=3D"_blank">#4B0082</A></TD>
+    <TD bgColor=3D"#4b0082">&nbsp;</TD>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_colorpicker.asp?colorhex=3D4B00=
+82">Shades</A></TD>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_colormixer.asp?colorbottom=3D4B=
+0082&amp;colortop=3DFFFFFF">Mix</A></TD>
+  </TR>
+  <TR>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_color_tryit.asp?color=3DIvory" =
+
+      target=3D"_blank">Ivory</A>&nbsp;</TD>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_color_tryit.asp?hex=3DFFFFF0"=20
+      target=3D"_blank">#FFFFF0</A></TD>
+    <TD bgColor=3D"#fffff0">&nbsp;</TD>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_colorpicker.asp?colorhex=3DFFFF=
+F0">Shades</A></TD>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_colormixer.asp?colorbottom=3DFF=
+FFF0&amp;colortop=3DFFFFFF">Mix</A></TD>
+  </TR>
+  <TR>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_color_tryit.asp?color=3DKhaki" =
+
+      target=3D"_blank">Khaki</A>&nbsp;</TD>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_color_tryit.asp?hex=3DF0E68C"=20
+      target=3D"_blank">#F0E68C</A></TD>
+    <TD bgColor=3D"#f0e68c">&nbsp;</TD>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_colorpicker.asp?colorhex=3DF0E6=
+8C">Shades</A></TD>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_colormixer.asp?colorbottom=3DF0=
+E68C&amp;colortop=3DFFFFFF">Mix</A></TD>
+  </TR>
+  <TR>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_color_tryit.asp?color=3DLavende=
+r"=20
+      target=3D"_blank">Lavender</A>&nbsp;</TD>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_color_tryit.asp?hex=3DE6E6FA"=20
+      target=3D"_blank">#E6E6FA</A></TD>
+    <TD bgColor=3D"#e6e6fa">&nbsp;</TD>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_colorpicker.asp?colorhex=3DE6E6=
+FA">Shades</A></TD>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_colormixer.asp?colorbottom=3DE6=
+E6FA&amp;colortop=3DFFFFFF">Mix</A></TD>
+  </TR>
+  <TR>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_color_tryit.asp?color=3DLavende=
+rBlush"=20
+      target=3D"_blank">LavenderBlush</A>&nbsp;</TD>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_color_tryit.asp?hex=3DFFF0F5"=20
+      target=3D"_blank">#FFF0F5</A></TD>
+    <TD bgColor=3D"#fff0f5">&nbsp;</TD>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_colorpicker.asp?colorhex=3DFFF0=
+F5">Shades</A></TD>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_colormixer.asp?colorbottom=3DFF=
+F0F5&amp;colortop=3DFFFFFF">Mix</A></TD>
+  </TR>
+  <TR>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_color_tryit.asp?color=3DLawnGre=
+en"=20
+      target=3D"_blank">LawnGreen</A>&nbsp;</TD>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_color_tryit.asp?hex=3D7CFC00"=20
+      target=3D"_blank">#7CFC00</A></TD>
+    <TD bgColor=3D"#7cfc00">&nbsp;</TD>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_colorpicker.asp?colorhex=3D7CFC=
+00">Shades</A></TD>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_colormixer.asp?colorbottom=3D7C=
+FC00&amp;colortop=3DFFFFFF">Mix</A></TD>
+  </TR>
+  <TR>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_color_tryit.asp?color=3DLemonCh=
+iffon"=20
+      target=3D"_blank">LemonChiffon</A>&nbsp;</TD>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_color_tryit.asp?hex=3DFFFACD"=20
+      target=3D"_blank">#FFFACD</A></TD>
+    <TD bgColor=3D"#fffacd">&nbsp;</TD>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_colorpicker.asp?colorhex=3DFFFA=
+CD">Shades</A></TD>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_colormixer.asp?colorbottom=3DFF=
+FACD&amp;colortop=3DFFFFFF">Mix</A></TD>
+  </TR>
+  <TR>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_color_tryit.asp?color=3DLightBl=
+ue"=20
+      target=3D"_blank">LightBlue</A>&nbsp;</TD>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_color_tryit.asp?hex=3DADD8E6"=20
+      target=3D"_blank">#ADD8E6</A></TD>
+    <TD bgColor=3D"#add8e6">&nbsp;</TD>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_colorpicker.asp?colorhex=3DADD8=
+E6">Shades</A></TD>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_colormixer.asp?colorbottom=3DAD=
+D8E6&amp;colortop=3DFFFFFF">Mix</A></TD>
+  </TR>
+  <TR>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_color_tryit.asp?color=3DLightCo=
+ral"=20
+      target=3D"_blank">LightCoral</A>&nbsp;</TD>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_color_tryit.asp?hex=3DF08080"=20
+      target=3D"_blank">#F08080</A></TD>
+    <TD bgColor=3D"#f08080">&nbsp;</TD>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_colorpicker.asp?colorhex=3DF080=
+80">Shades</A></TD>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_colormixer.asp?colorbottom=3DF0=
+8080&amp;colortop=3DFFFFFF">Mix</A></TD>
+  </TR>
+  <TR>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_color_tryit.asp?color=3DLightCy=
+an"=20
+      target=3D"_blank">LightCyan</A>&nbsp;</TD>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_color_tryit.asp?hex=3DE0FFFF"=20
+      target=3D"_blank">#E0FFFF</A></TD>
+    <TD bgColor=3D"#e0ffff">&nbsp;</TD>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_colorpicker.asp?colorhex=3DE0FF=
+FF">Shades</A></TD>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_colormixer.asp?colorbottom=3DE0=
+FFFF&amp;colortop=3DFFFFFF">Mix</A></TD>
+  </TR>
+  <TR>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_color_tryit.asp?color=3DLightGo=
+ldenRodYellow"=20
+      target=3D"_blank">LightGoldenRodYellow</A>&nbsp;</TD>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_color_tryit.asp?hex=3DFAFAD2"=20
+      target=3D"_blank">#FAFAD2</A></TD>
+    <TD bgColor=3D"#fafad2">&nbsp;</TD>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_colorpicker.asp?colorhex=3DFAFA=
+D2">Shades</A></TD>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_colormixer.asp?colorbottom=3DFA=
+FAD2&amp;colortop=3DFFFFFF">Mix</A></TD>
+  </TR>
+  <TR>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_color_tryit.asp?color=3DLightGr=
+ay"=20
+      target=3D"_blank">LightGray</A>&nbsp;</TD>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_color_tryit.asp?hex=3DD3D3D3"=20
+      target=3D"_blank">#D3D3D3</A></TD>
+    <TD bgColor=3D"#d3d3d3">&nbsp;</TD>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_colorpicker.asp?colorhex=3DD3D3=
+D3">Shades</A></TD>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_colormixer.asp?colorbottom=3DD3=
+D3D3&amp;colortop=3DFFFFFF">Mix</A></TD>
+  </TR>
+  <TR>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_color_tryit.asp?color=3DLightGr=
+ey"=20
+      target=3D"_blank">LightGrey</A>&nbsp;</TD>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_color_tryit.asp?hex=3DD3D3D3"=20
+      target=3D"_blank">#D3D3D3</A></TD>
+    <TD bgColor=3D"#d3d3d3">&nbsp;</TD>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_colorpicker.asp?colorhex=3DD3D3=
+D3">Shades</A></TD>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_colormixer.asp?colorbottom=3DD3=
+D3D3&amp;colortop=3DFFFFFF">Mix</A></TD>
+  </TR>
+  <TR>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_color_tryit.asp?color=3DLightGr=
+een"=20
+      target=3D"_blank">LightGreen</A>&nbsp;</TD>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_color_tryit.asp?hex=3D90EE90"=20
+      target=3D"_blank">#90EE90</A></TD>
+    <TD bgColor=3D"#90ee90">&nbsp;</TD>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_colorpicker.asp?colorhex=3D90EE=
+90">Shades</A></TD>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_colormixer.asp?colorbottom=3D90=
+EE90&amp;colortop=3DFFFFFF">Mix</A></TD>
+  </TR>
+  <TR>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_color_tryit.asp?color=3DLightPi=
+nk"=20
+      target=3D"_blank">LightPink</A>&nbsp;</TD>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_color_tryit.asp?hex=3DFFB6C1"=20
+      target=3D"_blank">#FFB6C1</A></TD>
+    <TD bgColor=3D"#ffb6c1">&nbsp;</TD>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_colorpicker.asp?colorhex=3DFFB6=
+C1">Shades</A></TD>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_colormixer.asp?colorbottom=3DFF=
+B6C1&amp;colortop=3DFFFFFF">Mix</A></TD>
+  </TR>
+  <TR>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_color_tryit.asp?color=3DLightSa=
+lmon"=20
+      target=3D"_blank">LightSalmon</A>&nbsp;</TD>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_color_tryit.asp?hex=3DFFA07A"=20
+      target=3D"_blank">#FFA07A</A></TD>
+    <TD bgColor=3D"#ffa07a">&nbsp;</TD>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_colorpicker.asp?colorhex=3DFFA0=
+7A">Shades</A></TD>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_colormixer.asp?colorbottom=3DFF=
+A07A&amp;colortop=3DFFFFFF">Mix</A></TD>
+  </TR>
+  <TR>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_color_tryit.asp?color=3DLightSe=
+aGreen"=20
+      target=3D"_blank">LightSeaGreen</A>&nbsp;</TD>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_color_tryit.asp?hex=3D20B2AA"=20
+      target=3D"_blank">#20B2AA</A></TD>
+    <TD bgColor=3D"#20b2aa">&nbsp;</TD>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_colorpicker.asp?colorhex=3D20B2=
+AA">Shades</A></TD>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_colormixer.asp?colorbottom=3D20=
+B2AA&amp;colortop=3DFFFFFF">Mix</A></TD>
+  </TR>
+  <TR>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_color_tryit.asp?color=3DLightSk=
+yBlue"=20
+      target=3D"_blank">LightSkyBlue</A>&nbsp;</TD>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_color_tryit.asp?hex=3D87CEFA"=20
+      target=3D"_blank">#87CEFA</A></TD>
+    <TD bgColor=3D"#87cefa">&nbsp;</TD>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_colorpicker.asp?colorhex=3D87CE=
+FA">Shades</A></TD>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_colormixer.asp?colorbottom=3D87=
+CEFA&amp;colortop=3DFFFFFF">Mix</A></TD>
+  </TR>
+  <TR>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_color_tryit.asp?color=3DLightSl=
+ateGray"=20
+      target=3D"_blank">LightSlateGray</A>&nbsp;</TD>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_color_tryit.asp?hex=3D778899"=20
+      target=3D"_blank">#778899</A></TD>
+    <TD bgColor=3D"#778899">&nbsp;</TD>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_colorpicker.asp?colorhex=3D7788=
+99">Shades</A></TD>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_colormixer.asp?colorbottom=3D77=
+8899&amp;colortop=3DFFFFFF">Mix</A></TD>
+  </TR>
+  <TR>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_color_tryit.asp?color=3DLightSl=
+ateGrey"=20
+      target=3D"_blank">LightSlateGrey</A>&nbsp;</TD>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_color_tryit.asp?hex=3D778899"=20
+      target=3D"_blank">#778899</A></TD>
+    <TD bgColor=3D"#778899">&nbsp;</TD>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_colorpicker.asp?colorhex=3D7788=
+99">Shades</A></TD>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_colormixer.asp?colorbottom=3D77=
+8899&amp;colortop=3DFFFFFF">Mix</A></TD>
+  </TR>
+  <TR>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_color_tryit.asp?color=3DLightSt=
+eelBlue"=20
+      target=3D"_blank">LightSteelBlue</A>&nbsp;</TD>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_color_tryit.asp?hex=3DB0C4DE"=20
+      target=3D"_blank">#B0C4DE</A></TD>
+    <TD bgColor=3D"#b0c4de">&nbsp;</TD>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_colorpicker.asp?colorhex=3DB0C4=
+DE">Shades</A></TD>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_colormixer.asp?colorbottom=3DB0=
+C4DE&amp;colortop=3DFFFFFF">Mix</A></TD>
+  </TR>
+  <TR>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_color_tryit.asp?color=3DLightYe=
+llow"=20
+      target=3D"_blank">LightYellow</A>&nbsp;</TD>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_color_tryit.asp?hex=3DFFFFE0"=20
+      target=3D"_blank">#FFFFE0</A></TD>
+    <TD bgColor=3D"#ffffe0">&nbsp;</TD>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_colorpicker.asp?colorhex=3DFFFF=
+E0">Shades</A></TD>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_colormixer.asp?colorbottom=3DFF=
+FFE0&amp;colortop=3DFFFFFF">Mix</A></TD>
+  </TR>
+  <TR>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_color_tryit.asp?color=3DLime"=20
+      target=3D"_blank">Lime</A>&nbsp;</TD>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_color_tryit.asp?hex=3D00FF00"=20
+      target=3D"_blank">#00FF00</A></TD>
+    <TD bgColor=3D"#00ff00">&nbsp;</TD>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_colorpicker.asp?colorhex=3D00FF=
+00">Shades</A></TD>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_colormixer.asp?colorbottom=3D00=
+FF00&amp;colortop=3DFFFFFF">Mix</A></TD>
+  </TR>
+  <TR>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_color_tryit.asp?color=3DLimeGre=
+en"=20
+      target=3D"_blank">LimeGreen</A>&nbsp;</TD>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_color_tryit.asp?hex=3D32CD32"=20
+      target=3D"_blank">#32CD32</A></TD>
+    <TD bgColor=3D"#32cd32">&nbsp;</TD>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_colorpicker.asp?colorhex=3D32CD=
+32">Shades</A></TD>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_colormixer.asp?colorbottom=3D32=
+CD32&amp;colortop=3DFFFFFF">Mix</A></TD>
+  </TR>
+  <TR>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_color_tryit.asp?color=3DLinen" =
+
+      target=3D"_blank">Linen</A>&nbsp;</TD>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_color_tryit.asp?hex=3DFAF0E6"=20
+      target=3D"_blank">#FAF0E6</A></TD>
+    <TD bgColor=3D"#faf0e6">&nbsp;</TD>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_colorpicker.asp?colorhex=3DFAF0=
+E6">Shades</A></TD>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_colormixer.asp?colorbottom=3DFA=
+F0E6&amp;colortop=3DFFFFFF">Mix</A></TD>
+  </TR>
+  <TR>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_color_tryit.asp?color=3DMagenta=
+"=20
+      target=3D"_blank">Magenta</A>&nbsp;</TD>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_color_tryit.asp?hex=3DFF00FF"=20
+      target=3D"_blank">#FF00FF</A></TD>
+    <TD bgColor=3D"#ff00ff">&nbsp;</TD>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_colorpicker.asp?colorhex=3DFF00=
+FF">Shades</A></TD>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_colormixer.asp?colorbottom=3DFF=
+00FF&amp;colortop=3DFFFFFF">Mix</A></TD>
+  </TR>
+  <TR>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_color_tryit.asp?color=3DMaroon"=
+=20
+      target=3D"_blank">Maroon</A>&nbsp;</TD>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_color_tryit.asp?hex=3D800000"=20
+      target=3D"_blank">#800000</A></TD>
+    <TD bgColor=3D"#800000">&nbsp;</TD>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_colorpicker.asp?colorhex=3D8000=
+00">Shades</A></TD>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_colormixer.asp?colorbottom=3D80=
+0000&amp;colortop=3DFFFFFF">Mix</A></TD>
+  </TR>
+  <TR>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_color_tryit.asp?color=3DMediumA=
+quaMarine"=20
+      target=3D"_blank">MediumAquaMarine</A>&nbsp;</TD>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_color_tryit.asp?hex=3D66CDAA"=20
+      target=3D"_blank">#66CDAA</A></TD>
+    <TD bgColor=3D"#66cdaa">&nbsp;</TD>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_colorpicker.asp?colorhex=3D66CD=
+AA">Shades</A></TD>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_colormixer.asp?colorbottom=3D66=
+CDAA&amp;colortop=3DFFFFFF">Mix</A></TD>
+  </TR>
+  <TR>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_color_tryit.asp?color=3DMediumB=
+lue"=20
+      target=3D"_blank">MediumBlue</A>&nbsp;</TD>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_color_tryit.asp?hex=3D0000CD"=20
+      target=3D"_blank">#0000CD</A></TD>
+    <TD bgColor=3D"#0000cd">&nbsp;</TD>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_colorpicker.asp?colorhex=3D0000=
+CD">Shades</A></TD>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_colormixer.asp?colorbottom=3D00=
+00CD&amp;colortop=3DFFFFFF">Mix</A></TD>
+  </TR>
+  <TR>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_color_tryit.asp?color=3DMediumO=
+rchid"=20
+      target=3D"_blank">MediumOrchid</A>&nbsp;</TD>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_color_tryit.asp?hex=3DBA55D3"=20
+      target=3D"_blank">#BA55D3</A></TD>
+    <TD bgColor=3D"#ba55d3">&nbsp;</TD>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_colorpicker.asp?colorhex=3DBA55=
+D3">Shades</A></TD>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_colormixer.asp?colorbottom=3DBA=
+55D3&amp;colortop=3DFFFFFF">Mix</A></TD>
+  </TR>
+  <TR>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_color_tryit.asp?color=3DMediumP=
+urple"=20
+      target=3D"_blank">MediumPurple</A>&nbsp;</TD>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_color_tryit.asp?hex=3D9370D8"=20
+      target=3D"_blank">#9370D8</A></TD>
+    <TD bgColor=3D"#9370d8">&nbsp;</TD>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_colorpicker.asp?colorhex=3D9370=
+D8">Shades</A></TD>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_colormixer.asp?colorbottom=3D93=
+70D8&amp;colortop=3DFFFFFF">Mix</A></TD>
+  </TR>
+  <TR>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_color_tryit.asp?color=3DMediumS=
+eaGreen"=20
+      target=3D"_blank">MediumSeaGreen</A>&nbsp;</TD>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_color_tryit.asp?hex=3D3CB371"=20
+      target=3D"_blank">#3CB371</A></TD>
+    <TD bgColor=3D"#3cb371">&nbsp;</TD>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_colorpicker.asp?colorhex=3D3CB3=
+71">Shades</A></TD>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_colormixer.asp?colorbottom=3D3C=
+B371&amp;colortop=3DFFFFFF">Mix</A></TD>
+  </TR>
+  <TR>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_color_tryit.asp?color=3DMediumS=
+lateBlue"=20
+      target=3D"_blank">MediumSlateBlue</A>&nbsp;</TD>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_color_tryit.asp?hex=3D7B68EE"=20
+      target=3D"_blank">#7B68EE</A></TD>
+    <TD bgColor=3D"#7b68ee">&nbsp;</TD>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_colorpicker.asp?colorhex=3D7B68=
+EE">Shades</A></TD>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_colormixer.asp?colorbottom=3D7B=
+68EE&amp;colortop=3DFFFFFF">Mix</A></TD>
+  </TR>
+  <TR>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_color_tryit.asp?color=3DMediumS=
+pringGreen"=20
+      target=3D"_blank">MediumSpringGreen</A>&nbsp;</TD>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_color_tryit.asp?hex=3D00FA9A"=20
+      target=3D"_blank">#00FA9A</A></TD>
+    <TD bgColor=3D"#00fa9a">&nbsp;</TD>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_colorpicker.asp?colorhex=3D00FA=
+9A">Shades</A></TD>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_colormixer.asp?colorbottom=3D00=
+FA9A&amp;colortop=3DFFFFFF">Mix</A></TD>
+  </TR>
+  <TR>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_color_tryit.asp?color=3DMediumT=
+urquoise"=20
+      target=3D"_blank">MediumTurquoise</A>&nbsp;</TD>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_color_tryit.asp?hex=3D48D1CC"=20
+      target=3D"_blank">#48D1CC</A></TD>
+    <TD bgColor=3D"#48d1cc">&nbsp;</TD>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_colorpicker.asp?colorhex=3D48D1=
+CC">Shades</A></TD>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_colormixer.asp?colorbottom=3D48=
+D1CC&amp;colortop=3DFFFFFF">Mix</A></TD>
+  </TR>
+  <TR>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_color_tryit.asp?color=3DMediumV=
+ioletRed"=20
+      target=3D"_blank">MediumVioletRed</A>&nbsp;</TD>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_color_tryit.asp?hex=3DC71585"=20
+      target=3D"_blank">#C71585</A></TD>
+    <TD bgColor=3D"#c71585">&nbsp;</TD>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_colorpicker.asp?colorhex=3DC715=
+85">Shades</A></TD>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_colormixer.asp?colorbottom=3DC7=
+1585&amp;colortop=3DFFFFFF">Mix</A></TD>
+  </TR>
+  <TR>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_color_tryit.asp?color=3DMidnigh=
+tBlue"=20
+      target=3D"_blank">MidnightBlue</A>&nbsp;</TD>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_color_tryit.asp?hex=3D191970"=20
+      target=3D"_blank">#191970</A></TD>
+    <TD bgColor=3D"#191970">&nbsp;</TD>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_colorpicker.asp?colorhex=3D1919=
+70">Shades</A></TD>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_colormixer.asp?colorbottom=3D19=
+1970&amp;colortop=3DFFFFFF">Mix</A></TD>
+  </TR>
+  <TR>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_color_tryit.asp?color=3DMintCre=
+am"=20
+      target=3D"_blank">MintCream</A>&nbsp;</TD>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_color_tryit.asp?hex=3DF5FFFA"=20
+      target=3D"_blank">#F5FFFA</A></TD>
+    <TD bgColor=3D"#f5fffa">&nbsp;</TD>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_colorpicker.asp?colorhex=3DF5FF=
+FA">Shades</A></TD>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_colormixer.asp?colorbottom=3DF5=
+FFFA&amp;colortop=3DFFFFFF">Mix</A></TD>
+  </TR>
+  <TR>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_color_tryit.asp?color=3DMistyRo=
+se"=20
+      target=3D"_blank">MistyRose</A>&nbsp;</TD>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_color_tryit.asp?hex=3DFFE4E1"=20
+      target=3D"_blank">#FFE4E1</A></TD>
+    <TD bgColor=3D"#ffe4e1">&nbsp;</TD>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_colorpicker.asp?colorhex=3DFFE4=
+E1">Shades</A></TD>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_colormixer.asp?colorbottom=3DFF=
+E4E1&amp;colortop=3DFFFFFF">Mix</A></TD>
+  </TR>
+  <TR>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_color_tryit.asp?color=3DMoccasi=
+n"=20
+      target=3D"_blank">Moccasin</A>&nbsp;</TD>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_color_tryit.asp?hex=3DFFE4B5"=20
+      target=3D"_blank">#FFE4B5</A></TD>
+    <TD bgColor=3D"#ffe4b5">&nbsp;</TD>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_colorpicker.asp?colorhex=3DFFE4=
+B5">Shades</A></TD>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_colormixer.asp?colorbottom=3DFF=
+E4B5&amp;colortop=3DFFFFFF">Mix</A></TD>
+  </TR>
+  <TR>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_color_tryit.asp?color=3DNavajoW=
+hite"=20
+      target=3D"_blank">NavajoWhite</A>&nbsp;</TD>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_color_tryit.asp?hex=3DFFDEAD"=20
+      target=3D"_blank">#FFDEAD</A></TD>
+    <TD bgColor=3D"#ffdead">&nbsp;</TD>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_colorpicker.asp?colorhex=3DFFDE=
+AD">Shades</A></TD>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_colormixer.asp?colorbottom=3DFF=
+DEAD&amp;colortop=3DFFFFFF">Mix</A></TD>
+  </TR>
+  <TR>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_color_tryit.asp?color=3DNavy"=20
+      target=3D"_blank">Navy</A>&nbsp;</TD>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_color_tryit.asp?hex=3D000080"=20
+      target=3D"_blank">#000080</A></TD>
+    <TD bgColor=3D"#000080">&nbsp;</TD>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_colorpicker.asp?colorhex=3D0000=
+80">Shades</A></TD>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_colormixer.asp?colorbottom=3D00=
+0080&amp;colortop=3DFFFFFF">Mix</A></TD>
+  </TR>
+  <TR>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_color_tryit.asp?color=3DOldLace=
+"=20
+      target=3D"_blank">OldLace</A>&nbsp;</TD>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_color_tryit.asp?hex=3DFDF5E6"=20
+      target=3D"_blank">#FDF5E6</A></TD>
+    <TD bgColor=3D"#fdf5e6">&nbsp;</TD>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_colorpicker.asp?colorhex=3DFDF5=
+E6">Shades</A></TD>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_colormixer.asp?colorbottom=3DFD=
+F5E6&amp;colortop=3DFFFFFF">Mix</A></TD>
+  </TR>
+  <TR>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_color_tryit.asp?color=3DOlive" =
+
+      target=3D"_blank">Olive</A>&nbsp;</TD>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_color_tryit.asp?hex=3D808000"=20
+      target=3D"_blank">#808000</A></TD>
+    <TD bgColor=3D"#808000">&nbsp;</TD>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_colorpicker.asp?colorhex=3D8080=
+00">Shades</A></TD>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_colormixer.asp?colorbottom=3D80=
+8000&amp;colortop=3DFFFFFF">Mix</A></TD>
+  </TR>
+  <TR>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_color_tryit.asp?color=3DOliveDr=
+ab"=20
+      target=3D"_blank">OliveDrab</A>&nbsp;</TD>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_color_tryit.asp?hex=3D6B8E23"=20
+      target=3D"_blank">#6B8E23</A></TD>
+    <TD bgColor=3D"#6b8e23">&nbsp;</TD>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_colorpicker.asp?colorhex=3D6B8E=
+23">Shades</A></TD>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_colormixer.asp?colorbottom=3D6B=
+8E23&amp;colortop=3DFFFFFF">Mix</A></TD>
+  </TR>
+  <TR>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_color_tryit.asp?color=3DOrange"=
+=20
+      target=3D"_blank">Orange</A>&nbsp;</TD>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_color_tryit.asp?hex=3DFFA500"=20
+      target=3D"_blank">#FFA500</A></TD>
+    <TD bgColor=3D"#ffa500">&nbsp;</TD>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_colorpicker.asp?colorhex=3DFFA5=
+00">Shades</A></TD>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_colormixer.asp?colorbottom=3DFF=
+A500&amp;colortop=3DFFFFFF">Mix</A></TD>
+  </TR>
+  <TR>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_color_tryit.asp?color=3DOrangeR=
+ed"=20
+      target=3D"_blank">OrangeRed</A>&nbsp;</TD>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_color_tryit.asp?hex=3DFF4500"=20
+      target=3D"_blank">#FF4500</A></TD>
+    <TD bgColor=3D"#ff4500">&nbsp;</TD>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_colorpicker.asp?colorhex=3DFF45=
+00">Shades</A></TD>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_colormixer.asp?colorbottom=3DFF=
+4500&amp;colortop=3DFFFFFF">Mix</A></TD>
+  </TR>
+  <TR>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_color_tryit.asp?color=3DOrchid"=
+=20
+      target=3D"_blank">Orchid</A>&nbsp;</TD>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_color_tryit.asp?hex=3DDA70D6"=20
+      target=3D"_blank">#DA70D6</A></TD>
+    <TD bgColor=3D"#da70d6">&nbsp;</TD>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_colorpicker.asp?colorhex=3DDA70=
+D6">Shades</A></TD>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_colormixer.asp?colorbottom=3DDA=
+70D6&amp;colortop=3DFFFFFF">Mix</A></TD>
+  </TR>
+  <TR>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_color_tryit.asp?color=3DPaleGol=
+denRod"=20
+      target=3D"_blank">PaleGoldenRod</A>&nbsp;</TD>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_color_tryit.asp?hex=3DEEE8AA"=20
+      target=3D"_blank">#EEE8AA</A></TD>
+    <TD bgColor=3D"#eee8aa">&nbsp;</TD>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_colorpicker.asp?colorhex=3DEEE8=
+AA">Shades</A></TD>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_colormixer.asp?colorbottom=3DEE=
+E8AA&amp;colortop=3DFFFFFF">Mix</A></TD>
+  </TR>
+  <TR>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_color_tryit.asp?color=3DPaleGre=
+en"=20
+      target=3D"_blank">PaleGreen</A>&nbsp;</TD>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_color_tryit.asp?hex=3D98FB98"=20
+      target=3D"_blank">#98FB98</A></TD>
+    <TD bgColor=3D"#98fb98">&nbsp;</TD>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_colorpicker.asp?colorhex=3D98FB=
+98">Shades</A></TD>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_colormixer.asp?colorbottom=3D98=
+FB98&amp;colortop=3DFFFFFF">Mix</A></TD>
+  </TR>
+  <TR>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_color_tryit.asp?color=3DPaleTur=
+quoise"=20
+      target=3D"_blank">PaleTurquoise</A>&nbsp;</TD>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_color_tryit.asp?hex=3DAFEEEE"=20
+      target=3D"_blank">#AFEEEE</A></TD>
+    <TD bgColor=3D"#afeeee">&nbsp;</TD>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_colorpicker.asp?colorhex=3DAFEE=
+EE">Shades</A></TD>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_colormixer.asp?colorbottom=3DAF=
+EEEE&amp;colortop=3DFFFFFF">Mix</A></TD>
+  </TR>
+  <TR>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_color_tryit.asp?color=3DPaleVio=
+letRed"=20
+      target=3D"_blank">PaleVioletRed</A>&nbsp;</TD>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_color_tryit.asp?hex=3DD87093"=20
+      target=3D"_blank">#D87093</A></TD>
+    <TD bgColor=3D"#d87093">&nbsp;</TD>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_colorpicker.asp?colorhex=3DD870=
+93">Shades</A></TD>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_colormixer.asp?colorbottom=3DD8=
+7093&amp;colortop=3DFFFFFF">Mix</A></TD>
+  </TR>
+  <TR>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_color_tryit.asp?color=3DPapayaW=
+hip"=20
+      target=3D"_blank">PapayaWhip</A>&nbsp;</TD>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_color_tryit.asp?hex=3DFFEFD5"=20
+      target=3D"_blank">#FFEFD5</A></TD>
+    <TD bgColor=3D"#ffefd5">&nbsp;</TD>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_colorpicker.asp?colorhex=3DFFEF=
+D5">Shades</A></TD>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_colormixer.asp?colorbottom=3DFF=
+EFD5&amp;colortop=3DFFFFFF">Mix</A></TD>
+  </TR>
+  <TR>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_color_tryit.asp?color=3DPeachPu=
+ff"=20
+      target=3D"_blank">PeachPuff</A>&nbsp;</TD>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_color_tryit.asp?hex=3DFFDAB9"=20
+      target=3D"_blank">#FFDAB9</A></TD>
+    <TD bgColor=3D"#ffdab9">&nbsp;</TD>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_colorpicker.asp?colorhex=3DFFDA=
+B9">Shades</A></TD>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_colormixer.asp?colorbottom=3DFF=
+DAB9&amp;colortop=3DFFFFFF">Mix</A></TD>
+  </TR>
+  <TR>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_color_tryit.asp?color=3DPeru"=20
+      target=3D"_blank">Peru</A>&nbsp;</TD>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_color_tryit.asp?hex=3DCD853F"=20
+      target=3D"_blank">#CD853F</A></TD>
+    <TD bgColor=3D"#cd853f">&nbsp;</TD>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_colorpicker.asp?colorhex=3DCD85=
+3F">Shades</A></TD>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_colormixer.asp?colorbottom=3DCD=
+853F&amp;colortop=3DFFFFFF">Mix</A></TD>
+  </TR>
+  <TR>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_color_tryit.asp?color=3DPink"=20
+      target=3D"_blank">Pink</A>&nbsp;</TD>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_color_tryit.asp?hex=3DFFC0CB"=20
+      target=3D"_blank">#FFC0CB</A></TD>
+    <TD bgColor=3D"#ffc0cb">&nbsp;</TD>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_colorpicker.asp?colorhex=3DFFC0=
+CB">Shades</A></TD>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_colormixer.asp?colorbottom=3DFF=
+C0CB&amp;colortop=3DFFFFFF">Mix</A></TD>
+  </TR>
+  <TR>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_color_tryit.asp?color=3DPlum"=20
+      target=3D"_blank">Plum</A>&nbsp;</TD>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_color_tryit.asp?hex=3DDDA0DD"=20
+      target=3D"_blank">#DDA0DD</A></TD>
+    <TD bgColor=3D"#dda0dd">&nbsp;</TD>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_colorpicker.asp?colorhex=3DDDA0=
+DD">Shades</A></TD>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_colormixer.asp?colorbottom=3DDD=
+A0DD&amp;colortop=3DFFFFFF">Mix</A></TD>
+  </TR>
+  <TR>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_color_tryit.asp?color=3DPowderB=
+lue"=20
+      target=3D"_blank">PowderBlue</A>&nbsp;</TD>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_color_tryit.asp?hex=3DB0E0E6"=20
+      target=3D"_blank">#B0E0E6</A></TD>
+    <TD bgColor=3D"#b0e0e6">&nbsp;</TD>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_colorpicker.asp?colorhex=3DB0E0=
+E6">Shades</A></TD>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_colormixer.asp?colorbottom=3DB0=
+E0E6&amp;colortop=3DFFFFFF">Mix</A></TD>
+  </TR>
+  <TR>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_color_tryit.asp?color=3DPurple"=
+=20
+      target=3D"_blank">Purple</A>&nbsp;</TD>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_color_tryit.asp?hex=3D800080"=20
+      target=3D"_blank">#800080</A></TD>
+    <TD bgColor=3D"#800080">&nbsp;</TD>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_colorpicker.asp?colorhex=3D8000=
+80">Shades</A></TD>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_colormixer.asp?colorbottom=3D80=
+0080&amp;colortop=3DFFFFFF">Mix</A></TD>
+  </TR>
+  <TR>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_color_tryit.asp?color=3DRed"=20
+      target=3D"_blank">Red</A>&nbsp;</TD>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_color_tryit.asp?hex=3DFF0000"=20
+      target=3D"_blank">#FF0000</A></TD>
+    <TD bgColor=3D"#ff0000">&nbsp;</TD>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_colorpicker.asp?colorhex=3DFF00=
+00">Shades</A></TD>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_colormixer.asp?colorbottom=3DFF=
+0000&amp;colortop=3DFFFFFF">Mix</A></TD>
+  </TR>
+  <TR>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_color_tryit.asp?color=3DRosyBro=
+wn"=20
+      target=3D"_blank">RosyBrown</A>&nbsp;</TD>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_color_tryit.asp?hex=3DBC8F8F"=20
+      target=3D"_blank">#BC8F8F</A></TD>
+    <TD bgColor=3D"#bc8f8f">&nbsp;</TD>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_colorpicker.asp?colorhex=3DBC8F=
+8F">Shades</A></TD>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_colormixer.asp?colorbottom=3DBC=
+8F8F&amp;colortop=3DFFFFFF">Mix</A></TD>
+  </TR>
+  <TR>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_color_tryit.asp?color=3DRoyalBl=
+ue"=20
+      target=3D"_blank">RoyalBlue</A>&nbsp;</TD>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_color_tryit.asp?hex=3D4169E1"=20
+      target=3D"_blank">#4169E1</A></TD>
+    <TD bgColor=3D"#4169e1">&nbsp;</TD>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_colorpicker.asp?colorhex=3D4169=
+E1">Shades</A></TD>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_colormixer.asp?colorbottom=3D41=
+69E1&amp;colortop=3DFFFFFF">Mix</A></TD>
+  </TR>
+  <TR>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_color_tryit.asp?color=3DSaddleB=
+rown"=20
+      target=3D"_blank">SaddleBrown</A>&nbsp;</TD>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_color_tryit.asp?hex=3D8B4513"=20
+      target=3D"_blank">#8B4513</A></TD>
+    <TD bgColor=3D"#8b4513">&nbsp;</TD>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_colorpicker.asp?colorhex=3D8B45=
+13">Shades</A></TD>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_colormixer.asp?colorbottom=3D8B=
+4513&amp;colortop=3DFFFFFF">Mix</A></TD>
+  </TR>
+  <TR>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_color_tryit.asp?color=3DSalmon"=
+=20
+      target=3D"_blank">Salmon</A>&nbsp;</TD>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_color_tryit.asp?hex=3DFA8072"=20
+      target=3D"_blank">#FA8072</A></TD>
+    <TD bgColor=3D"#fa8072">&nbsp;</TD>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_colorpicker.asp?colorhex=3DFA80=
+72">Shades</A></TD>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_colormixer.asp?colorbottom=3DFA=
+8072&amp;colortop=3DFFFFFF">Mix</A></TD>
+  </TR>
+  <TR>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_color_tryit.asp?color=3DSandyBr=
+own"=20
+      target=3D"_blank">SandyBrown</A>&nbsp;</TD>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_color_tryit.asp?hex=3DF4A460"=20
+      target=3D"_blank">#F4A460</A></TD>
+    <TD bgColor=3D"#f4a460">&nbsp;</TD>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_colorpicker.asp?colorhex=3DF4A4=
+60">Shades</A></TD>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_colormixer.asp?colorbottom=3DF4=
+A460&amp;colortop=3DFFFFFF">Mix</A></TD>
+  </TR>
+  <TR>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_color_tryit.asp?color=3DSeaGree=
+n"=20
+      target=3D"_blank">SeaGreen</A>&nbsp;</TD>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_color_tryit.asp?hex=3D2E8B57"=20
+      target=3D"_blank">#2E8B57</A></TD>
+    <TD bgColor=3D"#2e8b57">&nbsp;</TD>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_colorpicker.asp?colorhex=3D2E8B=
+57">Shades</A></TD>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_colormixer.asp?colorbottom=3D2E=
+8B57&amp;colortop=3DFFFFFF">Mix</A></TD>
+  </TR>
+  <TR>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_color_tryit.asp?color=3DSeaShel=
+l"=20
+      target=3D"_blank">SeaShell</A>&nbsp;</TD>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_color_tryit.asp?hex=3DFFF5EE"=20
+      target=3D"_blank">#FFF5EE</A></TD>
+    <TD bgColor=3D"#fff5ee">&nbsp;</TD>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_colorpicker.asp?colorhex=3DFFF5=
+EE">Shades</A></TD>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_colormixer.asp?colorbottom=3DFF=
+F5EE&amp;colortop=3DFFFFFF">Mix</A></TD>
+  </TR>
+  <TR>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_color_tryit.asp?color=3DSienna"=
+=20
+      target=3D"_blank">Sienna</A>&nbsp;</TD>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_color_tryit.asp?hex=3DA0522D"=20
+      target=3D"_blank">#A0522D</A></TD>
+    <TD bgColor=3D"#a0522d">&nbsp;</TD>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_colorpicker.asp?colorhex=3DA052=
+2D">Shades</A></TD>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_colormixer.asp?colorbottom=3DA0=
+522D&amp;colortop=3DFFFFFF">Mix</A></TD>
+  </TR>
+  <TR>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_color_tryit.asp?color=3DSilver"=
+=20
+      target=3D"_blank">Silver</A>&nbsp;</TD>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_color_tryit.asp?hex=3DC0C0C0"=20
+      target=3D"_blank">#C0C0C0</A></TD>
+    <TD bgColor=3D"#c0c0c0">&nbsp;</TD>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_colorpicker.asp?colorhex=3DC0C0=
+C0">Shades</A></TD>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_colormixer.asp?colorbottom=3DC0=
+C0C0&amp;colortop=3DFFFFFF">Mix</A></TD>
+  </TR>
+  <TR>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_color_tryit.asp?color=3DSkyBlue=
+"=20
+      target=3D"_blank">SkyBlue</A>&nbsp;</TD>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_color_tryit.asp?hex=3D87CEEB"=20
+      target=3D"_blank">#87CEEB</A></TD>
+    <TD bgColor=3D"#87ceeb">&nbsp;</TD>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_colorpicker.asp?colorhex=3D87CE=
+EB">Shades</A></TD>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_colormixer.asp?colorbottom=3D87=
+CEEB&amp;colortop=3DFFFFFF">Mix</A></TD>
+  </TR>
+  <TR>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_color_tryit.asp?color=3DSlateBl=
+ue"=20
+      target=3D"_blank">SlateBlue</A>&nbsp;</TD>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_color_tryit.asp?hex=3D6A5ACD"=20
+      target=3D"_blank">#6A5ACD</A></TD>
+    <TD bgColor=3D"#6a5acd">&nbsp;</TD>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_colorpicker.asp?colorhex=3D6A5A=
+CD">Shades</A></TD>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_colormixer.asp?colorbottom=3D6A=
+5ACD&amp;colortop=3DFFFFFF">Mix</A></TD>
+  </TR>
+  <TR>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_color_tryit.asp?color=3DSlateGr=
+ay"=20
+      target=3D"_blank">SlateGray</A>&nbsp;</TD>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_color_tryit.asp?hex=3D708090"=20
+      target=3D"_blank">#708090</A></TD>
+    <TD bgColor=3D"#708090">&nbsp;</TD>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_colorpicker.asp?colorhex=3D7080=
+90">Shades</A></TD>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_colormixer.asp?colorbottom=3D70=
+8090&amp;colortop=3DFFFFFF">Mix</A></TD>
+  </TR>
+  <TR>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_color_tryit.asp?color=3DSlateGr=
+ey"=20
+      target=3D"_blank">SlateGrey</A>&nbsp;</TD>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_color_tryit.asp?hex=3D708090"=20
+      target=3D"_blank">#708090</A></TD>
+    <TD bgColor=3D"#708090">&nbsp;</TD>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_colorpicker.asp?colorhex=3D7080=
+90">Shades</A></TD>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_colormixer.asp?colorbottom=3D70=
+8090&amp;colortop=3DFFFFFF">Mix</A></TD>
+  </TR>
+  <TR>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_color_tryit.asp?color=3DSnow"=20
+      target=3D"_blank">Snow</A>&nbsp;</TD>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_color_tryit.asp?hex=3DFFFAFA"=20
+      target=3D"_blank">#FFFAFA</A></TD>
+    <TD bgColor=3D"#fffafa">&nbsp;</TD>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_colorpicker.asp?colorhex=3DFFFA=
+FA">Shades</A></TD>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_colormixer.asp?colorbottom=3DFF=
+FAFA&amp;colortop=3DFFFFFF">Mix</A></TD>
+  </TR>
+  <TR>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_color_tryit.asp?color=3DSpringG=
+reen"=20
+      target=3D"_blank">SpringGreen</A>&nbsp;</TD>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_color_tryit.asp?hex=3D00FF7F"=20
+      target=3D"_blank">#00FF7F</A></TD>
+    <TD bgColor=3D"#00ff7f">&nbsp;</TD>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_colorpicker.asp?colorhex=3D00FF=
+7F">Shades</A></TD>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_colormixer.asp?colorbottom=3D00=
+FF7F&amp;colortop=3DFFFFFF">Mix</A></TD>
+  </TR>
+  <TR>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_color_tryit.asp?color=3DSteelBl=
+ue"=20
+      target=3D"_blank">SteelBlue</A>&nbsp;</TD>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_color_tryit.asp?hex=3D4682B4"=20
+      target=3D"_blank">#4682B4</A></TD>
+    <TD bgColor=3D"#4682b4">&nbsp;</TD>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_colorpicker.asp?colorhex=3D4682=
+B4">Shades</A></TD>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_colormixer.asp?colorbottom=3D46=
+82B4&amp;colortop=3DFFFFFF">Mix</A></TD>
+  </TR>
+  <TR>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_color_tryit.asp?color=3DTan"=20
+      target=3D"_blank">Tan</A>&nbsp;</TD>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_color_tryit.asp?hex=3DD2B48C"=20
+      target=3D"_blank">#D2B48C</A></TD>
+    <TD bgColor=3D"#d2b48c">&nbsp;</TD>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_colorpicker.asp?colorhex=3DD2B4=
+8C">Shades</A></TD>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_colormixer.asp?colorbottom=3DD2=
+B48C&amp;colortop=3DFFFFFF">Mix</A></TD>
+  </TR>
+  <TR>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_color_tryit.asp?color=3DTeal"=20
+      target=3D"_blank">Teal</A>&nbsp;</TD>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_color_tryit.asp?hex=3D008080"=20
+      target=3D"_blank">#008080</A></TD>
+    <TD bgColor=3D"#008080">&nbsp;</TD>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_colorpicker.asp?colorhex=3D0080=
+80">Shades</A></TD>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_colormixer.asp?colorbottom=3D00=
+8080&amp;colortop=3DFFFFFF">Mix</A></TD>
+  </TR>
+  <TR>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_color_tryit.asp?color=3DThistle=
+"=20
+      target=3D"_blank">Thistle</A>&nbsp;</TD>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_color_tryit.asp?hex=3DD8BFD8"=20
+      target=3D"_blank">#D8BFD8</A></TD>
+    <TD bgColor=3D"#d8bfd8">&nbsp;</TD>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_colorpicker.asp?colorhex=3DD8BF=
+D8">Shades</A></TD>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_colormixer.asp?colorbottom=3DD8=
+BFD8&amp;colortop=3DFFFFFF">Mix</A></TD>
+  </TR>
+  <TR>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_color_tryit.asp?color=3DTomato"=
+=20
+      target=3D"_blank">Tomato</A>&nbsp;</TD>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_color_tryit.asp?hex=3DFF6347"=20
+      target=3D"_blank">#FF6347</A></TD>
+    <TD bgColor=3D"#ff6347">&nbsp;</TD>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_colorpicker.asp?colorhex=3DFF63=
+47">Shades</A></TD>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_colormixer.asp?colorbottom=3DFF=
+6347&amp;colortop=3DFFFFFF">Mix</A></TD>
+  </TR>
+  <TR>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_color_tryit.asp?color=3DTurquoi=
+se"=20
+      target=3D"_blank">Turquoise</A>&nbsp;</TD>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_color_tryit.asp?hex=3D40E0D0"=20
+      target=3D"_blank">#40E0D0</A></TD>
+    <TD bgColor=3D"#40e0d0">&nbsp;</TD>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_colorpicker.asp?colorhex=3D40E0=
+D0">Shades</A></TD>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_colormixer.asp?colorbottom=3D40=
+E0D0&amp;colortop=3DFFFFFF">Mix</A></TD>
+  </TR>
+  <TR>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_color_tryit.asp?color=3DViolet"=
+=20
+      target=3D"_blank">Violet</A>&nbsp;</TD>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_color_tryit.asp?hex=3DEE82EE"=20
+      target=3D"_blank">#EE82EE</A></TD>
+    <TD bgColor=3D"#ee82ee">&nbsp;</TD>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_colorpicker.asp?colorhex=3DEE82=
+EE">Shades</A></TD>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_colormixer.asp?colorbottom=3DEE=
+82EE&amp;colortop=3DFFFFFF">Mix</A></TD>
+  </TR>
+  <TR>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_color_tryit.asp?color=3DWheat" =
+
+      target=3D"_blank">Wheat</A>&nbsp;</TD>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_color_tryit.asp?hex=3DF5DEB3"=20
+      target=3D"_blank">#F5DEB3</A></TD>
+    <TD bgColor=3D"#f5deb3">&nbsp;</TD>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_colorpicker.asp?colorhex=3DF5DE=
+B3">Shades</A></TD>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_colormixer.asp?colorbottom=3DF5=
+DEB3&amp;colortop=3DFFFFFF">Mix</A></TD>
+  </TR>
+  <TR>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_color_tryit.asp?color=3DWhite" =
+
+      target=3D"_blank">White</A>&nbsp;</TD>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_color_tryit.asp?hex=3DFFFFFF"=20
+      target=3D"_blank">#FFFFFF</A></TD>
+    <TD bgColor=3D"#ffffff">&nbsp;</TD>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_colorpicker.asp?colorhex=3DFFFF=
+FF">Shades</A></TD>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_colormixer.asp?colorbottom=3DFF=
+FFFF&amp;colortop=3DFFFFFF">Mix</A></TD>
+  </TR>
+  <TR>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_color_tryit.asp?color=3DWhiteSm=
+oke"=20
+      target=3D"_blank">WhiteSmoke</A>&nbsp;</TD>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_color_tryit.asp?hex=3DF5F5F5"=20
+      target=3D"_blank">#F5F5F5</A></TD>
+    <TD bgColor=3D"#f5f5f5">&nbsp;</TD>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_colorpicker.asp?colorhex=3DF5F5=
+F5">Shades</A></TD>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_colormixer.asp?colorbottom=3DF5=
+F5F5&amp;colortop=3DFFFFFF">Mix</A></TD>
+  </TR>
+  <TR>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_color_tryit.asp?color=3DYellow"=
+=20
+      target=3D"_blank">Yellow</A>&nbsp;</TD>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_color_tryit.asp?hex=3DFFFF00"=20
+      target=3D"_blank">#FFFF00</A></TD>
+    <TD bgColor=3D"#ffff00">&nbsp;</TD>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_colorpicker.asp?colorhex=3DFFFF=
+00">Shades</A></TD>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_colormixer.asp?colorbottom=3DFF=
+FF00&amp;colortop=3DFFFFFF">Mix</A></TD>
+  </TR>
+  <TR>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_color_tryit.asp?color=3DYellowG=
+reen"=20
+      target=3D"_blank">YellowGreen</A>&nbsp;</TD>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_color_tryit.asp?hex=3D9ACD32"=20
+      target=3D"_blank">#9ACD32</A></TD>
+    <TD bgColor=3D"#9acd32">&nbsp;</TD>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_colorpicker.asp?colorhex=3D9ACD=
+32">Shades</A></TD>
+    <TD align=3D"left"><A =
+href=3D"http://www.w3schools.com/tags/ref_colormixer.asp?colorbottom=3D9A=
+CD32&amp;colortop=3DFFFFFF">Mix</A></TD>
+  </TR></TBODY></TABLE><BR>
+<DIV class=3D"chapter">
+<DIV class=3D"prev"><A class=3D"chapter" =
+href=3D"http://www.w3schools.com/html/html_colors.asp">=AB=20
+Previous</A></DIV>
+<DIV class=3D"next"><A class=3D"chapter" =
+href=3D"http://www.w3schools.com/html/html_colorvalues.asp">Next=20
+Chapter =BB</A></DIV></DIV>
+<HR>
+<!-- **** SPOTLIGHTS 1 **** --><!-- SmallPS -->
+<SCRIPT type=3D"text/javascript">=0A=
+GA_googleFillSlot("SmallPS");=0A=
+</SCRIPT>
+<!-- **** SPOTLIGHTS 2 **** --><!-- LargePS -->
+<SCRIPT type=3D"text/javascript">=0A=
+GA_googleFillSlot("LargePS");=0A=
+</SCRIPT>
+<!-- **** SPOTLIGHTS 3 **** -->
+<SCRIPT type=3D"text/javascript"><!--=0A=
+document.write('<table><tr><td style=3D"width:108px">&nbsp;</td><td>');=0A=
+google_ad_client =3D "pub-3440800076797949";=0A=
+/*txt*/=0A=
+google_ad_slot =3D "1699448869";=0A=
+google_ad_width =3D 336;=0A=
+google_ad_height =3D 280;=0A=
+//-->=0A=
+</SCRIPT>
+
+<SCRIPT type=3D"text/javascript" =
+src=3D"http://pagead2.googlesyndication.com/pagead/show_ads.js">=0A=
+</SCRIPT>
+
+<SCRIPT type=3D"text/javascript">=0A=
+<!--=0A=
+document.write("</td></tr></table>");=0A=
+//-->=0A=
+</SCRIPT>
+<!-- BottomBanner -->
+<SCRIPT type=3D"text/javascript">=0A=
+GA_googleFillSlot("BottomBanner");=0A=
+</SCRIPT>
+
+<DIV style=3D"display: none;" id=3D"err_form">
+<H2>Your suggestion:</H2>
+<P><LABEL for=3D"err_email">Your E-mail (optional):</LABEL> <INPUT =
+id=3D"err_email"=20
+name=3D"err_email" type=3D"text"></P>
+<P><LABEL for=3D"err_url">Page address:</LABEL> <INPUT id=3D"err_url" =
+disabled=3D"disabled"=20
+name=3D"err_url" type=3D"text"></P>
+<P><LABEL for=3D"err_desc">Description:</LABEL> <TEXTAREA =
+id=3D"err_desc" cols=3D"92" rows=3D"20" =
+name=3D"err_desc"></TEXTAREA></P>
+<P class=3D"submit"><INPUT onclick=3D"sendErr()" value=3D"Submit" =
+type=3D"button"></P>
+<DIV class=3D"err_close" onclick=3D"hideError()">Close [X]</DIV></DIV>
+<DIV style=3D"display: none;" id=3D"err_sent">
+<H2>Thank you for your support.</H2>
+<DIV class=3D"err_close" onclick=3D"hideSent()">Close =
+[X]</DIV></DIV></DIV>
+<DIV style=3D"margin: 0px; padding: 0px; width: 150px; float: left;" =
+id=3D"rightcolumn">
+<TABLE>
+  <TBODY>
+  <TR>
+    <TH>WEB HOSTING</TH></TR>
+  <TR>
+    <TD><A =
+href=3D"http://www.lunarpages.com/id/w3schools/goto/w3schools" =
+rel=3D"nofollow"=20
+      target=3D"_blank">Best Web Hosting</A></TD></TR>
+  <TR>
+    <TD><A href=3D"http://www.eukhost.com/" rel=3D"nofollow" =
+target=3D"_blank">PHP=20
+      MySQL Hosting</A></TD></TR>
+  <TR>
+    <TD><A href=3D"http://www.web-hosting-top.com/coupons" =
+rel=3D"nofollow"=20
+      target=3D"_blank">Best Hosting Coupons</A></TD></TR>
+  <TR>
+    <TD><A href=3D"http://www.heartinternet.co.uk/index.shtml" =
+rel=3D"nofollow"=20
+      target=3D"_blank">UK Reseller Hosting</A></TD></TR>
+  <TR>
+    <TD><A href=3D"http://www.webhosting.uk.com/cloud-hosting.php" =
+rel=3D"nofollow"=20
+      target=3D"_blank">Cloud Hosting</A></TD></TR>
+  <TR>
+    <TD><A href=3D"http://www.justhost.com/track/w3schools/textlink" =
+rel=3D"nofollow"=20
+      target=3D"_blank">Top Web Hosting</A></TD></TR>
+  <TR>
+    <TD><A href=3D"http://www.doteasy.com/index.cfm?A=3Dw3text" =
+rel=3D"nofollow"=20
+      target=3D"_blank">$8.95 =
+.COM/.NET/.ORG</A></TD></TR></TBODY></TABLE>
+<TABLE>
+  <TBODY>
+  <TR>
+    <TH>WEB BUILDING</TH></TR>
+  <TR>
+    <TD><A =
+href=3D"http://www.altova.com/ref/?s=3Dw3s_text2&amp;q=3Dxmlspy" =
+rel=3D"nofollow"=20
+      target=3D"_blank">XML Editor - Free Trial!</A></TD></TR>
+  <TR>
+    <TD><A =
+href=3D"http://www.wix.com/start/wfree?utm_campaign=3Dma_w3schools.com&am=
+p;experiment_id=3Dma_w3schools.com300builder"=20
+      rel=3D"nofollow" target=3D"_blank">FREE Website =
+BUILDER</A></TD></TR>
+  <TR>
+    <TD><A href=3D"http://www.dreamtemplate.com/" rel=3D"nofollow"=20
+      target=3D"_blank">Free Website Templates</A><A =
+href=3D"http://www.templatesold.com/"=20
+      rel=3D"nofollow" target=3D"_blank">Free WordPress =
+Themes</A></TD></TR>
+  <TR>
+    <TD><A =
+href=3D"http://www.xmlblueprint.com/update/click.php?id=3Dw3s1" =
+rel=3D"nofollow"=20
+      target=3D"_blank">XML Editor =AB try =
+me!</A></TD></TR></TBODY></TABLE>
+<TABLE>
+  <TBODY>
+  <TR>
+    <TH>W3SCHOOLS EXAMS</TH></TR>
+  <TR>
+    <TD><A href=3D"http://www.w3schools.com/cert/default.asp"=20
+      target=3D"_blank">Get Certified in:<BR>HTML, CSS, JavaScript, XML, =
+PHP, and=20
+      ASP</A></TD></TR></TBODY></TABLE>
+<TABLE>
+  <TBODY>
+  <TR>
+    <TH>W3SCHOOLS BOOKS</TH></TR>
+  <TR>
+    <TD><A href=3D"http://www.w3schools.com/books/default.asp" =
+target=3D"_blank">
+      New Books:<BR>HTML, CSS<BR>JavaScript, and =
+Ajax</A></TD></TR></TBODY></TABLE>
+<TABLE>
+  <TBODY>
+  <TR>
+    <TH>STATISTICS</TH></TR>
+  <TR>
+    <TD><A href=3D"http://www.w3schools.com/browsers/browsers_stats.asp" =
+target=3D"_top">Browser=20
+      Statistics</A><BR><A =
+href=3D"http://www.w3schools.com/browsers/browsers_os.asp"=20
+      target=3D"_top">Browser OS</A><BR><A =
+href=3D"http://www.w3schools.com/browsers/browsers_display.asp"=20
+      target=3D"_top">Browser Display</A></TD></TR></TBODY></TABLE>
+<SCRIPT type=3D"text/javascript">=0A=
+<!--=0A=
+function sharethis()=0A=
+{=0A=
+txt=3D'<a =
+href=3D"http://www.facebook.com/sharer.php?u=3D'+document.URL+'" =
+target=3D"_blank" title=3D"Facebook">'=0A=
+txt=3Dtxt+'<img src=3D"/images/share_facebook.gif" width=3D"16px" =
+height=3D"16px" style=3D"margin-right:4px" /></a>';=0A=
+txt=3Dtxt+'<a href=3D"http://twitter.com/home?status=3DCurrently reading =
+'+document.URL+'" target=3D"_blank" title=3D"Twitter">';=0A=
+txt=3Dtxt+'<img src=3D"/images/share_twitter.gif" width=3D"16px" =
+height=3D"16px" style=3D"margin-right:4px" /></a>';=0A=
+txt=3Dtxt+'<a =
+href=3D"mailto:?&amp;subject=3D'+document.title+'&amp;body=3DTake%20a%20l=
+ook%20at%20this%20page%20at%20W3Schools.com:%20'+document.URL+'" =
+target=3D"_blank" title=3D"E-mail">';=0A=
+txt=3Dtxt+'<img src=3D"/images/share_email.gif" width=3D"16px" =
+height=3D"16px" style=3D"margin-right:4px" /></a>';=0A=
+txt=3Dtxt+'<a =
+href=3D"http://delicious.com/save?v=3D5&noui&jump=3Dclose&url=3D'+documen=
+t.URL+'&title=3D'+document.title+'" target=3D"_blank" =
+title=3D"Delicious">';=0A=
+txt=3Dtxt+'<img src=3D"/images/share_delicious.gif" width=3D"16px" =
+height=3D"16px" style=3D"margin-right:4px" /></a>';=0A=
+txt=3Dtxt+'<a =
+href=3D"http://www.reddit.com/submit?url=3D'+document.URL+'" =
+target=3D"_blank" title=3D"Reddit">';=0A=
+txt=3Dtxt+'<img src=3D"/images/share_reddit.gif" width=3D"16px" =
+height=3D"16px" style=3D"margin-right:4px" /></a>';=0A=
+txt=3Dtxt+'<a =
+href=3D"http://digg.com/submit?url=3D'+document.URL+'&amp;title=3D'+docum=
+ent.title+'" target=3D"_blank" title=3D"Digg">';=0A=
+txt=3Dtxt+'<img src=3D"/images/share_digg.gif" width=3D"16px" =
+height=3D"16px" style=3D"margin-right:4px" /></a>';=0A=
+txt=3Dtxt+'<a =
+href=3D"http://www.stumbleupon.com/submit?url=3D'+document.URL+'%26title%=
+3D'+document.title+'" target=3D"_blank" title=3D"Stumbleupon">';=0A=
+txt=3Dtxt+'<img src=3D"/images/share_stumbleupon.gif" width=3D"16px" =
+height=3D"16px" /></a>';=0A=
+document.getElementById("sharethis").innerHTML=3Dtxt;=0A=
+}=0A=
+//--></SCRIPT>
+
+<TABLE>
+  <TBODY>
+  <TR>
+    <TH>SHARE THIS PAGE</TH></TR>
+  <TR>
+    <TD id=3D"sharethis">
+      <DIV style=3D"height: 16px;"><A onclick=3D"sharethis();return =
+false;" =
+href=3D"http://www.w3schools.com/html/html_colornames.asp#">Share=20
+      with =BB</A></DIV></TD></TR></TBODY></TABLE></DIV></DIV><BR></DIV>
+<DIV style=3D'margin: 0px; padding: 0px; width: 100%; clear: both; =
+position: relative; background-image: url("/images/gradientbottom.jpg"); =
+background-repeat: repeat-x; background-color: transparent;'>
+<DIV style=3D"width: 960px; height: 110px; margin-right: auto; =
+margin-left: auto;"=20
+id=3D"footer">
+<DIV style=3D"width: 200px; text-align: left; padding-top: 11px; =
+padding-left: 3px; float: left;"><A=20
+href=3D"http://www.w3schools.com/"><IMG style=3D"border: 0px =
+currentColor;" alt=3D"W3Schools.com"=20
+src=3D"http://www.w3schools.com/images/w3schoolscom_gray.gif"></A></DIV>
+<DIV style=3D"width: 600px; text-align: right; padding-top: 19px; =
+padding-right: 12px; font-size: 80%; word-spacing: 6px; float: =
+right;"><A=20
+onclick=3D"displayError();return false"=20
+href=3D"http://www.w3schools.com/html/">REPORT ERROR</A> |		<A =
+href=3D"http://www.w3schools.com/default.asp"=20
+target=3D"_top">HOME</A> |		<A =
+href=3D"http://www.w3schools.com/html/html_colornames.asp#top"=20
+target=3D"_top">TOP</A> |		<A =
+href=3D"http://www.w3schools.com/html/html_colornames.asp?output=3Dprint"=
+=20
+target=3D"_blank">PRINT</A> |		<A =
+href=3D"http://www.w3schools.com/forum/default.asp"=20
+target=3D"_blank">FORUM</A> |		<A =
+href=3D"http://www.w3schools.com/about/default.asp"=20
+target=3D"_top">ABOUT</A></DIV>
+<DIV style=3D"color: rgb(64, 64, 64); padding-top: 13px; clear: both;">		=
+W3Schools=20
+is optimized for learning, testing, and training. Examples might be =
+simplified=20
+to improve reading and basic understanding.<BR>		Tutorials, references, =
+and=20
+examples are constantly reviewed to avoid errors, but we cannot warrant =
+full=20
+correctness of all content.<BR>		While using this site, you agree to =
+have read=20
+and accepted our		<A=20
+href=3D"http://www.w3schools.com/about/about_copyright.asp">terms of =
+use</A> and
+		<A href=3D"http://www.w3schools.com/about/about_privacy.asp">privacy=20
+policy</A>.<BR><A=20
+href=3D"http://www.w3schools.com/about/about_copyright.asp">Copyright=20
+1999-2011</A> by Refsnes Data. All Rights =
+Reserved.</DIV></DIV></DIV></DIV>
+<SCRIPT type=3D"text/javascript">=0A=
+function googleTranslateElementInit() {=0A=
+  new google.translate.TranslateElement({=0A=
+    pageLanguage: 'en',=0A=
+    autoDisplay: false,    =0A=
+    gaTrack: true,=0A=
+    layout: google.translate.TranslateElement.InlineLayout.SIMPLE=0A=
+  }, 'google_translate_element');=0A=
+}=0A=
+</SCRIPT>
+
+<SCRIPT type=3D"text/javascript" =
+src=3D"http://translate.google.com/translate_a/element.js?cb=3DgoogleTran=
+slateElementInit"></SCRIPT>
+</BODY></HTML>
+
+------=_NextPart_000_0000_01CCC0DC.37A9BA30
+Content-Type: image/gif
+Content-Transfer-Encoding: base64
+Content-Location: http://www.w3schools.com/images/w3schoolslogo.gif
+
+R0lGODlhUAFFAOYAAODg4P///8rJyZDBQFRUU4+MjHBubbOxsbjPkaTIafv7+5bCSNve1s3YuK/L
+fuzr68LUpPDu7tPS0aCenvTz87TOiJvEU1paWb68vJ/GXdbczH99fGJgX/r6+dLawuPh4anJdO7t
+7eDe38fHx4eFhOfm5qqop8jWruLg4NXT0/f29mhnZr3RmvLy8nd1dNjW1piVlfj5+dza2vLx8OXk
+5PHw8NfV1evp6NvZ2Z/CZe304t/e3eXj45XCR63EiODryqrNbb/YkNLQz8bIwqrEgd7c257HVcPI
+uuno6JzCW7XGmdnnvqPDbrHResXbm9rY19DOzr/HsbzHqeTi4unn58zeperp6N/d3dnX1+bv1rjG
+ofX47pfESdPR0abDeNbU1JjCUaXKYNPjsbHFkNTS0/Pz8wAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACH5
+BAEAAAAALAAAAABQAUUAAAf/gACCg4SFhoeIiQBHWkQ5A5BJREeKlZaXmJmam5ydnp+goaKjpJpS
+PkxgkKusPUqlsLGys7S1tre4i0pESay+vwNRucPExcbHyLOnTD3Azr45ydLT1NXWpUe7vc/cv8LX
+4OHi48RDy83d6b8+5O3u7/CVUUpe2+r3v9Hx+/z9yeY+cqDDRxCYv4MIE44aQs9eQXxgckgcCOmb
+wosYMxIaQoTiQ3VMtAwpdMQHujEaU6r058HCR4IJNChiAGKAg5U4c45j4PLlPRaYHFjQSbSoNAQ+
+70HQBIKB0adQb2VImq5CIQYsQCRIAKLBVZlRw4odRbXbAqeDPCz4dXOs27eg/8pyszpIw1pgQK0d
+IMC3r9+/BmBISFbAb4F3fw/AvST3mddBDp4N1fu3cuULGJAV7nvYXeLFlhI0NkjorjMPlC2r5nth
+sLHNfDu3+wxaUYXRvwp1e0xt7+rVsonBJhB8HO3aiCDg9lX3xG5rEg5In079AAwDlVccG15c3HHk
+hjQsZ5W1ZzfU/FxU3m4YsV/F4BGZHr9q67MEoAro11/owP4C8A3yX3eKmLBeIRjAMOCCEyAS3YL7
+jSDIcAYsaIJriUgwwQYGdGiACzBIWIkJJHjYYQGZHfKdIAlC+F+DmTSAwIw00sgbIRA4sNWOCIBl
+SI1ABhnkCWghUhN9CbCAnv9ywCzgYyd/FcJdIVFm4ptfhJjAwW99GWCIBBtwCd9wq20goiEFXLAa
+CRgWouVqBpw5yHdvckmAl5YwgMB8vyBQCAt8sgLCk4JQ5UCRhSBVUAYOKPqMn4M0AMyhoVQpYHuE
+WHoJmXgCcKWdnbKoppgT2smanABIsIKdHKRISJhcXgDjnO8NgoGpfIWKCANTdQOpIJGZhd4gZWWA
+iKT4UCpIoKz8CgCykCRJqCeaAjBlplheIgEMlc26Kq6hSjAqqdbiSoALhahnKgdtcourqwAchx24
+lvTq6yC3qbPAsADIlddVMBESrDNLDeKoTaVUey2tfRHyKaiDSPAXBy7qNyv/ALD6tQIJC4o4HAcm
+zusXhhP8dQEJ0sGwpV8bDDLCuHxtYMIBE4jMFwfY9hXgxBUXcPEhB0NiQQVBPuYBWyc0AIForOBH
+bNM7JmDeABbsOPUAxh5ibzpOC3K0M2cRciQkWY+iMKYM8+WwuStg+HCbiozw1woBIrKwIA8HuDJr
+8Kr6l2sZ8/Vz4ATMStvDqG4y3wIFJzIwJI0D6wtvzBFysLNBI/J4N11LDoyzDPCJKChnc0Zltnib
+W/fbmAx3QeJooj2IzfDd6tfPAMh9uyAwt2zI3gT4Hm+tnv4FOybOsXLjIQz44qwgPLFCV7+sJNos
+Ic1XfwiTAzDb9FVbQ/J8/9ADsIBABY2e8EnpsZ3e8CAPcymb7X1RzCDcNguvyN2C0C6Iu6xBhLpi
+BgD68QVegwAgAXAmCNpIzC/2G9AE4AY0VpQtEdCCxLQAkK9oPW0V1lvF8yoXHgQ0gAFfe8b0CMEC
+HhHKLumwAL8ywT7iuE9tLqvYBmDGlwDxcE2EAB6BYme6QvivXF2ym1+89DBENLGBxAPAD1XDJkUw
+DRJtUcTBJmOI5IGwUNoz2PUIQUIrcmODMwnfM/bFiRoWp1qK8Jtf0CUIEphLeH8xwaZk1z/i2UxX
+l0oimZxoqeOQ6Td0RMQVB/C8CtbnWCQsIwAup5swKgKGwIic+irBq4Btwv+NNySAJgzklwtEzGZc
+ShHMcHcI/gHgiHZMYiuXCABSvs8QTxyezl5lLgQSYpGN/NH3DpHBAXwQEiEUXyW/aAkNLHIACVie
+BZqSiBNcTR1oTAQoc4ZDGlYLAxOAEOE6YzMS7LGIhDjixxAROHQh7hAl64spobhLQoBTnH8ZIgeH
+qQgvQmJ0gjhY2SRJSTJaspkNSChAmWQBCCCKARBQ4z2WZ4ltpk2UmbDlLS2hQDrG8mYUJGL7jEg8
+jRKgboIQl19gQM+RkrQviVyRIuKZq0RwT4OVEA8rIjeIrWWRoGM8pjFtmgm1+MJqVPkXJvJICP7B
+MREj+JY8M0HTc7HoL/r/UyI6ZxdFmLWtEIQT0QAJgJlCVLVwF0VpgWi5K19kAKCFWGTYWOiLTVKP
+mQENKhjxaogM8PRY3pMLRSsBvAtsYD9/HFCVMBCyxqKSL4msjmQnADPZoJIDHJOsa1x5RCT2ZQV6
+LCAqhfcwWQ1mBB+9GTdPaivJUmcCQhTE0rYyvc0tgGhJS2hCweJPqhXMA5vj4l2RaTm9DneomhtA
+BeDqtc3hYwEgQMAzf/Ek5hIiteY6UPxMtbPshraAuBoTH18ZRQBINVZywu5vvqvLHnLVXDByVNdC
+p45fjS0dNwKqCJdJ3ORAYgEOOAFYPHCCClzzFwu4ZgV8dFO2FGKFDppi/3Yxul0u6S+7ujqrasS7
+1T7WUxAvs1NZC3He1fxMXmwTowfTEtj9Qk+iv+CpfpVpUL4WIoU+8esAopuvLArivhZEVEQvgQHg
+TRiHFQbian/z1f4YuTIcdul73UsICTxWY76s428uwN6WstbDrDqTfG88Xedhr4NNouiMGclf5Mrn
+JUObytE8kIAK9OqhaO7ecrHnEuu6qUSODXTIWCTokG1ggoYotIdcwEpbFcAFgU5RzTyEO0B3KMsH
+2EBhGV0J1JY4MCENmassXeifzbbOh9AAC3QUtR39FbhTg65DD9HqQpw6ATyttRmfkYGpgaACCY7o
+CTLQAOhKLXk+FoQGIP8woxMaIliDjY+0i0I+Qa06MtK1wAkSgJQ6S5fbBl7FXxUxsGBO+9w4KeZ/
+0bcvXBMbEsXOEQQSfGDGXUID9wUBuvdNlOzZBAGRsSa8d1wBEJzgfGRTx54RoYE9HZXfEMfJVHBd
+tQFAa9637V6LweYACBhNRmWGZsRHrpFgAbwCBQe5BTY+nmST/OX9YAEkfg0o+hBk3DDPuTu+xnKb
+u1XnQOeHzx/ChSwE/ejvAMLQ8QGELSD96eRwwtK7EYYgGB3qWA/HEqbuCy40wQk/yLrYxbEFrldd
+DDoYu9rHYQT6GOHrYV+73McRhNEAIQhLSPvc9z4OHSTl7VWIO98HT47/uhPk7nknvOKT3g3AC37x
+kHdHFdrOCiA4IfGRz/w+dPCDH+hd86B/hwJGT/rSkz4GCuhADGKg+tSb/vWjD73sN2H6DnRABSqg
+gO5b0IIZzCACwI9ACIYfggcY//jHJ34Igh+BGtSA97rXvQpsb/rZh770t9+984Ff/AdYgQolCD8N
+ePCB8n8ABegXgfrXLwL0o38K5Z8CD8JfAipYIfnAn0ELpE/92Ftf8dlHAb3HfcZ3A+JXfiggAjuw
+A0UgAzKAA1jwAhJoAzaQAhZ4gRQogU+AAw4oA0VwBe1XfjQQflRwAw+wfM1XBtKnAv73f3uXewJY
+A8BXgEhQAuN3fiJwygUNCIETeIFdIARACAVCCAVAKARdQAYWaAMvsIEeuAMh+AEjWAIm+AD5t38U
+MH0K4IJ8F4ADKHwPcAMGaIMIqIA74IA4gANPIIEvUIFfcIEW+AVKqIEc2IQ7gALlxwMjiAQmiIL6
+x38tqIVrd3oxAIO8F3zdZwU1aIM8QH4ImH4gyH7rh37mxwNTEIVIoIfGh4LPx38dUHqAuHi1F4C7
+53vMR3zId4rIR3zMVwN9GH24h3qe+ImyCHult3q2x3q3SH2wSItZKIvWFwgAOw==
+
+------=_NextPart_000_0000_01CCC0DC.37A9BA30
+Content-Type: image/jpeg
+Content-Transfer-Encoding: base64
+Content-Location: http://www.w3schools.com/html/chinese.jpg
+
+/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAkGBwgHBgkIBwgKCgkLDRYPDQwMDRsUFRAWIB0iIiAd
+Hx8kKDQsJCYxJx8fLT0tMTU3Ojo6Iys/RD84QzQ5Ojf/2wBDAQoKCg0MDRoPDxo3JR8lNzc3Nzc3
+Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzf/wAARCAAMABQDASIA
+AhEBAxEB/8QAFwAAAwEAAAAAAAAAAAAAAAAAAAEEBf/EACYQAAECBAUEAwAAAAAAAAAAAAIBAwAE
+ERITFCFBUSIxMpEFUmH/xAAXAQADAQAAAAAAAAAAAAAAAAADBAYH/8QAGxEAAQUBAQAAAAAAAAAA
+AAAAAQACAxEhElH/2gAMAwEAAhEDEQA/AMpyb+Nyigyw408kuovKZ3Yrt2iitFtp32qlRruWPeX2
+X3FhSoKZal3XeFlG+S9xONZza12JrIwavfdTkyLCXqXy5giqTlQwy6i8vzhIIMBiWkI7K//Z
+
+------=_NextPart_000_0000_01CCC0DC.37A9BA30
+Content-Type: image/gif
+Content-Transfer-Encoding: base64
+Content-Location: http://www.w3schools.com/images/lamp.gif
+
+R0lGODlhDwAPALMAAP//////mP//gJmZmf//YP//SP//MP//GPDwENjYCHBwcAAAAMDAwAAAAAAA
+AAAAACH+aGljb24zLmdpZiBmb3IgdXNlIGluIFVCQg0KDQooQykgMTk5OSBQaGlsaXBwIEVzc2Vs
+YmFjaCAocGxlQGdteC5uZXQpDQpodHRwOi8vd3d3Lm50Z2FtZXBhbGFjZS5pc2Nvb2wubmV0ACH5
+BAkIAAwALAAAAAAPAA8AAARLkMlJKxt06DzxDUTheZMYCKEwFNZwFnBxkNIgGHhuqJmB/ECEgWZD
+JI5HBK+XWDQTCJpEVHhSKyPEIlrrdAgLAklaU5BbZktrU4kAADs=
+
+------=_NextPart_000_0000_01CCC0DC.37A9BA30
+Content-Type: image/gif
+Content-Transfer-Encoding: base64
+Content-Location: http://www.w3schools.com/images/w3schoolscom_gray.gif
+
+R0lGODlhlgAcAOZVAKqqqrOzs/7+/s7Ozv39/crKyrKyssfHx7q6uvv7+/z8/Pr6+tXV1fX19c3N
+zfj4+LCwsPn5+fb29vPz88nJybu7u8bGxq2trb+/v9PT09DQ0MPDw7y8vLm5ufDw8LS0tLGxsczM
+zK6urunp6aurq+vr69nZ2c/Pz8TExNLS0tHR0cvLy7i4uOjo6O/v79bW1sLCwt/f3+Xl5ebm5sXF
+xd3d3b29vcjIyK+vr9vb26ysrLW1tfT09PLy8re3t8DAwMHBwdTU1Pf399zc3La2tt7e3uDg4PHx
+8e7u7tjY2L6+vuPj4+fn5+Hh4dfX1+Li4uzs7OTk5Nra2u3t7erq6v///wAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACH5
+BAEAAFUALAAAAACWABwAAAf/gFUtGwGFhoeIiAYBGzNVj5CRkpOUlZaXmJmam5yQIxAAoaKjpKWi
+IiWdqqusra6YMKays6EHr7e4ubqPAbS+pAgPu8PExZQGv6UXQCEnDkAXACwNxtXWub3Joh9LCZAJ
+MkQf1Nfl5pzZ2gGpVQsTC49QNj3n9faU6b8kMY9LSh9KojySQY9VghgMmhAw9mBIEEf3WuXzFYDa
+kXQ7JlQRsJCVBB8AbEQw5gIEAAsCIrISYWoHjAokRhF5UkIFKX6vJHQAgAFesZIADqRUqQpFhWij
+klQBeqqCkh2kitySgADAj46WBCzwVkkrV0gukAk1lsBnq6GPFgjhQGpJFR5E/0YBkbBgyKgPRx5F
+qKHBwYC/IVSQq+IhSd+/AyY8qBrAwYkBKWKMhDThxYEfG05AhNTjhQXMmsGKTbkghgq/f/0iodRD
+yukBDhyM0FtjBRAgK4ZMrlIjBOLff0+8cPFIwIgZLWZXyTCKhYRHBUbVeJQCgA4QFWQ8UkDBlA52
+MiYCYBKhKikSB7iWADnqgoqhLaC2z5AybNCNA2KWkioJCYtSDLQTCykbjCTAgLQQ4cEjTQxBww3e
+CLECC0RUINAjE8BABAsZeNPAfxh4oAAkJUTTmAappUCNBx8AQAIHITiwQgiKVQWCBTfQ0MsFVFQh
+RFUkwJCECi0C8EQVEvxHAv8KhvVCghFLifVWiwaEgCJiq0XyAFsAdBDjCgXMxkAoLDDgRAWhFLAQ
+CtZtcIAFJkFgwQH/ATAAhj0wQYUKI1bRgGKPjKBRAhOQQ0B3J0myRCghVFIdABoIEwlVVkXAkQmh
+TIcpACv4NEI0QFRRRCgDcNUCSzAQJqUHUmKSQy2DYQjKDnm9xRYqVbAJQQMCKIBBSAoI0INJHGD1
+CA4OSApJCxDQIISWK4jigwlM9NlCKAbcACYFDGhUhQUA4MDDJJT+wNUToeRQRQgAiKDcIzZGMIB1
+TETCWAKs3jcBMiAcsG0GC0YiQHc6bAZJDKFoEMkL6VZBAwAQPCfAr0oMtVP/BcZWgUwFGjghBQMU
+4BAKAiqYYIIG5pFigTARgFvKDgsCAcAHZkFCaU+PGBHKEFV0BwJxkGzQ7gTdidACJAT8KoIER0ip
+QHSlgKAd0mziwE4kSYRiQiSjAhDgw7tWkXRICymwU7GSiKfNKE488kANGcTNAA0xpVDFARDH+sjN
+PukMgLrsXvCuAGgaEIED1m0mwL35jhVBDEHIXQBLG2A1cOKTIAyACpE4sbPDeYv9qw1ln52x2rKI
+8MEHSImCEiVTgEJBFWNC2qfNVeFchd/qSpFmn0zoAMAGvIXiwFAzRIOCqkGhFUl5ACixgFYj1hDK
+ypJMMGutPKCJwxS5hj42/+lVmA0A2pGgbsoBERxOSgFIvhAEA/QnITQAdveATPQDnOB/jTzpW8N0
+cr0iBGF/AmkAe25QhAyAggRNiNJ9EmCCDNDPTAVQHgGawIEBCOABaAJABRzzmNkEYWQ5yIF5QpAS
+XVFjfKU73+nW9oMRyUA/ALiAdqAgCwU94gnsGQUTHgASG/hEc1urQglSFooLZKBPI9jJKETwgoUg
+ARQ0eAsooqad6nRgIVBgYigCFIGHkQIFzzpQDsdFALZgrHwg6cDteLG274mtCB2AQAdwgoQbFOCP
+f6RAEGr1CB4YQQOALMAREpABC7ygTyWgwA2O9gghmGADFcDACa62t0tmUqEDUIBEAwZgAZ5FQAUU
+AFMgU5AlGThyKEJYQgoASQFKJmAJBeAAByjQhK+Y4AYDEIYALMOAlBAgAzcIgvOqoL71cUUBDeDK
+A0JQkHIscxLXNIcAsimRtYViA+96RAt+sAO9EeWcxNifN3GwAQ0wQAMwEJlz0EnPYnDJm7KAQcbq
+yU9XWA+fsoBSPwf6CgK84AOLSIRCE2GAD6RgnwSNqCYCAQA7
+
+------=_NextPart_000_0000_01CCC0DC.37A9BA30
+Content-Type: text/css;
+	charset="koi8-r"
+Content-Transfer-Encoding: quoted-printable
+Content-Location: http://www.w3schools.com/stdtheme.css
+
+html {
+	overflow-y: scroll;
+}
+body {
+	margin: 0px; color: rgb(0, 0, 0); font-size: 12px; background-image: =
+url("/images/gradientfromtop.gif"); background-repeat: repeat-x; =
+background-color: rgb(255, 255, 255);
+}
+body {
+	font-family: verdana,helvetica,arial,sans-serif;
+}
+p {
+	font-family: verdana,helvetica,arial,sans-serif;
+}
+h1 {
+	font-family: verdana,helvetica,arial,sans-serif;
+}
+h2 {
+	font-family: verdana,helvetica,arial,sans-serif;
+}
+h3 {
+	font-family: verdana,helvetica,arial,sans-serif;
+}
+h4 {
+	font-family: verdana,helvetica,arial,sans-serif;
+}
+table {
+	font-family: verdana,helvetica,arial,sans-serif;
+}
+td {
+	font-family: verdana,helvetica,arial,sans-serif;
+}
+th {
+	font-family: verdana,helvetica,arial,sans-serif;
+}
+ul {
+	font-family: verdana,helvetica,arial,sans-serif;
+}
+ol {
+	font-family: verdana,helvetica,arial,sans-serif;
+}
+textarea {
+	font-family: verdana,helvetica,arial,sans-serif;
+}
+input {
+	font-family: verdana,helvetica,arial,sans-serif;
+}
+h1 {
+	font-size: 200%; font-weight: normal; margin-top: 0px;
+}
+h2 {
+	font-size: 160%; font-weight: normal; margin-top: 10px; margin-bottom: =
+10px;
+}
+h3 {
+	font-size: 120%; font-weight: normal;
+}
+h4 {
+	font-size: 100%;
+}
+h5 {
+	font-size: 90%;
+}
+h6 {
+	font-size: 80%;
+}
+h1 {
+	color: rgb(0, 0, 0); background-color: transparent;
+}
+h2 {
+	color: rgb(0, 0, 0); background-color: transparent;
+}
+h3 {
+	color: rgb(0, 0, 0); background-color: transparent;
+}
+h4 {
+	color: rgb(0, 0, 0); background-color: transparent;
+}
+h5 {
+	color: rgb(0, 0, 0); background-color: transparent;
+}
+h6 {
+	color: rgb(0, 0, 0); background-color: transparent;
+}
+iframe {
+	margin: 0px;
+}
+div {
+	width: 100%;
+}
+table {
+	font-size: 100%;
+}
+th {
+	font-size: 100%;
+}
+td {
+	font-size: 100%;
+}
+input {
+	font-size: 100%;
+}
+textarea {
+	font-size: 100%;
+}
+img {
+	border: 0px currentColor;
+}
+table.example {
+	padding: 8px; border: 1px solid rgb(212, 212, 212); width: 100%; color: =
+rgb(0, 0, 0); background-image: url("images/bgfadegreen.gif"); =
+background-repeat: repeat-x; background-color: rgb(229, 238, 204);
+}
+table.example_code {
+	padding: 4px; border: 1px solid rgb(212, 212, 212); width: 100%; =
+background-color: rgb(255, 255, 255);
+}
+table.example_code td {
+	font-family: courier new; font-size: 110%;
+}
+table.example_result {
+	padding: 4px; border: 1px solid rgb(212, 212, 212); background-color: =
+rgb(255, 255, 255);
+}
+table.code {
+	margin: 0px; padding: 3px; border: 1px solid rgb(212, 212, 212); width: =
+100%; background-color: rgb(229, 238, 204);
+}
+table.code td {
+	padding: 4px; border: 1px solid rgb(212, 212, 212); font-family: =
+courier new; font-size: 110%; background-color: rgb(255, 255, 255);
+}
+table.example_code p {
+	font-family: courier new;
+}
+table.code p {
+	font-family: courier new;
+}
+td.code {
+	font-family: courier new;
+}
+div.example {
+	margin: 0px; padding: 8px; border: 1px solid rgb(212, 212, 212); width: =
+616px; color: rgb(0, 0, 0); clear: both; background-image: =
+url("/images/bgfadegreen.gif"); background-repeat: repeat-x; =
+background-color: rgb(229, 238, 204);
+}
+div.example_code {
+	padding: 4px; border: 1px solid rgb(212, 212, 212); width: 606px; =
+font-family: courier new; font-size: 110%; background-color: rgb(255, =
+255, 255);
+}
+div.example_result {
+	padding: 4px; border: 1px solid rgb(212, 212, 212); width: 606px; =
+background-color: rgb(255, 255, 255);
+}
+div.code {
+	margin: 0px; padding: 5px; border: 1px solid rgb(212, 212, 212); width: =
+622px; background-color: rgb(229, 238, 204);
+}
+div.code div {
+	padding: 4px; border: 1px solid rgb(212, 212, 212); width: 612px; =
+font-family: courier new; font-size: 110%; background-color: rgb(255, =
+255, 255);
+}
+div.example_code p {
+	font-family: courier new;
+}
+div.code p {
+	font-family: courier new;
+}
+div.code div {
+	font-family: courier new;
+}
+div.tryit_ex {
+	width: 600px; height: 50px; clear: both; margin-bottom: 5px;
+}
+div.tryit_ex img {
+	border: 0px currentColor; margin-right: 10px; float: left;
+}
+div.tryit_ex h2 {
+	padding-top: 5px;
+}
+table.lamp {
+	padding: 0px; border: 1px solid rgb(212, 212, 212); width: 100%; =
+border-collapse: collapse;
+}
+table.lamp th {
+	padding: 0px; color: rgb(0, 0, 0); border-right-color: rgb(212, 212, =
+212); border-right-width: 1px; border-right-style: solid; =
+background-color: white;
+}
+table.lamp td {
+	padding: 4px 4px 4px 10px; color: rgb(0, 0, 0); background-image: =
+url("images/bgfadegreen.gif"); background-repeat: repeat-x; =
+background-color: rgb(229, 238, 204);
+}
+table.reference {
+	border: 1px solid rgb(195, 195, 195); width: 100%; border-collapse: =
+collapse; background-color: rgb(255, 255, 255);
+}
+table.reference th {
+	padding: 3px; border: 1px solid rgb(195, 195, 195); vertical-align: =
+top; background-color: rgb(229, 238, 204);
+}
+table.reference td {
+	padding: 3px; border: 1px solid rgb(195, 195, 195); vertical-align: =
+top;
+}
+table.intro {
+	padding: 5px 5px 5px 0px; color: rgb(85, 85, 85); font-size: 110%; =
+background-color: transparent;
+}
+table.summary {
+	padding: 5px; border: 1px solid rgb(212, 212, 212); color: rgb(85, 85, =
+85); font-size: 100%; background-color: rgb(250, 250, 210);
+}
+h2.example {
+	color: rgb(97, 127, 16); margin-top: 0px; background-color: =
+transparent;
+}
+h2.example_head {
+	color: rgb(97, 127, 16); margin-top: 0px; background-color: =
+transparent;
+}
+h2.example {
+	font-size: 120%;
+}
+h2.example_head {
+	font-size: 140%;
+}
+h2.home {
+	color: rgb(144, 11, 9); padding-top: 1px; padding-bottom: 1px; =
+padding-left: 1px; font-size: 120%; margin-top: 0px; margin-bottom: 5px; =
+background-color: rgb(255, 255, 255);
+}
+h2.tutheader {
+	background-position: 0px -50px; margin: 0px; border: 1px solid rgb(212, =
+212, 212); color: rgb(48, 48, 48); padding-top: 2px; padding-bottom: =
+2px; padding-left: 4px; clear: both; background-image: =
+url("/images/gradientfromtop.gif"); background-repeat: repeat-x; =
+background-color: rgb(255, 255, 255);
+}
+h2.left {
+	color: rgb(64, 64, 64); padding-top: 0px; padding-bottom: 0px; =
+font-size: 120%; font-weight: bold; margin-top: 0px; margin-bottom: 4px; =
+background-color: rgb(255, 255, 255);
+}
+span.marked {
+	color: rgb(232, 0, 0); background-color: transparent;
+}
+span.deprecated {
+	color: rgb(232, 0, 0); background-color: transparent;
+}
+p.tutintro {
+	font-size: 125%; margin-top: 0px;
+}
+div.tutintro {
+	width: 622px;
+}
+div.tutintro img {
+	margin-right: 20px; margin-bottom: 10px; float: left;
+}
+div.tutintro p {
+	font-size: 125%; margin-top: 0px;
+}
+p.intro {
+	color: rgb(64, 64, 64); font-size: 120%; margin-top: 10px; =
+background-color: transparent;
+}
+pre {
+	font-family: "courier new"; font-size: 110%; margin-bottom: 0px; =
+margin-left: 0px;
+}
+img.float {
+	float: left;
+}
+img.navup {
+	width: 18px; height: 22px; vertical-align: middle;
+}
+hr {
+	border: 0px currentColor; height: 1px; color: rgb(212, 212, 212); =
+clear: both; background-color: rgb(212, 212, 212);
+}
+a.example {
+	font-weight: bold;
+}
+a:link {
+	color: rgb(144, 11, 9); background-color: transparent;
+}
+a:visited {
+	color: rgb(144, 11, 9); background-color: transparent;
+}
+a:hover {
+	color: rgb(255, 0, 0); background-color: transparent;
+}
+a:active {
+	color: rgb(255, 0, 0); background-color: transparent;
+}
+a.topnav:link {
+	color: rgb(85, 85, 85); text-decoration: none;
+}
+a.topnav:visited {
+	color: rgb(85, 85, 85); text-decoration: none;
+}
+a.topnav:hover {
+	color: rgb(255, 72, 0); text-decoration: none;
+}
+a.topnav:active {
+	color: rgb(255, 72, 0); text-decoration: none;
+}
+a.plain:link {
+	color: rgb(144, 11, 9); text-decoration: none; background-color: =
+transparent;
+}
+a.plain:visited {
+	color: rgb(144, 11, 9); text-decoration: none; background-color: =
+transparent;
+}
+a.plain:hover {
+	color: rgb(255, 0, 0); text-decoration: underline; background-color: =
+transparent;
+}
+a.plain:active {
+	color: rgb(255, 0, 0); text-decoration: underline; background-color: =
+transparent;
+}
+a.header:link {
+	color: black; text-decoration: none; background-color: transparent;
+}
+a.header:visited {
+	color: black; text-decoration: none; background-color: transparent;
+}
+a.header:hover {
+	color: black; text-decoration: underline; background-color: =
+transparent;
+}
+a.header:active {
+	color: black; text-decoration: underline; background-color: =
+transparent;
+}
+table.sitemap a:link {
+	color: black; text-decoration: none; background-color: transparent;
+}
+table.sitemap a:visited {
+	color: black; text-decoration: none; background-color: transparent;
+}
+table.sitemap a:hover {
+	color: black; text-decoration: underline; background-color: =
+transparent;
+}
+table.sitemap a:active {
+	color: black; text-decoration: underline; background-color: =
+transparent;
+}
+#leftcolumn a:link {
+	color: black; text-decoration: none; background-color: transparent;
+}
+#leftcolumn a:visited {
+	color: black; text-decoration: none; background-color: transparent;
+}
+#leftcolumn a:hover {
+	color: black; text-decoration: underline; background-color: =
+transparent;
+}
+#leftcolumn a:active {
+	color: black; text-decoration: underline; background-color: =
+transparent;
+}
+#rightcolumn a:link {
+	color: rgb(144, 11, 9); text-decoration: none; background-color: =
+transparent;
+}
+#rightcolumn a:visited {
+	color: rgb(144, 11, 9); text-decoration: none; background-color: =
+transparent;
+}
+#rightcolumn a:hover {
+	color: rgb(255, 0, 0); text-decoration: underline; background-color: =
+transparent;
+}
+#rightcolumn a:active {
+	color: rgb(255, 0, 0); text-decoration: underline; background-color: =
+transparent;
+}
+.toprect_txt a:link {
+	color: rgb(144, 11, 9); text-decoration: none; background-color: =
+transparent;
+}
+.toprect_txt a:visited {
+	color: rgb(144, 11, 9); text-decoration: none; background-color: =
+transparent;
+}
+.toprect_txt a:hover {
+	color: rgb(255, 0, 0); text-decoration: underline; background-color: =
+transparent;
+}
+.toprect_txt a:active {
+	color: rgb(255, 0, 0); text-decoration: underline; background-color: =
+transparent;
+}
+#footer a:link {
+	color: rgb(64, 64, 64); text-decoration: none; background-color: =
+transparent;
+}
+#footer a:visited {
+	color: rgb(64, 64, 64); text-decoration: none; background-color: =
+transparent;
+}
+#footer a:hover {
+	color: rgb(64, 64, 64); text-decoration: underline; background-color: =
+transparent;
+}
+#footer a:active {
+	color: rgb(64, 64, 64); text-decoration: underline; background-color: =
+transparent;
+}
+a.m_item:link {
+	color: white; text-decoration: none; background-color: transparent;
+}
+a.m_item:visited {
+	color: white; text-decoration: none; background-color: transparent;
+}
+a.m_item:hover {
+	color: white; text-decoration: underline; background-color: =
+transparent;
+}
+a.m_item:active {
+	color: white; text-decoration: underline; background-color: =
+transparent;
+}
+a.chapter:link {
+	color: rgb(152, 191, 33); text-decoration: none; background-color: =
+transparent;
+}
+a.chapter:visited {
+	color: rgb(152, 191, 33); text-decoration: none; background-color: =
+transparent;
+}
+a.chapter:hover {
+	color: rgb(152, 191, 33); text-decoration: underline; background-color: =
+transparent;
+}
+a.chapter:active {
+	color: rgb(152, 191, 33); text-decoration: none; background-color: =
+transparent;
+}
+#leftcolumn {
+	margin-left: 1px;
+}
+a.tryitbtn {
+	padding: 3px 0px 4px; outline: rgb(152, 191, 33) solid 1px; border: 1px =
+solid rgb(255, 255, 255); width: 120px; text-align: center; color: =
+rgb(255, 255, 255); font-size: 11px; font-weight: bold; text-decoration: =
+none; margin-left: 1px; display: block; background-color: rgb(152, 191, =
+33);
+}
+a.tryitbtn:link {
+	padding: 3px 0px 4px; outline: rgb(152, 191, 33) solid 1px; border: 1px =
+solid rgb(255, 255, 255); width: 120px; text-align: center; color: =
+rgb(255, 255, 255); font-size: 11px; font-weight: bold; text-decoration: =
+none; margin-left: 1px; display: block; background-color: rgb(152, 191, =
+33);
+}
+a.tryitbtn:visited {
+	padding: 3px 0px 4px; outline: rgb(152, 191, 33) solid 1px; border: 1px =
+solid rgb(255, 255, 255); width: 120px; text-align: center; color: =
+rgb(255, 255, 255); font-size: 11px; font-weight: bold; text-decoration: =
+none; margin-left: 1px; display: block; background-color: rgb(152, 191, =
+33);
+}
+a.showbtn {
+	padding: 3px 0px 4px; outline: rgb(152, 191, 33) solid 1px; border: 1px =
+solid rgb(255, 255, 255); width: 120px; text-align: center; color: =
+rgb(255, 255, 255); font-size: 11px; font-weight: bold; text-decoration: =
+none; margin-left: 1px; display: block; background-color: rgb(152, 191, =
+33);
+}
+a.showbtn:link {
+	padding: 3px 0px 4px; outline: rgb(152, 191, 33) solid 1px; border: 1px =
+solid rgb(255, 255, 255); width: 120px; text-align: center; color: =
+rgb(255, 255, 255); font-size: 11px; font-weight: bold; text-decoration: =
+none; margin-left: 1px; display: block; background-color: rgb(152, 191, =
+33);
+}
+a.showbtn:visited {
+	padding: 3px 0px 4px; outline: rgb(152, 191, 33) solid 1px; border: 1px =
+solid rgb(255, 255, 255); width: 120px; text-align: center; color: =
+rgb(255, 255, 255); font-size: 11px; font-weight: bold; text-decoration: =
+none; margin-left: 1px; display: block; background-color: rgb(152, 191, =
+33);
+}
+a.tryitbtn:hover {
+	background-color: rgb(122, 153, 26);
+}
+a.tryitbtn:active {
+	background-color: rgb(122, 153, 26);
+}
+a.showbtn:hover {
+	background-color: rgb(122, 153, 26);
+}
+a.showbtn:active {
+	background-color: rgb(122, 153, 26);
+}
+a.playitbtn {
+	padding: 1px 0px 2px 2px; outline: rgb(255, 204, 0) solid 1px; border: =
+1px solid rgb(255, 255, 255); width: 60px; text-align: center; color: =
+rgb(255, 255, 255); font-size: 11px; font-weight: bold; text-decoration: =
+none; margin-left: 1px; display: block; background-color: rgb(255, 173, =
+51);
+}
+a.playitbtn:link {
+	padding: 1px 0px 2px 2px; outline: rgb(255, 204, 0) solid 1px; border: =
+1px solid rgb(255, 255, 255); width: 60px; text-align: center; color: =
+rgb(255, 255, 255); font-size: 11px; font-weight: bold; text-decoration: =
+none; margin-left: 1px; display: block; background-color: rgb(255, 173, =
+51);
+}
+a.playitbtn:visited {
+	padding: 1px 0px 2px 2px; outline: rgb(255, 204, 0) solid 1px; border: =
+1px solid rgb(255, 255, 255); width: 60px; text-align: center; color: =
+rgb(255, 255, 255); font-size: 11px; font-weight: bold; text-decoration: =
+none; margin-left: 1px; display: block; background-color: rgb(255, 173, =
+51);
+}
+a.playitbtn:hover {
+	background-color: rgb(230, 138, 0);
+}
+a.playitbtn:active {
+	background-color: rgb(230, 138, 0);
+}
+a.demobtn {
+	padding: 3px 5px 4px; outline: rgb(238, 108, 50) solid 1px; border: 1px =
+solid rgb(255, 255, 255); text-align: center; color: rgb(255, 255, 255); =
+font-size: 11px; font-weight: bold; text-decoration: none; margin-left: =
+1px; background-color: rgb(238, 108, 50);
+}
+a.demobtn:link {
+	padding: 3px 5px 4px; outline: rgb(238, 108, 50) solid 1px; border: 1px =
+solid rgb(255, 255, 255); text-align: center; color: rgb(255, 255, 255); =
+font-size: 11px; font-weight: bold; text-decoration: none; margin-left: =
+1px; background-color: rgb(238, 108, 50);
+}
+a.demobtn:visited {
+	padding: 3px 5px 4px; outline: rgb(238, 108, 50) solid 1px; border: 1px =
+solid rgb(255, 255, 255); text-align: center; color: rgb(255, 255, 255); =
+font-size: 11px; font-weight: bold; text-decoration: none; margin-left: =
+1px; background-color: rgb(238, 108, 50);
+}
+a.demobtn:hover {
+	background-color: rgb(190, 86, 40);
+}
+a.demobtn:active {
+	background-color: rgb(190, 86, 40);
+}
+a.demobtn:hover {
+	background-color: rgb(190, 86, 40);
+}
+a.demobtn:active {
+	background-color: rgb(190, 86, 40);
+}
+table.chapter {
+	margin: 0px; padding: 0px 3px; font-size: 140%;
+}
+table.chapter td.prev {
+	text-align: left;
+}
+table.chapter td.next {
+	text-align: right;
+}
+div.chapter {
+	margin: 0px; padding: 0px; width: 100%; height: 20px; font-size: 140%;
+}
+div.chapter div.prev {
+	width: 40%; text-align: left; float: left;
+}
+div.chapter div.next {
+	width: 40%; text-align: right; float: right;
+}
+.blacknav {
+	text-align: center; color: white; padding-bottom: 2px; font-size: 10px; =
+font-weight: bold; border-top-color: rgb(134, 134, 134); =
+border-right-color: rgb(134, 134, 134); border-left-color: black; =
+border-top-width: 1px; border-right-width: 1px; border-left-width: 1px; =
+border-top-style: solid; border-right-style: solid; border-left-style: =
+solid; background-color: transparent;
+}
+span.color_h1 {
+	color: rgb(146, 185, 1);
+}
+span.left_h2 {
+	color: rgb(146, 185, 1);
+}
+span.new {
+	outline: rgb(152, 191, 33) solid 1px; border: 1px solid rgb(255, 255, =
+255); color: rgb(255, 255, 255); padding-right: 1px; padding-left: 1px; =
+font-weight: bold; float: right; background-color: rgb(152, 191, 33);
+}
+#rightcolumn table {
+	background-position: 0px -50px; border: 1px solid rgb(212, 212, 212); =
+width: 100%; color: rgb(0, 0, 0); font-size: 11px; margin-top: 0px; =
+margin-bottom: 5px; border-collapse: collapse; border-spacing: 0px; =
+background-image: url("/images/gradientfromtop.gif"); background-repeat: =
+repeat-x; background-color: rgb(255, 255, 255);
+}
+#rightcolumn th {
+	color: rgb(64, 64, 64); padding-top: 3px; padding-bottom: 4px;
+}
+#rightcolumn td {
+	text-align: center; color: rgb(0, 0, 0); padding-top: 3px; =
+padding-bottom: 4px; border-bottom-color: rgb(212, 212, 212); =
+border-bottom-width: 1px; border-bottom-style: solid;
+}
+div.toprect_txt {
+	margin: 0px; padding: 4px 0px 0px; border: 1px solid rgb(195, 195, =
+195); left: 0px; top: 0px; width: 225px; height: 84px; text-align: =
+center; color: rgb(96, 96, 96); font-size: 12px; position: absolute;
+}
+div.toprect_img {
+	margin: 0px; padding: 0px; left: 0px; top: 0px; width: 227px; height: =
+90px; text-align: center; color: rgb(96, 96, 96); font-size: 12px; =
+position: absolute;
+}
+#topnav {
+	background-position: bottom; margin: 5px 0px 10px; padding: 0px; =
+background-image: url("/images/topnav_bg.gif"); background-repeat: =
+repeat-x; background-color: rgb(238, 238, 238);
+}
+#footer {
+	margin: 0px; padding: 0px 20px 10px; text-align: center; color: =
+rgb(144, 144, 144); font-size: 90%;
+}
+.notsupported {
+	color: rgb(197, 128, 128);
+}
+.notsupported:hover {
+	color: rgb(197, 128, 128);
+}
+.notsupported:active {
+	color: rgb(197, 128, 128);
+}
+.notsupported:visited {
+	color: rgb(197, 128, 128);
+}
+.notsupported:link {
+	color: rgb(197, 128, 128);
+}
+#err_form {
+	padding: 10px 10px 0px; border: 1px solid rgb(212, 212, 212); width: =
+95%; color: rgb(0, 0, 0); margin-top: 10px; margin-right: auto; =
+margin-left: auto; display: none; position: relative; z-index: 1; =
+background-repeat: repeat-x; background-color: rgb(241, 241, 241);
+}
+#err_sent {
+	padding: 10px 10px 0px; border: 1px solid rgb(212, 212, 212); width: =
+95%; color: rgb(0, 0, 0); margin-top: 10px; margin-right: auto; =
+margin-left: auto; display: none; position: relative; z-index: 1; =
+background-repeat: repeat-x; background-color: rgb(241, 241, 241);
+}
+#err_form h2 {
+	margin-top: 0px;
+}
+#err_sent h2 {
+	margin-top: 0px;
+}
+#err_form label {
+	margin-bottom: 3px; display: block;
+}
+#err_form input {
+	padding: 4px; border: 1px solid gray; width: 590px; height: 16px; =
+display: block;
+}
+#err_form textarea {
+	padding: 4px; border: 1px solid gray; width: 590px; height: 100px; =
+display: block;
+}
+#err_form .submit input {
+	padding: 0px 0px 2px; border: 1px solid gray; width: 100px; height: =
+18px;
+}
+.err_close {
+	padding: 0px; top: 5px; width: 58px; right: 5px; text-decoration: =
+underline; position: absolute; cursor: pointer;
+}
+.expandingMenu {
+	width: 165px; overflow: hidden;
+}
+.expandingMenuHeader {
+	padding-left: 12px; margin-bottom: 2px; cursor: pointer;
+}
+.expandingMenuItem {
+	width: 145px; padding-left: 12px; margin-bottom: 3px;
+}
+.expandingMenuGroup {
+	border: 1px solid rgb(212, 212, 212); width: 160px; padding-top: 4px; =
+padding-bottom: 4px; margin-bottom: 4px; background-color: rgb(248, 248, =
+248);
+}
+.expandingMenuSelected {
+	background-position: 1px 3px; background-image: =
+url("/images/minus_arrow.gif"); background-repeat: no-repeat;
+}
+.expandingMenuNotSelected {
+	background-position: 1px 3px; background-image: =
+url("/images/plus_arrow.gif"); background-repeat: no-repeat;
+}
+
+------=_NextPart_000_0000_01CCC0DC.37A9BA30
+Content-Type: application/octet-stream
+Content-Transfer-Encoding: quoted-printable
+Content-Location: http://partner.googleadservices.com/gampad/google_service.js
+
+(function(){var f=3Dnull,k=3D!1;function =
+l(a){this.t=3D{};this.tick=3Dfunction(a,c,d){d=3Dd?d:(new =
+Date).getTime();this.t[a]=3D[d,c]};this.tick("start",f,a)}var m=3Dnew =
+l;window.GA_jstiming=3D{Timer:l,load:m};if(window.GA_jstiming){window.GA_=
+jstiming.d=3D{};window.GA_jstiming.i=3D1;var n=3Dfunction(a,b,c){var =
+d=3Da.t[b],e=3Da.t.start;if(d&&(e||c))return d=3Da.t[b][0],e=3Dvoid =
+0!=3Dc?c:e[0],d-e};window.GA_jstiming.report=3Dfunction(a,b,c){var =
+d=3D"";a.h&&(d+=3D"&"+a.h);var e=3Da.t,j=3De.start,s=3D[],o=3D[],h;for(h =
+in e)if("start"!=3Dh&&0!=3Dh.indexOf("_")){var =
+g=3De[h][1];g?e[g]&&o.push(h+"."+n(a,h,e[g][0])):j&&s.push(h+"."+n(a,h))}=
+delete e.start;if(b)for(var i in b)d+=3D"&"+i+"=3D"+b[i];var =
+a=3D[c?c:"http://csi.gstatic.com/csi","?v=3D3","&s=3D"+(window.GA_jstimin=
+g.sn||=0A=
+"gam")+"&action=3D",a.name,o.length?"&it=3D"+o.join(","):"","",d,"&rt=3D"=
+,s.join(",")].join(""),b=3Dnew =
+Image,p=3Dwindow.GA_jstiming.i++;window.GA_jstiming.d[p]=3Db;b.onload=3Db=
+.onerror=3Dfunction(){delete =
+window.GA_jstiming.d[p]};b.src=3Da;b=3Df;return a}};var =
+q=3Dthis,r=3Dfunction(a,b){var =
+c,d=3Db,e=3Da.split(".");c=3Dc||q;!(e[0]in =
+c)&&c.execScript&&c.execScript("var "+e[0]);for(var =
+j;e.length&&(j=3De.shift());)!e.length&&void =
+0!=3D=3Dd?c[j]=3Dd:c=3Dc[j]?c[j]:c[j]=3D{}},u=3Dfunction(a){var =
+b=3Dt;function =
+c(){}c.prototype=3Db.prototype;a.k=3Db.prototype;a.prototype=3Dnew =
+c};var =
+v=3D/^([\w-]+\.)*([\w-]{2,})(\:[0-9]+)?$/,w=3Dfunction(a,b){if(!a)return =
+b;var c=3Da.match(v);return c?c[0]:b};var =
+x,y=3D"false",z=3Dk,A=3Dx=3D"true"=3D=3Dy?!0:"false"=3D=3Dy?k:z;var =
+B=3Dfunction(){return w("","pubads.g.doubleclick.net")};var =
+D=3Dfunction(a){for(var =
+b=3DC,c=3D0,b=3D(""+b).replace(/^[\s\xa0]+|[\s\xa0]+$/g,"").split("."),a=3D=
+(""+a).replace(/^[\s\xa0]+|[\s\xa0]+$/g,"").split("."),d=3DMath.max(b.len=
+gth,a.length),e=3D0;0=3D=3Dc&&e<d;e++){var =
+j=3Db[e]||"",s=3Da[e]||"",o=3DRegExp("(\\d*)(\\D*)","g"),h=3DRegExp("(\\d=
+*)(\\D*)","g");do{var =
+g=3Do.exec(j)||["","",""],i=3Dh.exec(s)||["","",""];if(0=3D=3Dg[0].length=
+&&0=3D=3Di[0].length)break;var =
+c=3D0=3D=3Dg[1].length?0:parseInt(g[1],10),p=3D0=3D=3Di[1].length?0:parse=
+Int(i[1],10),c=3D(c<p?-1:c>p?1:0)||((0=3D=3Dg[2].length)<(0=3D=3Di[2].len=
+gth)?=0A=
+-1:(0=3D=3Dg[2].length)>(0=3D=3Di[2].length)?1:0)||(g[2]<i[2]?-1:g[2]>i[2=
+]?1:0)}while(0=3D=3Dc)}return c};var E,F,G,H,I=3Dfunction(){return =
+q.navigator?q.navigator.userAgent:f};H=3DG=3DF=3DE=3Dk;var =
+J;if(J=3DI()){var =
+aa=3Dq.navigator;E=3D0=3D=3DJ.indexOf("Opera");F=3D!E&&-1!=3DJ.indexOf("M=
+SIE");G=3D!E&&-1!=3DJ.indexOf("WebKit");H=3D!E&&!G&&"Gecko"=3D=3Daa.produ=
+ct}var ba=3DE,K=3DF,L=3DH,ca=3DG,M;=0A=
+a:{var N=3D"",O;if(ba&&q.opera)var =
+P=3Dq.opera.version,N=3D"function"=3D=3Dtypeof P?P():P;else =
+if(L?O=3D/rv\:([^\);]+)(\)|;)/:K?O=3D/MSIE\s+([^\);]+)(\)|;)/:ca&&(O=3D/W=
+ebKit\/(\S+)/),O)var Q=3DO.exec(I()),N=3DQ?Q[1]:"";if(K){var =
+R,S=3Dq.document;R=3DS?S.documentMode:void =
+0;if(R>parseFloat(N)){M=3D""+R;break a}}M=3DN}var =
+C=3DM,T=3D{},U=3D{},V=3Dfunction(){var a=3D9;return =
+U[a]||(U[a]=3DK&&document.documentMode&&document.documentMode>=3Da)};!K||=
+V();if(L||K)if((!K||!V())&&L){var =
+W=3D"1.9.1";T[W]||(T[W]=3D0<=3DD(W))}K&&(T["9"]||(T["9"]=3D0<=3DD("9")));=
+var da;da||w("","pagead2.googlesyndication.com");var =
+ea=3Dfunction(a,b){for(var c in =
+a)Object.prototype.hasOwnProperty.call(a,c)&&b.call(f,a[c],c,a)};var =
+X=3Dfunction(a){this.c=3D[];this.b=3D{};for(var =
+b=3D0,c=3Darguments.length;b<c;++b)this.b[arguments[b]]=3D""};X.prototype=
+.j=3Dfunction(a){return =
+this.b.hasOwnProperty(a)?this.b[a]:""};X.prototype.geil=3DX.prototype.j;v=
+ar fa=3Dfunction(a){var =
+b=3D[],c=3Dfunction(a){""!=3Da&&b.push(a)};ea(a.b,c);return =
+0<a.c.length&&0<b.length?a.c.join(",")+","+b.join(","):a.c.join(",")+b.jo=
+in(",")};function ga(a){var b=3D"adsense";if(a&&"string"=3D=3Dtypeof =
+a&&0<a.length)if(b=3D=3Df)a=3Df;else{var =
+c=3Dwindow.GS_googleServiceIds_[b];c=3D=3Df&&(c=3D"adsense"=3D=3Db?new =
+Y:new =
+Z,window.GS_googleServiceIds_[b]=3Dc);b:{for(b=3D0;b<c.a.length;b++)if(a=3D=
+=3Dc.a[b])break b;c.a[c.a.length]=3Da}a=3Dc}else a=3Df;return =
+a}r("GS_googleAddAdSenseService",ga);function ha(){for(var a in =
+window.GS_googleServiceIds_){var =
+b=3Dwindow.GS_googleServiceIds_[a];"function"!=3Dtypeof =
+b&&b.enable()}}r("GS_googleEnableAllServices",ha);=0A=
+function =
+ia(){window.GS_googleServiceIds_=3D{}}r("GS_googleResetAllServices",ia);f=
+unction ja(){var =
+a=3D"adsense",a=3Da=3D=3Df?f:window.GS_googleServiceIds_[a];return =
+a=3Da=3D=3Df?"":a.a.join()}r("GS_googleGetIdsForAdSenseService",ja);funct=
+ion ka(a){return $(a)}r("GS_googleFindService",ka);function la(){var =
+a=3D$("adsense");return =
+a?fa(a.g):""}r("GS_googleGetExpIdsForAdSense",la);function =
+t(a){this.f=3Da;this.a=3D[];this.g=3Dnew X}=0A=
+t.prototype.toString=3Dfunction(){for(var a=3D"["+this.f+" ids: =
+",b=3D0;b<this.a.length;b++)0<b&&(a+=3D","),a+=3Dthis.a[b];return =
+a+=3D"]"};var $=3Dfunction(a){return =
+a=3Da=3D=3Df?f:window.GS_googleServiceIds_[a]};function =
+Z(){t.call(this,"unknown")}u(Z);Z.prototype.enable=3Dfunction(){};functio=
+n Y(){t.call(this,"adsense");this.e=3Dk}u(Y);=0A=
+Y.prototype.enable=3Dfunction(){if(!this.e){var =
+a;a=3D(a=3Ddocument.URL)&&(0<a.indexOf("?google_debug")||0<a.indexOf("&go=
+ogle_debug"))?"google_ads_dbg.js":"google_ads.js";var =
+b=3D"http://"+w("","partner.googleadservices.com");A&&(b=3D"https://"+w("=
+","securepubads.g.doubleclick.net"));var =
+c=3D"",d;d=3DB();(d=3D"pubads.g.doubleclick.net"=3D=3Dd)||(c=3D"?prodhost=
+=3D"+B());a=3Db+"/gampad/"+a+c;b=3D"script";document.write("<"+b+' =
+src=3D"'+a+'"><\/script>');this.e=3D!0;if(window.GA_jstiming&&=0A=
+window.GA_jstiming.Timer)window.GA_jstiming.load.name=3D"load",window.GA_=
+jstiming.load.tick("start")}};window.GS_googleServiceIds_||(window.GS_goo=
+gleServiceIds_=3D{});})()=0A=
+
+------=_NextPart_000_0000_01CCC0DC.37A9BA30
+Content-Type: application/octet-stream
+Content-Transfer-Encoding: quoted-printable
+Content-Location: http://pagead2.googlesyndication.com/pagead/show_ads.js
+
+(function(){var g=3D!0,h=3Dnull,j=3D!1,k=3D(new Date).getTime();var =
+m=3Dthis,aa=3Dfunction(a,b){var c=3Da.split("."),e=3Dm;!(c[0]in =
+e)&&e.execScript&&e.execScript("var "+c[0]);for(var =
+d;c.length&&(d=3Dc.shift());)!c.length&&void =
+0!=3D=3Db?e[d]=3Db:e=3De[d]?e[d]:e[d]=3D{}},ba=3Dfunction(a,b,c){return =
+a.call.apply(a.bind,arguments)},ca=3Dfunction(a,b,c){if(!a)throw =
+Error();if(2<arguments.length){var =
+e=3DArray.prototype.slice.call(arguments,2);return function(){var =
+c=3DArray.prototype.slice.call(arguments);Array.prototype.unshift.apply(c=
+,e);return a.apply(b,c)}}return function(){return a.apply(b,=0A=
+arguments)}},n=3Dfunction(a,b,c){n=3DFunction.prototype.bind&&-1!=3DFunct=
+ion.prototype.bind.toString().indexOf("native code")?ba:ca;return =
+n.apply(h,arguments)};var =
+da=3D/&/g,ea=3D/</g,ga=3D/>/g,ha=3D/\"/g,o=3D{"\x00":"\\0","\u0008":"\\b"=
+,"\u000c":"\\f","\n":"\\n","\r":"\\r","\t":"\\t","\u000b":"\\x0B",'"':'\\=
+"',"\\":"\\\\"},r=3D{"'":"\\'"},ja=3Dfunction(a){for(var =
+b=3D0,c=3D(""+ia).replace(/^[\s\xa0]+|[\s\xa0]+$/g,"").split("."),a=3D(""=
++a).replace(/^[\s\xa0]+|[\s\xa0]+$/g,"").split("."),e=3DMath.max(c.length=
+,a.length),d=3D0;0=3D=3Db&&d<e;d++){var =
+f=3Dc[d]||"",qa=3Da[d]||"",v=3DRegExp("(\\d*)(\\D*)","g"),p=3DRegExp("(\\=
+d*)(\\D*)","g");do{var =
+i=3Dv.exec(f)||["","",""],l=3Dp.exec(qa)||["","",""];=0A=
+if(0=3D=3Di[0].length&&0=3D=3Dl[0].length)break;b=3D((0=3D=3Di[1].length?=
+0:parseInt(i[1],10))<(0=3D=3Dl[1].length?0:parseInt(l[1],10))?-1:(0=3D=3D=
+i[1].length?0:parseInt(i[1],10))>(0=3D=3Dl[1].length?0:parseInt(l[1],10))=
+?1:0)||((0=3D=3Di[2].length)<(0=3D=3Dl[2].length)?-1:(0=3D=3Di[2].length)=
+>(0=3D=3Dl[2].length)?1:0)||(i[2]<l[2]?-1:i[2]>l[2]?1:0)}while(0=3D=3Db)}=
+return b};var ka=3Ddocument,t=3Dwindow;var =
+u=3Dfunction(a){return"true"=3D=3Da?g:"false"=3D=3Da?j:j},la=3D/^([\w-]+\=
+.)*([\w-]{2,})(\:[0-9]+)?$/,w=3Dfunction(a){return!a?"pagead2.googlesyndi=
+cation.com":(a=3Da.match(la))?a[0]:"pagead2.googlesyndication.com"};var =
+x=3DparseFloat("0"),ma=3DisNaN(x)||1<x||0>x?0:x;var =
+na=3Du("true"),oa=3Du("false"),pa=3Du("false"),ra=3Du("false");var =
+sa=3Dfunction(){return w("")};var z,A,B,C,ta=3Dfunction(){return =
+m.navigator?m.navigator.userAgent:h};C=3DB=3DA=3Dz=3Dj;var =
+E;if(E=3Dta()){var =
+ua=3Dm.navigator;z=3D0=3D=3DE.indexOf("Opera");A=3D!z&&-1!=3DE.indexOf("M=
+SIE");B=3D!z&&-1!=3DE.indexOf("WebKit");C=3D!z&&!B&&"Gecko"=3D=3Dua.produ=
+ct}var F=3DA,G=3DC,va=3DB,H;=0A=
+a:{var I=3D"",J;if(z&&m.opera)var =
+K=3Dm.opera.version,I=3D"function"=3D=3Dtypeof K?K():K;else =
+if(G?J=3D/rv\:([^\);]+)(\)|;)/:F?J=3D/MSIE\s+([^\);]+)(\)|;)/:va&&(J=3D/W=
+ebKit\/(\S+)/),J)var wa=3DJ.exec(ta()),I=3Dwa?wa[1]:"";if(F){var =
+L,xa=3Dm.document;L=3Dxa?xa.documentMode:void =
+0;if(L>parseFloat(I)){H=3D""+L;break a}}H=3DI}var =
+ia=3DH,M=3D{},ya=3D{},za=3Dfunction(){return =
+ya[9]||(ya[9]=3DF&&document.documentMode&&9<=3Ddocument.documentMode)};!F=
+||za();if(G||F)if(!F||!za())G&&(M["1.9.1"]||(M["1.9.1"]=3D0<=3Dja("1.9.1"=
+)));F&&(M["9"]||(M["9"]=3D0<=3Dja("9")));w("");var =
+N=3Dfunction(a){return!!a&&"function"=3D=3Dtypeof =
+a&&!!a.call},Aa=3Dfunction(a,b){if(!(2>arguments.length))for(var =
+c=3D1,e=3Darguments.length;c<e;++c)a.push(arguments[c])};function =
+O(a){return"function"=3D=3Dtypeof =
+encodeURIComponent?encodeURIComponent(a):escape(a)}function =
+Ba(a,b){a.addEventListener?a.addEventListener("load",b,j):a.attachEvent&&=
+a.attachEvent("onload",b)};aa("google_protectAndRun",function(a,b,c){a=3D=
+n(b,m,a);b=3Dwindow.onerror;window.onerror=3Da;try{c()}catch(e){var =
+c=3De.toString(),d=3D"";e.fileName&&(d=3De.fileName);var =
+f=3D-1;if(e.lineNumber)f=3De.lineNumber;if(!a(c,d,f))throw =
+e;}window.onerror=3Db});=0A=
+aa("google_handleError",function(a,b,c,e){if(0.01>Math.random())a=3D["htt=
+p://",sa(),"/pagead/gen_204","?id=3Djserror","&jscb=3D",na?1:0,"&jscd=3D"=
+,oa?1:0,"&context=3D",O(a),"&msg=3D",O(b),"&file=3D",O(c),"&line=3D",O(e.=
+toString()),"&url=3D",O(ka.URL.substring(0,512)),"&ref=3D",O(ka.referrer.=
+substring(0,512))],a.push(["&client=3D",O(t.google_ad_client),"&format=3D=
+",O(t.google_ad_format),"&slotname=3D",O(t.google_ad_slot),"&output=3D",O=
+(t.google_ad_output),"&ad_type=3D",O(t.google_ad_type)].join("")),a=3Da.j=
+oin(""),t.google_image_requests||=0A=
+(t.google_image_requests=3D[]),b=3Dt.document.createElement("img"),b.src=3D=
+a,t.google_image_requests.push(b);return!pa});var =
+Ca=3Dfunction(a){try{var =
+b=3Da.google_test;a.google_test=3D!b;if(a.google_test=3D=3D=3D!b)return =
+a.google_test=3Db,g}catch(c){}return =
+j},Da=3Dh,Ea=3Dfunction(){if(!Da){for(var =
+a=3Dwindow;a!=3Da.parent&&Ca(a.parent);)a=3Da.parent;Da=3Da}return =
+Da};var =
+P,Q=3Dfunction(a){this.c=3D[];this.a=3Da||window;this.b=3D0;this.d=3Dh},F=
+a=3Dfunction(a,b){this.l=3Da;this.i=3Db};Q.prototype.n=3Dfunction(a,b){0=3D=
+=3Dthis.b&&0=3D=3Dthis.c.length&&(!b||b=3D=3Dwindow)?(this.b=3D2,this.g(n=
+ew =
+Fa(a,window))):this.h(a,b)};Q.prototype.h=3Dfunction(a,b){this.c.push(new=
+ =
+Fa(a,b||this.a));Ga(this)};Q.prototype.o=3Dfunction(a){this.b=3D1;if(a)th=
+is.d=3Dthis.a.setTimeout(n(this.f,this),a)};Q.prototype.f=3Dfunction(){if=
+(1=3D=3Dthis.b){if(this.d!=3Dh)this.a.clearTimeout(this.d),this.d=3Dh;thi=
+s.b=3D0}Ga(this)};=0A=
+Q.prototype.p=3Dfunction(){return =
+g};Q.prototype.nq=3DQ.prototype.n;Q.prototype.nqa=3DQ.prototype.h;Q.proto=
+type.al=3DQ.prototype.o;Q.prototype.rl=3DQ.prototype.f;Q.prototype.sz=3DQ=
+.prototype.p;var =
+Ga=3Dfunction(a){a.a.setTimeout(n(a.m,a),0)};Q.prototype.m=3Dfunction(){i=
+f(0=3D=3Dthis.b&&this.c.length){var =
+a=3Dthis.c.shift();this.b=3D2;a.i.setTimeout(n(this.g,this,a),0);Ga(this)=
+}};Q.prototype.g=3Dfunction(a){this.b=3D0;a.l()};=0A=
+var Ha=3Dfunction(a){try{return a.sz()}catch(b){return =
+j}},Ja=3Dfunction(a){return!!a&&("object"=3D=3Dtypeof =
+a||"function"=3D=3Dtypeof =
+a)&&Ha(a)&&N(a.nq)&&N(a.nqa)&&N(a.al)&&N(a.rl)},Ka=3Dfunction(){if(P&&Ha(=
+P))return P;var a=3DEa(),b=3Da.google_jobrunner;return =
+Ja(b)?P=3Db:a.google_jobrunner=3DP=3Dnew =
+Q(a)},La=3Dfunction(a,b){Ka().nq(a,b)},Ma=3Dfunction(a,b){Ka().nqa(a,b)};=
+var Na=3D/MSIE =
+[2-7]|PlayStation|Gecko\/20090226/i,Oa=3D/Android|Opera/,Pa=3Dfunction(){=
+var =
+a=3DS,b=3DT.google_ad_width,c=3DT.google_ad_height,e=3D["<iframe"],d;for(=
+d in =
+a)a.hasOwnProperty(d)&&Aa(e,d+"=3D"+a[d]);e.push('style=3D"left:0;positio=
+n:absolute;top:0;"');e.push("></iframe>");b=3D"border:none;height:"+c+"px=
+;margin:0;padding:0;position:relative;visibility:visible;width:"+b+"px";r=
+eturn['<ins style=3D"display:inline-table;',b,'"><ins =
+id=3D"',a.id+"_anchor",'" style=3D"display:block;',b,'">',e.join(" =
+"),"</ins></ins>"].join("")};var =
+Qa=3Dfunction(){},Sa=3Dfunction(a,b,c){switch(typeof b){case =
+"string":Ra(b,c);break;case =
+"number":c.push(isFinite(b)&&!isNaN(b)?b:"null");break;case =
+"boolean":c.push(b);break;case "undefined":c.push("null");break;case =
+"object":if(b=3D=3Dh){c.push("null");break}if(b instanceof Array){var =
+e=3Db.length;c.push("[");for(var =
+d=3D"",f=3D0;f<e;f++)c.push(d),Sa(a,b[f],c),d=3D",";c.push("]");break}c.p=
+ush("{");e=3D"";for(d in =
+b)b.hasOwnProperty(d)&&(f=3Db[d],"function"!=3Dtypeof =
+f&&(c.push(e),Ra(d,c),c.push(":"),Sa(a,f,c),e=3D=0A=
+","));c.push("}");break;case "function":break;default:throw =
+Error("Unknown type: "+typeof =
+b);}},Ta=3D{'"':'\\"',"\\":"\\\\","/":"\\/","\u0008":"\\b","\u000c":"\\f"=
+,"\n":"\\n","\r":"\\r","\t":"\\t","\u000b":"\\u000b"},Ua=3D/\uffff/.test(=
+"\uffff")?/[\\\"\x00-\x1f\x7f-\uffff]/g:/[\\\"\x00-\x1f\x7f-\xff]/g,Ra=3D=
+function(a,b){b.push('"');b.push(a.replace(Ua,function(a){if(a in =
+Ta)return Ta[a];var =
+b=3Da.charCodeAt(0),d=3D"\\u";16>b?d+=3D"000":256>b?d+=3D"00":4096>b&&(d+=
+=3D"0");return Ta[a]=3Dd+b.toString(16)}));b.push('"')};var =
+U=3D"google_ad_block,google_ad_channel,google_ad_client,google_ad_format,=
+google_ad_height,google_ad_host,google_ad_host_channel,google_ad_host_tie=
+r_id,google_ad_output,google_ad_override,google_ad_region,google_ad_secti=
+on,google_ad_slot,google_ad_type,google_ad_width,google_adtest,google_all=
+ow_expandable_ads,google_alternate_ad_url,google_alternate_color,google_a=
+nalytics_domain_name,google_analytics_uacct,google_bid,google_city,google=
+_color_bg,google_color_border,google_color_line,google_color_link,google_=
+color_text,google_color_url,google_container_id,google_contents,google_co=
+untry,google_cpm,google_ctr_threshold,google_cust_age,google_cust_ch,goog=
+le_cust_gender,google_cust_id,google_cust_interests,google_cust_job,googl=
+e_cust_l,google_cust_lh,google_cust_u_url,google_disable_video_autoplay,g=
+oogle_ed,google_eids,google_enable_ose,google_encoding,google_font_face,g=
+oogle_font_size,google_frame_id,google_gl,google_hints,google_image_size,=
+google_kw,google_kw_type,google_language,google_max_num_ads,google_max_ra=
+dlink_len,google_num_radlinks,google_num_radlinks_per_unit,google_num_slo=
+ts_to_rotate,google_only_ads_with_video,google_only_pyv_ads,google_only_u=
+serchoice_ads,google_override_format,google_page_url,google_previous_watc=
+h,google_previous_searches,google_referrer_url,google_region,google_reuse=
+_colors,google_rl_dest_url,google_rl_filtering,google_rl_mode,google_rt,g=
+oogle_safe,google_scs,google_skip,google_tag_info,google_targeting,google=
+_tfs,google_tl,google_ui_features,google_ui_version,google_video_doc_id,g=
+oogle_video_product_type,google_with_pyv_ads".split(",");var =
+V=3Dfunction(a){this.a=3Da;a.google_iframe_oncopy||(a.google_iframe_oncop=
+y=3D{handlers:{},log:[],img:0.01>Math.random()?[]:h});this.e=3Da.google_i=
+frame_oncopy;a.setTimeout(n(this.k,this),3E4)},Va;var W=3D"var =
+i=3Dthis.id,s=3Dwindow.google_iframe_oncopy,H=3Ds&&s.handlers,h=3DH&&H[i]=
+,w=3Dthis.contentWindow,d;try{d=3Dw.document}catch(e){}if(h&&d&&(!d.body|=
+|!d.body.firstChild)){if(h.call){i+=3D'.call';setTimeout(h,0)}else =
+if(h.match){i+=3D'.nav';w.location.replace(h)}s.log&&s.log.push(i)}";=0A=
+/[&<>\"]/.test(W)&&(-1!=3DW.indexOf("&")&&(W=3DW.replace(da,"&amp;")),-1!=
+=3DW.indexOf("<")&&(W=3DW.replace(ea,"&lt;")),-1!=3DW.indexOf(">")&&(W=3D=
+W.replace(ga,"&gt;")),-1!=3DW.indexOf('"')&&(W=3DW.replace(ha,"&quot;")))=
+;Va=3DW;V.prototype.set=3Dfunction(a,b){this.e.handlers[a]=3Db;this.a.add=
+EventListener&&this.a.addEventListener("load",n(this.j,this,a),j)};V.prot=
+otype.j=3Dfunction(a){var =
+a=3Dthis.a.document.getElementById(a),b=3Da.contentWindow.document;if(a.o=
+nload&&b&&(!b.body||!b.body.firstChild))a.onload()};=0A=
+V.prototype.k=3Dfunction(){if(this.e.img){var =
+a=3Dthis.e.log,b=3Dthis.a.document;if(a.length)b=3D["http://",sa(),"/page=
+ad/gen_204?id=3Diframecopy&log=3D",O(a.join("-")),"&url=3D",O(b.URL.subst=
+ring(0,512)),"&ref=3D",O(b.referrer.substring(0,512))].join(""),a.length=3D=
+0,a=3Dnew Image,this.e.img.push(a),a.src=3Db}};var Wa=3Dfunction(){var =
+a=3D"script",b=3Dw(""),c=3D"",c=3Dra?"https":"http";return["<",a,' =
+src=3D"',[c,"://",b,"/pagead/js/r20111207/r20110914/show_ads_impl.js"].jo=
+in(""),'"></',a,">"].join("")},Xa=3Dfunction(a,b,c,e){return =
+function(){var d=3Dj;e&&Ka().al(3E4);try{var =
+f;try{f=3D!!a.document.getElementById(b).contentWindow.document}catch(qa)=
+{f=3Dj}if(f){var v=3D=0A=
+a.document.getElementById(b).contentWindow,p=3Dv.document;if(!p.body||!p.=
+body.firstChild)p.open(),v.google_async_iframe_close=3Dg,p.write(c)}else{=
+var =
+i=3Da.document.getElementById(b).contentWindow,l;f=3Dc;f=3D""+f;if(f.quot=
+e)l=3Df.quote();else{v=3D['"'];for(p=3D0;p<f.length;p++){var =
+R=3Df.charAt(p),Ia=3DR.charCodeAt(0),ob=3Dv,pb=3Dp+1,fa;if(!(fa=3Do[R])){=
+var D;if(31<Ia&&127>Ia)D=3DR;else{var s=3DR;if(s in r)D=3Dr[s];else if(s =
+in o)D=3Dr[s]=3Do[s];else{var =
+q=3Ds,y=3Ds.charCodeAt(0);if(31<y&&127>y)q=3Ds;else{if(256>y){if(q=3D"\\x=
+",16>y||256<=0A=
+y)q+=3D"0"}else =
+q=3D"\\u",4096>y&&(q+=3D"0");q+=3Dy.toString(16).toUpperCase()}D=3Dr[s]=3D=
+q}}fa=3DD}ob[pb]=3Dfa}v.push('"');l=3Dv.join("")}i.location.replace("java=
+script:"+l)}d=3Dg}catch(wb){i=3DEa().google_jobrunner,Ja(i)&&i.rl()}d&&(n=
+ew =
+V(a)).set(b,Xa(a,b,c,j))}};window.google_loader_used=3Dg;(function(a){if(=
+!("google_onload_fired"in =
+a))a.google_onload_fired=3Dj,Ba(a,function(){a.google_onload_fired=3Dg})}=
+)(window);if(!window.google_loader_experiment){var Ya;a:{var =
+Za=3D["async_bad_black","block_bad_black"];if(!(1.0E-4>Math.random())){va=
+r =
+$a=3DMath.random();if($a<ma){Ya=3DZa[Math.floor($a/ma*Za.length)];break =
+a}}Ya=3Dh}window.google_loader_experiment=3DYa||""||"launch"}var ab;=0A=
+a:{try{if(window.google_enable_async!=3D=3Dg&&"blockodd"=3D=3Dwindow.goog=
+le_loader_experiment&&1=3D=3Dwindow.top.location.hostname.length%2){ab=3D=
+j;break a}}catch(bb){}ab=3Dg}var cb;if(cb=3Dab){var =
+db;if(window.google_enable_async=3D=3D=3Dj)db=3D0;else{var =
+eb=3Dnavigator.userAgent,fb=3Dwindow.google_loader_experiment;db=3D(Na.te=
+st(eb)?j:Oa.test(eb)?"async_bad_black"=3D=3Dfb:g)&&!window.google_contain=
+er_id&&(!window.google_ad_output||"html"=3D=3Dwindow.google_ad_output)}cb=
+=3Ddb}=0A=
+if(cb){var =
+gb=3Dwindow;gb.google_unique_id?++gb.google_unique_id:gb.google_unique_id=
+=3D1;var =
+X=3Dwindow;if(!X.google_slot_list||!X.google_slot_list.push)X.google_slot=
+_list=3D[];X.google_slot_list.push([X.google_ad_slot||"",X.google_ad_form=
+at||"",X.google_ad_width||"",X.google_ad_height||""].join("."));for(var =
+Y=3Dwindow,_script$$inline_107=3D"script",Z,T=3DY,S=3D{allowtransparency:=
+'"true"',frameborder:'"0"',height:'"'+Y.google_ad_height+'"',hspace:'"0"'=
+,marginwidth:'"0"',marginheight:'"0"',onload:'"'+Va+'"',scrolling:'"no"',=0A=
+vspace:'"0"',width:'"'+Y.google_ad_width+'"'},hb=3DT.document,$=3DS.id,ib=
+=3D0;!$||T.document.getElementById($);)$=3D"aswift_"+ib++;S.id=3D$;S.name=
+=3D$;hb.write(Pa());Z=3D$;var =
+jb;Y.google_page_url&&(Y.google_page_url=3D""+Y.google_page_url);for(var =
+kb=3D[],lb=3D0,mb=3DU.length;lb<mb;lb++){var =
+nb=3DU[lb];if(Y[nb]!=3Dh){var qb;try{var rb=3D[];Sa(new =
+Qa,Y[nb],rb);qb=3Drb.join("")}catch(sb){}qb&&Aa(kb,nb,"=3D",qb,";")}}jb=3D=
+kb.join("");for(var tb=3D0,ub=3DU.length;tb<ub;tb++)Y[U[tb]]=3Dh;var =
+vb=3D(new Date).getTime(),xb=3Dwindow.google_loader_experiment,=0A=
+yb=3D["<!doctype =
+html><html><body><",_script$$inline_107,">",jb,"google_show_ads_impl=3Dtr=
+ue;google_unique_id=3D",Y.google_unique_id,';google_async_iframe_id=3D"',=
+Z,'";google_start_time=3D',k,";",xb?'google_loader_experiment=3D"'+xb+'";=
+':"","google_bpp=3D",vb>k?vb-k:1,";</",_script$$inline_107,">",Wa(),"</bo=
+dy></html>"].join("");(Y.document.getElementById(Z)?La:Ma)(Xa(Y,Z,yb,g))}=
+else window.q=3Dk,document.write(Wa());})();=0A=
+
+------=_NextPart_000_0000_01CCC0DC.37A9BA30
+Content-Type: application/octet-stream
+Content-Transfer-Encoding: quoted-printable
+Content-Location: http://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit
+
+(function(){var =
+d=3Dwindow,e=3Ddocument,f=3D".",g=3D"UTF-8",h=3D"complete",i=3D"head",j=3D=
+"link",k=3D"script",l=3D"stylesheet",m=3D"text/css",n=3D"text/javascript"=
+;Math.floor(2147483648*Math.random()).toString(36);function o(b){var =
+a=3De.getElementsByTagName(i)[0];a||(a=3De.body.parentNode.appendChild(e.=
+createElement(i)));a.appendChild(b)}function _loadJs(b){var =
+a=3De.createElement(k);a.type=3Dn;a.charset=3Dg;a.src=3Db;o(a)}function =
+_loadCss(b){var =
+a=3De.createElement(j);a.type=3Dm;a.rel=3Dl;a.charset=3Dg;a.href=3Db;o(a)=
+}function _isNS(b){for(var =
+b=3Db.split(f),a=3Dd,c=3D0;c<b.length;++c)if(!(a=3Da[b[c]]))return!1;retu=
+rn!0}function _setupNS(b){for(var =
+b=3Db.split(f),a=3Dd,c=3D0;c<b.length;++c)a=3Da[b[c]]||(a[b[c]]=3D{});ret=
+urn a}=0A=
+d.addEventListener&&"undefined"=3D=3Dtypeof =
+e.readyState&&d.addEventListener("DOMContentLoaded",function(){e.readySta=
+te=3Dh},!1);=0A=
+if (_isNS('google.translate.Element')){return}var =
+c=3D_setupNS('google.translate._const');c._cl=3D'en';c._cuc=3D'googleTran=
+slateElementInit';c._cac=3D'';c._cam=3D'';var =
+h=3D'translate.googleapis.com';var =
+b=3D(window.location.protocol=3D=3D'https:'?'https://':'http://')+h;c._pa=
+h=3Dh;c._pbi=3Db+'/translate_static/img/te_bk.gif';c._pci=3Db+'/translate=
+_static/img/te_ctrl3.gif';c._phf=3Dh+'/translate_static/js/element/hrs.sw=
+f';c._pli=3Db+'/translate_static/img/loading.gif';c._plla=3Dh+'/translate=
+_a/l';c._pmi=3Db+'/translate_static/img/mini_google.png';c._ps=3Db+'/tran=
+slate_static/css/translateelement.css';c._puh=3D'translate.google.com';_l=
+oadCss(c._ps);_loadJs(b+'/translate_static/js/element/main.js');})();
+------=_NextPart_000_0000_01CCC0DC.37A9BA30--

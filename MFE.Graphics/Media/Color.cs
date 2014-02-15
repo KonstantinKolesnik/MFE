@@ -67,6 +67,7 @@ namespace MFE.Graphics.Media
         Purple = 0x800080,
         Red = 0x0000FF,
         White = 0xFFFFFF,
+        WhiteSmoke = 0xF5F5F5,
         Yellow = 0x00FFFF,
         YellowGreen = 0x32CD9A
     }
