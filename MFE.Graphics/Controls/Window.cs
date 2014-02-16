@@ -1,6 +1,6 @@
 using System.Threading;
 using MFE.Graphics.Media;
-using MFE.LCD;
+//using MFE.LCD;
 using Microsoft.SPOT;
 
 namespace MFE.Graphics.Controls
@@ -37,10 +37,10 @@ namespace MFE.Graphics.Controls
         #endregion
 
         #region Constructors
-        public Window()
-            : this(0, 0, LCDManager.ScreenWidth, LCDManager.ScreenHeight)
-        {
-        }
+        //public Window()
+        //    : this(0, 0, LCDManager.ScreenWidth, LCDManager.ScreenHeight)
+        //{
+        //}
         public Window(int x, int y, int width, int height)
             : base(x, y, width, height)
         {

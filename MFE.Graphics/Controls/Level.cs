@@ -119,7 +119,7 @@ namespace MFE.Graphics.Controls
         }
         #endregion
 
-        public override void OnRender(DrawingContext dc)
+        protected override void OnRender(DrawingContext dc)
         {
             if (Orientation == Orientation.Horizontal)
             {

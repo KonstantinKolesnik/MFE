@@ -19,11 +19,11 @@ namespace MFE.Graphics.Controls
                 {
                     ignore = true;
                     if (selectedIndex != -1)
-                        ((RadioButton)children[selectedIndex]).Checked = false;
+                        ((RadioButton)children[selectedIndex]).IsChecked = false;
 
                     selectedIndex = value;
 
-                    ((RadioButton)children[selectedIndex]).Checked = true;
+                    ((RadioButton)children[selectedIndex]).IsChecked = true;
                     ignore = false;
 
                     OnSelectionChanged(EventArgs.Empty);
@@ -54,7 +54,7 @@ namespace MFE.Graphics.Controls
             if (rb != null && !Children.Contains(rb))
             {
                 int idx = Children.Add(rb);
-                if (rb.Checked)
+                if (rb.IsChecked)
                     SelectedIndex = idx;
                 rb.CheckedChanged += new EventHandler(RadioButton_CheckedChanged);
             }
@@ -64,7 +64,7 @@ namespace MFE.Graphics.Controls
             if (rb != null && Children.Contains(rb))
             {
                 Children.Remove(rb);
-                if (rb.Checked)
+                if (rb.IsChecked)
                     selectedIndex = -1;
             }
         }

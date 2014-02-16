@@ -1,5 +1,5 @@
+using MFE.Core;
 using MFE.Graphics.Media;
-using MFE.Utilities;
 using Microsoft.SPOT;
 
 namespace MFE.Graphics.Controls
@@ -136,12 +136,12 @@ namespace MFE.Graphics.Controls
         }
         #endregion
 
-        public override void OnRender(DrawingContext dc)
+        protected override void OnRender(DrawingContext dc)
         {
             if (background != null)
                 dc.DrawRectangle(background, null, 0, 0, Width, Height);
 
-            if (font != null && !Utils.IsStringNullOrEmpty(text))
+            if (font != null && !Utils.StringIsNullOrEmpty(text))
             {
                 string s = text; // this is important to take a copy!!! don't change!!!
                 dc.DrawText(ref s, font, foreColor, 0, textOffsetY, Width, wordWrap ? Height : font.Height, alignment, trimming, wordWrap);
@@ -152,7 +152,7 @@ namespace MFE.Graphics.Controls
         private void Measure()
         {
             int w = 0, h = 0;
-            if (font != null && !Utils.IsStringNullOrEmpty(text))
+            if (font != null && !Utils.StringIsNullOrEmpty(text))
                 font.ComputeExtent(text, out w, out h);
 
             switch (valignment)

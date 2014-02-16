@@ -14,7 +14,7 @@ namespace MFE.Graphics.Controls
         #endregion
 
         #region Properties
-        public bool Checked
+        public bool IsChecked
         {
             get { return isChecked; }
             set
@@ -84,11 +84,11 @@ namespace MFE.Graphics.Controls
             border = new Pen(Color.Gray, 1);
             backgroundUnchecked = new SolidColorBrush(Color.White);
 
-            Checked = isChecked;
+            IsChecked = isChecked;
         }
         #endregion
 
-        public override void OnRender(DrawingContext dc)
+        protected override void OnRender(DrawingContext dc)
         {
             if (isChecked)
             {
@@ -112,9 +112,9 @@ namespace MFE.Graphics.Controls
         #region Event handlers
         protected override void OnTouchUp(TouchEventArgs e)
         {
-            if (Enabled)
+            if (IsEnabled)
             {
-                Checked = !Checked;
+                IsChecked = !IsChecked;
                 OnCheckedChanged(EventArgs.Empty);
             }
         }

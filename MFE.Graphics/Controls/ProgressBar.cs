@@ -1,4 +1,3 @@
-using MFE.Graphics.Geometry;
 using MFE.Graphics.Media;
 
 namespace MFE.Graphics.Controls
@@ -96,7 +95,7 @@ namespace MFE.Graphics.Controls
         }
         #endregion
 
-        public override void OnRender(DrawingContext dc)
+        protected override void OnRender(DrawingContext dc)
         {
             if (background != null)
                 dc.DrawRectangle(background, null, 0, 0, Width, Height);

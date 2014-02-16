@@ -1,5 +1,5 @@
-using System;
 using MFE.Graphics.Geometry;
+using System;
 
 namespace MFE.Graphics.Touching
 {

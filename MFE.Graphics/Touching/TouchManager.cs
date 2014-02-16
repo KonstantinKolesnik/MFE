@@ -1,4 +1,4 @@
-using MFE.Device;
+using MFE.Core;
 using Microsoft.SPOT;
 using Microsoft.SPOT.Touch;
 
@@ -96,7 +96,7 @@ namespace MFE.Graphics.Touching
                 TouchCollectorConfiguration.CollectionMode = CollectionMode.GestureOnly;
                 TouchCollectorConfiguration.CollectionMethod = CollectionMethod.Native;
                 TouchCollectorConfiguration.SamplingFrequency = 50; // 50...200; default 100; best 50; worse 200;
-                if (!DeviceManager.IsEmulator)
+                if (!Utils.IsEmulator)
                 {
                     TouchCollectorConfiguration.TouchMoveFrequency = 20;// ... // in ms; default 50;
                 }

@@ -1,6 +1,6 @@
-using System;
 using MFE.Graphics.Geometry;
 using Microsoft.SPOT.Touch;
+using System;
 
 namespace MFE.Graphics.Touching
 {

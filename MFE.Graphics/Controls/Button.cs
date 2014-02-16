@@ -138,7 +138,7 @@ namespace MFE.Graphics.Controls
         }
         #endregion
 
-        public override void OnRender(DrawingContext dc)
+        protected override void OnRender(DrawingContext dc)
         {
             #region Background
             int b = border != null ? 1 : 0;

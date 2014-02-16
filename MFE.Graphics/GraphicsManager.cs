@@ -1,18 +1,17 @@
-using System;
 using MFE.Graphics.Controls;
 using MFE.Graphics.Geometry;
 using MFE.Graphics.Media;
 using MFE.Graphics.Touching;
-//using MFE.LCD;
 using Microsoft.SPOT;
+using System;
 
 namespace MFE.Graphics
 {
     public static class GraphicsManager
     {
         #region Fields
-        private static Bitmap screen;
-        //internal static Desktop Desktop;
+        private static Bitmap bitmap;
+        internal static Desktop Desktop;
         //internal static Window modalWindow = null;
         private static Control content = null;
 
@@ -22,7 +21,6 @@ namespace MFE.Graphics
         //var lastTouchTarget = null;
         //var touchRepeatCount = 0;
         //var lastDownTarget = null;
-
 
         public static DateTime dt0;
         public static TimeSpan ts;
@@ -40,7 +38,6 @@ namespace MFE.Graphics
                 if (content != null) {
                     //content.Canvas = canvas;
                     //content.GraphicsManager = me;
-                    //content.processTask = processTask;
 
                     //content.GetScreenArea = function () {
                     //    var a = content.GetArea();
@@ -51,14 +48,12 @@ namespace MFE.Graphics
             }
         }
 
+        public static event RenderEventHandler OnRender;
+
         #region Public methods
-        public static void Initialize()
+        public static void Initialize(int width, int height)
         {
-            //if (!LCDManager.IsScreenAvailable)
-            //    throw new Exception("No LCD screen available!");
-
             //mouseManager = new MouseManager(canvas);
-
             //mouseManager.OnMouseDblClick = InterceptMouseDblClick;
             //mouseManager.OnMouseDown = InterceptMouseDown;
             //mouseManager.OnMouseUp = InterceptMouseUp;
@@ -66,16 +61,17 @@ namespace MFE.Graphics
             //mouseManager.OnMouseOut = InterceptMouseOut;
 
 
-            //TouchManager.TouchDown += new TouchEventHandler(TouchManager_TouchDown);
-            //TouchManager.TouchMove += new TouchEventHandler(TouchManager_TouchMove);
-            //TouchManager.TouchUp += new TouchEventHandler(TouchManager_TouchUp);
-            //TouchManager.TouchGestureStarted += new TouchGestureEventHandler(TouchManager_TouchGestureStarted);
-            //TouchManager.TouchGestureChanged += new TouchGestureEventHandler(TouchManager_TouchGestureChanged);
-            //TouchManager.TouchGestureEnded += new TouchGestureEventHandler(TouchManager_TouchGestureEnded);
-            //TouchManager.Initialize();
+            TouchManager.TouchDown += new TouchEventHandler(TouchManager_TouchDown);
+            TouchManager.TouchMove += new TouchEventHandler(TouchManager_TouchMove);
+            TouchManager.TouchUp += new TouchEventHandler(TouchManager_TouchUp);
+            TouchManager.TouchGestureStarted += new TouchGestureEventHandler(TouchManager_TouchGestureStarted);
+            TouchManager.TouchGestureChanged += new TouchGestureEventHandler(TouchManager_TouchGestureChanged);
+            TouchManager.TouchGestureEnded += new TouchGestureEventHandler(TouchManager_TouchGestureEnded);
+            TouchManager.Initialize();
 
-            //screen = new Bitmap(LCDManager.ScreenWidth, LCDManager.ScreenHeight);
-            //Desktop = new Desktop();
+            bitmap = new Bitmap(width, height);
+
+            Desktop = new Desktop(width, height);
             //Desktop.Invalidate();
 
             //if (CalibrationManager.IsCalibrated)
@@ -84,42 +80,42 @@ namespace MFE.Graphics
         #endregion
 
         #region Touch event handlers
-        //private static void TouchManager_TouchDown(object sender, TouchEventArgs e)
-        //{
-        //    Control touchTarget = GetTouchTarget(e.Point);
-        //    if (touchTarget != null)
-        //        touchTarget.RaiseTouchDownEvent(e);
-        //}
-        //private static void TouchManager_TouchMove(object sender, TouchEventArgs e)
-        //{
-        //    Control touchTarget = GetTouchTarget(e.Point);
-        //    if (touchTarget != null)
-        //        touchTarget.RaiseTouchMoveEvent(e);
-        //}
-        //private static void TouchManager_TouchUp(object sender, TouchEventArgs e)
-        //{
-        //    Control touchTarget = GetTouchTarget(e.Point);
-        //    if (touchTarget != null)
-        //        touchTarget.RaiseTouchUpEvent(e);
-        //}
-        //private static void TouchManager_TouchGestureStarted(object sender, TouchGestureEventArgs e)
-        //{
-        //    Control touchTarget = GetTouchTarget(e.Point);
-        //    if (touchTarget != null)
-        //        touchTarget.RaiseTouchGestureStartedEvent(e);
-        //}
-        //private static void TouchManager_TouchGestureChanged(object sender, TouchGestureEventArgs e)
-        //{
-        //    Control touchTarget = GetTouchTarget(e.Point);
-        //    if (touchTarget != null)
-        //        touchTarget.RaiseTouchGestureChangedEvent(e);
-        //}
-        //private static void TouchManager_TouchGestureEnded(object sender, TouchGestureEventArgs e)
-        //{
-        //    Control touchTarget = GetTouchTarget(e.Point);
-        //    if (touchTarget != null)
-        //        touchTarget.RaiseTouchGestureEndedEvent(e);
-        //}
+        private static void TouchManager_TouchDown(object sender, TouchEventArgs e)
+        {
+            Control touchTarget = GetTouchTarget(e.Point);
+            if (touchTarget != null)
+                touchTarget.RaiseTouchDownEvent(e);
+        }
+        private static void TouchManager_TouchMove(object sender, TouchEventArgs e)
+        {
+            Control touchTarget = GetTouchTarget(e.Point);
+            if (touchTarget != null)
+                touchTarget.RaiseTouchMoveEvent(e);
+        }
+        private static void TouchManager_TouchUp(object sender, TouchEventArgs e)
+        {
+            Control touchTarget = GetTouchTarget(e.Point);
+            if (touchTarget != null)
+                touchTarget.RaiseTouchUpEvent(e);
+        }
+        private static void TouchManager_TouchGestureStarted(object sender, TouchGestureEventArgs e)
+        {
+            Control touchTarget = GetTouchTarget(e.Point);
+            if (touchTarget != null)
+                touchTarget.RaiseTouchGestureStartedEvent(e);
+        }
+        private static void TouchManager_TouchGestureChanged(object sender, TouchGestureEventArgs e)
+        {
+            Control touchTarget = GetTouchTarget(e.Point);
+            if (touchTarget != null)
+                touchTarget.RaiseTouchGestureChangedEvent(e);
+        }
+        private static void TouchManager_TouchGestureEnded(object sender, TouchGestureEventArgs e)
+        {
+            Control touchTarget = GetTouchTarget(e.Point);
+            if (touchTarget != null)
+                touchTarget.RaiseTouchGestureEndedEvent(e);
+        }
         #endregion
 
         #region Private methods
@@ -307,12 +303,9 @@ namespace MFE.Graphics
         //    } while (pp && pp.GetParent() != ctrl2.GetParent());
         //}
 
-
-
-
-        private static void ProcessTask(RenderTask task /*optional*/)
+        internal static void ProcessTask(RenderTask task /*optional*/)
         {
-            if (content != null && screen != null)
+            if (content != null && bitmap != null)
                 RenderTask(task);
         }
         internal static void RenderTask(RenderTask task)
@@ -325,7 +318,8 @@ namespace MFE.Graphics
                 return;
 
             //dt0 = DateTime.Now;
-            var dc = new DrawingContext(screen);
+            bitmap.Clear();
+            var dc = new DrawingContext(bitmap);
             dc.PushClippingRectangle(dirtyRect);
             if (!dc.ClippingRectangle.IsZero)
             {
@@ -335,7 +329,11 @@ namespace MFE.Graphics
             dc.PopClippingRectangle();
             dc.Close();
             //ts = DateTime.Now - dt0;
-            screen.Flush(dirtyRect.X, dirtyRect.Y, dirtyRect.Width, dirtyRect.Height);
+
+            if (OnRender != null)
+                OnRender(bitmap, dirtyRect);
+            else
+                bitmap.Flush(dirtyRect.X, dirtyRect.Y, dirtyRect.Width, dirtyRect.Height);
 
 
             //Rect dirtyRect2 = new Rect(0, 0, 300, 20);

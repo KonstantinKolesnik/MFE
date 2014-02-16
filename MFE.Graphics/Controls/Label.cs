@@ -1,5 +1,5 @@
+using MFE.Core;
 using MFE.Graphics.Media;
-using MFE.Utilities;
 using Microsoft.SPOT;
 
 namespace MFE.Graphics.Controls
@@ -72,9 +72,9 @@ namespace MFE.Graphics.Controls
         }
         #endregion
 
-        public override void OnRender(DrawingContext dc)
+        protected override void OnRender(DrawingContext dc)
         {
-            if (font != null && !Utils.IsStringNullOrEmpty(text))
+            if (font != null && !Utils.StringIsNullOrEmpty(text))
                 dc.DrawText(text, font, foreColor, 0, 0);
         }
 
@@ -83,7 +83,7 @@ namespace MFE.Graphics.Controls
         {
             int w = 0, h = 0;
 
-            if (font != null && !Utils.IsStringNullOrEmpty(text))
+            if (font != null && !Utils.StringIsNullOrEmpty(text))
                 font.ComputeExtent(text, out w, out h);
 
             Width = w;

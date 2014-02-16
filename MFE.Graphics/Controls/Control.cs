@@ -1,8 +1,6 @@
-using System.Collections;
-using System.Threading;
 using MFE.Graphics.Geometry;
 using MFE.Graphics.Media;
-//using MFE.Graphics.Touching;
+using MFE.Graphics.Touching;
 
 namespace MFE.Graphics.Controls
 {
@@ -51,8 +49,6 @@ namespace MFE.Graphics.Controls
         private bool isEnabled = true;
         private bool isVisible = true;
         private bool isSuspended = false;
-
-        //private ArrayList hierarchy = new ArrayList();
         #endregion
 
         #region  Properties
@@ -74,7 +70,7 @@ namespace MFE.Graphics.Controls
                 if (parent != value)
                 {
                     parent = value;
-                    Invalidate(Rect.Empty);
+                    Invalidate();
                 }
             }
         }
@@ -94,9 +90,9 @@ namespace MFE.Graphics.Controls
                 {
                     isEnabled = value;
                     if (isVisible)
-                        Invalidate(Rect.Empty);
+                        Invalidate();
                     else if (parent != null)
-                        parent.Invalidate(Rect.Empty);
+                        parent.Invalidate();
                 }
             }
         }
@@ -111,7 +107,7 @@ namespace MFE.Graphics.Controls
                 if (isVisible != value)
                 {
                     isVisible = value;
-                    Invalidate(Rect.Empty);
+                    Invalidate();
                 }
             }
         }
@@ -123,8 +119,9 @@ namespace MFE.Graphics.Controls
         {
             get
             {
-                Rect psa = parent != null ? parent.ScreenArea : new Rect(0, 0, 0, 0);
-                return psa.IsZero ? Rect.Empty : new Rect(area.X + psa.X, area.Y + psa.Y, area.Width, area.Height);
+                Rect psa = parent != null ? parent.ScreenArea : Rect.Empty;
+                //return psa.IsZero ? Rect.Empty : new Rect(area.X + psa.X, area.Y + psa.Y, area.Width, area.Height);
+                return new Rect(area.X + psa.X, area.Y + psa.Y, area.Width, area.Height);
             }
         }
         public virtual int X
@@ -138,7 +135,7 @@ namespace MFE.Graphics.Controls
                 if (area.X != value)
                 {
                     area.X = value;
-                    Invalidate(Rect.Empty);
+                    Invalidate();
                 }
             }
         }
@@ -150,7 +147,7 @@ namespace MFE.Graphics.Controls
                 if (area.Y != value)
                 {
                     area.Y = value;
-                    Invalidate(Rect.Empty);
+                    Invalidate();
                 }
             }
         }
@@ -167,7 +164,7 @@ namespace MFE.Graphics.Controls
                     area.Width = value;
                     //SizeChanged(area.Width, area.Height);
                     //OnSizeChange(area.Width, area.Height);
-                    Invalidate(Rect.Empty);
+                    Invalidate();
                 }
             }
         }
@@ -181,7 +178,7 @@ namespace MFE.Graphics.Controls
                     area.Height = value;
                     //SizeChanged(area.Width, area.Height);
                     //OnSizeChange(area.Width, area.Height);
-                    Invalidate(Rect.Empty);
+                    Invalidate();
                 }
             }
         }
@@ -209,54 +206,28 @@ namespace MFE.Graphics.Controls
                 //return p; // old
             }
         }
-        //private ArrayList Hierarchy
-        //{
-        //    get
-        //    {
-        //        hierarchy.Clear();
-
-        //        if (RootControl == GraphicsManager.Desktop)
-        //        {
-        //            Control p = null;
-        //            Control pp = this;
-        //            do
-        //            {
-        //                p = pp;
-        //                pp = p.parent;
-        //                hierarchy.Insert(0, p);
-        //            } while (pp != null);
-        //        }
-
-        //        return hierarchy;
-        //    }
-        //}
         #endregion
 
         #region Events
         //OnSizeChange = function (width, height) { }
 
 
-
-
-
-
         //public event TouchEventHandler SizeChanged;
-        
-        //public event TouchEventHandler TouchDown;
-        //public event TouchEventHandler TouchMove;
-        //public event TouchEventHandler TouchUp;
 
-        //public event TouchGestureEventHandler TouchGestureStarted;
-        //public event TouchGestureEventHandler TouchGestureChanged;
-        //public event TouchGestureEventHandler TouchGestureEnded;
+        public event TouchEventHandler TouchDown;
+        public event TouchEventHandler TouchMove;
+        public event TouchEventHandler TouchUp;
+
+        public event TouchGestureEventHandler TouchGestureStarted;
+        public event TouchGestureEventHandler TouchGestureChanged;
+        public event TouchGestureEventHandler TouchGestureEnded;
         #endregion
 
         #region Constructor
         protected Control(int x, int y, int width, int height)
         {
-            children = new ControlCollection(this);
-
             area = new Rect(x, y, width, height);
+            children = new ControlCollection(this);
 
             //X = x;
             //Y = y;
@@ -424,77 +395,82 @@ namespace MFE.Graphics.Controls
         #endregion
 
         #region Touch handlers
-        //internal void RaiseTouchDownEvent(TouchEventArgs e)
-        //{
-        //    OnTouchDown(e);
-        //}
-        //internal void RaiseTouchMoveEvent(TouchEventArgs e)
-        //{
-        //    OnTouchMove(e);
-        //}
-        //internal void RaiseTouchUpEvent(TouchEventArgs e)
-        //{
-        //    OnTouchUp(e);
-        //}
-        //internal void RaiseTouchGestureStartedEvent(TouchGestureEventArgs e)
-        //{
-        //    OnTouchGestureStarted(e);
-        //}
-        //internal void RaiseTouchGestureChangedEvent(TouchGestureEventArgs e)
-        //{
-        //    OnTouchGestureChanged(e);
-        //}
-        //internal void RaiseTouchGestureEndedEvent(TouchGestureEventArgs e)
-        //{
-        //    OnTouchGestureEnded(e);
-        //}
+        internal void RaiseTouchDownEvent(TouchEventArgs e)
+        {
+            OnTouchDown(e);
+        }
+        internal void RaiseTouchMoveEvent(TouchEventArgs e)
+        {
+            OnTouchMove(e);
+        }
+        internal void RaiseTouchUpEvent(TouchEventArgs e)
+        {
+            OnTouchUp(e);
+        }
+        internal void RaiseTouchGestureStartedEvent(TouchGestureEventArgs e)
+        {
+            OnTouchGestureStarted(e);
+        }
+        internal void RaiseTouchGestureChangedEvent(TouchGestureEventArgs e)
+        {
+            OnTouchGestureChanged(e);
+        }
+        internal void RaiseTouchGestureEndedEvent(TouchGestureEventArgs e)
+        {
+            OnTouchGestureEnded(e);
+        }
 
-        //protected virtual void OnTouchDown(TouchEventArgs e)
-        //{
-        //    if (TouchDown != null)
-        //        TouchDown(this, e);
-        //}
-        //protected virtual void OnTouchMove(TouchEventArgs e)
-        //{
-        //    if (TouchMove != null)
-        //        TouchMove(this, e);
-        //}
-        //protected virtual void OnTouchUp(TouchEventArgs e)
-        //{
-        //    if (TouchUp != null)
-        //        TouchUp(this, e);
-        //}
-        //protected virtual void OnTouchGestureStarted(TouchGestureEventArgs e)
-        //{
-        //    if (TouchGestureStarted != null)
-        //        TouchGestureStarted(this, e);
+        protected virtual void OnTouchDown(TouchEventArgs e)
+        {
+            if (TouchDown != null)
+                TouchDown(this, e);
+        }
+        protected virtual void OnTouchMove(TouchEventArgs e)
+        {
+            if (TouchMove != null)
+                TouchMove(this, e);
+        }
+        protected virtual void OnTouchUp(TouchEventArgs e)
+        {
+            if (TouchUp != null)
+                TouchUp(this, e);
+        }
+        protected virtual void OnTouchGestureStarted(TouchGestureEventArgs e)
+        {
+            if (TouchGestureStarted != null)
+                TouchGestureStarted(this, e);
 
-        //    if (parent != null)
-        //        parent.OnTouchGestureStarted(e);
-        //}
-        //protected virtual void OnTouchGestureChanged(TouchGestureEventArgs e)
-        //{
-        //    if (TouchGestureChanged != null)
-        //        TouchGestureChanged(this, e);
+            if (parent != null)
+                parent.OnTouchGestureStarted(e);
+        }
+        protected virtual void OnTouchGestureChanged(TouchGestureEventArgs e)
+        {
+            if (TouchGestureChanged != null)
+                TouchGestureChanged(this, e);
 
-        //    if (parent != null)
-        //        parent.OnTouchGestureChanged(e);
-        //}
-        //protected virtual void OnTouchGestureEnded(TouchGestureEventArgs e)
-        //{
-        //    if (TouchGestureEnded != null)
-        //        TouchGestureEnded(this, e);
+            if (parent != null)
+                parent.OnTouchGestureChanged(e);
+        }
+        protected virtual void OnTouchGestureEnded(TouchGestureEventArgs e)
+        {
+            if (TouchGestureEnded != null)
+                TouchGestureEnded(this, e);
 
-        //    if (parent != null)
-        //        parent.OnTouchGestureEnded(e);
-        //}
+            if (parent != null)
+                parent.OnTouchGestureEnded(e);
+        }
         #endregion
 
         #region Protected methods
         internal void ProcessTask(RenderTask task)
         {
-            if (!isSuspended && parent != null)
-                parent.ProcessTask(task);
+            if (!isSuspended)
+            {
+                if (parent != null)
+                    parent.ProcessTask(task);
+                else
+                    GraphicsManager.ProcessTask(task);
+            }
         }
 
         internal void OnChildrenChanged(Control added, Control removed, int indexAffected)
@@ -504,7 +480,6 @@ namespace MFE.Graphics.Controls
             else
                 Invalidate(Rect.Empty);
         }
-
 
         internal void RenderRecursive(DrawingContext dc)
         {
@@ -543,47 +518,11 @@ namespace MFE.Graphics.Controls
             }
             dc.PopClippingRectangle();
         }
-        
-        //internal void RenderHierarchyLine(DrawingContext dc)
-        //{
-        //    RenderLineRecursive(dc, Hierarchy, 0);
-        //}
-        //private void RenderLineRecursive(DrawingContext dc, ArrayList hierarchy, int level)
-        //{
-        //    if (level <= hierarchy.Count - 1)
-        //    {
-        //        Control ctrl = (Control)hierarchy[level];
-        //        if (level == hierarchy.Count - 1)
-        //            ctrl.RenderRecursive(dc);
-        //        else
-        //        {
-        //            if (ctrl.visible)
-        //            {
-        //                if (dc.ClippingRectangle.Intersects(ctrl.ScreenArea))
-        //                {
-        //                    dc.PushClippingRectangle(ctrl.ScreenArea);
-        //                    if (!dc.ClippingRectangle.IsZero)
-        //                    {
-        //                        ctrl.OnRender(dc);
 
-        //                        level++;
-        //                        RenderLineRecursive(dc, hierarchy, level);
-        //                    }
-        //                    dc.PopClippingRectangle();
-        //                }
-        //            }
-        //        }
-        //    }
-        //}
-
-
-        public virtual void OnUpdate()
+        protected virtual void OnRender(DrawingContext dc)
         {
         }
-        public virtual void OnRender(DrawingContext dc)
-        {
-        }
-        public virtual void OnPostRender(DrawingContext dc)
+        protected virtual void OnPostRender(DrawingContext dc)
         {
         }
         #endregion

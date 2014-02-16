@@ -49,7 +49,7 @@ namespace MFE.Graphics.Controls
         #endregion
 
         #region Event handlers
-        public override void OnRender(DrawingContext dc)
+        protected override void OnRender(DrawingContext dc)
         {
             base.OnRender(dc);
 
