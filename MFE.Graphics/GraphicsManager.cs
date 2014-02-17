@@ -11,9 +11,8 @@ namespace MFE.Graphics
     {
         #region Fields
         private static Bitmap bitmap;
-        internal static Desktop Desktop;
+        internal static Desktop desktop;
         //internal static Window modalWindow = null;
-        private static Control content = null;
 
         private static Control lastEventTarget = null;
         //var lastMoveTarget = null;
@@ -26,26 +25,9 @@ namespace MFE.Graphics
         public static TimeSpan ts;
         #endregion
 
-        public static Control Content
+        public static Desktop Desktop
         {
-            get
-            {
-                return content;
-            }
-            set
-            {
-                content = value;
-                if (content != null) {
-                    //content.Canvas = canvas;
-                    //content.GraphicsManager = me;
-
-                    //content.GetScreenArea = function () {
-                    //    var a = content.GetArea();
-                    //    return new Rect(a.X, a.Y, a.Width, a.Height);
-                    //}
-                }
-                ProcessTask(null);
-            }
+            get { return desktop; }
         }
 
         public static event RenderEventHandler OnRender;
@@ -70,8 +52,8 @@ namespace MFE.Graphics
             TouchManager.Initialize();
 
             bitmap = new Bitmap(width, height);
-            Desktop = new Desktop(width, height);
-            //Desktop.Invalidate();
+            desktop = new Desktop(width, height);
+            desktop.Invalidate();
 
             //if (CalibrationManager.IsCalibrated)
             //    CalibrationManager.ApplyCalibrationPoints();
@@ -126,10 +108,10 @@ namespace MFE.Graphics
             else if (lastEventTarget != null)
             {
                 var par = lastEventTarget.GetValidParentFromScreenPoint(p);
-                res = par != null ? par.GetValidChildFromScreenPoint(p) : (content != null ? content.GetValidChildFromScreenPoint(p) : null);
+                res = par != null ? par.GetValidChildFromScreenPoint(p) : (desktop != null ? desktop.GetValidChildFromScreenPoint(p) : null);
             }
             else
-                res = content != null ? content.GetValidChildFromScreenPoint(p) : null;
+                res = desktop != null ? desktop.GetValidChildFromScreenPoint(p) : null;
 
             lastEventTarget = res;
             return res;
@@ -304,12 +286,12 @@ namespace MFE.Graphics
 
         internal static void ProcessTask(RenderTask task /*optional*/)
         {
-            if (content != null && bitmap != null)
+            if (desktop != null && bitmap != null)
                 RenderTask(task);
         }
-        internal static void RenderTask(RenderTask task)
+        private static void RenderTask(RenderTask task)
         {
-            Rect contentRect = new Rect(0, 0, content.Width, content.Height);
+            Rect contentRect = new Rect(0, 0, desktop.Width, desktop.Height);
             var dirtyRect = contentRect;
             if (task != null)
                 dirtyRect = task.DirtyArea.Intersection(contentRect);
@@ -322,8 +304,8 @@ namespace MFE.Graphics
             dc.PushClippingRectangle(dirtyRect);
             if (!dc.ClippingRectangle.IsZero)
             {
-                content.RenderRecursive(dc);
-                content.PostRenderRecursive(dc);
+                desktop.RenderRecursive(dc);
+                desktop.PostRenderRecursive(dc);
             }
             dc.PopClippingRectangle();
             dc.Close();

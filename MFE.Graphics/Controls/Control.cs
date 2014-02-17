@@ -427,23 +427,18 @@ namespace MFE.Graphics.Controls
         #endregion
 
         #region Protected methods
-        internal void ProcessTask(RenderTask task)
+        internal virtual void ProcessTask(RenderTask task)
         {
-            if (!isSuspended)
-            {
-                if (parent != null)
-                    parent.ProcessTask(task);
-                else
-                    GraphicsManager.ProcessTask(task);
-            }
+            if (!isSuspended && parent != null)
+                parent.ProcessTask(task);
         }
 
         internal void OnChildrenChanged(Control added, Control removed, int indexAffected)
         {
             if (added != null)
-                added.Invalidate(Rect.Empty);
+                added.Invalidate();
             else
-                Invalidate(Rect.Empty);
+                Invalidate();
         }
 
         internal void RenderRecursive(DrawingContext dc)

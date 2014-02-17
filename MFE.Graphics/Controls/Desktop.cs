@@ -2,7 +2,7 @@ using MFE.Graphics.Media;
 
 namespace MFE.Graphics.Controls
 {
-    internal class Desktop : Container
+    public class Desktop : Container
     {
         #region Constructors
         public Desktop(int width, int height)
@@ -12,5 +12,10 @@ namespace MFE.Graphics.Controls
             Background = new SolidColorBrush(Color.Black);
         }
         #endregion
+
+        internal override void ProcessTask(RenderTask task)
+        {
+            GraphicsManager.ProcessTask(task);
+        }
     }
 }
