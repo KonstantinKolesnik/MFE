@@ -25,12 +25,16 @@ namespace MFE.Graphics
         public static TimeSpan ts;
         #endregion
 
+        #region Properties
         public static Desktop Desktop
         {
             get { return desktop; }
         }
+        #endregion
 
+        #region Events
         public static event RenderEventHandler OnRender;
+        #endregion
 
         #region Public methods
         public static void Initialize(int width, int height)
@@ -299,7 +303,6 @@ namespace MFE.Graphics
                 return;
 
             //dt0 = DateTime.Now;
-            //bitmap.Clear();
             var dc = new DrawingContext(bitmap);
             dc.PushClippingRectangle(dirtyRect);
             if (!dc.ClippingRectangle.IsZero)
