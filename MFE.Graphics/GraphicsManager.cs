@@ -70,7 +70,6 @@ namespace MFE.Graphics
             TouchManager.Initialize();
 
             bitmap = new Bitmap(width, height);
-
             Desktop = new Desktop(width, height);
             //Desktop.Invalidate();
 
@@ -318,7 +317,7 @@ namespace MFE.Graphics
                 return;
 
             //dt0 = DateTime.Now;
-            bitmap.Clear();
+            //bitmap.Clear();
             var dc = new DrawingContext(bitmap);
             dc.PushClippingRectangle(dirtyRect);
             if (!dc.ClippingRectangle.IsZero)

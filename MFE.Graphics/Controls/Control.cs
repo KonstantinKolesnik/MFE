@@ -4,41 +4,6 @@ using MFE.Graphics.Touching;
 
 namespace MFE.Graphics.Controls
 {
-    #region Event Delegates
-    //[Serializable]
-    //public delegate void OnTap(object sender, Point e);
-
-    //[Serializable]
-    //public delegate void OnTapHold(object sender, Point e);
-
-    //[Serializable]
-    //public delegate void OnFormTap(Point e);
-
-    //[Serializable]
-    //public delegate void OnNodeTap(TreeviewNode node, Point e);
-
-    //[Serializable]
-    //public delegate void OnNodeExpanded(object sender, TreeviewNode node);
-
-    //[Serializable]
-    //public delegate void OnNodeCollapsed(object sender, TreeviewNode node);
-
-    //[Serializable]
-    //public delegate void OnSelectedIndexChange(object sender, int index);
-
-    //[Serializable]
-    //public delegate void OnSelectedFileChanged(object sender, string path);
-
-    //[Serializable]
-    //public delegate void OnTextChanged(object sender);
-
-    //[Serializable]
-    //public delegate void OnVirtualKeyboardClosed(object sender);
-
-    //[Serializable]
-    //public delegate void OnValueChanged(object sender, int value);
-    #endregion
-
     public abstract class Control
     {
         #region Fields
@@ -293,9 +258,8 @@ namespace MFE.Graphics.Controls
         public void Translate(int dx, int dy)
         {
             area.Translate(dx, dy);
-            Invalidate(Rect.Empty);
+            Invalidate();
         }
-
 
         //this.GetValidChildFromScreenRect = function (r) {
         //    var targetCtrl = null;
@@ -364,20 +328,21 @@ namespace MFE.Graphics.Controls
         {
             isSuspended = false;
             if (!dontInvalidate)
-                Invalidate(Rect.Empty);
+                Invalidate();
         }
 
         public void Invalidate()
         {
             Invalidate(Rect.Empty);
         }
-        public void Invalidate(Rect rect) // rect = null if by default
+        public void Invalidate(Rect rect)
         {
             if (!isSuspended)
             {
                 //scrollManager.Update();
 
                 Rect sa = ScreenArea;
+                
                 Rect r;
                 if (!rect.IsZero)
                     r = rect;
@@ -388,7 +353,7 @@ namespace MFE.Graphics.Controls
                 }
 
                 ProcessTask(new RenderTask(this, r));
-                if (!rect.IsZero)
+                if (rect.IsZero)
                     dirtyArea = sa;
             }
         }

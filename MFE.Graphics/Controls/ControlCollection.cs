@@ -1,6 +1,6 @@
+using Microsoft.SPOT;
 using System;
 using System.Collections;
-using Microsoft.SPOT;
 
 namespace MFE.Graphics.Controls
 {
@@ -68,10 +68,10 @@ namespace MFE.Graphics.Controls
     public class ControlCollection : ICollection
     {
         #region Fields
-        internal Control[] _items;
-        internal int _size;
-        private int _version;
-        private Control _owner;
+        internal Control[] items;
+        internal int size;
+        private int version;
+        private Control owner;
 
         private const int c_defaultCapacity = 2;
         private const int c_growFactor = 2;
@@ -80,7 +80,7 @@ namespace MFE.Graphics.Controls
         #region Properties
         public virtual int Count
         {
-            get { return _size; }
+            get { return size; }
         }
         public virtual bool IsSynchronized
         {
@@ -108,31 +108,31 @@ namespace MFE.Graphics.Controls
         /// <exception cref="ArgumentOutOfRangeException">Capacity is set to a value that is less than Count.</exception>
         public virtual int Capacity
         {
-            get { return _items != null ? _items.Length : 0; }
+            get { return items != null ? items.Length : 0; }
             set
             {
-                int currentCapacity = _items != null ? _items.Length : 0;
+                int currentCapacity = items != null ? items.Length : 0;
                 if (value != currentCapacity)
                 {
-                    if (value < _size)
+                    if (value < size)
                         throw new ArgumentOutOfRangeException("value", "not enough capacity");
 
                     if (value > 0)
                     {
                         Control[] newItems = new Control[value];
-                        if (_size > 0)
+                        if (size > 0)
                         {
-                            Debug.Assert(_items != null);
-                            Array.Copy(_items, 0, newItems, 0, _size);
+                            Debug.Assert(items != null);
+                            Array.Copy(items, 0, newItems, 0, size);
                         }
 
-                        _items = newItems;
+                        items = newItems;
                     }
                     else
                     {
                         Debug.Assert(value == 0, "There shouldn't be a case where value != 0.");
-                        Debug.Assert(_size == 0, "Size must be 0 here.");
-                        _items = null;
+                        Debug.Assert(size == 0, "Size must be 0 here.");
+                        items = null;
                     }
                 }
             }
@@ -143,7 +143,7 @@ namespace MFE.Graphics.Controls
         public ControlCollection(Control owner)
         {
             Debug.Assert(owner != null);
-            _owner = owner;
+            this.owner = owner;
         }
         #endregion
 
@@ -152,10 +152,10 @@ namespace MFE.Graphics.Controls
             if (array == null)
                 throw new ArgumentNullException("array");
 
-            if ((index < 0) || (array.Length - index < _size))
+            if ((index < 0) || (array.Length - index < size))
                 throw new ArgumentOutOfRangeException("index");
 
-            Array.Copy(_items, 0, array, index, _size);
+            Array.Copy(items, 0, array, index, size);
         }
 
         /// <summary>
@@ -195,33 +195,30 @@ namespace MFE.Graphics.Controls
         {
             get
             {
-                if (index < 0 || index >= _size) throw new ArgumentOutOfRangeException("index");
-                return _items[index];
+                if (index < 0 || index >= size)
+                    throw new ArgumentOutOfRangeException("index");
+
+                return items[index];
             }
 
             set
             {
                 if (value == null)
-                {
                     throw new ArgumentNullException("value");
-                }
 
-                if (index < 0 || index >= _size) throw new ArgumentOutOfRangeException("index");
+                if (index < 0 || index >= size)
+                    throw new ArgumentOutOfRangeException("index");
 
-                Control child = _items[index];
+                Control child = items[index];
 
                 if (child != value)
                 {
                     if ((value == null) && (child != null))
-                    {
                         DisconnectChild(index);
-                    }
                     else if (value != null)
                     {
                         if (value.Parent != null) // are a root node of a visual target can be set into the collection.
-                        {
                             throw new System.ArgumentException("element has parent");
-                        }
 
                         ConnectChild(index, value);
                     }
@@ -246,42 +243,42 @@ namespace MFE.Graphics.Controls
             // We also need to ensure that the tree is homogenous with respect
             // to the dispatchers that the elements belong to.
             //
-            Debug.Assert(_items[index] == null);
+            Debug.Assert(items[index] == null);
 
-            value.Parent = _owner;
+            value.Parent = owner;
 
             // The child might be dirty. Hence we need to propagate dirty information
             // from the parent and from the child.
             //Control.PropagateFlags(_owner, Control.Flags.IsSubtreeDirtyForRender);
             //Control.PropagateFlags(value, Control.Flags.IsSubtreeDirtyForRender);
             //value._flags |= Control.Flags.IsDirtyForRender;
-            _items[index] = value;
-            _version++;
+            items[index] = value;
+            version++;
 
             //Control.PropagateResumeLayout(value);
 
             // Fire notifications
-            _owner.OnChildrenChanged(value, null /* no removed child */, index);
+            owner.OnChildrenChanged(value, null /* no removed child */, index);
         }
         /// <summary>
         /// Disconnects a child.
         /// </summary>
         private void DisconnectChild(int index)
         {
-            Debug.Assert(_items[index] != null);
+            Debug.Assert(items[index] != null);
 
-            Control child = _items[index];
+            Control child = items[index];
 
             // Every function that calls this function needs to call VerifyAccess to prevent
             // foreign threads from changing the tree.
 
             Control oldParent = child.Parent;
 
-            _items[index] = null;
+            items[index] = null;
 
             child.Parent = null;
             //Control.PropagateFlags(_owner, Control.Flags.IsSubtreeDirtyForRender);
-            _version++;
+            version++;
 
             //Control.PropagateSuspendLayout(child);
 
@@ -305,14 +302,14 @@ namespace MFE.Graphics.Controls
                 throw new System.ArgumentException("element has parent");
             }
 
-            if ((_items == null) || (_size == _items.Length))
-                EnsureCapacity(_size + 1);
+            if ((items == null) || (size == items.Length))
+                EnsureCapacity(size + 1);
 
-            int addedPosition = _size++;
-            Debug.Assert(_items[addedPosition] == null);
+            int addedPosition = size++;
+            Debug.Assert(items[addedPosition] == null);
 
             ConnectChild(addedPosition, element);
-            _version++;
+            version++;
 
             // invalidate measure on parent
             //_owner.InvalidateMeasure();
@@ -328,11 +325,11 @@ namespace MFE.Graphics.Controls
         /// <param name="UIElement">The UIElement to locate in the UIElementCollection.</param>
         public int IndexOf(Control element)
         {
-            if (element == null || element.Parent == _owner)
+            if (element == null || element.Parent == owner)
             {
-                for (int i = 0; i < _size; i++)
+                for (int i = 0; i < size; i++)
                 {
-                    if (_items[i] == element)
+                    if (items[i] == element)
                         return i;
                 }
 
@@ -361,7 +358,7 @@ namespace MFE.Graphics.Controls
 
             if (element != null)
             {
-                if (element.Parent != _owner)
+                if (element.Parent != owner)
                 {
                     // If the UIElement is not in this collection we silently return without
                     // failing. This is the same behavior that ArrayList implements.
@@ -376,9 +373,9 @@ namespace MFE.Graphics.Controls
             {
                 // This is the case where element == null. We then remove the first null
                 // entry.
-                for (int i = 0; i < _size; i++)
+                for (int i = 0; i < size; i++)
                 {
-                    if (_items[i] == null)
+                    if (items[i] == null)
                     {
                         indexToRemove = i;
                         break;
@@ -388,15 +385,15 @@ namespace MFE.Graphics.Controls
 
             if (indexToRemove != -1)
             {
-                --_size;
+                --size;
 
-                for (int i = indexToRemove; i < _size; i++)
+                for (int i = indexToRemove; i < size; i++)
                 {
-                    Control child = _items[i + 1];
-                    _items[i] = child;
+                    Control child = items[i + 1];
+                    items[i] = child;
                 }
 
-                _items[_size] = null;
+                items[size] = null;
             }
 
             //_owner.InvalidateMeasure();
@@ -409,20 +406,14 @@ namespace MFE.Graphics.Controls
         {
             if (element == null)
             {
-                for (int i = 0; i < _size; i++)
-                {
-                    if (_items[i] == null)
-                    {
+                for (int i = 0; i < size; i++)
+                    if (items[i] == null)
                         return true;
-                    }
-                }
 
                 return false;
             }
             else
-            {
-                return (element.Parent == _owner);
-            }
+                return (element.Parent == owner);
         }
 
         /// <summary>
@@ -435,19 +426,19 @@ namespace MFE.Graphics.Controls
         /// </remarks>
         public void Clear()
         {
-            for (int i = 0; i < _size; i++)
+            for (int i = 0; i < size; i++)
             {
-                if (_items[i] != null)
+                if (items[i] != null)
                 {
-                    Debug.Assert(_items[i].Parent == _owner);
+                    Debug.Assert(items[i].Parent == owner);
                     DisconnectChild(i);
                 }
 
-                _items[i] = null;
+                items[i] = null;
             }
 
-            _size = 0;
-            _version++;
+            size = 0;
+            version++;
 
             //_owner.InvalidateMeasure();
         }
@@ -478,35 +469,27 @@ namespace MFE.Graphics.Controls
         /// </remarks>
         public void Insert(int index, Control element)
         {
-            if (index < 0 || index > _size)
-            {
+            if (index < 0 || index > size)
                 throw new ArgumentOutOfRangeException("index");
-            }
 
             if (element == null)
-            {
                 throw new ArgumentNullException("element");
-            }
 
             if (element.Parent != null)  // or a element target can be added.
-            {
                 throw new System.ArgumentException("element has parent");
-            }
 
-            if ((_items == null) || (_size == _items.Length))
+            if ((items == null) || (size == items.Length))
+                EnsureCapacity(size + 1);
+
+            for (int i = size - 1; i >= index; i--)
             {
-                EnsureCapacity(_size + 1);
+                Control child = items[i];
+                items[i + 1] = child;
             }
 
-            for (int i = _size - 1; i >= index; i--)
-            {
-                Control child = _items[i];
-                _items[i + 1] = child;
-            }
+            items[index] = null;
 
-            _items[index] = null;
-
-            _size++;
+            size++;
             ConnectChild(index, element);
             // Note SetUIElement that increments the version to ensure proper enumerator
             // functionality.
@@ -526,12 +509,10 @@ namespace MFE.Graphics.Controls
         /// </remarks>
         public void RemoveAt(int index)
         {
-            if (index < 0 || index >= _size)
-            {
+            if (index < 0 || index >= size)
                 throw new ArgumentOutOfRangeException("index");
-            }
 
-            Remove(_items[index]);
+            Remove(items[index]);
         }
 
         /// <summary>
@@ -556,41 +537,32 @@ namespace MFE.Graphics.Controls
         public void RemoveRange(int index, int count)
         {
             if (index < 0)
-            {
                 throw new ArgumentOutOfRangeException("index");
-            }
 
             if (count < 0)
-            {
                 throw new ArgumentOutOfRangeException("count");
-            }
 
-            if (_size - index < count)
-            {
+            if (size - index < count)
                 throw new ArgumentOutOfRangeException("index");
-            }
 
             if (count > 0)
             {
                 for (int i = index; i < index + count; i++)
-                {
-                    if (_items[i] != null)
+                    if (items[i] != null)
                     {
                         DisconnectChild(i);
-                        _items[i] = null;
+                        items[i] = null;
                     }
-                }
 
-                _size -= count;
-                for (int i = index; i < _size; i++)
+                size -= count;
+                for (int i = index; i < size; i++)
                 {
-                    Control child = _items[i + count];
-                    _items[i] = child;
-                    _items[i + count] = null;
+                    Control child = items[i + count];
+                    items[i] = child;
+                    items[i + count] = null;
                 }
 
-                _version++; // Incrementing version number here to be consistent with the ArrayList
-                // implementation.
+                version++; // Incrementing version number here to be consistent with the ArrayList implementation.
             }
         }
 
@@ -627,7 +599,7 @@ namespace MFE.Graphics.Controls
             {
                 _collection = collection;
                 _index = -1; // not started.
-                _version = _collection._version;
+                _version = _collection.version;
                 _currentElement = null;
             }
 
@@ -644,9 +616,9 @@ namespace MFE.Graphics.Controls
             /// </summary>
             public bool MoveNext()
             {
-                if (_version == _collection._version)
+                if (_version == _collection.version)
                 {
-                    if ((_index > -2) && (_index < (_collection._size - 1)))
+                    if ((_index > -2) && (_index < (_collection.size - 1)))
                     {
                         _index++;
                         _currentElement = _collection[_index];
@@ -710,7 +682,7 @@ namespace MFE.Graphics.Controls
             /// </summary>
             public void Reset()
             {
-                if (_version != _collection._version)
+                if (_version != _collection.version)
                     throw new InvalidOperationException("collection changed");
                 _index = -1; // not started.
             }
