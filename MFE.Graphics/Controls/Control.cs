@@ -147,6 +147,20 @@ namespace MFE.Graphics.Controls
                 }
             }
         }
+        public int Right
+        {
+            get
+            {
+                return X + Width;
+            }
+        }
+        public int Bottom
+        {
+            get
+            {
+                return Y + Height;
+            }
+        }
         public int ScreenX
         {
             get { return ScreenArea.X; }

@@ -175,4 +175,10 @@
   <data name="test_24b" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>Resources\test_24b.bmp;System.Byte[], mscorlib, Version=4.2.0.0, Culture=neutral, PublicKeyToken=null</value>
   </data>
+  <data name="PowerOff" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>Resources\PowerOff.gif;System.Byte[], mscorlib, Version=4.2.0.0, Culture=neutral, PublicKeyToken=null</value>
+  </data>
+  <data name="PowerOn" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>Resources\PowerOn.gif;System.Byte[], mscorlib, Version=4.2.0.0, Culture=neutral, PublicKeyToken=null</value>
+  </data>
 </root>

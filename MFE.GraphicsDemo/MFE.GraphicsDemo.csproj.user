@@ -7,6 +7,7 @@
     <DeployDevice>{%24GUID2%24}</DeployDevice>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|AnyCPU'">
-    <DeployDevice>{%24GUID2%24}</DeployDevice>
+    <DeployDevice>Microsoft</DeployDevice>
+    <DeployTransport>Emulator</DeployTransport>
   </PropertyGroup>
 </Project>

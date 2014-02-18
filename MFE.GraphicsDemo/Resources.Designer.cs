@@ -41,9 +41,11 @@ namespace MFE.GraphicsDemo
         internal enum BinaryResources : short
         {
             Home = -29342,
+            PowerOn = -26768,
             reWalls = -26200,
             Drive = -19534,
             test_24b = -15341,
+            PowerOff = 760,
             Background_800_600 = 3700,
             Keyboard = 3946,
             Database = 6837,

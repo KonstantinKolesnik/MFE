@@ -1,6 +1,6 @@
+using MFE.Core;
 using MFE.Graphics.Media;
 using MFE.Graphics.Touching;
-using MFE.Utilities;
 using Microsoft.SPOT;
 
 namespace MFE.Graphics.Controls
@@ -146,13 +146,13 @@ namespace MFE.Graphics.Controls
             #endregion
 
             bool hasForeground = foreground != null;
-            bool hasText = font != null && !Utils.IsStringNullOrEmpty(text);
+            bool hasText = font != null && !Utils.StringIsNullOrEmpty(text);
 
             if (hasForeground && !hasText)
             {
                 // image only
                 ushort originalOpacity = foreground.Opacity;
-                if (!Enabled)
+                if (!IsEnabled)
                     foreground.Opacity = (ushort)(originalOpacity / 2);
 
                 int a = (Width < Height ? Width : Height) - 2;
@@ -195,7 +195,7 @@ namespace MFE.Graphics.Controls
         #region Event handlers
         protected override void OnTouchDown(TouchEventArgs e)
         {
-            if (Enabled)
+            if (IsEnabled)
             {
                 TouchCapture.Capture(this);
                 Invalidate();

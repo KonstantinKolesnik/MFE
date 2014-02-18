@@ -7,29 +7,37 @@ namespace MFE.CustomEmulator
 {
     class Program : Emulator
     {
-        private FormMain frmMain;
-
-        static void Main()
-        {
-            (new Program()).Start();
-        }
-
         public override void SetupComponent()
         {
+            this.GpioPorts.MaxPorts = 128;
+
+            //GpioPort motorUp = new GpioPort();
+            //motorUp.ComponentId = "MotorUpButton";
+            //motorUp.Pin = (Microsoft.SPOT.Hardware.Cpu.Pin)20;
+            //motorUp.ModesAllowed = GpioPortMode.InputPort;
+            //motorUp.ModesExpected = GpioPortMode.InputPort;
+
+            //GpioPort motorDown = new GpioPort();
+            //motorDown.ComponentId = "MotorDownButton";
+            //motorDown.Pin = (Microsoft.SPOT.Hardware.Cpu.Pin)21;
+            //motorDown.ModesAllowed = GpioPortMode.InputPort;
+            //motorDown.ModesExpected = GpioPortMode.InputPort;
+
+            //RegisterComponent(motorUp);
+            //RegisterComponent(motorDown);
+
             RegisterComponent(new TouchGpioPort(TouchGpioPort.DefaultTouchPin));
+
+
             base.SetupComponent();
         }
+
         public override void InitializeComponent()
         {
             base.InitializeComponent();
 
-            //frmMain = new FormMain(Emulator);
-            frmMain = new FormMain(this);
-            frmMain.OnInitializeComponent();
-
-
             // Start the UI in its own thread.
-            Thread uiThread = new Thread(StartUI);
+            Thread uiThread = new Thread(StartForm);
             uiThread.SetApartmentState(ApartmentState.STA);
             uiThread.Start();
         }
@@ -41,16 +49,27 @@ namespace MFE.CustomEmulator
             Application.Exit();
         }
 
-        private void StartUI()
+        private void StartForm()
         {
-
+            // Some initial setup for the WinForm UI
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(frmMain);
+
+            // Start the WinForm UI. Run() returns when the form is closed.
+            frmMain frm = new frmMain(this);
+            frm.OnInitializeComponent();
+            Application.Run(frm);
 
             // When the user closes the WinForm UI, stop the emulator.
             Stop();
-            //Emulator.Stop();
+        }
+
+        /// <summary>
+        /// The main entry point for the application.
+        /// </summary>
+        static void Main()
+        {
+            (new Program()).Start();
         }
     }
 }

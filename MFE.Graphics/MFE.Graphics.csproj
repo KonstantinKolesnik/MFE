@@ -31,6 +31,7 @@
   </PropertyGroup>
   <Import Project="$(NetMfTargetsBaseDir)$(TargetFrameworkVersion)\CSharp.Targets" />
   <ItemGroup>
+    <Compile Include="Controls\Button.cs" />
     <Compile Include="Controls\Checkbox.cs" />
     <Compile Include="Controls\Container.cs" />
     <Compile Include="Controls\Control.cs">

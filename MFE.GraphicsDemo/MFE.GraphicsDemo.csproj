@@ -31,6 +31,13 @@
   </PropertyGroup>
   <Import Project="$(NetMfTargetsBaseDir)$(TargetFrameworkVersion)\CSharp.Targets" />
   <ItemGroup>
+    <Compile Include="Demos\CheckboxDemo.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Demos\ImageDemo.cs" />
+    <Compile Include="Demos\LevelDemo.cs" />
+    <Compile Include="Demos\PanelDemo.cs" />
+    <Compile Include="Demos\SliderDemo.cs" />
     <Compile Include="MainWindow.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Program.cs" />
@@ -44,6 +51,7 @@
     <Reference Include="Microsoft.SPOT.Graphics" />
     <Reference Include="Microsoft.SPOT.Native">
     </Reference>
+    <Reference Include="Microsoft.SPOT.TinyCore" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Resources.resx">
@@ -51,12 +59,6 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\MFE.Graphics\MFE.Graphics.csproj">
-      <Project>{15BC644C-B4B5-4801-9026-5CC496265C08}</Project>
-      <Name>MFE.Graphics</Name>
-    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <Content Include="Resources\Background_800_600.jpg" />
@@ -82,4 +84,11 @@
   <ItemGroup>
     <None Include="Resources\CourierNew_10.tinyfnt" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\MFE.Graphics\MFE.Graphics.csproj">
+      <Project>{15BC644C-B4B5-4801-9026-5CC496265C08}</Project>
+      <Name>MFE.Graphics</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup />
 </Project>

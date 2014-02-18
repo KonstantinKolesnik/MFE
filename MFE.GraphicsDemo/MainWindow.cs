@@ -4,6 +4,7 @@ using MFE.Graphics.Controls;
 using MFE.Graphics.Geometry;
 using MFE.Graphics.Media;
 using MFE.Graphics.Touching;
+using MFE.GraphicsDemo.Demos;
 
 namespace MFE.GraphicsDemo
 {
@@ -47,7 +48,7 @@ namespace MFE.GraphicsDemo
 
             Panel tlb = new Panel(1, 1, panelNavigation.Width - 2, 25);
             tlb.Background = bar;
-            tlb.Children.Add(new Label(10, 5, fontRegular, "Navigation") { ForeColor = Color.CornflowerBlue });
+            tlb.Children.Add(new Label(10, 5, fontCourierNew10, "Navigation") { ForeColor = Color.CornflowerBlue });
             //tlb.TouchDown += delegate(object sender, TouchEventArgs e) { TouchCapture.Capture(tlb); p = e.Point; };
             //tlb.TouchMove += delegate(object sender, TouchEventArgs e) { if (TouchCapture.Captured == tlb) { panelNavigation.Translate(e.Point.X - p.X, e.Point.Y - p.Y); p = e.Point; } };
             //tlb.TouchUp += delegate(object sender, TouchEventArgs e) { if (TouchCapture.Captured == tlb) TouchCapture.ReleaseCapture(); };
@@ -76,30 +77,30 @@ namespace MFE.GraphicsDemo
 
             //Font fnt = fontRegular;
             Font fnt = fontCourierNew10;
-            //panelNavigation.Children.Add(new Button(x, y, w, h, fnt, "Checkbox", Color.White) { BackgroundUnpressed = bar }); y += step;
-            //panelNavigation.Children.Add(new Button(x, y, w, h, fnt, "Button", Color.White) { BackgroundUnpressed = bar }); y += step;
-            //panelNavigation.Children.Add(new Button(x, y, w, h, fnt, "Image", Color.White) { BackgroundUnpressed = bar }); y += step;
-            //panelNavigation.Children.Add(new Button(x, y, w, h, fnt, "Label", Color.White) { BackgroundUnpressed = bar }); y += step;
-            //panelNavigation.Children.Add(new Button(x, y, w, h, fnt, "Level", Color.White) { BackgroundUnpressed = bar }); y += step;
-            //panelNavigation.Children.Add(new Button(x, y, w, h, fnt, "MultiImage", Color.White) { BackgroundUnpressed = bar }); y += step;
-            //panelNavigation.Children.Add(new Button(x, y, w, h, fnt, "Panel", Color.White) { BackgroundUnpressed = bar }); y += step;
-            //panelNavigation.Children.Add(new Button(x, y, w, h, fnt, "ProgressBar", Color.White) { BackgroundUnpressed = bar }); y += step;
-            //panelNavigation.Children.Add(new Button(x, y, w, h, fnt, "RadioButton", Color.White) { BackgroundUnpressed = bar }); y += step;
-            //panelNavigation.Children.Add(new Button(x, y, w, h, fnt, "Slider", Color.White) { BackgroundUnpressed = bar }); y += step;
-            //panelNavigation.Children.Add(new Button(x, y, w, h, fnt, "TextBlock", Color.White) { BackgroundUnpressed = bar }); y += step;
+            panelNavigation.Children.Add(new Button(x, y, w, h, fnt, "Checkbox", Color.White) { BackgroundUnpressed = bar }); y += step;
+            panelNavigation.Children.Add(new Button(x, y, w, h, fnt, "Button", Color.White) { BackgroundUnpressed = bar }); y += step;
+            panelNavigation.Children.Add(new Button(x, y, w, h, fnt, "Image", Color.White) { BackgroundUnpressed = bar }); y += step;
+            panelNavigation.Children.Add(new Button(x, y, w, h, fnt, "Label", Color.White) { BackgroundUnpressed = bar }); y += step;
+            panelNavigation.Children.Add(new Button(x, y, w, h, fnt, "Level", Color.White) { BackgroundUnpressed = bar }); y += step;
+            panelNavigation.Children.Add(new Button(x, y, w, h, fnt, "MultiImage", Color.White) { BackgroundUnpressed = bar }); y += step;
+            panelNavigation.Children.Add(new Button(x, y, w, h, fnt, "Panel", Color.White) { BackgroundUnpressed = bar }); y += step;
+            panelNavigation.Children.Add(new Button(x, y, w, h, fnt, "ProgressBar", Color.White) { BackgroundUnpressed = bar }); y += step;
+            panelNavigation.Children.Add(new Button(x, y, w, h, fnt, "RadioButton", Color.White) { BackgroundUnpressed = bar }); y += step;
+            panelNavigation.Children.Add(new Button(x, y, w, h, fnt, "Slider", Color.White) { BackgroundUnpressed = bar }); y += step;
+            panelNavigation.Children.Add(new Button(x, y, w, h, fnt, "TextBlock", Color.White) { BackgroundUnpressed = bar }); y += step;
             //panelNavigation.Children.Add(new Button(x, y, w, h, fnt, "", Color.White) { BackgroundUnpressed = bar }); y += step;
             //panelNavigation.Children.Add(new Button(x, y, w, h, fnt, "", Color.White) { BackgroundUnpressed = bar }); y += step;
-            //foreach (Control ctrl in panelNavigation.Children)
-            //{
-            //    if (ctrl is Button)
-            //        (ctrl as Button).Click += new EventHandler(Button_Click);
-            //}
+            foreach (Control ctrl in panelNavigation.Children)
+            {
+                if (ctrl is Button)
+                    (ctrl as Button).Click += new EventHandler(Button_Click);
+            }
 
             // title
-            TextBlock txtTitle = new TextBlock(panelNavigation.X + panelNavigation.Width + 10, panelNavigation.Y, 590, 60, fontTitle, "MFE graphics")
+            TextBlock txtTitle = new TextBlock(panelNavigation.Right + 10, panelNavigation.Y, desktop.Width - (panelNavigation.Right + 20), 60, fontTitle, "MFE graphics")
             {
                 ForeColor = Color.CornflowerBlue,
-                TextAlignment = TextAlignment.Left,
+                TextAlignment = TextAlignment.Center,
                 TextVerticalAlignment = VerticalAlignment.Center
             };
             desktop.Children.Add(txtTitle);
@@ -127,7 +128,7 @@ namespace MFE.GraphicsDemo
         {
             panelPresentation.SuspendLayout();
 
-            //lblActiveDemo.Text = "Presentation: " + (sender as Button).Text;
+            lblActiveDemo.Text = "Presentation: " + (sender as Button).Text;
 
             if (panelActiveDemo != null)
             {
@@ -135,17 +136,17 @@ namespace MFE.GraphicsDemo
                 panelActiveDemo = null;
             }
 
-            //switch ((sender as Button).Text)
-            //{
-            //    case "Checkbox": panelActiveDemo = new CheckboxDemo(); break;
-            //    case "Image": panelActiveDemo = new ImageDemo(); break;
-            //    case "Level": panelActiveDemo = new LevelDemo(); break;
-            //    case "Panel": panelActiveDemo = new PanelDemo(); break;
-            //    case "Slider": panelActiveDemo = new SliderDemo(); break;
+            switch ((sender as Button).Text)
+            {
+                case "Checkbox": panelActiveDemo = new CheckboxDemo(); break;
+                case "Image": panelActiveDemo = new ImageDemo(); break;
+                case "Level": panelActiveDemo = new LevelDemo(); break;
+                case "Panel": panelActiveDemo = new PanelDemo(); break;
+                case "Slider": panelActiveDemo = new SliderDemo(); break;
 
 
 
-            //}
+            }
 
             if (panelActiveDemo != null)
             {

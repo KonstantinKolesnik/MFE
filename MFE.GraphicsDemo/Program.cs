@@ -13,7 +13,8 @@ namespace MFE.GraphicsDemo
 
         public static void Main()
         {
-            gm = new GraphicsManager(320, 240);
+            //gm = new GraphicsManager(320, 240);
+            gm = new GraphicsManager(800, 480);
             //gm.OnRender += delegate(Bitmap bitmap, Rect dirtyArea)
             //{
             //    display.SimpleGraphics.DisplayImage(bitmap, (uint)dirtyArea.X, (uint)dirtyArea.Y, (uint)dirtyArea.X, (uint)dirtyArea.Y, (uint)dirtyArea.Width, (uint)dirtyArea.Height);

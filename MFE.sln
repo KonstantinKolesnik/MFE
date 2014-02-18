@@ -25,7 +25,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MFE.Graphics", "MFE.Graphic
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MFE.GraphicsDemo", "MFE.GraphicsDemo\MFE.GraphicsDemo.csproj", "{A3F48C61-576D-42E1-939F-C763CF277C19}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MFE.CustomEmulator", "MFE.CustomEmulator\MFE.CustomEmulator.csproj", "{44FBF870-9C30-4E36-904B-47AC388D26F9}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MFE.CustomEmulator", "MFE.CustomEmulator\MFE.CustomEmulator.csproj", "{D6BFFCC6-C464-4CE0-BC7B-CA831C5368FC}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -83,10 +83,11 @@ Global
 		{A3F48C61-576D-42E1-939F-C763CF277C19}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A3F48C61-576D-42E1-939F-C763CF277C19}.Release|Any CPU.Build.0 = Release|Any CPU
 		{A3F48C61-576D-42E1-939F-C763CF277C19}.Release|Any CPU.Deploy.0 = Release|Any CPU
-		{44FBF870-9C30-4E36-904B-47AC388D26F9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{44FBF870-9C30-4E36-904B-47AC388D26F9}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{44FBF870-9C30-4E36-904B-47AC388D26F9}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{44FBF870-9C30-4E36-904B-47AC388D26F9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D6BFFCC6-C464-4CE0-BC7B-CA831C5368FC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D6BFFCC6-C464-4CE0-BC7B-CA831C5368FC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D6BFFCC6-C464-4CE0-BC7B-CA831C5368FC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D6BFFCC6-C464-4CE0-BC7B-CA831C5368FC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D6BFFCC6-C464-4CE0-BC7B-CA831C5368FC}.Release|Any CPU.Deploy.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

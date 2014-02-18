@@ -9,17 +9,17 @@ using System.Windows.Forms;
 
 namespace MFE.CustomEmulator
 {
-    public partial class FormMain : Form
+    public partial class frmMain : Form
     {
         private Emulator emulator;
 
-        public FormMain(Emulator emulator)
+        public frmMain(Emulator emulator)
         {
             this.emulator = emulator;
             InitializeComponent();
         }
 
-        private void FormMain_Load(object sender, EventArgs e)
+        private void frmMain_Load(object sender, EventArgs e)
         {
             PopulateSD();
             PopulateSerialPorts();

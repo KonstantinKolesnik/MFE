@@ -1,5 +1,5 @@
-﻿using System.Windows.Forms;
-using Microsoft.SPOT.Emulator.Gpio;
+﻿using Microsoft.SPOT.Emulator.Gpio;
+using System.Windows.Forms;
 
 namespace MFE.CustomEmulator.Components
 {

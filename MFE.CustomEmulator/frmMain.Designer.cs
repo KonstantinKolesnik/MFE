@@ -1,6 +1,6 @@
 ﻿namespace MFE.CustomEmulator
 {
-    partial class FormMain
+    partial class frmMain
     {
         /// <summary>
         /// Required designer variable.
@@ -26,9 +26,15 @@
         /// Required method for Designer support - do not modify
         /// the contents of this method with the code editor.
         /// </summary>
+        //private void InitializeComponent()
+        //{
+        //    this.components = new System.ComponentModel.Container();
+        //    this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+        //    this.Text = "Form1";
+        //}
+
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormMain));
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabSD = new System.Windows.Forms.TabPage();
             this.lvSD = new System.Windows.Forms.ListView();
@@ -44,21 +50,21 @@
             this.toolStripButton1 = new System.Windows.Forms.ToolStripButton();
             this.toolStripButton2 = new System.Windows.Forms.ToolStripButton();
             this.tabPage1 = new System.Windows.Forms.TabPage();
-            this.lcdDisplay = new CustomEmulator.Components.LcdControl();
-            this.hwButton9 = new CustomEmulator.Components.HWButton();
-            this.hwButton8 = new CustomEmulator.Components.HWButton();
-            this.hwButton7 = new CustomEmulator.Components.HWButton();
-            this.hwButton6 = new CustomEmulator.Components.HWButton();
-            this.hwButton5 = new CustomEmulator.Components.HWButton();
-            this.hwButton4 = new CustomEmulator.Components.HWButton();
-            this.hwButton3 = new CustomEmulator.Components.HWButton();
-            this.hwButton2 = new CustomEmulator.Components.HWButton();
-            this.hwButton1 = new CustomEmulator.Components.HWButton();
-            this.hwButtonRight = new CustomEmulator.Components.HWButton();
-            this.hwButtonSelect = new CustomEmulator.Components.HWButton();
-            this.hwButtonUp = new CustomEmulator.Components.HWButton();
-            this.hwButtonLeft = new CustomEmulator.Components.HWButton();
-            this.hwButtonDown = new CustomEmulator.Components.HWButton();
+            this.hwButton9 = new MFE.CustomEmulator.Components.HWButton();
+            this.hwButton8 = new MFE.CustomEmulator.Components.HWButton();
+            this.hwButton7 = new MFE.CustomEmulator.Components.HWButton();
+            this.hwButton6 = new MFE.CustomEmulator.Components.HWButton();
+            this.hwButton5 = new MFE.CustomEmulator.Components.HWButton();
+            this.hwButton4 = new MFE.CustomEmulator.Components.HWButton();
+            this.hwButton3 = new MFE.CustomEmulator.Components.HWButton();
+            this.hwButton2 = new MFE.CustomEmulator.Components.HWButton();
+            this.hwButton1 = new MFE.CustomEmulator.Components.HWButton();
+            this.hwButtonRight = new MFE.CustomEmulator.Components.HWButton();
+            this.hwButtonSelect = new MFE.CustomEmulator.Components.HWButton();
+            this.hwButtonUp = new MFE.CustomEmulator.Components.HWButton();
+            this.hwButtonLeft = new MFE.CustomEmulator.Components.HWButton();
+            this.hwButtonDown = new MFE.CustomEmulator.Components.HWButton();
+            this.lcdDisplay = new MFE.CustomEmulator.Components.LcdControl();
             this.tabControl1.SuspendLayout();
             this.tabSD.SuspendLayout();
             this.tlbRBSD.SuspendLayout();
@@ -69,8 +75,8 @@
             // 
             // tabControl1
             // 
-            this.tabControl1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-                        | System.Windows.Forms.AnchorStyles.Left)));
+            this.tabControl1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left)));
             this.tabControl1.Controls.Add(this.tabSD);
             this.tabControl1.Controls.Add(this.tabSerialPorts);
             this.tabControl1.Controls.Add(this.tabPage1);
@@ -127,20 +133,18 @@
             // btnSDInsert
             // 
             this.btnSDInsert.Enabled = false;
-            this.btnSDInsert.Image = ((System.Drawing.Image)(resources.GetObject("btnSDInsert.Image")));
             this.btnSDInsert.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.btnSDInsert.Name = "btnSDInsert";
-            this.btnSDInsert.Size = new System.Drawing.Size(56, 22);
+            this.btnSDInsert.Size = new System.Drawing.Size(40, 22);
             this.btnSDInsert.Text = "Insert";
             this.btnSDInsert.Click += new System.EventHandler(this.btnSDInsertRemove_Click);
             // 
             // btnSDRemove
             // 
             this.btnSDRemove.Enabled = false;
-            this.btnSDRemove.Image = ((System.Drawing.Image)(resources.GetObject("btnSDRemove.Image")));
             this.btnSDRemove.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.btnSDRemove.Name = "btnSDRemove";
-            this.btnSDRemove.Size = new System.Drawing.Size(70, 22);
+            this.btnSDRemove.Size = new System.Drawing.Size(54, 22);
             this.btnSDRemove.Text = "Remove";
             this.btnSDRemove.Click += new System.EventHandler(this.btnSDInsertRemove_Click);
             // 
@@ -196,7 +200,6 @@
             // toolStripButton1
             // 
             this.toolStripButton1.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.toolStripButton1.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton1.Image")));
             this.toolStripButton1.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolStripButton1.Name = "toolStripButton1";
             this.toolStripButton1.Size = new System.Drawing.Size(23, 22);
@@ -205,7 +208,6 @@
             // toolStripButton2
             // 
             this.toolStripButton2.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.toolStripButton2.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton2.Image")));
             this.toolStripButton2.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolStripButton2.Name = "toolStripButton2";
             this.toolStripButton2.Size = new System.Drawing.Size(23, 22);
@@ -234,16 +236,6 @@
             this.tabPage1.TabIndex = 2;
             this.tabPage1.Text = "Buttons";
             this.tabPage1.UseVisualStyleBackColor = true;
-            // 
-            // lcdDisplay
-            // 
-            this.lcdDisplay.BackColor = System.Drawing.Color.White;
-            this.lcdDisplay.LcdDisplay = null;
-            this.lcdDisplay.Location = new System.Drawing.Point(278, 12);
-            this.lcdDisplay.Name = "lcdDisplay";
-            this.lcdDisplay.Size = new System.Drawing.Size(800, 480);
-            this.lcdDisplay.TabIndex = 2;
-            this.lcdDisplay.TouchPort = null;
             // 
             // hwButton9
             // 
@@ -385,7 +377,17 @@
             this.hwButtonDown.Text = "Down";
             this.hwButtonDown.UseVisualStyleBackColor = true;
             // 
-            // FormMain
+            // lcdDisplay
+            // 
+            this.lcdDisplay.BackColor = System.Drawing.Color.White;
+            this.lcdDisplay.LcdDisplay = null;
+            this.lcdDisplay.Location = new System.Drawing.Point(278, 12);
+            this.lcdDisplay.Name = "lcdDisplay";
+            this.lcdDisplay.Size = new System.Drawing.Size(800, 480);
+            this.lcdDisplay.TabIndex = 2;
+            this.lcdDisplay.TouchPort = null;
+            // 
+            // frmMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -396,10 +398,10 @@
             this.Controls.Add(this.tabControl1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.MaximizeBox = false;
-            this.Name = "FormMain";
+            this.Name = "frmMain";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "Custom Emulator";
-            this.Load += new System.EventHandler(this.FormMain_Load);
+            this.Text = "MFE Custom Emulator";
+            this.Load += new System.EventHandler(this.frmMain_Load);
             this.tabControl1.ResumeLayout(false);
             this.tabSD.ResumeLayout(false);
             this.tabSD.PerformLayout();
@@ -413,7 +415,6 @@
             this.ResumeLayout(false);
 
         }
-
         #endregion
 
         private System.Windows.Forms.TabControl tabControl1;

@@ -1,11 +1,11 @@
-﻿using System;
+﻿using Microsoft.SPOT.Emulator.Lcd;
+using Microsoft.SPOT.Emulator.TouchPanel;
+using System;
 using System.Diagnostics;
 using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Drawing.Imaging;
 using System.Windows.Forms;
-using Microsoft.SPOT.Emulator.Lcd;
-using Microsoft.SPOT.Emulator.TouchPanel;
 
 namespace MFE.CustomEmulator.Components
 {
