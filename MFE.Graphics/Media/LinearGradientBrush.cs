@@ -20,6 +20,10 @@ namespace MFE.Graphics.Media
         {
         }
         public LinearGradientBrush(Color startColor, Color endColor, int startX, int startY, int endX, int endY)
+            : this(startColor, endColor, 0, 0, RelativeBoundingBoxSize, RelativeBoundingBoxSize, Bitmap.OpacityOpaque)
+        {
+        }
+        public LinearGradientBrush(Color startColor, Color endColor, int startX, int startY, int endX, int endY, ushort opacity)
         {
             StartColor = startColor;
             EndColor = endColor;
@@ -27,6 +31,7 @@ namespace MFE.Graphics.Media
             StartY = startY;
             EndX = endX;
             EndY = endY;
+            Opacity = opacity;
         }
 
         protected internal override void RenderRectangle(Bitmap bmp, Pen pen, int x, int y, int width, int height)
