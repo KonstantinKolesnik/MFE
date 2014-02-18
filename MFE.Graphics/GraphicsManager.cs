@@ -3,41 +3,40 @@ using MFE.Graphics.Geometry;
 using MFE.Graphics.Media;
 using MFE.Graphics.Touching;
 using Microsoft.SPOT;
-using System;
 
 namespace MFE.Graphics
 {
-    public static class GraphicsManager
+    public class GraphicsManager
     {
         #region Fields
-        private static Bitmap bitmap;
-        internal static Desktop desktop;
-        //internal static Window modalWindow = null;
+        private Bitmap bitmap;
+        internal Desktop desktop;
+        //internal Window modalWindow = null;
 
-        private static Control lastEventTarget = null;
+        private Control lastEventTarget = null;
         //var lastMoveTarget = null;
         //var lastP = new Point(-1, -1);
         //var lastTouchTarget = null;
         //var touchRepeatCount = 0;
         //var lastDownTarget = null;
 
-        public static DateTime dt0;
-        public static TimeSpan ts;
+        //public DateTime dt0;
+        //public TimeSpan ts;
         #endregion
 
         #region Properties
-        public static Desktop Desktop
+        public Desktop Desktop
         {
             get { return desktop; }
         }
         #endregion
 
         #region Events
-        public static event RenderEventHandler OnRender;
+        public event RenderEventHandler OnRender;
         #endregion
 
-        #region Public methods
-        public static void Initialize(int width, int height)
+        #region Constructor
+        public GraphicsManager(int width, int height)
         {
             //mouseManager = new MouseManager(canvas);
             //mouseManager.OnMouseDblClick = InterceptMouseDblClick;
@@ -56,7 +55,7 @@ namespace MFE.Graphics
             TouchManager.Initialize();
 
             bitmap = new Bitmap(width, height);
-            desktop = new Desktop(width, height);
+            desktop = new Desktop(width, height, this);
             desktop.Invalidate();
 
             //if (CalibrationManager.IsCalibrated)
@@ -65,37 +64,37 @@ namespace MFE.Graphics
         #endregion
 
         #region Touch event handlers
-        private static void TouchManager_TouchDown(object sender, TouchEventArgs e)
+        private void TouchManager_TouchDown(object sender, TouchEventArgs e)
         {
             Control touchTarget = GetTouchTarget(e.Point);
             if (touchTarget != null)
                 touchTarget.RaiseTouchDownEvent(e);
         }
-        private static void TouchManager_TouchMove(object sender, TouchEventArgs e)
+        private void TouchManager_TouchMove(object sender, TouchEventArgs e)
         {
             Control touchTarget = GetTouchTarget(e.Point);
             if (touchTarget != null)
                 touchTarget.RaiseTouchMoveEvent(e);
         }
-        private static void TouchManager_TouchUp(object sender, TouchEventArgs e)
+        private void TouchManager_TouchUp(object sender, TouchEventArgs e)
         {
             Control touchTarget = GetTouchTarget(e.Point);
             if (touchTarget != null)
                 touchTarget.RaiseTouchUpEvent(e);
         }
-        private static void TouchManager_TouchGestureStarted(object sender, TouchGestureEventArgs e)
+        private void TouchManager_TouchGestureStarted(object sender, TouchGestureEventArgs e)
         {
             Control touchTarget = GetTouchTarget(e.Point);
             if (touchTarget != null)
                 touchTarget.RaiseTouchGestureStartedEvent(e);
         }
-        private static void TouchManager_TouchGestureChanged(object sender, TouchGestureEventArgs e)
+        private void TouchManager_TouchGestureChanged(object sender, TouchGestureEventArgs e)
         {
             Control touchTarget = GetTouchTarget(e.Point);
             if (touchTarget != null)
                 touchTarget.RaiseTouchGestureChangedEvent(e);
         }
-        private static void TouchManager_TouchGestureEnded(object sender, TouchGestureEventArgs e)
+        private void TouchManager_TouchGestureEnded(object sender, TouchGestureEventArgs e)
         {
             Control touchTarget = GetTouchTarget(e.Point);
             if (touchTarget != null)
@@ -104,7 +103,7 @@ namespace MFE.Graphics
         #endregion
 
         #region Private methods
-        private static Control GetTouchTarget(Point p)
+        private Control GetTouchTarget(Point p)
         {
             Control res = null;
             if (TouchCapture.Captured != null)
@@ -133,7 +132,7 @@ namespace MFE.Graphics
             ////ts = DateTime.Now - dt0;
             //return res;
         }
-        //private static Control FindTouchTarget(Control root, Point p)
+        //private Control FindTouchTarget(Control root, Point p)
         //{
         //    if (lastEventTarget != null)
         //    {
@@ -288,12 +287,12 @@ namespace MFE.Graphics
         //    } while (pp && pp.GetParent() != ctrl2.GetParent());
         //}
 
-        internal static void ProcessTask(RenderTask task /*optional*/)
+        internal void ProcessTask(RenderTask task /*optional*/)
         {
             if (desktop != null && bitmap != null)
                 RenderTask(task);
         }
-        private static void RenderTask(RenderTask task)
+        private void RenderTask(RenderTask task)
         {
             Rect contentRect = new Rect(0, 0, desktop.Width, desktop.Height);
             var dirtyRect = contentRect;

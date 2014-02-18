@@ -4,18 +4,27 @@ namespace MFE.Graphics.Controls
 {
     public class Desktop : Container
     {
+        #region Fields
+        private GraphicsManager gm = null;
+        #endregion
+
         #region Constructors
-        public Desktop(int width, int height)
+        internal Desktop(int width, int height, GraphicsManager gm)
             : base(0, 0, width, height)
         {
+            this.gm = gm;
+
             Name = "Desktop";
             Background = new SolidColorBrush(Color.Black);
         }
         #endregion
 
+        #region Private methods
         internal override void ProcessTask(RenderTask task)
         {
-            GraphicsManager.ProcessTask(task);
+            if (gm != null)
+                gm.ProcessTask(task);
         }
+        #endregion
     }
 }
