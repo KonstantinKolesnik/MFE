@@ -1,4 +1,4 @@
-﻿using Gadgeteer.Modules.KKSolutions;
+﻿using Gadgeteer.Modules.KKS;
 using MFE.Graphics;
 using MFE.Graphics.Controls;
 using MFE.Graphics.Geometry;
@@ -13,7 +13,7 @@ namespace MFE.GraphicsDemo
     {
         private GraphicsManager gm;
         private Desktop desktop;
-        private Display_SP22 display;
+        private DisplayS22 display;
 
         private Font fontRegular;
         private Font fontCourierNew10;
@@ -37,7 +37,7 @@ namespace MFE.GraphicsDemo
 
         private void Demo22()
         {
-            display = new Display_SP22(1);
+            display = new DisplayS22(1);
 
             gm = new GraphicsManager(240, 320);
             gm.OnRender += delegate(Bitmap bitmap, Rect dirtyArea)
