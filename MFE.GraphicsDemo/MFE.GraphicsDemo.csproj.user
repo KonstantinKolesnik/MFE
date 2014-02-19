@@ -3,11 +3,4 @@
   <PropertyGroup>
     <ProjectView>ProjectFiles</ProjectView>
   </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|AnyCPU'">
-    <DeployDevice>{%24GUID2%24}</DeployDevice>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|AnyCPU'">
-    <DeployDevice>Microsoft</DeployDevice>
-    <DeployTransport>Emulator</DeployTransport>
-  </PropertyGroup>
 </Project>

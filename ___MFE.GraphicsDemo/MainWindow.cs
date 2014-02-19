@@ -5,12 +5,17 @@ using MFE.Graphics.Geometry;
 using MFE.Graphics.Media;
 using MFE.Graphics.Touching;
 using MFE.GraphicsDemo.Demos;
+using MFE.Graphics;
+using Gadgeteer.Modules.KKSolutions;
+using System.Threading;
 
 namespace MFE.GraphicsDemo
 {
     class MainWindow
     {
+        private GraphicsManager gm;
         private Desktop desktop;
+        private Display_SP22 display;
 
         private Font fontRegular;
         private Font fontCourierNew10;
@@ -21,10 +26,8 @@ namespace MFE.GraphicsDemo
         private Label lblActiveDemo;
         private Panel panelActiveDemo;
 
-        public MainWindow(Desktop desktop)
+        public MainWindow()
         {
-            this.desktop = desktop;
-
             fontRegular = Resources.GetFont(Resources.FontResources.LucidaSansUnicode_8);
             fontCourierNew10 = Resources.GetFont(Resources.FontResources.CourierNew_10);
             fontTitle = Resources.GetFont(Resources.FontResources.SegoeUI_BoldItalian_32);
@@ -32,6 +35,10 @@ namespace MFE.GraphicsDemo
 
         public void Demo()
         {
+            gm = new GraphicsManager(800, 480);
+            desktop = gm.Desktop;
+
+
             desktop.SuspendLayout();
 
             desktop.Background = new ImageBrush(Program.GetBitmap(Resources.BinaryResources.reWalls, Bitmap.BitmapImageType.Jpeg)) { Stretch = Stretch.Fill };
@@ -123,7 +130,6 @@ namespace MFE.GraphicsDemo
 
             desktop.ResumeLayout();
         }
-
         private void Button_Click(object sender, EventArgs e)
         {
             panelPresentation.SuspendLayout();
@@ -158,6 +164,80 @@ namespace MFE.GraphicsDemo
             }
 
             panelPresentation.ResumeLayout();
+        }
+
+        public void Demo22()
+        {
+            display = new Display_SP22(1);
+
+            gm = new GraphicsManager(240, 320);
+            gm.OnRender += delegate(Bitmap bitmap, Rect dirtyArea)
+            {
+                display.SimpleGraphics.DisplayImage(bitmap, (uint)dirtyArea.X, (uint)dirtyArea.Y, (uint)dirtyArea.X, (uint)dirtyArea.Y, (uint)dirtyArea.Width, (uint)dirtyArea.Height);
+            };
+
+            desktop.SuspendLayout();
+
+            ImageBrush brush = new ImageBrush(Program.GetBitmap(Resources.BinaryResources.reWalls, Bitmap.BitmapImageType.Jpeg));
+            brush.Stretch = Stretch.Fill;
+            //desktop.Background = brush;
+
+            int statusbarHeight = 24;
+            Panel statusbar = new Panel(0, desktop.Height - statusbarHeight, desktop.Width, statusbarHeight);
+            statusbar.Background = new ImageBrush(new Bitmap(Resources.GetBytes(Resources.BinaryResources.Bar), Bitmap.BitmapImageType.Bmp));
+            desktop.Children.Add(statusbar);
+
+            Label lblClock = new Label(statusbar.Width - 70, 4, fontRegular, "00:00:00");
+            lblClock.ForeColor = Color.White;
+            statusbar.Children.Add(lblClock);
+
+            Level lvl2 = new Level(statusbar.Width - 120, 7, 40, 10, Orientation.Horizontal, 10);
+            lvl2.Foreground = new LinearGradientBrush(Color.LimeGreen, Color.Black);
+            lvl2.Value = 50;
+            statusbar.Children.Add(lvl2);
+
+
+
+            desktop.ResumeLayout();
+
+
+
+            new Thread(() =>
+            {
+                int v = 0;
+                while (true)
+                {
+                    desktop.SuspendLayout();
+
+                    DateTime dt = DateTime.Now;
+
+                    string hour = (dt.Hour < 10) ? "0" + dt.Hour.ToString() : dt.Hour.ToString();
+                    string minute = (dt.Minute < 10) ? "0" + dt.Minute.ToString() : dt.Minute.ToString();
+                    string second = (dt.Second < 10) ? "0" + dt.Second.ToString() : dt.Second.ToString();
+                    string result = hour + ":" + minute + ":" + second;
+                    lblClock.Text = result;
+
+                    v += 10;
+                    if (v > 100)
+                        v = 0;
+
+                    //lvl.Value = v;
+                    //pg.Value = v;
+                    lvl2.Value = v;
+
+                    //Color temp = ((LinearGradientBrush)pnl.Background).StartColor;
+                    //((LinearGradientBrush)pnl.Background).StartColor = ((LinearGradientBrush)pnl.Background).EndColor;
+                    //((LinearGradientBrush)pnl.Background).EndColor = temp;
+                    //pnl.Invalidate();
+
+                    desktop.ResumeLayout();
+
+                    Thread.Sleep(500);
+                }
+            }).Start();
+
+
+
         }
     }
 }

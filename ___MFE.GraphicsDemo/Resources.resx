@@ -152,16 +152,10 @@
     <value>Resources\Mouse.gif;System.Byte[], mscorlib, Version=4.2.0.0, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="NinaB" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>Resources\NinaB.tinyfnt;System.Byte[], mscorlib, Culture=neutral, PublicKeyToken=null</value>
+    <value>Resources\NinaB.tinyfnt;System.Byte[], mscorlib, Version=4.2.0.0, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="Operation" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>Resources\Operation.gif;System.Byte[], mscorlib, Version=4.2.0.0, Culture=neutral, PublicKeyToken=null</value>
-  </data>
-  <data name="PowerOff" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>Resources\PowerOff.gif;System.Byte[], mscorlib, Version=4.2.0.0, Culture=neutral, PublicKeyToken=null</value>
-  </data>
-  <data name="PowerOn" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>Resources\PowerOn.gif;System.Byte[], mscorlib, Version=4.2.0.0, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="reWalls" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>Resources\reWalls_com-52726.jpg;System.Byte[], mscorlib, Version=4.2.0.0, Culture=neutral, PublicKeyToken=null</value>
@@ -173,9 +167,18 @@
     <value>Resources\Settings.gif;System.Byte[], mscorlib, Version=4.2.0.0, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="small" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>Resources\small.tinyfnt;System.Byte[], mscorlib, Culture=neutral, PublicKeyToken=null</value>
+    <value>Resources\small.tinyfnt;System.Byte[], mscorlib, Version=4.2.0.0, Culture=neutral, PublicKeyToken=null</value>
+  </data>
+  <data name="String1" xml:space="preserve">
+    <value>Hello World!</value>
   </data>
   <data name="test_24b" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>Resources\test_24b.bmp;System.Byte[], mscorlib, Version=4.2.0.0, Culture=neutral, PublicKeyToken=null</value>
+  </data>
+  <data name="PowerOff" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>Resources\PowerOff.gif;System.Byte[], mscorlib, Version=4.2.0.0, Culture=neutral, PublicKeyToken=null</value>
+  </data>
+  <data name="PowerOn" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>Resources\PowerOn.gif;System.Byte[], mscorlib, Version=4.2.0.0, Culture=neutral, PublicKeyToken=null</value>
   </data>
 </root>
