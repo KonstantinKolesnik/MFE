@@ -1,9 +1,6 @@
-﻿using System;
-using Microsoft.SPOT;
-
-using GT = Gadgeteer;
-using GTM = Gadgeteer.Modules;
+﻿using GT = Gadgeteer;
 using GTI = Gadgeteer.Interfaces;
+using GTM = Gadgeteer.Modules;
 
 namespace Gadgeteer.Modules.KKS
 {

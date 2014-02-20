@@ -72,6 +72,7 @@ namespace Gadgeteer.Modules.KKS
             // If there is more than one socket on this module, then instead of "null" for the last parameter, 
             // put text that identifies the socket to the user (e.g. "S" if there is a socket type S)
             socket = Socket.GetSocket(socketNumber, true, this, null);
+            socket.EnsureTypeIsSupported('S', this);
 
             socket.ReservePin(Socket.Pin.Three, this); // reset
             socket.ReservePin(Socket.Pin.Four, this); // back light
@@ -81,7 +82,6 @@ namespace Gadgeteer.Modules.KKS
             socket.ReservePin(Socket.Pin.Eight, this); // MISO
             socket.ReservePin(Socket.Pin.Nine, this); // SCK
 
-            socket.EnsureTypeIsSupported('S', this);
             /*
              * Serial peripheral interface (SPI).
              * Pin 7 is MOSI line, pin 8 is MISO line, pin 9 is SCK line.
