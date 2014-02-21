@@ -6,6 +6,7 @@ namespace Gadgeteer.Modules.KKS.NRF24L01Plus
     /// </summary>
     public static class Bits
     {
+        #region Interrupt masks
         /// <summary>
         ///   Mask interrupt caused by RX_DR
         ///   1: Interrupt not reflected on the IRQ pin
@@ -26,6 +27,7 @@ namespace Gadgeteer.Modules.KKS.NRF24L01Plus
         ///   0: Reflect MAX_RT as active low interrupt on the IRQ pin
         /// </summary>
         public static byte MASK_MAX_RT = 4;
+        #endregion
 
         /// <summary>
         ///   Enable CRC. Forced high if one of the bits in the EN_AA is high
@@ -50,7 +52,7 @@ namespace Gadgeteer.Modules.KKS.NRF24L01Plus
         /// </summary>
         public static byte PRIM_RX;
 
-
+        #region Enable auto acknowledgement data pipe 0...5
         /// <summary>
         ///   Enable auto acknowledgement data pipe 5
         /// </summary>
@@ -80,8 +82,9 @@ namespace Gadgeteer.Modules.KKS.NRF24L01Plus
         ///   Enable auto acknowledgement data pipe 0
         /// </summary>
         public static byte ENAA_P0;
+        #endregion
 
-
+        #region Enable data pipe 0...5
         /// <summary>
         ///   Enable data pipe 5
         /// </summary>
@@ -111,6 +114,7 @@ namespace Gadgeteer.Modules.KKS.NRF24L01Plus
         ///   Enable data pipe 0
         /// </summary>
         public static byte ERX_P0;
+        #endregion
 
 
         /// <summary>
@@ -263,7 +267,7 @@ namespace Gadgeteer.Modules.KKS.NRF24L01Plus
         /// </summary>
         public static byte RX_EMPTY;
 
-
+        #region Enable dynamic payload length data pipe 0...5. (Requires EN_DPL and ENAA_Px)
         /// <summary>
         ///   Enable dynamic payload length data pipe 5. (Requires EN_DPL and ENAA_P5)
         /// </summary>
@@ -293,6 +297,7 @@ namespace Gadgeteer.Modules.KKS.NRF24L01Plus
         ///   Enable dynamic payload length data pipe 0. (Requires EN_DPL and ENAA_P0)
         /// </summary>
         public static byte DPL_P0;
+        #endregion
 
 
         /// <summary>

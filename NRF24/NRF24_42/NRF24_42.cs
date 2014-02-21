@@ -8,28 +8,19 @@ using Gadgeteer.Modules.KKS.NRF24L01Plus;
 
 namespace Gadgeteer.Modules.KKS
 {
+    // -- CHANGE FOR MICRO FRAMEWORK 4.2 --
+    // If you want to use Serial, SPI, or DaisyLink (which includes GTI.SoftwareI2C), you must do a few more steps
+    // since these have been moved to separate assemblies for NETMF 4.2 (to reduce the minimum memory footprint of Gadgeteer)
+    // 1) add a reference to the assembly (named Gadgeteer.[interfacename])
+    // 2) in GadgeteerHardware.xml, uncomment the lines under <Assemblies> so that end user apps using this module also add a reference.
+
+
     /// <summary>
     /// A NRF24 module for Microsoft .NET Gadgeteer
     /// </summary>
     public class NRF24 : GTM.Module
     {
-        // This example implements a driver in managed code for a simple Gadgeteer module.  This module uses a 
-        // single GTI.InterruptInput to interact with a button that can be in either of two states: pressed or released.
-        // The example code shows the recommended code pattern for exposing a property (IsPressed). 
-        // The example also uses the recommended code pattern for exposing two events: Pressed and Released. 
-        // The triple-slash "///" comments shown will be used in the build process to create an XML file named
-        // GTM.KKS.RF24. This file will provide IntelliSense and documentation for the
-        // interface and make it easier for developers to use the RF24 module.        
-
-        // -- CHANGE FOR MICRO FRAMEWORK 4.2 --
-        // If you want to use Serial, SPI, or DaisyLink (which includes GTI.SoftwareI2C), you must do a few more steps
-        // since these have been moved to separate assemblies for NETMF 4.2 (to reduce the minimum memory footprint of Gadgeteer)
-        // 1) add a reference to the assembly (named Gadgeteer.[interfacename])
-        // 2) in GadgeteerHardware.xml, uncomment the lines under <Assemblies> so that end user apps using this module also add a reference.
-
-
-
-        // NRF24L01Plus interface:      S socket interface:
+        // NRF24L01Plus interface:      S-socket interface:
         // 1 - GND                      10
         // 2 - Vcc                      1
         // 3 - CE                       6
@@ -44,28 +35,51 @@ namespace Gadgeteer.Modules.KKS
         public delegate void OnInterruptHandler(Status status);
 
         #region Fields
-        private uint spiSpeed = 2000; // kHz
-        private GTI.SPI spi;
-        private GTI.SPI.Configuration spiConfig;
-        //private SPI.Configuration netMFSpiConfig;
         private GT.Socket socket;
+        private uint spiSpeed = 2000; // kHz; 10 Mbps max
+        private GTI.SPI spi;
 
-        private GTI.DigitalOutput pinCE; // chip enable
-        private GTI.DigitalOutput pinCSN; // chip select
-        private GTI.InterruptInput pinIRQ;
+        private GTI.DigitalOutput pinCE; // chip enable, active high
+        private Socket.Pin pinCSN; // chip select, active low
+        private GTI.InterruptInput pinIRQ; // active low
 
-        private bool _initialized;
-        private byte[] _slot0Address;
+        private byte[] slot0Address;
+        private byte payloadSize = 32; // fixed size of payloads
+
+        //bool wide_band; /* 2Mbs data rate in use? */
+        //bool p_variant; /* False for RF24L01 and true for RF24L01P */
+        //bool ack_payload_available; /**< Whether there is an ack payload waiting */
+        //bool dynamic_payloads_enabled; /**< Whether dynamic payloads are enabled. */
+        //uint8_t ack_payload_length; /**< Dynamic size of pending ack payload. */
+        //uint64_t pipe0_reading_address; /**< Last address set on pipe 0 for reading. */
+
+        //wide_band(true), p_variant(false), 
+        //payload_size(32), ack_payload_available(false), dynamic_payloads_enabled(false),
+        //pipe0_reading_address(0)
+
+
         #endregion
 
         #region Properties
         /// <summary>
-        ///   Gets a value indicating whether module is enabled (RX or TX mode).
+        ///   Gets or sets a value indicating whether module is enabled (RX or TX mode).
         /// </summary>
         public bool IsEnabled
         {
             get { return pinCE.Read(); }
+            set { pinCE.Write(value); }
         }
+
+        public byte PayloadSize
+        {
+            get { return payloadSize; }
+            set { payloadSize = (byte)System.Math.Max(value, 32); }
+        }
+
+
+
+
+
         #endregion
 
         #region Events
@@ -110,46 +124,88 @@ namespace Gadgeteer.Modules.KKS
             socket.ReservePin(Socket.Pin.Eight, this); // MISO
             socket.ReservePin(Socket.Pin.Nine, this); // SCK
 
-            /*
-             * Serial peripheral interface (SPI).
-             * Pin 7 is MOSI line, pin 8 is MISO line, pin 9 is SCK line.
-             * In addition, pins 3, 4 and 5 are general-purpose input/outputs, with pin 3 supporting interrupt capabilities.
-            */
+            // Serial peripheral interface (SPI).
+            // Pin 7 is MOSI line, pin 8 is MISO line, pin 9 is SCK line.
+            // In addition, pins 3, 4 and 5 are general-purpose input/outputs, with pin 3 supporting interrupt capabilities.
 
             pinCE = new GTI.DigitalOutput(socket, Socket.Pin.Six, false, this); // pin 6
-            //pinCSN = new GTI.DigitalOutput(socket, Socket.Pin.Five, false, this); // pin 5
+            pinCSN = Socket.Pin.Five; // pin 5
             pinIRQ = new GTI.InterruptInput(socket, GT.Socket.Pin.Three, GTI.GlitchFilterMode.Off, GTI.ResistorMode.PullUp, GTI.InterruptMode.FallingEdge, this);
             pinIRQ.Interrupt += new GTI.InterruptInput.InterruptEventHandler(pinIRQ_Interrupt);
 
-            spiConfig = new GTI.SPI.Configuration(false, 0, 0, false, false, spiSpeed);
-            //netMFSpiConfig = new SPI.Configuration(socket.CpuPins[6], spiConfig.ChipSelectActiveState, spiConfig.ChipSelectSetupTime, spiConfig.ChipSelectHoldTime, spiConfig.ClockIdleState, spiConfig.ClockEdge, spiConfig.ClockRateKHz, socket.SPIModule);
-            spi = new GTI.SPI(socket, spiConfig, GTI.SPI.Sharing.Shared, socket, Socket.Pin.Five, this);
+            GTI.SPI.Configuration spiConfig = new GTI.SPI.Configuration(false, 0, 0, false, false, spiSpeed);
+            spi = new GTI.SPI(socket, spiConfig, GTI.SPI.Sharing.Shared, socket, pinCSN, this);
 
-            // Module reset time
+            IsEnabled = false;
+
+            // Must allow the radio time to settle else configuration bits will not necessarily stick.
+            // This is actually only required following power up but some settling time also appears to
+            // be required after resets too. For full coverage, we'll always assume the worst.
+            // Enabling 16b CRC is by far the most obvious case if the wrong timing is used - or skipped.
+            // Technically we require 4.5ms + 14us as a worst case. We'll just call it 5ms for good measure.
+            // WARNING: Delay is based on P-variant whereby non-P *may* require different timing.
+            //Thread.Sleep(5);
             Thread.Sleep(100);
 
-            _initialized = true;
+            // Set 1500uS (minimum for 32B payload in ESB@250KBPS) timeouts, to make testing a little easier
+            // WARNING: If this is ever lowered, either 250KBS mode with AA is broken or maximum packet
+            // sizes must never be used. See documentation for a more complete explanation.
+            //write_register(SETUP_RETR, (B0100 << ARD) | (B1111 << ARC));
+
+
+            // Restore our default PA level
+            //setPALevel(RF24_PA_MAX);
+
+
+            // Determine if this is a p or non-p RF24 module and then
+            // reset our data rate back to default value. This works
+            // because a non-P variant won't allow the data rate to
+            // be set to 250Kbps.
+            //if (setDataRate(RF24_250KBPS))
+            //    p_variant = true;
+
+            // Then set the data rate to the slowest (and most reliable) speed supported by all
+            // hardware.
+            //setDataRate(RF24_1MBPS);
+
+
+            // Initialize CRC and request 2-byte (16bit) CRC
+            //setCRCLength(RF24_CRC_16);
+
+            // Disable dynamic payloads, to match dynamic_payloads_enabled setting
+            //write_register(DYNPD, 0);
+
+
+            // Reset current status
+            // Notice reset and flush is the last thing we do
+            //write_register(STATUS, _BV(RX_DR) | _BV(TX_DS) | _BV(MAX_RT));
+
+
+            // Set up default configuration. Callers can always change it later.
+            // This channel should be universally safe and not bleed over into adjacent spectrum.
+            SetChannel(76);
+
+
+            // Flush buffers
+            FlushRX();
+            FlushTX();
         }
         #endregion
 
         #region Public methods
         /// <summary>
-        ///   Enables the module
+        /// Set RF communication channel
         /// </summary>
-        public void Enable()
+        /// <param name="channel">RF channel (0-127)</param>
+        public void SetChannel(byte channel)
         {
-            //pinIRQ.EnableInterrupt();
-            pinCE.Write(true);
+            Execute(Commands.W_REGISTER, Registers.RF_CH, new[] { (byte)(channel & 0x7F) }); // channel is 7 bits
         }
 
-        /// <summary>
-        ///   Disables the module
-        /// </summary>
-        public void Disable()
-        {
-            pinCE.Write(false);
-            //pinIRQ.DisableInterrupt();
-        }
+
+
+
+
 
         /// <summary>
         /// Configure the module basic settings. Module needs to be initiaized.
@@ -158,7 +214,6 @@ namespace Gadgeteer.Modules.KKS
         /// <param name="channel">RF channel (0-127)</param>
         public void Configure(byte[] address, byte channel)
         {
-            CheckIsInitialized();
             AddressWidth.Check(address);
 
             // Set radio channel
@@ -192,10 +247,10 @@ namespace Gadgeteer.Modules.KKS
                         });
 
             // Flush RX FIFO
-            Execute(Commands.FLUSH_RX, 0x00, new byte[0]);
+            FlushRX();
 
             // Flush TX FIFO
-            Execute(Commands.FLUSH_TX, 0x00, new byte[0]);
+            FlushTX();
 
             // Clear IRQ Masks
             Execute(Commands.W_REGISTER, Registers.STATUS,
@@ -210,11 +265,11 @@ namespace Gadgeteer.Modules.KKS
             Execute(Commands.W_REGISTER, Registers.SETUP_AW,
                     new[]
                         {
-                            AddressWidth.Get(address)
+                            AddressWidth.GetRegisterValue(address)
                         });
 
             // Set module address
-            _slot0Address = address;
+            slot0Address = address;
             Execute(Commands.W_REGISTER, (byte)AddressSlot.Zero, address);
 
             // Setup, CRC enabled, Power Up, PRX
@@ -226,12 +281,11 @@ namespace Gadgeteer.Modules.KKS
         /// </summary>
         public void SetAddress(AddressSlot slot, byte[] address)
         {
-            CheckIsInitialized();
             AddressWidth.Check(address);
             Execute(Commands.W_REGISTER, (byte)slot, address);
 
             if (slot == AddressSlot.Zero)
-                _slot0Address = address;
+                slot0Address = address;
         }
 
         /// <summary>
@@ -239,8 +293,8 @@ namespace Gadgeteer.Modules.KKS
         /// </summary>
         public byte[] GetAddress(AddressSlot slot, int width)
         {
-            CheckIsInitialized();
             AddressWidth.Check(width);
+
             var read = Execute(Commands.R_REGISTER, (byte)slot, new byte[width]);
             var result = new byte[read.Length - 1];
             Array.Copy(read, 1, result, 0, result.Length);
@@ -251,35 +305,27 @@ namespace Gadgeteer.Modules.KKS
         ///   Executes a command in NRF24L01+ (for details see module datasheet)
         /// </summary>
         /// <param name = "command">Command</param>
-        /// <param name = "address">Register to write to</param>
+        /// <param name = "register">Register to write to</param>
         /// <param name = "data">Data to write</param>
         /// <returns>Response byte array. First byte is the status register</returns>
-        public byte[] Execute(byte command, byte address, byte[] data)
+        public byte[] Execute(byte command, byte register, byte[] data)
         {
-            CheckIsInitialized();
-
-            var wasEnabled = IsEnabled;
-
             // This command requires module to be in power down or standby mode
+            var wasEnabled = IsEnabled;
             if (command == Commands.W_REGISTER)
-                Disable();
+                IsEnabled = false;
 
             // Create SPI Buffers with Size of Data + 1 (For Command)
             var writeBuffer = new byte[data.Length + 1];
+            writeBuffer[0] = (byte)(command | register); // Add command and register to SPI buffer
+            Array.Copy(data, 0, writeBuffer, 1, data.Length); // Add data to SPI buffer
+
             var readBuffer = new byte[data.Length + 1];
-
-            // Add command and adres to SPI buffer
-            writeBuffer[0] = (byte)(command | address);
-
-            // Add data to SPI buffer
-            Array.Copy(data, 0, writeBuffer, 1, data.Length);
-
-            // Do SPI Read/Write
-            spi.WriteRead(writeBuffer, readBuffer);
+            spi.WriteRead(writeBuffer, readBuffer); // Do SPI Read/Write
 
             // Enable module back if it was disabled
             if (command == Commands.W_REGISTER && wasEnabled)
-                Enable();
+                IsEnabled = true;
 
             // Return ReadBuffer
             return readBuffer;
@@ -290,8 +336,6 @@ namespace Gadgeteer.Modules.KKS
         /// </summary>
         public Status GetStatus()
         {
-            CheckIsInitialized();
-
             var readBuffer = new byte[1];
             spi.WriteRead(new[] { Commands.NOP }, readBuffer);
 
@@ -304,33 +348,30 @@ namespace Gadgeteer.Modules.KKS
         public void SendTo(byte[] address, byte[] bytes)
         {
             // Chip enable low
-            Disable();
+            IsEnabled = false;
 
             // Setup PTX (Primary TX)
             SetTransmitMode();
 
-            // Write transmit adres to TX_ADDR register. 
+            // Write transmit address to TX_ADDR register. 
             Execute(Commands.W_REGISTER, Registers.TX_ADDR, address);
 
-            // Write transmit adres to RX_ADDRESS_P0 (Pipe0) (For Auto ACK)
+            // Write transmit address to RX_ADDRESS_P0 (Pipe0) (For Auto ACK)
             Execute(Commands.W_REGISTER, Registers.RX_ADDR_P0, address);
 
             // Send payload
             Execute(Commands.W_TX_PAYLOAD, 0x00, bytes);
 
             // Pulse for CE -> starts the transmission.
-            Enable();
+            IsEnabled = true;
         }
         #endregion
 
         #region Private methods
         private void pinIRQ_Interrupt(GTI.InterruptInput sender, bool value)//(uint data1, uint data2, DateTime dateTime)
         {
-            if (!_initialized)
-                return;
-
             // Disable RX/TX
-            Disable();
+            IsEnabled = false;
 
             // Set PRX
             SetReceiveMode();
@@ -356,7 +397,7 @@ namespace Gadgeteer.Modules.KKS
                         payloadCorrupted = true;
 
                         // Flush anything that remains in buffer
-                        Execute(Commands.FLUSH_RX, 0x00, new byte[0]);
+                        FlushRX();
                     }
                     else
                     {
@@ -373,8 +414,8 @@ namespace Gadgeteer.Modules.KKS
 
             if (status.ResendLimitReached)
             {
-                // Flush TX FIFO 
-                Execute(Commands.FLUSH_TX, 0x00, new byte[0]);
+                // Flush TX FIFO
+                FlushTX();
 
                 // Clear MAX_RT bit in status register
                 Execute(Commands.W_REGISTER, Registers.STATUS, new[] { (byte)(1 << Bits.MAX_RT) });
@@ -393,7 +434,7 @@ namespace Gadgeteer.Modules.KKS
             }
 
             // Enable RX
-            Enable();
+            IsEnabled = true;
 
             if (payloadCorrupted)
                 Debug.Print("Corrupted data received");
@@ -419,6 +460,14 @@ namespace Gadgeteer.Modules.KKS
             }
         }
 
+        private void FlushRX()
+        {
+            Execute(Commands.FLUSH_RX, 0x00, new byte[0]);
+        }
+        private void FlushTX()
+        {
+            Execute(Commands.FLUSH_TX, 0x00, new byte[0]);
+        }
         private void SetTransmitMode()
         {
             Execute(Commands.W_REGISTER, Registers.CONFIG,
@@ -430,7 +479,7 @@ namespace Gadgeteer.Modules.KKS
         }
         private void SetReceiveMode()
         {
-            Execute(Commands.W_REGISTER, Registers.RX_ADDR_P0, _slot0Address);
+            Execute(Commands.W_REGISTER, Registers.RX_ADDR_P0, slot0Address);
 
             Execute(Commands.W_REGISTER, Registers.CONFIG,
                     new[]
@@ -440,31 +489,26 @@ namespace Gadgeteer.Modules.KKS
                                     1 << Bits.PRIM_RX)
                         });
         }
-        private void CheckIsInitialized()
-        {
-            if (!_initialized)
-                throw new InvalidOperationException("Initialize method needs to be called before this call");
-        }
 
-        private void WriteCommand(byte command)
-        {
-            pinCSN.Write(false);
-            spi.Write(new byte[1] { command });
-        }
-        private void WriteData(byte data)
-        {
-            WriteData(new byte[1] { data });
-        }
-        private void WriteData(byte[] data)
-        {
-            pinCSN.Write(true);
-            spi.Write(data);
-        }
-        private void WriteData(ushort[] data)
-        {
-            pinCSN.Write(true);
-            spi.Write(data);
-        }
+        //private void WriteCommand(byte command)
+        //{
+        //    pinCSN.Write(false);
+        //    spi.Write(new byte[1] { command });
+        //}
+        //private void WriteData(byte data)
+        //{
+        //    WriteData(new byte[1] { data });
+        //}
+        //private void WriteData(byte[] data)
+        //{
+        //    pinCSN.Write(true);
+        //    spi.Write(data);
+        //}
+        //private void WriteData(ushort[] data)
+        //{
+        //    pinCSN.Write(true);
+        //    spi.Write(data);
+        //}
         #endregion
     }
 }

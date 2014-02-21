@@ -131,7 +131,7 @@ namespace Gadgeteer.Modules.KKS.NRF24L01Plus
             Execute(Commands.W_REGISTER, Registers.SETUP_AW,
                     new[]
                         {
-                            AddressWidth.Get(address)
+                            AddressWidth.GetRegisterValue(address)
                         });
 
             // Set module address
@@ -363,9 +363,7 @@ namespace Gadgeteer.Modules.KKS.NRF24L01Plus
         private void CheckIsInitialized()
         {
             if (!_initialized)
-            {
                 throw new InvalidOperationException("Initialize method needs to be called before this call");
-            }
         }
 
         /// <summary>
