@@ -1,11 +1,10 @@
 using MFE.Graphics.Geometry;
 using MFE.Graphics.Media;
 using MFE.Graphics.Touching;
-using MFE.LCD;
 
 namespace MFE.Graphics.Controls
 {
-    public sealed class CalibrationWindow : Window
+    public sealed class CalibrationWindow : Container
     {
         #region Fields
         private int idx;
@@ -13,22 +12,6 @@ namespace MFE.Graphics.Controls
         #endregion
 
         #region Properties
-        public override int X
-        {
-            get { return base.X; }
-        }
-        public override int Y
-        {
-            get { return base.Y; }
-        }
-        public override int Width
-        {
-            get { return base.Width; }
-        }
-        public override int Height
-        {
-            get { return base.Height; }
-        }
         public Pen CrosshairPen
         {
             get { return pen; }
@@ -37,8 +20,8 @@ namespace MFE.Graphics.Controls
         #endregion
 
         #region Constructor
-        public CalibrationWindow()
-            : base(0, 0, LCDManager.ScreenWidth, LCDManager.ScreenHeight)
+        internal CalibrationWindow(int width, int height)
+            : base(0, 0, width, height)
         {
             pen = new Pen(Color.Red, 1);
 
@@ -81,7 +64,9 @@ namespace MFE.Graphics.Controls
                 // The last point has been reached.
                 CalibrationManager.ApplyCalibrationPoints();
                 CalibrationManager.SaveCalibrationPoints();
-                Close();
+                
+                //Close();
+                Parent.Children.Remove(this);
             }
             else
                 Invalidate();

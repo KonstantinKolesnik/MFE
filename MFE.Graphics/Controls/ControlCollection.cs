@@ -371,16 +371,13 @@ namespace MFE.Graphics.Controls
             }
             else
             {
-                // This is the case where element == null. We then remove the first null
-                // entry.
+                // This is the case where element == null. We then remove the first null entry.
                 for (int i = 0; i < size; i++)
-                {
                     if (items[i] == null)
                     {
                         indexToRemove = i;
                         break;
                     }
-                }
             }
 
             if (indexToRemove != -1)

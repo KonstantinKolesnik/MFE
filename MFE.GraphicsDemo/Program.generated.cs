@@ -18,6 +18,9 @@ namespace MFE.GraphicsDemo {
         /// <summary>The UsbClientDP module using socket 8 of the mainboard.</summary>
         private Gadgeteer.Modules.GHIElectronics.UsbClientDP usbClientDP;
         
+        /// <summary>The Display TE35 module using sockets 15, 16, 17 and 14 of the mainboard.</summary>
+        private Gadgeteer.Modules.GHIElectronics.Display_TE35 display_TE35;
+        
         /// <summary>This property provides access to the Mainboard API. This is normally not necessary for an end user program.</summary>
         protected new static GHIElectronics.Gadgeteer.FEZRaptor Mainboard {
             get {
@@ -41,6 +44,7 @@ namespace MFE.GraphicsDemo {
         
         private void InitializeModules() {
             this.usbClientDP = new GTM.GHIElectronics.UsbClientDP(8);
+            this.display_TE35 = new GTM.GHIElectronics.Display_TE35(15, 16, 17, 14);
         }
     }
 }

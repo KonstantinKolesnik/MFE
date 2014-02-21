@@ -56,10 +56,29 @@ namespace MFE.Graphics
 
             bitmap = new Bitmap(width, height);
             desktop = new Desktop(width, height, this);
-            desktop.Invalidate();
 
-            //if (CalibrationManager.IsCalibrated)
-            //    CalibrationManager.ApplyCalibrationPoints();
+            if (CalibrationManager.IsCalibrated)
+                CalibrationManager.ApplyCalibrationPoints();
+            if (!CalibrationManager.IsCalibrated)
+            {
+                CalibrationWindow winCal = new CalibrationWindow(width, height);
+                winCal.Background = new LinearGradientBrush(Color.Blue, Color.Black);
+                winCal.CrosshairPen = new Pen(Color.LimeGreen, 1);
+
+                //TextBlock text = new TextBlock(0, winCal.Height / 4, winCal.Width, 40, Resources.GetFont(Resources.FontResources.CourierNew_10), "Please tap the crosshairs to calibrate the screen")
+                //{
+                //    ForeColor = Color.White,
+                //    TextAlignment = TextAlignment.Center,
+                //    TextVerticalAlignment = VerticalAlignment.Center,
+                //    TextWrap = true
+                //};
+                //winCal.Children.Add(text);
+
+                //winCal.ShowModal();
+                desktop.Children.Add(winCal);
+            }
+
+            desktop.Invalidate();
         }
         #endregion
 

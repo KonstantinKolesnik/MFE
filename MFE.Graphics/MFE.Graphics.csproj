@@ -31,7 +31,10 @@
   </PropertyGroup>
   <Import Project="$(NetMfTargetsBaseDir)$(TargetFrameworkVersion)\CSharp.Targets" />
   <ItemGroup>
+    <Compile Include="CalibrationManager.cs" />
+    <Compile Include="CalibrationPoints.cs" />
     <Compile Include="Controls\Button.cs" />
+    <Compile Include="Controls\CalibrationWindow.cs" />
     <Compile Include="Controls\Checkbox.cs" />
     <Compile Include="Controls\Container.cs" />
     <Compile Include="Controls\Control.cs">
