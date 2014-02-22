@@ -25,6 +25,12 @@ namespace MFE.Graphics.Controls
             if (gm != null)
                 gm.ProcessTask(task);
         }
+        protected override void OnPostRender(DrawingContext dc)
+        {
+            base.OnPostRender(dc);
+
+            // draw trial version text here
+        }
         #endregion
     }
 }

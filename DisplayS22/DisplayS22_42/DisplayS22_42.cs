@@ -28,14 +28,15 @@ namespace Gadgeteer.Modules.KKS
 
 
         #region Fields
+        private uint spiSpeed = 8000; // kHz
         private GTI.SPI spi;
         private GTI.SPI.Configuration spiConfig;
         private SPI.Configuration netMFSpiConfig;
+
         private GT.Socket socket;
         private GTI.DigitalOutput pinReset;
         private GTI.DigitalOutput pinBacklight;
         private GTI.DigitalOutput pinDC;
-        private uint spiSpeed = 8000; // kHz
         #endregion
 
         #region Properties

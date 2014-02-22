@@ -59,24 +59,24 @@ namespace MFE.Graphics
 
             if (CalibrationManager.IsCalibrated)
                 CalibrationManager.ApplyCalibrationPoints();
-            if (!CalibrationManager.IsCalibrated)
-            {
-                CalibrationWindow winCal = new CalibrationWindow(width, height);
-                winCal.Background = new LinearGradientBrush(Color.Blue, Color.Black);
-                winCal.CrosshairPen = new Pen(Color.LimeGreen, 1);
+            //if (!CalibrationManager.IsCalibrated)
+            //{
+            //    CalibrationWindow winCal = new CalibrationWindow(width, height);
+            //    winCal.Background = new LinearGradientBrush(Color.Blue, Color.Black);
+            //    winCal.CrosshairPen = new Pen(Color.LimeGreen, 1);
 
-                //TextBlock text = new TextBlock(0, winCal.Height / 4, winCal.Width, 40, Resources.GetFont(Resources.FontResources.CourierNew_10), "Please tap the crosshairs to calibrate the screen")
-                //{
-                //    ForeColor = Color.White,
-                //    TextAlignment = TextAlignment.Center,
-                //    TextVerticalAlignment = VerticalAlignment.Center,
-                //    TextWrap = true
-                //};
-                //winCal.Children.Add(text);
+            //    //TextBlock text = new TextBlock(0, winCal.Height / 4, winCal.Width, 40, Resources.GetFont(Resources.FontResources.CourierNew_10), "Please tap the crosshairs to calibrate the screen")
+            //    //{
+            //    //    ForeColor = Color.White,
+            //    //    TextAlignment = TextAlignment.Center,
+            //    //    TextVerticalAlignment = VerticalAlignment.Center,
+            //    //    TextWrap = true
+            //    //};
+            //    //winCal.Children.Add(text);
 
-                //winCal.ShowModal();
-                desktop.Children.Add(winCal);
-            }
+            //    //winCal.ShowModal();
+            //    desktop.Children.Add(winCal);
+            //}
 
             desktop.Invalidate();
         }
@@ -125,46 +125,36 @@ namespace MFE.Graphics
         private Control GetTouchTarget(Point p)
         {
             Control res = null;
+
+            //dt0 = DateTime.Now;
             if (TouchCapture.Captured != null)
                 res = TouchCapture.Captured;
-            else if (lastEventTarget != null)
-            {
-                var par = lastEventTarget.GetValidParentFromScreenPoint(p);
-                res = par != null ? par.GetValidChildFromScreenPoint(p) : (desktop != null ? desktop.GetValidChildFromScreenPoint(p) : null);
-            }
-            else
-                res = desktop != null ? desktop.GetValidChildFromScreenPoint(p) : null;
-
-            lastEventTarget = res;
-            return res;
-
-
-            //Control res = null;
-            ////dt0 = DateTime.Now;
-            //if (TouchCapture.Captured != null)
-            //    res = TouchCapture.Captured;
             //else if (modalWindow != null)
             //    res = modalWindow is CalibrationWindow ? modalWindow : FindTouchTarget(modalWindow, p);
-            //else
-            //    res = FindTouchTarget(Desktop, p);
-            //lastEventTarget = res;
-            ////ts = DateTime.Now - dt0;
-            //return res;
+            else
+                res = FindTouchTarget(desktop, p);
+
+            lastEventTarget = res;
+            //ts = DateTime.Now - dt0;
+            return res;
         }
-        //private Control FindTouchTarget(Control root, Point p)
-        //{
-        //    if (lastEventTarget != null)
-        //    {
-        //        Control target = lastEventTarget.GetValidChildFromScreenPoint(p);
-        //        if (target != null)
-        //            return target;
-                
-        //        Control par = lastEventTarget.GetValidParentFromScreenPoint(p);
-        //        return par.GetValidChildFromScreenPoint(p);
-        //    }
-        //    else
-        //        return root.GetValidChildFromScreenPoint(p);
-        //}
+        private Control FindTouchTarget(Control root, Point p)
+        {
+            if (lastEventTarget != null)
+            {
+                // old:
+                //Control target = lastEventTarget.GetValidChildFromScreenPoint(p);
+                //if (target != null)
+                //    return target;
+                //Control par = lastEventTarget.GetValidParentFromScreenPoint(p);
+                //return par.GetValidChildFromScreenPoint(p);
+
+                var par = lastEventTarget.GetValidParentFromScreenPoint(p);
+                return par != null ? par.GetValidChildFromScreenPoint(p) : (root != null ? root.GetValidChildFromScreenPoint(p) : null);
+            }
+            else
+                return root.GetValidChildFromScreenPoint(p);
+        }
 
         //function InterceptMouseDblClick(p, isIPad) {
         //    var eventTarget = getEventTarget(p);

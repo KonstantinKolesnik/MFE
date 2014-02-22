@@ -1,12 +1,15 @@
 ﻿using Gadgeteer.Modules.KKS;
 using GHI.Premium.Hardware;
+using GHI.Premium.IO;
 using GHI.Premium.System;
 using MFE.Graphics;
 using MFE.Graphics.Controls;
 using MFE.Graphics.Geometry;
 using MFE.Graphics.Media;
 using Microsoft.SPOT;
+//using Microsoft.SPOT.Hardware;
 using System;
+using System.IO;
 using System.Threading;
 
 namespace MFE.GraphicsDemo
@@ -33,14 +36,15 @@ namespace MFE.GraphicsDemo
             fontTitle = Resources.GetFont(Resources.FontResources.SegoeUI_BoldItalian_32);
 
             //Demo22SPI();
-            Demo32();
+            Demo35();
+            //Demo35Video();
 
             Mainboard.SetDebugLED(true);
         }
 
         private void Demo22SPI()
         {
-            display = new DisplayS22(1);
+            display = new DisplayS22(11);
 
             gm = new GraphicsManager(240, 320);
             gm.OnRender += delegate(Bitmap bitmap, Rect dirtyArea)
@@ -110,12 +114,7 @@ namespace MFE.GraphicsDemo
 
             desktop.Children.Add(new Button(120, 170, 90, 24, fontCourierNew10, "Click me", Color.White) { BackgroundUnpressed = bar });
 
-
-
-
             desktop.ResumeLayout();
-
-
 
             new Thread(() =>
             {
@@ -147,11 +146,11 @@ namespace MFE.GraphicsDemo
 
                     desktop.ResumeLayout();
 
-                    Thread.Sleep(400);
+                    //Thread.Sleep(400);
                 }
             }).Start();
         }
-        private void Demo32()
+        private void Demo35()
         {
             //display_TE35
             //if (SystemMetrics.ScreenHeight == 0 || SystemMetrics.ScreenWidth == 0)
@@ -160,6 +159,8 @@ namespace MFE.GraphicsDemo
             Configuration.LCD.EnableLCDBootupMessages(false);
 
             gm = new GraphicsManager(320, 240);
+
+            //return;
 
             desktop = gm.Desktop;
 
@@ -265,7 +266,66 @@ namespace MFE.GraphicsDemo
                 }
             }).Start();
         }
+        private void Demo35Video()
+        {
+            Configuration.LCD.EnableLCDBootupMessages(false);
 
+            gm = new GraphicsManager(320, 240);
+            desktop = gm.Desktop;
+
+            int bufferLength = 720 * 1280;
+
+            using (Microsoft.SPOT.Hardware.LargeBuffer lb = new Microsoft.SPOT.Hardware.LargeBuffer(bufferLength))
+            {
+                // use the buffer
+                lb.Bytes[5] = 123;
+                // ...        
+            }
+
+            long readMs, readMsAvg = 0;
+
+            // Create front and back buffers to use for the LCD controller.
+            //Configuration.Heap.SetCustomHeapSize(1024 * 1024 * 4);
+            byte[] frontBuffer = new byte[bufferLength];
+            byte[] backBuffer = new byte[bufferLength];
+            // Create a boolean to use to know which buffer to use next.
+            bool activeBuffer = true;
+            // Remember how many frames we have played.
+            int frames = 0;
+
+            PersistentStorage sdCard = new PersistentStorage("SD");
+            sdCard.MountFileSystem();
+
+            // Open the file containing the image array.
+            Stream stream = new FileStream(@"\SD\mfe.wmv", FileMode.Open, FileAccess.Read, FileShare.None);
+
+
+            // Read through stream.
+            while (stream.Position < stream.Length)
+            {
+                readMs = DateTime.Now.Ticks;
+                // Read the image file bgr565le data into the next screen buffer.
+                stream.Read(activeBuffer ? frontBuffer : backBuffer, 0, bufferLength);
+                readMsAvg += (DateTime.Now.Ticks - readMs) / TimeSpan.TicksPerMillisecond;
+
+                // Change the active screen buffer to display this frame.
+                //LcdController.SetUpperFrameBuffer(activeBuffer ? frontBuffer : backBuffer);
+
+                Bitmap bmp = new Bitmap(activeBuffer ? frontBuffer : backBuffer, Bitmap.BitmapImageType.Bmp);
+                desktop.Background = new ImageBrush(bmp);
+
+
+
+                // Swap the next active buffer for the next image.
+                activeBuffer = !activeBuffer;
+
+                frames++;
+            }
+
+            readMsAvg /= frames;
+            Debug.Print("Average Read Speed of 255Kb: " + (int)(readMsAvg) + "ms");
+            Debug.Print("Works out at: " + (((1000.0f / (float)readMsAvg) * 255f) / 1024f).ToString() + "MB/s");
+        }
 
         private Bitmap GetBitmap(Resources.BinaryResources id, Bitmap.BitmapImageType type)
         {
