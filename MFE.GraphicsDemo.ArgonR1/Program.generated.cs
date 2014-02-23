@@ -8,23 +8,20 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace MFE.GraphicsDemo {
+namespace MFE.GraphicsDemo.ArgonR1 {
     using Gadgeteer;
     using GTM = Gadgeteer.Modules;
     
     
     public partial class Program : Gadgeteer.Program {
         
-        /// <summary>The UsbClientDP module using socket 8 of the mainboard.</summary>
-        private Gadgeteer.Modules.GHIElectronics.UsbClientDP usbClientDP;
-        
-        /// <summary>The Display TE35 module using sockets 15, 16, 17 and 14 of the mainboard.</summary>
-        private Gadgeteer.Modules.GHIElectronics.Display_TE35 display_TE35;
+        /// <summary>The USBDCPower module using socket 6 of the mainboard.</summary>
+        private Gadgeteer.Modules.LoveElectronics.USBDCPower power;
         
         /// <summary>This property provides access to the Mainboard API. This is normally not necessary for an end user program.</summary>
-        protected new static GHIElectronics.Gadgeteer.FEZRaptor Mainboard {
+        protected new static LoveElectronics.Gadgeteer.ArgonR1 Mainboard {
             get {
-                return ((GHIElectronics.Gadgeteer.FEZRaptor)(Gadgeteer.Program.Mainboard));
+                return ((LoveElectronics.Gadgeteer.ArgonR1)(Gadgeteer.Program.Mainboard));
             }
             set {
                 Gadgeteer.Program.Mainboard = value;
@@ -34,7 +31,7 @@ namespace MFE.GraphicsDemo {
         /// <summary>This method runs automatically when the device is powered, and calls ProgramStarted.</summary>
         public static void Main() {
             // Important to initialize the Mainboard first
-            Program.Mainboard = new GHIElectronics.Gadgeteer.FEZRaptor();
+            Program.Mainboard = new LoveElectronics.Gadgeteer.ArgonR1();
             Program p = new Program();
             p.InitializeModules();
             p.ProgramStarted();
@@ -43,8 +40,7 @@ namespace MFE.GraphicsDemo {
         }
         
         private void InitializeModules() {
-            this.usbClientDP = new GTM.GHIElectronics.UsbClientDP(8);
-            this.display_TE35 = new GTM.GHIElectronics.Display_TE35(15, 16, 17, 14);
+            this.power = new GTM.LoveElectronics.USBDCPower(6);
         }
     }
 }

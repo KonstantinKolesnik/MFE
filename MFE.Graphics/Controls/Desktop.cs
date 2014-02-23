@@ -8,6 +8,25 @@ namespace MFE.Graphics.Controls
         private GraphicsManager gm = null;
         #endregion
 
+        #region Properties
+        public override int X
+        {
+            get { return base.X; }
+        }
+        public override int Y
+        {
+            get { return base.Y; }
+        }
+        public override int Width
+        {
+            get { return base.Width; }
+        }
+        public override int Height
+        {
+            get { return base.Height; }
+        }
+        #endregion
+
         #region Constructors
         internal Desktop(int width, int height, GraphicsManager gm)
             : base(0, 0, width, height)

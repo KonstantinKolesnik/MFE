@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace MFE.GraphicsDemo
+namespace MFE.GraphicsDemo.ArgonR1
 {
     
     internal partial class Resources
@@ -20,7 +20,7 @@ namespace MFE.GraphicsDemo
             {
                 if ((Resources.manager == null))
                 {
-                    Resources.manager = new System.Resources.ResourceManager("MFE.GraphicsDemo.Resources", typeof(Resources).Assembly);
+                    Resources.manager = new System.Resources.ResourceManager("MFE.GraphicsDemo.ArgonR1.Resources", typeof(Resources).Assembly);
                 }
                 return Resources.manager;
             }
@@ -29,37 +29,11 @@ namespace MFE.GraphicsDemo
         {
             return ((Microsoft.SPOT.Font)(Microsoft.SPOT.ResourceUtility.GetObject(ResourceManager, id)));
         }
-        internal static byte[] GetBytes(Resources.BinaryResources id)
-        {
-            return ((byte[])(Microsoft.SPOT.ResourceUtility.GetObject(ResourceManager, id)));
-        }
-        [System.SerializableAttribute()]
-        internal enum BinaryResources : short
-        {
-            Home = -29342,
-            PowerOn = -26768,
-            reWalls = -26200,
-            Drive = -19534,
-            test_24b = -15341,
-            PowerOff = 760,
-            Background_800_600 = 3700,
-            Keyboard = 3946,
-            Database = 6837,
-            ButtonBackground = 7118,
-            Settings = 10758,
-            Logo = 16403,
-            Bar = 16851,
-            Mouse = 26648,
-            Operation = 29388,
-        }
         [System.SerializableAttribute()]
         internal enum FontResources : short
         {
-            CourierNew_10 = -22402,
             small = 13070,
             NinaB = 18060,
-            SegoeUI_BoldItalian_32 = 27220,
-            LucidaSansUnicode_8 = 30591,
         }
     }
 }

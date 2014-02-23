@@ -1,0 +1,73 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<gadgeteerModel xmlns:dm0="http://schemas.microsoft.com/VisualStudio/2008/DslTools/Core" dslVersion="1.0.0.0" Id="c95217fb-6aa7-457f-969c-744c29b735a0" newModel="false" xmlns="http://schemas.microsoft.com/dsltools/GadgeteerDSL">
+  <gadgeteerHardware>
+    <gadgeteerModelHasGadgeteerHardware Id="c0df5c97-aed6-4b34-b96d-e7f4a595a0a5">
+      <mainboard Id="59c68430-538d-4e48-846d-8066d0dabd43" cachedDefinition="&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-16&quot;?&gt;&#xD;&#xA;&lt;MainboardDefinition xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot; xmlns:xsd=&quot;http://www.w3.org/2001/XMLSchema&quot; Name=&quot;ArgonR1&quot; Type=&quot;LoveElectronics.Gadgeteer.ArgonR1&quot; HardwareVersion=&quot;1.3&quot; Image=&quot;C:\Program Files (x86)\Love Electronics Ltd\Microsoft .NET Gadgeteer\Mainboards\ArgonR1\Resources/ArgonR1_V1.3.jpg&quot; BoardWidth=&quot;92.3&quot; BoardHeight=&quot;57.3&quot; MinimumGadgeteerCoreVersion=&quot;2.42.600&quot; HelpUrl=&quot;&quot;&gt;&#xD;&#xA;  &lt;Power /&gt;&#xD;&#xA;  &lt;ProvidedSockets&gt;&#xD;&#xA;    &lt;ProvidedSocket Orientation=&quot;90&quot; Left=&quot;18.2&quot; Top=&quot;5.8&quot; Label=&quot;1&quot; ConstructorParameter=&quot;1&quot;&gt;&#xD;&#xA;      &lt;Types&gt;&#xD;&#xA;        &lt;Type&gt;Y&lt;/Type&gt;&#xD;&#xA;      &lt;/Types&gt;&#xD;&#xA;      &lt;SharedPinMaps /&gt;&#xD;&#xA;    &lt;/ProvidedSocket&gt;&#xD;&#xA;    &lt;ProvidedSocket Orientation=&quot;90&quot; Left=&quot;32.125&quot; Top=&quot;5.8&quot; Label=&quot;2&quot; ConstructorParameter=&quot;2&quot;&gt;&#xD;&#xA;      &lt;Types&gt;&#xD;&#xA;        &lt;Type&gt;I&lt;/Type&gt;&#xD;&#xA;        &lt;Type&gt;U&lt;/Type&gt;&#xD;&#xA;        &lt;Type&gt;X&lt;/Type&gt;&#xD;&#xA;      &lt;/Types&gt;&#xD;&#xA;      &lt;SharedPinMaps&gt;&#xD;&#xA;        &lt;SharedPinMap SocketPin=&quot;8&quot; NetId=&quot;I2CSDA&quot; SharedOnly=&quot;false&quot; /&gt;&#xD;&#xA;        &lt;SharedPinMap SocketPin=&quot;9&quot; NetId=&quot;I2CSCL&quot; SharedOnly=&quot;false&quot; /&gt;&#xD;&#xA;      &lt;/SharedPinMaps&gt;&#xD;&#xA;    &lt;/ProvidedSocket&gt;&#xD;&#xA;    &lt;ProvidedSocket Orientation=&quot;90&quot; Left=&quot;46.05&quot; Top=&quot;5.8&quot; Label=&quot;3&quot; ConstructorParameter=&quot;3&quot;&gt;&#xD;&#xA;      &lt;Types&gt;&#xD;&#xA;        &lt;Type&gt;A&lt;/Type&gt;&#xD;&#xA;        &lt;Type&gt;P&lt;/Type&gt;&#xD;&#xA;        &lt;Type&gt;Y&lt;/Type&gt;&#xD;&#xA;      &lt;/Types&gt;&#xD;&#xA;      &lt;SharedPinMaps /&gt;&#xD;&#xA;    &lt;/ProvidedSocket&gt;&#xD;&#xA;    &lt;ProvidedSocket Orientation=&quot;90&quot; Left=&quot;59.975&quot; Top=&quot;5.8&quot; Label=&quot;4&quot; ConstructorParameter=&quot;4&quot;&gt;&#xD;&#xA;      &lt;Types&gt;&#xD;&#xA;        &lt;Type&gt;Z&lt;/Type&gt;&#xD;&#xA;        &lt;Type&gt;Y&lt;/Type&gt;&#xD;&#xA;      &lt;/Types&gt;&#xD;&#xA;      &lt;SharedPinMaps /&gt;&#xD;&#xA;    &lt;/ProvidedSocket&gt;&#xD;&#xA;    &lt;ProvidedSocket Orientation=&quot;90&quot; Left=&quot;73.9&quot; Top=&quot;5.8&quot; Label=&quot;5&quot; ConstructorParameter=&quot;5&quot;&gt;&#xD;&#xA;      &lt;Types&gt;&#xD;&#xA;        &lt;Type&gt;S&lt;/Type&gt;&#xD;&#xA;        &lt;Type&gt;Y&lt;/Type&gt;&#xD;&#xA;      &lt;/Types&gt;&#xD;&#xA;      &lt;SharedPinMaps /&gt;&#xD;&#xA;    &lt;/ProvidedSocket&gt;&#xD;&#xA;    &lt;ProvidedSocket Orientation=&quot;180&quot; Left=&quot;5.7&quot; Top=&quot;14.3&quot; Label=&quot;6&quot; ConstructorParameter=&quot;6&quot;&gt;&#xD;&#xA;      &lt;Types&gt;&#xD;&#xA;        &lt;Type&gt;D&lt;/Type&gt;&#xD;&#xA;      &lt;/Types&gt;&#xD;&#xA;      &lt;SharedPinMaps /&gt;&#xD;&#xA;    &lt;/ProvidedSocket&gt;&#xD;&#xA;    &lt;ProvidedSocket Orientation=&quot;0&quot; Left=&quot;86.4&quot; Top=&quot;14.3&quot; Label=&quot;7&quot; ConstructorParameter=&quot;7&quot;&gt;&#xD;&#xA;      &lt;Types&gt;&#xD;&#xA;        &lt;Type&gt;F&lt;/Type&gt;&#xD;&#xA;        &lt;Type&gt;Y&lt;/Type&gt;&#xD;&#xA;      &lt;/Types&gt;&#xD;&#xA;      &lt;SharedPinMaps /&gt;&#xD;&#xA;    &lt;/ProvidedSocket&gt;&#xD;&#xA;    &lt;ProvidedSocket Orientation=&quot;180&quot; Left=&quot;5.7&quot; Top=&quot;42.9&quot; Label=&quot;8&quot; ConstructorParameter=&quot;8&quot;&gt;&#xD;&#xA;      &lt;Types&gt;&#xD;&#xA;        &lt;Type&gt;H&lt;/Type&gt;&#xD;&#xA;        &lt;Type&gt;I&lt;/Type&gt;&#xD;&#xA;      &lt;/Types&gt;&#xD;&#xA;      &lt;SharedPinMaps&gt;&#xD;&#xA;        &lt;SharedPinMap SocketPin=&quot;8&quot; NetId=&quot;I2CSDA&quot; SharedOnly=&quot;false&quot; /&gt;&#xD;&#xA;        &lt;SharedPinMap SocketPin=&quot;9&quot; NetId=&quot;I2CSCL&quot; SharedOnly=&quot;false&quot; /&gt;&#xD;&#xA;      &lt;/SharedPinMaps&gt;&#xD;&#xA;    &lt;/ProvidedSocket&gt;&#xD;&#xA;    &lt;ProvidedSocket Orientation=&quot;0&quot; Left=&quot;86.4&quot; Top=&quot;42.9&quot; Label=&quot;9&quot; ConstructorParameter=&quot;9&quot;&gt;&#xD;&#xA;      &lt;Types&gt;&#xD;&#xA;        &lt;Type&gt;C&lt;/Type&gt;&#xD;&#xA;        &lt;Type&gt;I&lt;/Type&gt;&#xD;&#xA;        &lt;Type&gt;U&lt;/Type&gt;&#xD;&#xA;        &lt;Type&gt;X&lt;/Type&gt;&#xD;&#xA;      &lt;/Types&gt;&#xD;&#xA;      &lt;SharedPinMaps&gt;&#xD;&#xA;        &lt;SharedPinMap SocketPin=&quot;8&quot; NetId=&quot;I2CSDA&quot; SharedOnly=&quot;false&quot; /&gt;&#xD;&#xA;        &lt;SharedPinMap SocketPin=&quot;9&quot; NetId=&quot;I2CSCL&quot; SharedOnly=&quot;false&quot; /&gt;&#xD;&#xA;      &lt;/SharedPinMaps&gt;&#xD;&#xA;    &lt;/ProvidedSocket&gt;&#xD;&#xA;    &lt;ProvidedSocket Orientation=&quot;270&quot; Left=&quot;18.2&quot; Top=&quot;51.5&quot; Label=&quot;10&quot; ConstructorParameter=&quot;10&quot;&gt;&#xD;&#xA;      &lt;Types&gt;&#xD;&#xA;        &lt;Type&gt;A&lt;/Type&gt;&#xD;&#xA;        &lt;Type&gt;T&lt;/Type&gt;&#xD;&#xA;        &lt;Type&gt;X&lt;/Type&gt;&#xD;&#xA;      &lt;/Types&gt;&#xD;&#xA;      &lt;SharedPinMaps /&gt;&#xD;&#xA;    &lt;/ProvidedSocket&gt;&#xD;&#xA;    &lt;ProvidedSocket Orientation=&quot;270&quot; Left=&quot;32.125&quot; Top=&quot;51.5&quot; Label=&quot;11&quot; ConstructorParameter=&quot;11&quot;&gt;&#xD;&#xA;      &lt;Types&gt;&#xD;&#xA;        &lt;Type&gt;B&lt;/Type&gt;&#xD;&#xA;        &lt;Type&gt;Y&lt;/Type&gt;&#xD;&#xA;      &lt;/Types&gt;&#xD;&#xA;      &lt;SharedPinMaps /&gt;&#xD;&#xA;    &lt;/ProvidedSocket&gt;&#xD;&#xA;    &lt;ProvidedSocket Orientation=&quot;270&quot; Left=&quot;46.05&quot; Top=&quot;51.5&quot; Label=&quot;12&quot; ConstructorParameter=&quot;12&quot;&gt;&#xD;&#xA;      &lt;Types&gt;&#xD;&#xA;        &lt;Type&gt;G&lt;/Type&gt;&#xD;&#xA;      &lt;/Types&gt;&#xD;&#xA;      &lt;SharedPinMaps /&gt;&#xD;&#xA;    &lt;/ProvidedSocket&gt;&#xD;&#xA;    &lt;ProvidedSocket Orientation=&quot;270&quot; Left=&quot;59.975&quot; Top=&quot;51.5&quot; Label=&quot;13&quot; ConstructorParameter=&quot;13&quot;&gt;&#xD;&#xA;      &lt;Types&gt;&#xD;&#xA;        &lt;Type&gt;R&lt;/Type&gt;&#xD;&#xA;        &lt;Type&gt;Y&lt;/Type&gt;&#xD;&#xA;      &lt;/Types&gt;&#xD;&#xA;      &lt;SharedPinMaps /&gt;&#xD;&#xA;    &lt;/ProvidedSocket&gt;&#xD;&#xA;    &lt;ProvidedSocket Orientation=&quot;270&quot; Left=&quot;73.9&quot; Top=&quot;51.5&quot; Label=&quot;14&quot; ConstructorParameter=&quot;14&quot;&gt;&#xD;&#xA;      &lt;Types&gt;&#xD;&#xA;        &lt;Type&gt;I&lt;/Type&gt;&#xD;&#xA;        &lt;Type&gt;U&lt;/Type&gt;&#xD;&#xA;        &lt;Type&gt;X&lt;/Type&gt;&#xD;&#xA;      &lt;/Types&gt;&#xD;&#xA;      &lt;SharedPinMaps&gt;&#xD;&#xA;        &lt;SharedPinMap SocketPin=&quot;8&quot; NetId=&quot;I2CSDA&quot; SharedOnly=&quot;false&quot; /&gt;&#xD;&#xA;        &lt;SharedPinMap SocketPin=&quot;9&quot; NetId=&quot;I2CSCL&quot; SharedOnly=&quot;false&quot; /&gt;&#xD;&#xA;      &lt;/SharedPinMaps&gt;&#xD;&#xA;    &lt;/ProvidedSocket&gt;&#xD;&#xA;  &lt;/ProvidedSockets&gt;&#xD;&#xA;  &lt;Assemblies&gt;&#xD;&#xA;    &lt;Assembly MFVersion=&quot;4.2&quot; Name=&quot;LoveElectronics.Gadgeteer.ArgonR1&quot; /&gt;&#xD;&#xA;    &lt;Assembly MFVersion=&quot;4.2&quot; Name=&quot;LoveElectronics.Hardware&quot; /&gt;&#xD;&#xA;  &lt;/Assemblies&gt;&#xD;&#xA;  &lt;LibrariesProvided&gt;&#xD;&#xA;    &lt;Assembly MFVersion=&quot;4.2&quot; Name=&quot;LoveElectronics.Gadgeteer.ArgonR1&quot; /&gt;&#xD;&#xA;    &lt;Assembly MFVersion=&quot;4.2&quot; Name=&quot;LoveElectronics.Hardware&quot; /&gt;&#xD;&#xA;  &lt;/LibrariesProvided&gt;&#xD;&#xA;&lt;/MainboardDefinition&gt;" name="ArgonR1">
+        <sockets>
+          <gadgeteerHardwareHasSockets Id="7563935d-5e21-4e1a-8d98-14de798cc11e">
+            <socket Id="5bcc757a-119a-4dad-877d-41a3df1f13e0" label="1" />
+          </gadgeteerHardwareHasSockets>
+          <gadgeteerHardwareHasSockets Id="061dc4e8-1181-48d8-9e5c-1eefb730008e">
+            <socket Id="6d3c181f-5c6c-4ad0-8eab-33e47201d3bb" label="2" />
+          </gadgeteerHardwareHasSockets>
+          <gadgeteerHardwareHasSockets Id="b54d281f-8f27-4ac1-b913-ee2a2d28dd65">
+            <socket Id="0c1a79c8-0425-4cce-8694-aebbb36755d6" label="3" />
+          </gadgeteerHardwareHasSockets>
+          <gadgeteerHardwareHasSockets Id="822a9180-c246-469c-98e3-a6d7f14aad54">
+            <socket Id="6c732b8b-f98f-4155-a910-6dad457cbb4e" label="4" />
+          </gadgeteerHardwareHasSockets>
+          <gadgeteerHardwareHasSockets Id="cf14ecad-0043-4569-9f8d-bf394f609f5e">
+            <socket Id="b82699cc-9c4e-4dba-92fd-797a2fae740d" label="5" />
+          </gadgeteerHardwareHasSockets>
+          <gadgeteerHardwareHasSockets Id="b3b93350-1ee0-4119-9f3e-a8f6fb0da565">
+            <socket Id="9de9b658-1402-4543-a9a4-8629b24d204f" label="6" />
+          </gadgeteerHardwareHasSockets>
+          <gadgeteerHardwareHasSockets Id="444c0959-0a26-4b6d-b303-3a08daa1b477">
+            <socket Id="17a6597c-ac59-4353-a031-632c9c50f559" label="7" />
+          </gadgeteerHardwareHasSockets>
+          <gadgeteerHardwareHasSockets Id="f8ca7458-2923-4740-ae28-477a92be2696">
+            <socket Id="5da648f8-7f1d-4779-9244-043f668a258f" label="8" />
+          </gadgeteerHardwareHasSockets>
+          <gadgeteerHardwareHasSockets Id="0ece42fe-a221-42a0-98f5-35453e05bdb7">
+            <socket Id="e1e9e823-6017-49da-a746-106e8f90eb87" label="9" />
+          </gadgeteerHardwareHasSockets>
+          <gadgeteerHardwareHasSockets Id="71daef71-4d4e-4290-8711-ae428684c70e">
+            <socket Id="d6fb6acc-262a-490a-90e6-6ae5210c42d7" label="10" />
+          </gadgeteerHardwareHasSockets>
+          <gadgeteerHardwareHasSockets Id="81f01342-06b6-43a2-948c-577ef364b164">
+            <socket Id="17f95cb1-8945-4fdd-8ebe-fcff8ce6ef92" label="11" />
+          </gadgeteerHardwareHasSockets>
+          <gadgeteerHardwareHasSockets Id="9e75fe4e-d2f9-4724-9e1f-d487da043e12">
+            <socket Id="469e92d0-a321-419d-86f6-52cd6464bb17" label="12" />
+          </gadgeteerHardwareHasSockets>
+          <gadgeteerHardwareHasSockets Id="c9c48bec-758c-45cb-8dfb-858ae74c9c3d">
+            <socket Id="169c7f29-c78f-4d72-98d1-cb52aeb43928" label="13" />
+          </gadgeteerHardwareHasSockets>
+          <gadgeteerHardwareHasSockets Id="9d5b770a-bda8-42fa-b904-c9407fb7b878">
+            <socket Id="47f40150-35d2-4fe5-b039-1bab98221bc9" label="14" />
+          </gadgeteerHardwareHasSockets>
+        </sockets>
+      </mainboard>
+    </gadgeteerModelHasGadgeteerHardware>
+    <gadgeteerModelHasGadgeteerHardware Id="3945fd02-79ef-44fd-b09a-5aac9633e5bd">
+      <module Id="96ec0d02-a0b0-430d-aa72-27c1168732a2" cachedDefinition="&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-16&quot;?&gt;&#xD;&#xA;&lt;ModuleDefinition xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot; xmlns:xsd=&quot;http://www.w3.org/2001/XMLSchema&quot; Name=&quot;USBDCPower&quot; Manufacturer=&quot;Love Electronics&quot; Description=&quot;A USBDCPower module&quot; Type=&quot;Gadgeteer.Modules.LoveElectronics.USBDCPower&quot; HardwareVersion=&quot;1.2&quot; Image=&quot;C:\Program Files (x86)\Love Electronics Ltd\Microsoft .NET Gadgeteer\Modules\USBDCPower\Resources\USBDCPower.png&quot; BoardWidth=&quot;32.4&quot; BoardHeight=&quot;37.4&quot; MinimumGadgeteerCoreVersion=&quot;2.42.500&quot; HelpUrl=&quot;&quot; UniqueId=&quot;ab2dafec-b1da-45c0-900d-4294308d5502&quot; InstanceName=&quot;power&quot; ModuleSuppliesPower=&quot;true&quot;&gt;&#xD;&#xA;  &lt;Power /&gt;&#xD;&#xA;  &lt;ProvidedSockets /&gt;&#xD;&#xA;  &lt;Assemblies&gt;&#xD;&#xA;    &lt;Assembly MFVersion=&quot;4.1&quot; Name=&quot;GTM.LoveElectronics.USBDCPower&quot; /&gt;&#xD;&#xA;    &lt;Assembly MFVersion=&quot;4.2&quot; Name=&quot;GTM.LoveElectronics.USBDCPower&quot; /&gt;&#xD;&#xA;  &lt;/Assemblies&gt;&#xD;&#xA;  &lt;LibrariesProvided /&gt;&#xD;&#xA;  &lt;Sockets&gt;&#xD;&#xA;    &lt;Socket Orientation=&quot;180&quot; Left=&quot;28&quot; Top=&quot;18.7&quot; TypesLabel=&quot;D&quot; ConstructorOrder=&quot;1&quot; Optional=&quot;false&quot;&gt;&#xD;&#xA;      &lt;Types&gt;&#xD;&#xA;        &lt;Type&gt;D&lt;/Type&gt;&#xD;&#xA;      &lt;/Types&gt;&#xD;&#xA;      &lt;Pins&gt;&#xD;&#xA;        &lt;Pin Shared=&quot;false&quot;&gt;3&lt;/Pin&gt;&#xD;&#xA;        &lt;Pin Shared=&quot;false&quot;&gt;4&lt;/Pin&gt;&#xD;&#xA;        &lt;Pin Shared=&quot;false&quot;&gt;5&lt;/Pin&gt;&#xD;&#xA;      &lt;/Pins&gt;&#xD;&#xA;    &lt;/Socket&gt;&#xD;&#xA;  &lt;/Sockets&gt;&#xD;&#xA;  &lt;ExtraLibrariesRequired /&gt;&#xD;&#xA;&lt;/ModuleDefinition&gt;" name="power" moduleType="Gadgeteer.Modules.LoveElectronics.USBDCPower" moduleDefinitionId="ab2dafec-b1da-45c0-900d-4294308d5502">
+        <socketUses>
+          <moduleHasSocketUses Id="0c16fbe2-2475-4504-901f-2b850eef4762">
+            <socketUse Id="c2f3b329-76da-431a-8d96-c945ccca68dd" label="D">
+              <socket>
+                <socketUseReferencesSocket Id="f6acb5e5-0f2d-42fe-a8a4-5617bb6c0278">
+                  <socketMoniker Id="9de9b658-1402-4543-a9a4-8629b24d204f" />
+                </socketUseReferencesSocket>
+              </socket>
+            </socketUse>
+          </moduleHasSocketUses>
+        </socketUses>
+      </module>
+    </gadgeteerModelHasGadgeteerHardware>
+  </gadgeteerHardware>
+  <comments>
+    <gadgeteerModelHasComments Id="22ff509e-990f-45ec-825e-509367a818e8">
+      <comment Id="ad70ec52-850a-4d3e-8817-3c1a24bd2420" text="Tip: To have the designer connect all modules for you, right-click the diagram, and then click 'Connect all modules'." />
+    </gadgeteerModelHasComments>
+  </comments>
+</gadgeteerModel>

@@ -21,6 +21,23 @@ namespace MFE.Graphics.Calibration
             get { return crosshairPen; }
             set { crosshairPen = value; }
         }
+
+        public override int X
+        {
+            get { return base.X; }
+        }
+        public override int Y
+        {
+            get { return base.Y; }
+        }
+        public override int Width
+        {
+            get { return base.Width; }
+        }
+        public override int Height
+        {
+            get { return base.Height; }
+        }
         #endregion
 
         #region Constructor
@@ -37,16 +54,10 @@ namespace MFE.Graphics.Calibration
         #region Public methods
         public void Show()
         {
-            // ensure user hasn't changed dimensions-----------------------
-            X = Y = 0;
-            Width = gm.Desktop.Width;
-            Height = gm.Desktop.Height;
-
             if (Background == null)
                 Background = new SolidColorBrush(Color.CornflowerBlue);
             if (CrosshairPen == null)
                 CrosshairPen = new Pen(Color.Red, 1);
-            //--------------------------------------------------------------
 
             idx = 0;
             CalibrationManager.PrepareCalibrationPoints();

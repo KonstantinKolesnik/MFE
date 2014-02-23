@@ -3,12 +3,12 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{2DBCF960-5B0B-4859-A797-52DBF4977DCE}</ProjectGuid>
+    <ProjectGuid>{6808741A-37EB-46BE-A775-A91F59B7FC85}</ProjectGuid>
     <!--This is an executable-->
     <OutputType>Exe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>MFE.GraphicsDemo</RootNamespace>
-    <AssemblyName>MFE.GraphicsDemo</AssemblyName>
+    <RootNamespace>MFE.GraphicsDemo.ArgonR1</RootNamespace>
+    <AssemblyName>MFE.GraphicsDemo.ArgonR1</AssemblyName>
     <TargetFrameworkVersion>v4.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <!--Identify this as a MicroFramework, CSharp project-->
@@ -18,6 +18,7 @@
     <!-- Default transport and device-->
     <DeployDevice>Gadgeteer</DeployDevice>
     <DeployTransport>USB</DeployTransport>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -54,16 +55,13 @@
   </ItemGroup>
   <ItemGroup>
     <Reference Include="Gadgeteer" />
-    <Reference Include="GHI.Premium.Hardware, Version=4.2.11.1, Culture=neutral, processorArchitecture=MSIL" />
-    <Reference Include="GHI.Premium.IO, Version=4.2.11.1, Culture=neutral, processorArchitecture=MSIL" />
-    <Reference Include="GHI.Premium.System, Version=4.2.11.1, Culture=neutral, processorArchitecture=MSIL" />
-    <Reference Include="GHIElectronics.Gadgeteer.FEZRaptor, Version=4.2.102.0, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="GTM.LoveElectronics.USBDCPower, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="GTM.GHIElectronics.Display_TE35, Version=4.2.102.0, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="LoveElectronics.Gadgeteer.ArgonR1, Version=1.2.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="GTM.GHIElectronics.UsbClientDP, Version=4.2.102.0, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="LoveElectronics.Hardware, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
     <Reference Include="Microsoft.SPOT.Graphics" />
@@ -89,33 +87,17 @@
     <None Include="Program.gadgeteer.diagram">
       <DependentUpon>Program.gadgeteer</DependentUpon>
     </None>
-    <None Include="Resources\CourierNew_10.tinyfnt" />
-    <None Include="Resources\LucidaSansUnicode_8.tinyfnt" />
     <None Include="Resources\NinaB.tinyfnt" />
-    <None Include="Resources\SegoeUI_BoldItalian_32.tinyfnt" />
     <None Include="Resources\small.tinyfnt" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\Background_800_600.jpg" />
-    <Content Include="Resources\Bar.bmp" />
-    <Content Include="Resources\ButtonBackground.gif" />
-    <Content Include="Resources\Database.gif" />
-    <Content Include="Resources\Drive.gif" />
-    <Content Include="Resources\Home.gif" />
-    <Content Include="Resources\Keyboard.gif" />
-    <Content Include="Resources\Logo.bmp" />
-    <Content Include="Resources\Mouse.gif" />
-    <Content Include="Resources\Operation.gif" />
-    <Content Include="Resources\PowerOff.gif" />
-    <Content Include="Resources\PowerOn.gif" />
-    <Content Include="Resources\reWalls_com-52726.jpg" />
-    <Content Include="Resources\Settings.gif" />
-    <Content Include="Resources\test_24b.bmp" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\DisplayS22\DisplayS22_42\DisplayS22_42.csproj">
       <Project>{CEE343DA-F678-4EB7-8D0D-D6F0762A8A89}</Project>
       <Name>DisplayS22_42</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\MFE.GraphicsDemo.Content\MFE.GraphicsDemo.Content.csproj">
+      <Project>{EB19C42F-ECBB-4E20-8750-4E1F3DDA9319}</Project>
+      <Name>MFE.GraphicsDemo.Content</Name>
     </ProjectReference>
     <ProjectReference Include="..\MFE.Graphics\MFE.Graphics.csproj">
       <Project>{15BC644C-B4B5-4801-9026-5CC496265C08}</Project>

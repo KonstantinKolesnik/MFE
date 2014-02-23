@@ -46,9 +46,18 @@
     <None Include="Image.jpg" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\NRF24_41\NRF24_41.csproj" />
-    <ProjectReference Include="..\NRF24_42\NRF24_42.csproj" />
-    <ProjectReference Include="..\NRF24_43\NRF24_43.csproj" />
+    <ProjectReference Include="..\NRF24_41\NRF24_41.csproj">
+      <Project>{213DB709-575C-4DD4-85E8-54D14C440554}</Project>
+      <Name>NRF24_41</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\NRF24_42\NRF24_42.csproj">
+      <Project>{72D955AB-12CB-4EDA-BE8E-C2A99D10C737}</Project>
+      <Name>NRF24_42</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\NRF24_43\NRF24_43.csproj">
+      <Project>{7B74271B-3B6C-4B5F-9ED4-AD2283EB2587}</Project>
+      <Name>NRF24_43</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(WixTargetsPath)" />
   <PropertyGroup>

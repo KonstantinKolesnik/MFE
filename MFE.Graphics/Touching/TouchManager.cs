@@ -1,5 +1,5 @@
-using MFE.Core;
 using Microsoft.SPOT;
+using Microsoft.SPOT.Hardware;
 using Microsoft.SPOT.Touch;
 
 namespace MFE.Graphics.Touching
@@ -8,16 +8,16 @@ namespace MFE.Graphics.Touching
     {
         private class TouchListener : IEventListener
         {
-            private int lastTouchX;
-            private int lastTouchY;
-            private bool lastMoveEvent = false;
-
             enum TouchMessages : byte
             {
                 Down = 1,
                 Up = 2,
                 Move = 3,
             }
+
+            private int lastTouchX;
+            private int lastTouchY;
+            private bool lastMoveEvent = false;
 
             public void InitializeForEventSource()
             {
@@ -95,19 +95,14 @@ namespace MFE.Graphics.Touching
         {
             if (touchListener == null)
             {
-                //new Thread(() =>
-                //{
-                    touchListener = new TouchListener();
-                    Touch.Initialize(touchListener);
+                touchListener = new TouchListener();
+                Touch.Initialize(touchListener);
 
-                    TouchCollectorConfiguration.CollectionMode = CollectionMode.InkAndGesture;
-                    TouchCollectorConfiguration.CollectionMethod = CollectionMethod.Native;
-                    TouchCollectorConfiguration.SamplingFrequency = 50; // 50...200; default 50; best 50; worse 200;
-                    if (!Utils.IsEmulator)
-                        TouchCollectorConfiguration.TouchMoveFrequency = 20; // in ms; default 20;
-
-                //Thread.Sleep(-1);
-                //}).Start();
+                TouchCollectorConfiguration.CollectionMode = CollectionMode.InkAndGesture;
+                TouchCollectorConfiguration.CollectionMethod = CollectionMethod.Native;
+                TouchCollectorConfiguration.SamplingFrequency = 50; // 50...200; default 50; best 50; worse 200;
+                //if (SystemInfo.SystemID.SKU != 3)//!Utils.IsEmulator)
+                //    TouchCollectorConfiguration.TouchMoveFrequency = 20; // in ms; default 20;
             }
         }
         #endregion
