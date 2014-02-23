@@ -31,10 +31,10 @@
   </PropertyGroup>
   <Import Project="$(NetMfTargetsBaseDir)$(TargetFrameworkVersion)\CSharp.Targets" />
   <ItemGroup>
-    <Compile Include="CalibrationManager.cs" />
-    <Compile Include="CalibrationPoints.cs" />
+    <Compile Include="Calibration\CalibrationManager.cs" />
+    <Compile Include="Calibration\CalibrationPoints.cs" />
     <Compile Include="Controls\Button.cs" />
-    <Compile Include="Controls\CalibrationWindow.cs" />
+    <Compile Include="Calibration\CalibrationWindow.cs" />
     <Compile Include="Controls\Checkbox.cs" />
     <Compile Include="Controls\Container.cs" />
     <Compile Include="Controls\Control.cs">
@@ -73,7 +73,7 @@
     <Compile Include="Media\TextTrimming.cs" />
     <Compile Include="Media\VerticalAlignment.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="RenderEventHandler.cs" />
+    <Compile Include="RenderRequestEventHandler.cs" />
     <Compile Include="RenderTask.cs" />
     <Compile Include="Touching\TouchCapture.cs" />
     <Compile Include="Touching\TouchEventArgs.cs" />

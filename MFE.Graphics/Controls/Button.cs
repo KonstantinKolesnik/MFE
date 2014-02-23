@@ -109,7 +109,7 @@ namespace MFE.Graphics.Controls
 
         #region Events
         public event EventHandler Click;
-        protected void OnClick(EventArgs e)
+        protected void NotifyClick(EventArgs e)
         {
             if (Click != null)
                 Click(this, e);
@@ -217,7 +217,7 @@ namespace MFE.Graphics.Controls
                 Invalidate();
 
                 if (ContainsScreenPoint(e.Point))
-                    OnClick(EventArgs.Empty);
+                    NotifyClick(EventArgs.Empty);
             }
         }
         #endregion

@@ -8,6 +8,10 @@ namespace MFE.Graphics.Touching
     {
         private class TouchListener : IEventListener
         {
+            private int lastTouchX;
+            private int lastTouchY;
+            private bool lastMoveEvent = false;
+
             enum TouchMessages : byte
             {
                 Down = 1,
@@ -50,30 +54,31 @@ namespace MFE.Graphics.Touching
 
             private void HandleTouchDownEvent(TouchEvent e)
             {
-                lastTouchX = e.Touches[0].X;
-                lastTouchY = e.Touches[0].Y;
+                lastMoveEvent = false;
                 NotifyTouchDown(new TouchEventArgs(e.Touches, e.Time));
             }
             private void HandleTouchMoveEvent(TouchEvent e)
             {
-                if ((e.Touches[0].X != lastTouchX) || (e.Touches[0].Y != lastTouchY))
+                if (lastMoveEvent && (e.Touches[0].X == lastTouchX) && (e.Touches[0].Y == lastTouchY))
                 {
+                }
+                else
+                {
+                    lastMoveEvent = true;
                     lastTouchX = e.Touches[0].X;
                     lastTouchY = e.Touches[0].Y;
-                    //Debug.Print(lastTouchX.ToString() + "; " + lastTouchY.ToString());
                     NotifyTouchMove(new TouchEventArgs(e.Touches, e.Time));
                 }
             }
             private void HandleTouchUpEvent(TouchEvent e)
             {
+                lastMoveEvent = false;
                 NotifyTouchUp(new TouchEventArgs(e.Touches, e.Time));
             }
         }
 
         #region Fields
-        private static TouchListener touchListener;
-        private static int lastTouchX;
-        private static int lastTouchY;
+        private static TouchListener touchListener = null;
         #endregion
 
         #region Events
@@ -88,20 +93,22 @@ namespace MFE.Graphics.Touching
         #region Public methods
         public static void Initialize()
         {
-            //new Thread(delegate()
-            //{
-                touchListener = new TouchListener();
-                Touch.Initialize(touchListener);
+            if (touchListener == null)
+            {
+                //new Thread(() =>
+                //{
+                    touchListener = new TouchListener();
+                    Touch.Initialize(touchListener);
 
-                TouchCollectorConfiguration.CollectionMode = CollectionMode.GestureOnly;
-                TouchCollectorConfiguration.CollectionMethod = CollectionMethod.Native;
-                TouchCollectorConfiguration.SamplingFrequency = 50; // 50...200; default 100; best 50; worse 200;
-                if (!Utils.IsEmulator)
-                    TouchCollectorConfiguration.TouchMoveFrequency = 20;// ... // in ms; default 50;
+                    TouchCollectorConfiguration.CollectionMode = CollectionMode.InkAndGesture;
+                    TouchCollectorConfiguration.CollectionMethod = CollectionMethod.Native;
+                    TouchCollectorConfiguration.SamplingFrequency = 50; // 50...200; default 50; best 50; worse 200;
+                    if (!Utils.IsEmulator)
+                        TouchCollectorConfiguration.TouchMoveFrequency = 20; // in ms; default 20;
 
-            //    Thread.Sleep(-1);
-            //}
-            //).Start();
+                //Thread.Sleep(-1);
+                //}).Start();
+            }
         }
         #endregion
 

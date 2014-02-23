@@ -7,7 +7,6 @@ using MFE.Graphics.Controls;
 using MFE.Graphics.Geometry;
 using MFE.Graphics.Media;
 using Microsoft.SPOT;
-//using Microsoft.SPOT.Hardware;
 using System;
 using System.IO;
 using System.Threading;
@@ -47,7 +46,7 @@ namespace MFE.GraphicsDemo
             display = new DisplayS22(11);
 
             gm = new GraphicsManager(240, 320);
-            gm.OnRender += delegate(Bitmap bitmap, Rect dirtyArea)
+            gm.OnRenderRequest += delegate(Bitmap bitmap, Rect dirtyArea)
             {
                 display.SimpleGraphics.DisplayImage(bitmap, (uint)dirtyArea.X, (uint)dirtyArea.Y, (uint)dirtyArea.X, (uint)dirtyArea.Y, (uint)dirtyArea.Width, (uint)dirtyArea.Height);
             };
@@ -160,6 +159,25 @@ namespace MFE.GraphicsDemo
 
             gm = new GraphicsManager(320, 240);
 
+            if (!gm.IsCalibrated)
+            {
+                var cw = gm.CalibrationWindow;
+                cw.Background = new SolidColorBrush(Color.CornflowerBlue);
+                cw.CrosshairPen = new Pen(Color.Red, 1);
+
+                TextBlock text = new TextBlock(0, 0, cw.Width, cw.Height / 2, Resources.GetFont(Resources.FontResources.CourierNew_10), "Please touch the crosshair")
+                {
+                    ForeColor = Color.White,
+                    TextAlignment = TextAlignment.Center,
+                    TextVerticalAlignment = VerticalAlignment.Center,
+                    TextWrap = true
+                };
+                cw.Children.Add(text);
+
+                cw.Show();
+            }
+
+
             //return;
 
             desktop = gm.Desktop;
@@ -223,7 +241,7 @@ namespace MFE.GraphicsDemo
             };
             desktop.Children.Add(lvl);
 
-            desktop.Children.Add(new Button(120, 170, 90, 24, fontCourierNew10, "Click me", Color.White) { BackgroundUnpressed = bar });
+            desktop.Children.Add(new Button(120, 170, 90, 24, fontRegular, "Click me", Color.White) { BackgroundUnpressed = bar });
 
 
 
@@ -239,7 +257,7 @@ namespace MFE.GraphicsDemo
                 {
                     desktop.SuspendLayout();
 
-                    DateTime dt = DateTime.Now;
+                    DateTime dt = RealTimeClock.GetTime();// DateTime.Now;
 
                     string hour = (dt.Hour < 10) ? "0" + dt.Hour.ToString() : dt.Hour.ToString();
                     string minute = (dt.Minute < 10) ? "0" + dt.Minute.ToString() : dt.Minute.ToString();
@@ -247,22 +265,22 @@ namespace MFE.GraphicsDemo
                     string result = hour + ":" + minute + ":" + second;
                     lblClock.Text = result;
 
-                    v += 10;
-                    if (v > 100)
-                        v = 0;
+                    //v += 10;
+                    //if (v > 100)
+                    //    v = 0;
 
-                    lvl.Value = v;
-                    //pg.Value = v;
-                    lvl2.Value = v;
-                    sl.Value = v;
+                    //lvl.Value = v;
+                    ////pg.Value = v;
+                    //lvl2.Value = v;
+                    //sl.Value = v;
 
-                    Color temp = ((LinearGradientBrush)img.Background).StartColor;
-                    ((LinearGradientBrush)img.Background).StartColor = ((LinearGradientBrush)img.Background).EndColor;
-                    ((LinearGradientBrush)img.Background).EndColor = temp;
+                    //Color temp = ((LinearGradientBrush)img.Background).StartColor;
+                    //((LinearGradientBrush)img.Background).StartColor = ((LinearGradientBrush)img.Background).EndColor;
+                    //((LinearGradientBrush)img.Background).EndColor = temp;
 
                     desktop.ResumeLayout();
 
-                    //Thread.Sleep(200);
+                    Thread.Sleep(200);
                 }
             }).Start();
         }

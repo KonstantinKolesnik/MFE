@@ -1,13 +1,12 @@
-using MFE.Core;
 using Microsoft.SPOT;
 using Microsoft.SPOT.Touch;
 
-namespace MFE.Graphics
+namespace MFE.Graphics.Calibration
 {
-    public static class CalibrationManager
+    static class CalibrationManager
     {
         #region Fields
-        private class CalibrationPointsID { }
+        //private class CalibrationPointsID { }
         private static ExtendedWeakReference ewrCalibrationPoints;
         private static CalibrationPoints calibrationPoints = null;
         #endregion
@@ -33,7 +32,7 @@ namespace MFE.Graphics
         #region Public methods
         private static void LoadCalibrationPoints()
         {
-            ewrCalibrationPoints = ExtendedWeakReference.RecoverOrCreate(typeof(CalibrationPointsID), 0, ExtendedWeakReference.c_SurvivePowerdown | ExtendedWeakReference.c_SurviveBoot);
+            ewrCalibrationPoints = ExtendedWeakReference.RecoverOrCreate(typeof(CalibrationManager), 0, ExtendedWeakReference.c_SurvivePowerdown | ExtendedWeakReference.c_SurviveBoot);
             ewrCalibrationPoints.Priority = (int)ExtendedWeakReference.PriorityLevel.System;
             calibrationPoints = (CalibrationPoints)ewrCalibrationPoints.Target;
         }
@@ -57,13 +56,13 @@ namespace MFE.Graphics
             calibrationPoints.TouchY = new short[pointCount];
 
             // Get the points for calibration.
-            for (int index = 0; index < pointCount; index++)
+            for (int i = 0; i < pointCount; i++)
             {
                 int x = 0;
                 int y = 0;
-                Touch.ActiveTouchPanel.GetCalibrationPoint(index, ref x, ref y);
-                calibrationPoints.ScreenX[index] = (short)x;
-                calibrationPoints.ScreenY[index] = (short)y;
+                Touch.ActiveTouchPanel.GetCalibrationPoint(i, ref x, ref y);
+                calibrationPoints.ScreenX[i] = (short)x;
+                calibrationPoints.ScreenY[i] = (short)y;
             }
         }
         public static void StartCalibration()

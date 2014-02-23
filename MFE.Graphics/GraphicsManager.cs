@@ -1,3 +1,4 @@
+using MFE.Graphics.Calibration;
 using MFE.Graphics.Controls;
 using MFE.Graphics.Geometry;
 using MFE.Graphics.Media;
@@ -10,7 +11,9 @@ namespace MFE.Graphics
     {
         #region Fields
         private Bitmap bitmap;
-        internal Desktop desktop;
+        private Desktop desktop;
+        private CalibrationWindow cw;
+        //private Keyboard keyboard;
         //internal Window modalWindow = null;
 
         private Control lastEventTarget = null;
@@ -29,10 +32,18 @@ namespace MFE.Graphics
         {
             get { return desktop; }
         }
+        public bool IsCalibrated
+        {
+            get { return CalibrationManager.IsCalibrated; }
+        }
+        public CalibrationWindow CalibrationWindow
+        {
+            get { return cw; }
+        }
         #endregion
 
         #region Events
-        public event RenderEventHandler OnRender;
+        public event RenderRequestEventHandler OnRenderRequest;
         #endregion
 
         #region Constructor
@@ -45,7 +56,6 @@ namespace MFE.Graphics
             //mouseManager.OnMouseMove = InterceptMouseMove;
             //mouseManager.OnMouseOut = InterceptMouseOut;
 
-
             TouchManager.TouchDown += new TouchEventHandler(TouchManager_TouchDown);
             TouchManager.TouchMove += new TouchEventHandler(TouchManager_TouchMove);
             TouchManager.TouchUp += new TouchEventHandler(TouchManager_TouchUp);
@@ -56,27 +66,14 @@ namespace MFE.Graphics
 
             bitmap = new Bitmap(width, height);
             desktop = new Desktop(width, height, this);
+            cw = new CalibrationWindow(width, height, this)
+            {
+                Background = new SolidColorBrush(Color.CornflowerBlue),
+                CrosshairPen = new Pen(Color.Red, 1)
+            };
 
             if (CalibrationManager.IsCalibrated)
                 CalibrationManager.ApplyCalibrationPoints();
-            //if (!CalibrationManager.IsCalibrated)
-            //{
-            //    CalibrationWindow winCal = new CalibrationWindow(width, height);
-            //    winCal.Background = new LinearGradientBrush(Color.Blue, Color.Black);
-            //    winCal.CrosshairPen = new Pen(Color.LimeGreen, 1);
-
-            //    //TextBlock text = new TextBlock(0, winCal.Height / 4, winCal.Width, 40, Resources.GetFont(Resources.FontResources.CourierNew_10), "Please tap the crosshairs to calibrate the screen")
-            //    //{
-            //    //    ForeColor = Color.White,
-            //    //    TextAlignment = TextAlignment.Center,
-            //    //    TextVerticalAlignment = VerticalAlignment.Center,
-            //    //    TextWrap = true
-            //    //};
-            //    //winCal.Children.Add(text);
-
-            //    //winCal.ShowModal();
-            //    desktop.Children.Add(winCal);
-            //}
 
             desktop.Invalidate();
         }
@@ -118,42 +115,6 @@ namespace MFE.Graphics
             Control touchTarget = GetTouchTarget(e.Point);
             if (touchTarget != null)
                 touchTarget.RaiseTouchGestureEndedEvent(e);
-        }
-        #endregion
-
-        #region Private methods
-        private Control GetTouchTarget(Point p)
-        {
-            Control res = null;
-
-            //dt0 = DateTime.Now;
-            if (TouchCapture.Captured != null)
-                res = TouchCapture.Captured;
-            //else if (modalWindow != null)
-            //    res = modalWindow is CalibrationWindow ? modalWindow : FindTouchTarget(modalWindow, p);
-            else
-                res = FindTouchTarget(desktop, p);
-
-            lastEventTarget = res;
-            //ts = DateTime.Now - dt0;
-            return res;
-        }
-        private Control FindTouchTarget(Control root, Point p)
-        {
-            if (lastEventTarget != null)
-            {
-                // old:
-                //Control target = lastEventTarget.GetValidChildFromScreenPoint(p);
-                //if (target != null)
-                //    return target;
-                //Control par = lastEventTarget.GetValidParentFromScreenPoint(p);
-                //return par.GetValidChildFromScreenPoint(p);
-
-                var par = lastEventTarget.GetValidParentFromScreenPoint(p);
-                return par != null ? par.GetValidChildFromScreenPoint(p) : (root != null ? root.GetValidChildFromScreenPoint(p) : null);
-            }
-            else
-                return root.GetValidChildFromScreenPoint(p);
         }
 
         //function InterceptMouseDblClick(p, isIPad) {
@@ -295,6 +256,44 @@ namespace MFE.Graphics
         //        pp = p.GetParent();
         //    } while (pp && pp.GetParent() != ctrl2.GetParent());
         //}
+        #endregion
+
+        #region Private methods
+        private Control GetTouchTarget(Point p)
+        {
+            Control res = null;
+
+            //dt0 = DateTime.Now;
+            if (TouchCapture.Captured != null)
+                res = TouchCapture.Captured;
+            else if (desktop.Children.Contains(cw))
+                return cw;
+            //else if (modalWindow != null)
+            //    res = FindTouchTarget(modalWindow, p);
+            else
+                res = FindTouchTarget(desktop, p);
+
+            lastEventTarget = res;
+            //ts = DateTime.Now - dt0;
+            return res;
+        }
+        private Control FindTouchTarget(Control root, Point p)
+        {
+            if (lastEventTarget != null)
+            {
+                // old:
+                //Control target = lastEventTarget.GetValidChildFromScreenPoint(p);
+                //if (target != null)
+                //    return target;
+                //Control par = lastEventTarget.GetValidParentFromScreenPoint(p);
+                //return par.GetValidChildFromScreenPoint(p);
+
+                var par = lastEventTarget.GetValidParentFromScreenPoint(p);
+                return par != null ? par.GetValidChildFromScreenPoint(p) : (root != null ? root.GetValidChildFromScreenPoint(p) : null);
+            }
+            else
+                return root.GetValidChildFromScreenPoint(p);
+        }
 
         internal void ProcessTask(RenderTask task /*optional*/)
         {
@@ -322,8 +321,8 @@ namespace MFE.Graphics
             dc.Close();
             //ts = DateTime.Now - dt0;
 
-            if (OnRender != null)
-                OnRender(bitmap, dirtyRect);
+            if (OnRenderRequest != null)
+                OnRenderRequest(bitmap, dirtyRect);
             else
                 bitmap.Flush(dirtyRect.X, dirtyRect.Y, dirtyRect.Width, dirtyRect.Height);
 
@@ -343,21 +342,3 @@ namespace MFE.Graphics
         #endregion
     }
 }
-
-/*
-Bitmap Clear, 800x480: 00:00:00.0120309
-Bitmap Flush, 800x480: 00:00:00.0371465
-Bitmap GetPixel, 800x480: 00:00:00.0003250
-Bitmap SetPixel, 800x480: 00:00:00.0003901
-Bitmap Blend a=256, 800x480: 00:00:00.0399479
-Bitmap Blend a=127, 800x480: 00:00:01.2195883
-Bitmap Blend a=10, 800x480: 00:00:01.2195683
-Bitmap Blend a=0, 800x480: 00:00:00.0006304
-Bitmap DrawImage 1, 800x480: 00:00:00.0400499
-Bitmap DrawImage 2, 800x480: 00:00:00.0403511
-Bitmap DrawImage 2, 200x200, center: 00:00:00.0046052
-Bitmap DrawImage 2, 20x20, center: 00:00:00.0006930
-Bitmap DrawRectangle, 800x480: 00:00:00.1247743
-new Bitmap: 00:00:00.0117430
-Bitmap Dispose: 00:00:00.0003555
-*/

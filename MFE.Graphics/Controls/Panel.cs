@@ -6,6 +6,7 @@ namespace MFE.Graphics.Controls
     {
         #region Fields
         private Pen border;
+        private int borderCorner = 2;
         #endregion
 
         #region Properties
@@ -35,10 +36,7 @@ namespace MFE.Graphics.Controls
             base.OnRender(dc);
 
             if (border != null)
-            {
-                int corner = 2;
-                dc.DrawFrame(border, 0, 0, Width, Height, corner, corner);
-            }
+                dc.DrawFrame(border, 0, 0, Width, Height, borderCorner, borderCorner);
         }
     }
 }
