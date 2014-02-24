@@ -114,7 +114,7 @@ namespace MFE.Graphics.Media
         }
         public void DrawLine(Pen pen, int x0, int y0, int x1, int y1)
         {
-            if (pen != null)
+            if (pen != null && pen.Thickness > 0)
                 bitmap.DrawLine((MSMedia.Color)pen.Color, pen.Thickness, translationX + x0, translationY + y0, translationX + x1, translationY + y1);
         }
         public void DrawEllipse(Brush brush, Pen pen, int x, int y, int xRadius, int yRadius)
@@ -127,15 +127,18 @@ namespace MFE.Graphics.Media
         }
         public void DrawImage(Bitmap source, int x, int y)
         {
-            bitmap.DrawImage(translationX + x, translationY + y, source, 0, 0, source.Width, source.Height);
+            if (source != null)
+                bitmap.DrawImage(translationX + x, translationY + y, source, 0, 0, source.Width, source.Height);
         }
         public void DrawImage(Bitmap source, int destinationX, int destinationY, int sourceX, int sourceY, int sourceWidth, int sourceHeight)
         {
-            bitmap.DrawImage(translationX + destinationX, translationY + destinationY, source, sourceX, sourceY, sourceWidth, sourceHeight);
+            if (source != null)
+                bitmap.DrawImage(translationX + destinationX, translationY + destinationY, source, sourceX, sourceY, sourceWidth, sourceHeight);
         }
         public void BlendImage(Bitmap source, int destinationX, int destinationY, int sourceX, int sourceY, int sourceWidth, int sourceHeight, ushort opacity)
         {
-            bitmap.DrawImage(translationX + destinationX, translationY + destinationY, source, sourceX, sourceY, sourceWidth, sourceHeight, opacity);
+            if (source != null)
+                bitmap.DrawImage(translationX + destinationX, translationY + destinationY, source, sourceX, sourceY, sourceWidth, sourceHeight, opacity);
         }
         public void RotateImage(int angle, int destinationX, int destinationY, Bitmap bitmap, int sourceX, int sourceY, int sourceWidth, int sourceHeight, ushort opacity)
         {
@@ -155,34 +158,40 @@ namespace MFE.Graphics.Media
         }
         public void DrawText(string text, Font font, Color color, int x, int y)
         {
-            bitmap.DrawText(text, font, (MSMedia.Color)color, translationX + x, translationY + y);
+            if (font != null)
+                bitmap.DrawText(text, font, (MSMedia.Color)color, translationX + x, translationY + y);
         }
         public bool DrawText(ref string text, Font font, Color color, int x, int y, int width, int height, TextAlignment alignment, TextTrimming trimming, bool wordWrap)
         {
-            uint flags = 0;// Bitmap.DT_IgnoreHeight;
-
-            if (wordWrap)
-                flags |= Bitmap.DT_WordWrap;
-
-            // Text alignment
-            switch (alignment)
+            if (font != null)
             {
-                case TextAlignment.Left: flags |= Bitmap.DT_AlignmentLeft; break;
-                case TextAlignment.Center: flags |= Bitmap.DT_AlignmentCenter; break;
-                case TextAlignment.Right: flags |= Bitmap.DT_AlignmentRight; break;
-                default: throw new NotSupportedException();
+                uint flags = 0;// Bitmap.DT_IgnoreHeight;
+
+                if (wordWrap)
+                    flags |= Bitmap.DT_WordWrap;
+
+                // Text alignment
+                switch (alignment)
+                {
+                    case TextAlignment.Left: flags |= Bitmap.DT_AlignmentLeft; break;
+                    case TextAlignment.Center: flags |= Bitmap.DT_AlignmentCenter; break;
+                    case TextAlignment.Right: flags |= Bitmap.DT_AlignmentRight; break;
+                    default: throw new NotSupportedException();
+                }
+
+                // Trimming
+                switch (trimming)
+                {
+                    case TextTrimming.CharacterEllipsis: flags |= Bitmap.DT_TrimmingCharacterEllipsis; break;
+                    case TextTrimming.WordEllipsis: flags |= Bitmap.DT_TrimmingWordEllipsis; break;
+                }
+
+                int xRelStart = 0;
+                int yRelStart = 0;
+                return bitmap.DrawTextInRect(ref text, ref xRelStart, ref yRelStart, translationX + x, translationY + y, width, height, flags, (MSMedia.Color)color, font);
             }
 
-            // Trimming
-            switch (trimming)
-            {
-                case TextTrimming.CharacterEllipsis: flags |= Bitmap.DT_TrimmingCharacterEllipsis; break;
-                case TextTrimming.WordEllipsis: flags |= Bitmap.DT_TrimmingWordEllipsis; break;
-            }
-
-            int xRelStart = 0;
-            int yRelStart = 0;
-            return bitmap.DrawTextInRect(ref text, ref xRelStart, ref yRelStart, translationX + x, translationY + y, width, height, flags, (MSMedia.Color)color, font);
+            return false;
         }
         #endregion
 

@@ -42,7 +42,7 @@
   </PropertyGroup>
   <Import Project="$(NetMfTargetsBaseDir)$(TargetFrameworkVersion)\CSharp.Targets" />
   <ItemGroup>
-    <Compile Include="NRF24L01Plus\AddressSlot.cs" />
+    <Compile Include="NRF24L01Plus\RXAddressSlot.cs" />
     <Compile Include="NRF24L01Plus\AddressWidth.cs" />
     <Compile Include="NRF24L01Plus\Bits.cs" />
     <Compile Include="NRF24L01Plus\Commands.cs" />

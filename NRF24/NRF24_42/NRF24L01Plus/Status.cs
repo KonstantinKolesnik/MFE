@@ -17,10 +17,10 @@ namespace Gadgeteer.Modules.KKS.NRF24L01Plus
         {
             get { return (reg & (1 << Bits.MAX_RT)) > 0; }
         }
-        public bool TxFull
-        {
-            get { return (reg & (1 << Bits.TX_FULL)) > 0; }
-        }
+
+        /// <summary>
+        /// Data pipe number for the payload available for reading from RX_FIFO
+        /// </summary>
         public byte DataPipe
         {
             get { return (byte)((reg >> 1) & 7); }
@@ -32,6 +32,11 @@ namespace Gadgeteer.Modules.KKS.NRF24L01Plus
         public bool RxEmpty
         {
             get { return DataPipe == 7; }
+        }
+
+        public bool TxFull
+        {
+            get { return (reg & (1 << Bits.TX_FULL)) > 0; }
         }
 
         public Status(byte reg)
@@ -50,7 +55,7 @@ namespace Gadgeteer.Modules.KKS.NRF24L01Plus
                    "\nResendLimitReached: " + ResendLimitReached +
                    "\nTxFull: " + TxFull +
                    "\nRxEmpty: " + RxEmpty +
-                   "\nDataPipe: " + DataPipe +
+                   "\nDataPipe #: " + DataPipe +
                    "\nDataPipeNotUsed: " + DataPipeNotUsed;
         }
     }

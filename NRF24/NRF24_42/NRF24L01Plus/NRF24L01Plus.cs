@@ -131,12 +131,12 @@ namespace Gadgeteer.Modules.KKS.NRF24L01Plus
             Execute(Commands.W_REGISTER, Registers.SETUP_AW,
                     new[]
                         {
-                            AddressWidth.GetRegisterValue(address)
+                            AddressWidth.GetCorrespondingRegisterValue(address)
                         });
 
             // Set module address
             _slot0Address = address;
-            Execute(Commands.W_REGISTER, (byte)AddressSlot.Zero, address);
+            Execute(Commands.W_REGISTER, (byte)RXAddressSlot.Zero, address);
 
             // Setup, CRC enabled, Power Up, PRX
             SetReceiveMode();
@@ -145,13 +145,13 @@ namespace Gadgeteer.Modules.KKS.NRF24L01Plus
         /// <summary>
         /// Set one of 6 available module addresses
         /// </summary>
-        public void SetAddress(AddressSlot slot, byte[] address)
+        public void SetAddress(RXAddressSlot slot, byte[] address)
         {
             CheckIsInitialized();
             AddressWidth.Check(address);
             Execute(Commands.W_REGISTER, (byte)slot, address);
 
-            if (slot == AddressSlot.Zero)
+            if (slot == RXAddressSlot.Zero)
             {
                 _slot0Address = address;
             }
@@ -160,7 +160,7 @@ namespace Gadgeteer.Modules.KKS.NRF24L01Plus
         /// <summary>
         /// Read 1 of 6 available module addresses
         /// </summary>
-        public byte[] GetAddress(AddressSlot slot, int width)
+        public byte[] GetAddress(RXAddressSlot slot, int width)
         {
             CheckIsInitialized();
             AddressWidth.Check(width);

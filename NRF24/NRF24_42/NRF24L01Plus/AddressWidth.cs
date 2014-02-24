@@ -7,7 +7,7 @@ namespace Gadgeteer.Modules.KKS.NRF24L01Plus
         public const int Min = 3;
         public const int Max = 5;
 
-        public static byte GetRegisterValue(byte[] address)
+        public static byte GetCorrespondingRegisterValue(byte[] address)
         {
             Check(address);
             return (byte)(address.Length - 2);

@@ -30,7 +30,6 @@ namespace Gadgeteer.Modules.KKS
         // 7 - MISO                     8
         // 8 - IRQ                      3
 
-
         public delegate void OnDataRecievedHandler(byte[] data);
         public delegate void OnInterruptHandler(Status status);
 
@@ -46,18 +45,12 @@ namespace Gadgeteer.Modules.KKS
         private byte[] slot0Address;
         private byte payloadSize = 32; // fixed size of payloads
 
-        //bool wide_band; /* 2Mbs data rate in use? */
-        //bool p_variant; /* False for RF24L01 and true for RF24L01P */
-        //bool ack_payload_available; /**< Whether there is an ack payload waiting */
-        //bool dynamic_payloads_enabled; /**< Whether dynamic payloads are enabled. */
+        private bool wide_band = true; /* 2Mbs data rate in use? */
+        private bool p_variant = false; /* False for RF24L01 and true for RF24L01P */
+        private bool ack_payload_available = false; /* Whether there is an ack payload waiting */
+        private bool dynamic_payloads_enabled = false; /**< Whether dynamic payloads are enabled. */
         //uint8_t ack_payload_length; /**< Dynamic size of pending ack payload. */
-        //uint64_t pipe0_reading_address; /**< Last address set on pipe 0 for reading. */
-
-        //wide_band(true), p_variant(false), 
-        //payload_size(32), ack_payload_available(false), dynamic_payloads_enabled(false),
-        //pipe0_reading_address(0)
-
-
+        //uint64_t pipe0_reading_address = 0; /**< Last address set on pipe 0 for reading. */
         #endregion
 
         #region Properties
@@ -69,15 +62,11 @@ namespace Gadgeteer.Modules.KKS
             get { return pinCE.Read(); }
             set { pinCE.Write(value); }
         }
-
         public byte PayloadSize
         {
             get { return payloadSize; }
             set { payloadSize = (byte)System.Math.Max(value, 32); }
         }
-
-
-
 
 
         #endregion
@@ -201,7 +190,11 @@ namespace Gadgeteer.Modules.KKS
         {
             Execute(Commands.W_REGISTER, Registers.RF_CH, new[] { (byte)(channel & 0x7F) }); // channel is 7 bits
         }
-
+        public byte GetChannel()
+        {
+            var read = Execute(Commands.R_REGISTER, Registers.RF_CH, new byte[1] { 0xff });
+            return GetResponseData(read)[0];
+        }
 
 
 
@@ -217,11 +210,7 @@ namespace Gadgeteer.Modules.KKS
             AddressWidth.Check(address);
 
             // Set radio channel
-            Execute(Commands.W_REGISTER, Registers.RF_CH,
-                    new[]
-                        {
-                            (byte) (channel & 0x7F) // channel is 7 bits
-                        });
+            SetChannel(channel);
 
             // Enable dynamic payload length
             Execute(Commands.W_REGISTER, Registers.FEATURE,
@@ -265,12 +254,12 @@ namespace Gadgeteer.Modules.KKS
             Execute(Commands.W_REGISTER, Registers.SETUP_AW,
                     new[]
                         {
-                            AddressWidth.GetRegisterValue(address)
+                            AddressWidth.GetCorrespondingRegisterValue(address)
                         });
 
             // Set module address
             slot0Address = address;
-            Execute(Commands.W_REGISTER, (byte)AddressSlot.Zero, address);
+            Execute(Commands.W_REGISTER, (byte)RXAddressSlot.Zero, address);
 
             // Setup, CRC enabled, Power Up, PRX
             SetReceiveMode();
@@ -279,26 +268,24 @@ namespace Gadgeteer.Modules.KKS
         /// <summary>
         /// Set one of 6 available module addresses
         /// </summary>
-        public void SetAddress(AddressSlot slot, byte[] address)
+        public void SetAddress(RXAddressSlot slot, byte[] address)
         {
             AddressWidth.Check(address);
             Execute(Commands.W_REGISTER, (byte)slot, address);
 
-            if (slot == AddressSlot.Zero)
+            if (slot == RXAddressSlot.Zero)
                 slot0Address = address;
         }
 
         /// <summary>
         /// Read one of 6 available module addresses
         /// </summary>
-        public byte[] GetAddress(AddressSlot slot, int width)
+        public byte[] GetAddress(RXAddressSlot slot, int width)
         {
             AddressWidth.Check(width);
 
             var read = Execute(Commands.R_REGISTER, (byte)slot, new byte[width]);
-            var result = new byte[read.Length - 1];
-            Array.Copy(read, 1, result, 0, result.Length);
-            return result;
+            return GetResponseData(read);
         }
 
         /// <summary>
@@ -329,6 +316,10 @@ namespace Gadgeteer.Modules.KKS
 
             // Return ReadBuffer
             return readBuffer;
+        }
+        public byte[] Execute(byte command)
+        {
+            return Execute(command, 0x00, new byte[0]);
         }
 
         /// <summary>
@@ -462,53 +453,30 @@ namespace Gadgeteer.Modules.KKS
 
         private void FlushRX()
         {
-            Execute(Commands.FLUSH_RX, 0x00, new byte[0]);
+            Execute(Commands.FLUSH_RX);
         }
         private void FlushTX()
         {
-            Execute(Commands.FLUSH_TX, 0x00, new byte[0]);
+            Execute(Commands.FLUSH_TX);
         }
         private void SetTransmitMode()
         {
-            Execute(Commands.W_REGISTER, Registers.CONFIG,
-                    new[]
-                        {
-                            (byte) (1 << Bits.PWR_UP |
-                                    1 << Bits.CRCO)
-                        });
+            Execute(Commands.W_REGISTER, Registers.CONFIG, new[] { (byte)(1 << Bits.PWR_UP | 1 << Bits.CRCO) });
         }
         private void SetReceiveMode()
         {
             Execute(Commands.W_REGISTER, Registers.RX_ADDR_P0, slot0Address);
-
-            Execute(Commands.W_REGISTER, Registers.CONFIG,
-                    new[]
-                        {
-                            (byte) (1 << Bits.PWR_UP |
-                                    1 << Bits.CRCO |
-                                    1 << Bits.PRIM_RX)
-                        });
+            Execute(Commands.W_REGISTER, Registers.CONFIG, new[] { (byte)(1 << Bits.PWR_UP | 1 << Bits.CRCO | 1 << Bits.PRIM_RX) });
         }
 
-        //private void WriteCommand(byte command)
-        //{
-        //    pinCSN.Write(false);
-        //    spi.Write(new byte[1] { command });
-        //}
-        //private void WriteData(byte data)
-        //{
-        //    WriteData(new byte[1] { data });
-        //}
-        //private void WriteData(byte[] data)
-        //{
-        //    pinCSN.Write(true);
-        //    spi.Write(data);
-        //}
-        //private void WriteData(ushort[] data)
-        //{
-        //    pinCSN.Write(true);
-        //    spi.Write(data);
-        //}
+
+        private byte[] GetResponseData(byte[] response)
+        {
+            // response[0] - status value; let's cut it
+            var result = new byte[response.Length - 1];
+            Array.Copy(response, 1, result, 0, result.Length);
+            return result;
+        }
         #endregion
     }
 }

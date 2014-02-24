@@ -2,7 +2,7 @@
 namespace Gadgeteer.Modules.KKS.NRF24L01Plus
 {
     /// <summary>
-    ///   Registers for NRF24L01Plus
+    ///   Registers for NRF24L01+
     ///   Can be read with Commands.R_REGISTER and written by Commands.W_REGISTER
     /// </summary>
     public static class Registers

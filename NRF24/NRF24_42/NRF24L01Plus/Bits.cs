@@ -2,10 +2,11 @@
 namespace Gadgeteer.Modules.KKS.NRF24L01Plus
 {
     /// <summary>
-    ///   Mnemonics for the NRF24L01Plus Registers
+    ///   Mnemonics for the NRF24L01+ registers bits
     /// </summary>
     public static class Bits
     {
+        #region CONFIG (0x00) bits
         #region Interrupt masks
         /// <summary>
         ///   Mask interrupt caused by RX_DR
@@ -51,8 +52,9 @@ namespace Gadgeteer.Modules.KKS.NRF24L01Plus
         ///   1: PRX, 0: PTX
         /// </summary>
         public static byte PRIM_RX;
+        #endregion
 
-        #region Enable auto acknowledgement data pipe 0...5
+        #region EN_AA (0x01) bits
         /// <summary>
         ///   Enable auto acknowledgement data pipe 5
         /// </summary>
@@ -81,10 +83,10 @@ namespace Gadgeteer.Modules.KKS.NRF24L01Plus
         /// <summary>
         ///   Enable auto acknowledgement data pipe 0
         /// </summary>
-        public static byte ENAA_P0;
+        public static byte ENAA_P0 = 0;
         #endregion
 
-        #region Enable data pipe 0...5
+        #region EN_RXADDR (0x02) bits
         /// <summary>
         ///   Enable data pipe 5
         /// </summary>
@@ -113,10 +115,10 @@ namespace Gadgeteer.Modules.KKS.NRF24L01Plus
         /// <summary>
         ///   Enable data pipe 0
         /// </summary>
-        public static byte ERX_P0;
+        public static byte ERX_P0 = 0;
         #endregion
 
-
+        #region SETUP_AW (0x03) bits
         /// <summary>
         ///   RX/TX Address field width
         ///   '00' - Illegal
@@ -125,19 +127,20 @@ namespace Gadgeteer.Modules.KKS.NRF24L01Plus
         ///   '11' – 5 bytes
         ///   LSByte is used if address width is below 5 bytes
         /// </summary>
-        public static byte AW;
+        public static byte AW; // 0...1
+        #endregion
 
-
+        #region SETUP_RETR (0x04) bits
         /// <summary>
         ///   Auto Retransmit Delay
-        ///   '0000' – Wait 250?S
-        ///   '0001' – Wait 500?S
-        ///   '0010' – Wait 750?S
+        ///   '0000' – Wait 250uS
+        ///   '0001' – Wait 500uS
+        ///   '0010' – Wait 750uS
         ///   ...
-        ///   '1111' – Wait 4000?S
+        ///   '1111' – Wait 4000uS
         ///   (Delay defined from end of transmission to start of next transmission)
         /// </summary>
-        public static byte ARD = 4;
+        public static byte ARD = 4; // 4...7
 
         /// <summary>
         ///   Auto Retransmit Count
@@ -146,9 +149,10 @@ namespace Gadgeteer.Modules.KKS.NRF24L01Plus
         ///   ...
         ///   '1111' – Up to 15 Re-Transmit on fail of AA
         /// </summary>
-        public static byte ARC;
+        public static byte ARC = 0; // 0...3
+        #endregion
 
-
+        #region RF_SETUP (0x06) bits ?????????????????????????????????????
         /// <summary>
         ///   Enables continuous carrier transmit when high.
         /// </summary>
@@ -181,9 +185,15 @@ namespace Gadgeteer.Modules.KKS.NRF24L01Plus
         ///   '10' – -6dBm
         ///   '11' – 0dBm
         /// </summary>
-        public static byte RF_PWR = 1;
+        public static byte RF_PWR = 1; // 1...2
 
+        /// <summary>
+        ///   Setup LNA gain
+        /// </summary>
+        public static byte LNA_HCURR = 0;
+        #endregion
 
+        #region STATUS (0x07) bits
         /// <summary>
         ///   Data Ready RX FIFO interrupt. 
         ///   Asserted when new data arrives RX FIFOc. 
@@ -219,21 +229,30 @@ namespace Gadgeteer.Modules.KKS.NRF24L01Plus
         ///   0: Available locations in TX FIFO.
         /// </summary>
         public static byte TX_FULL;
+        #endregion
 
-
+        #region OBSERVE_TX (0x08) bits
         /// <summary>
         ///   Count lost packets. 
-        ///   The counter is overflow protected to 15, and discontinues at max until reset. 
+        ///   The counter is overflow protected to 15, and discontinues at max until reset.
         ///   The counter is reset by writing to RF_CH.
         /// </summary>
-        public static byte PLOS_CNT = 4;
+        public static byte PLOS_CNT = 4; // readonly; 4...7
 
         /// <summary>
         ///   Count retransmitted packets. The counter is reset when transmission of a new packet starts.
         /// </summary>
-        public static byte ARC_CNT;
+        public static byte ARC_CNT; // readonly; 0...3
+        #endregion
 
+        #region RPD (0x09) bits
+        /// <summary>
+        ///   Carrier detect
+        /// </summary>
+        public static byte CD = 0;
+        #endregion
 
+        #region FIFO_STATUS (0x17) bits
         /// <summary>
         ///   Used for a PTX device Pulse the rfce high for at least 10?s to Reuse last transmitted payload. 
         ///   TX payload reuse is active until W_TX_PAYLOAD or FLUSH TX is executed. 
@@ -244,7 +263,7 @@ namespace Gadgeteer.Modules.KKS.NRF24L01Plus
         /// <summary>
         ///   TX FIFO full flag. 1: TX FIFO full. 0: Available locations in TX FIFO.
         /// </summary>
-        public static byte FIFO_FULL = 5;
+        public static byte TX_FIFO_FULL = 5;
 
         /// <summary>
         ///   TX FIFO empty flag. 
@@ -265,9 +284,10 @@ namespace Gadgeteer.Modules.KKS.NRF24L01Plus
         ///   1: RX FIFO empty.
         ///   0: Data in RX FIFO.
         /// </summary>
-        public static byte RX_EMPTY;
+        public static byte RX_EMPTY = 0;
+        #endregion
 
-        #region Enable dynamic payload length data pipe 0...5. (Requires EN_DPL and ENAA_Px)
+        #region DYNPD (0x1C) bits. (Requires EN_DPL and ENAA_Px)
         /// <summary>
         ///   Enable dynamic payload length data pipe 5. (Requires EN_DPL and ENAA_P5)
         /// </summary>
@@ -299,7 +319,7 @@ namespace Gadgeteer.Modules.KKS.NRF24L01Plus
         public static byte DPL_P0;
         #endregion
 
-
+        #region FEATURE (0x1D) bits
         /// <summary>
         ///   Enables Dynamic Payload Length
         /// </summary>
@@ -314,5 +334,6 @@ namespace Gadgeteer.Modules.KKS.NRF24L01Plus
         ///   Enables the W_TX_PAYLOAD_NOACK command
         /// </summary>
         public static byte EN_DYN_ACK;
+        #endregion
     }
 }

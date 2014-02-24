@@ -80,11 +80,7 @@ namespace MFE.Graphics.Controls
         #endregion
 
         #region Constructors
-        public ProgressBar(int x, int y, int width, int height)
-            : this(x, y, width, height, Orientation.Horizontal)
-        {
-        }
-        public ProgressBar(int x, int y, int width, int height, Orientation orientation)
+        public ProgressBar(int x, int y, int width, int height, Orientation orientation = Orientation.Horizontal)
             : base(x, y, width, height)
         {
             Orientation = orientation;
