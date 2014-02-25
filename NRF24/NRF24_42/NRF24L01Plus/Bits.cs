@@ -152,7 +152,7 @@ namespace Gadgeteer.Modules.KKS.NRF24L01Plus
         public static byte ARC = 0; // 0...3
         #endregion
 
-        #region RF_SETUP (0x06) bits ?????????????????????????????????????
+        #region RF_SETUP (0x06) bits
         /// <summary>
         ///   Enables continuous carrier transmit when high.
         /// </summary>
@@ -187,10 +187,11 @@ namespace Gadgeteer.Modules.KKS.NRF24L01Plus
         /// </summary>
         public static byte RF_PWR = 1; // 1...2
 
-        /// <summary>
-        ///   Setup LNA gain
-        /// </summary>
-        public static byte LNA_HCURR = 0;
+        // Obsolet for Plus version
+        ///// <summary>
+        /////   Setup LNA gain
+        ///// </summary>
+        //public static byte LNA_HCURR = 0;
         #endregion
 
         #region STATUS (0x07) bits
@@ -220,8 +221,9 @@ namespace Gadgeteer.Modules.KKS.NRF24L01Plus
         ///   000-101: Data Pipe Number
         ///   110: Not Used
         ///   111: RX FIFO Empty
+        ///   Updated during the IRQ pin high to low transition
         /// </summary>
-        public static byte RX_P_NO = 1;
+        public static byte RX_P_NO = 1; // 1...3
 
         /// <summary>
         ///   TX FIFO full flag.

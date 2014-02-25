@@ -31,7 +31,7 @@ namespace Gadgeteer.Modules.KKS
         private uint spiSpeed = 8000; // kHz
         private GTI.SPI spi;
         private GTI.SPI.Configuration spiConfig;
-        private SPI.Configuration netMFSpiConfig;
+        private SPI.Configuration netMFSpiConfig; // needed for Mainboard.NativeBitmapCopyToSpi()
 
         private GT.Socket socket;
         private GTI.DigitalOutput pinReset;
