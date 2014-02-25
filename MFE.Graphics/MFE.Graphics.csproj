@@ -76,6 +76,11 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RenderRequestEventHandler.cs" />
     <Compile Include="RenderTask.cs" />
+    <Compile Include="Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
     <Compile Include="Touching\TouchCapture.cs" />
     <Compile Include="Touching\TouchEventArgs.cs" />
     <Compile Include="Touching\TouchEventHandler.cs" />
@@ -92,6 +97,7 @@
     <Reference Include="Microsoft.SPOT.Touch" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="CourierNew_10.tinyfnt" />
     <None Include="Media\HTML Color Names_asp.mht" />
   </ItemGroup>
   <ItemGroup>
@@ -99,5 +105,11 @@
       <Project>{8EE96EBA-F6D8-4433-A72E-AED3A5A0EFDA}</Project>
       <Name>MFE.Core</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
   </ItemGroup>
 </Project>

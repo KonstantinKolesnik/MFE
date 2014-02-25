@@ -23,11 +23,16 @@ namespace MFE.Graphics
         //var touchRepeatCount = 0;
         //var lastDownTarget = null;
 
-        //public DateTime dt0;
-        //public TimeSpan ts;
+        //private DateTime dt;
+        //private TimeSpan ts;
         #endregion
 
         #region Properties
+        public bool IsTrial
+        {
+            get;
+            set;
+        }
         public Desktop Desktop
         {
             get { return desktop; }
@@ -117,69 +122,69 @@ namespace MFE.Graphics
                 touchTarget.RaiseTouchGestureEndedEvent(e);
         }
 
-        //function InterceptMouseDblClick(p, isIPad) {
+        //function InterceptMouseDblClick(p) {
         //    var eventTarget = getEventTarget(p);
         //    if (eventTarget)
         //        eventTarget.OnMouseDblClick(p);
         //}
-        //function InterceptMouseDown(p, isIPad) {        
+        //function InterceptMouseDown(p) {        
         //    var eventTarget = getEventTarget(p);
 
         //    if (isIPad && eventTarget) { //AB 2013/0416 Git#137 override iPad hover to clicks
         //        if (eventTarget.Name == "btnExpand" || eventTarget.Name == "btnActionMenu")
-        //            eventTarget.OnMouseClick(p, isIPad);
+        //            eventTarget.OnMouseClick(p);
         //        if (eventTarget.Name == "chbComplete") 
-        //            eventTarget.OnMouseUp(p, isIPad);
+        //            eventTarget.OnMouseUp(p);
         //    }
 
         //    if (eventTarget) {
         //        // check for mouseenter for touched control:
         //        if (!lastTouchTarget) { // from none to eventTarget
-        //            eventTarget.OnMouseEnter(p, isIPad);
+        //            eventTarget.OnMouseEnter(p);
         //            lastTouchTarget = eventTarget;
         //        }
         //        else { // from lastTouchTarget to eventTarget
         //            if (lastTouchTarget == eventTarget) { // within the same control;
-        //                eventTarget.OnMouseMove(p, isIPad);
+        //                eventTarget.OnMouseMove(p);
         //            }
         //            else if (eventTarget.GetParent() == lastTouchTarget) { // from parent to child; don't raise mouseLeave for parent; just mouseEnter for child
-        //                lastTouchTarget.OnMouseLeaveToChild(p, isIPad);
-        //                eventTarget.OnMouseEnter(p, isIPad);
+        //                lastTouchTarget.OnMouseLeaveToChild(p);
+        //                eventTarget.OnMouseEnter(p);
         //                lastTouchTarget = eventTarget;
         //            }
         //            else if (lastTouchTarget.GetParent() == eventTarget) { // from child to parent; raise mouseEnter for parent and mouseLeave for child
-        //                lastTouchTarget.OnMouseLeave(p, isIPad);
-        //                eventTarget.OnMouseEnter(p, isIPad);
+        //                lastTouchTarget.OnMouseLeave(p);
+        //                eventTarget.OnMouseEnter(p);
         //                lastTouchTarget = eventTarget;
         //            }
         //            else { // between different controls; raise mouseLeave for the previous one and mouseEnter for the new one
-        //                raiseMouseLeaveForHierarchy(lastTouchTarget, eventTarget, p, isIPad);
-        //                eventTarget.OnMouseEnter(p, isIPad);
+        //                raiseMouseLeaveForHierarchy(lastTouchTarget, eventTarget, p);
+        //                eventTarget.OnMouseEnter(p);
         //                lastTouchTarget = eventTarget;
         //            }
         //        }
 
         //        // then anyway raise mousedown event for control:
         //        lastDownTarget = eventTarget;
-        //        eventTarget.OnMouseDown(p, isIPad);
+        //        eventTarget.OnMouseDown(p);
         //    }
         //    else { // touched outside the root control, raise mouseleave for last touched control & all its parents:
         //        if (lastTouchTarget) {
-        //            raiseMouseLeaveForHierarchy(lastTouchTarget, lastTouchTarget.GetRootControl(), p, isIPad);
+        //            raiseMouseLeaveForHierarchy(lastTouchTarget, lastTouchTarget.GetRootControl(), p);
         //            lastTouchTarget = null;
         //            lastDownTarget = null;
         //        }
         //    }
         //}
-        //function InterceptMouseUp(p, isIPad) {
+        //function InterceptMouseUp(p) {
         //    //alert(p.X + " / " + p.Y);
         //    var eventTarget = getEventTarget(p);
         //    if (eventTarget) {
-        //        eventTarget.OnMouseUp(p, isIPad);
+        //        eventTarget.OnMouseUp(p);
         //        if (lastDownTarget == eventTarget) {
         //            //debugOutput("click " + eventTarget.Name);
         //            //alert("click " + eventTarget.Name);
-        //            eventTarget.OnMouseClick(p, isIPad);
+        //            eventTarget.OnMouseClick(p);
 
         //            //                if (isIPad) {
         //            //                    touchRepeatCount++;
@@ -187,7 +192,7 @@ namespace MFE.Graphics
         //            //                        var delay = 300;
         //            //                        setTimeout(function afterDelay() {
         //            //                            if (touchRepeatCount > 1) // second click occured within delay
-        //            //                                eventTarget.OnMouseDblClick(p, isIPad);
+        //            //                                eventTarget.OnMouseDblClick(p);
 
         //            //                            touchRepeatCount = 0;
         //            //                        }, delay);
@@ -197,39 +202,39 @@ namespace MFE.Graphics
         //    }
         //    lastDownTarget = null;
         //}
-        //function InterceptMouseMove(p, isIPad) {
+        //function InterceptMouseMove(p) {
         //    //startMeasure();
         //    var eventTarget = getEventTarget(p);
         //    if (eventTarget) {
         //        if (!lastMoveTarget) { // from none to eventTarget
         //            lastMoveTarget = eventTarget;
-        //            eventTarget.OnMouseEnter(p, isIPad);
+        //            eventTarget.OnMouseEnter(p);
         //        }
         //        else { // from lastMoveTarget to eventTarget
         //            if (lastMoveTarget == eventTarget) // within the same control; just mouseMove event
-        //                eventTarget.OnMouseMove(p, isIPad);
+        //                eventTarget.OnMouseMove(p);
         //            else if (eventTarget.GetParent() == lastMoveTarget) { // from parent to child; don't raise mouseLeave for parent; just mouseEnter for child
-        //                lastMoveTarget.OnMouseLeaveToChild(p, isIPad);
-        //                eventTarget.OnMouseEnter(p, isIPad);
+        //                lastMoveTarget.OnMouseLeaveToChild(p);
+        //                eventTarget.OnMouseEnter(p);
         //                lastMoveTarget = eventTarget;
         //            }
         //            else if (lastMoveTarget.GetParent() == eventTarget) { // from child to parent; don't raise mouseEnter for parent; just mouseLeave for child
-        //                lastMoveTarget.OnMouseLeave(p, isIPad);
+        //                lastMoveTarget.OnMouseLeave(p);
         //                lastMoveTarget = eventTarget;
         //            }
         //            else { // between different controls; raise mouseLeave for the previous one and mouseEnter for the new one
-        //                //lastMoveTarget.OnMouseLeave(p, isIPad);
-        //                raiseMouseLeaveForHierarchy(lastMoveTarget, eventTarget, p, isIPad);
+        //                //lastMoveTarget.OnMouseLeave(p);
+        //                raiseMouseLeaveForHierarchy(lastMoveTarget, eventTarget, p);
 
-        //                eventTarget.OnMouseEnter(p, isIPad);
+        //                eventTarget.OnMouseEnter(p);
         //                lastMoveTarget = eventTarget;
         //            }
         //        }
         //    }
         //    else {
         //        if (lastMoveTarget) { // from lastMoveTarget to none
-        //            //lastMoveTarget.OnMouseLeave(p, isIPad);
-        //            raiseMouseLeaveForHierarchy(lastMoveTarget, lastMoveTarget.GetRootControl(), p, isIPad);
+        //            //lastMoveTarget.OnMouseLeave(p);
+        //            raiseMouseLeaveForHierarchy(lastMoveTarget, lastMoveTarget.GetRootControl(), p);
         //            lastMoveTarget = null;
         //        }
         //    }
@@ -237,22 +242,22 @@ namespace MFE.Graphics
         //    //t1 = payload;
 
         //}
-        //function InterceptMouseOut(p, isIPad) {
+        //function InterceptMouseOut(p) {
         //    var captured = capturer.GetCaptured();
         //    if (captured)
-        //        captured.OnMouseUp(p, isIPad);
+        //        captured.OnMouseUp(p);
         //    if (lastEventTarget) {
-        //        lastEventTarget.OnMouseLeave(p, isIPad);
+        //        lastEventTarget.OnMouseLeave(p);
         //        lastEventTarget = null;
         //    }
         //}
 
-        //function raiseMouseLeaveForHierarchy(ctrl1, ctrl2, p, isIPad) {
+        //function raiseMouseLeaveForHierarchy(ctrl1, ctrl2, p) {
         //    var p = null;
         //    var pp = ctrl1;
         //    do {
         //        p = pp;
-        //        p.OnMouseLeave(p, isIPad);
+        //        p.OnMouseLeave(p);
         //        pp = p.GetParent();
         //    } while (pp && pp.GetParent() != ctrl2.GetParent());
         //}
@@ -261,35 +266,41 @@ namespace MFE.Graphics
         #region Private methods
         private Control GetTouchTarget(Point p)
         {
-            Control res = null;
+            Control result = null;
 
-            //dt0 = DateTime.Now;
+            //dt = DateTime.Now;
             if (TouchCapture.Captured != null)
-                res = TouchCapture.Captured;
+                result = TouchCapture.Captured;
             else if (desktop.Children.Contains(cw))
                 return cw;
             //else if (modalWindow != null)
             //    res = FindTouchTarget(modalWindow, p);
             else
-                res = FindTouchTarget(desktop, p);
+                result = FindTouchTarget(desktop, p);
+            //ts = DateTime.Now - dt;
 
-            lastEventTarget = res;
-            //ts = DateTime.Now - dt0;
-            return res;
+            lastEventTarget = result;
+            return result;
         }
         private Control FindTouchTarget(Control root, Point p)
         {
             if (lastEventTarget != null)
             {
                 // old:
-                //Control target = lastEventTarget.GetValidChildFromScreenPoint(p);
-                //if (target != null)
-                //    return target;
-                //Control par = lastEventTarget.GetValidParentFromScreenPoint(p);
-                //return par.GetValidChildFromScreenPoint(p);
+                Control target = lastEventTarget.GetValidChildFromScreenPoint(p);
+                if (target != null)
+                    return target;
+                else if (lastEventTarget.ContainsScreenPoint(p))
+                    return lastEventTarget;
+                else
+                {
+                    Control par = lastEventTarget.GetValidParentFromScreenPoint(p);
+                    return par != null ? par.GetValidChildFromScreenPoint(p) : (root != null ? root.GetValidChildFromScreenPoint(p) : null);
+                }
 
-                var par = lastEventTarget.GetValidParentFromScreenPoint(p);
-                return par != null ? par.GetValidChildFromScreenPoint(p) : (root != null ? root.GetValidChildFromScreenPoint(p) : null);
+                // new:
+                //var par = lastEventTarget.GetValidParentFromScreenPoint(p);
+                //return par != null ? par.GetValidChildFromScreenPoint(p) : (root != null ? root.GetValidChildFromScreenPoint(p) : null);
             }
             else
                 return root.GetValidChildFromScreenPoint(p);
@@ -309,7 +320,7 @@ namespace MFE.Graphics
             if (dirtyRect.IsZero)
                 return;
 
-            //dt0 = DateTime.Now;
+            //dt = DateTime.Now;
             var dc = new DrawingContext(bitmap);
             dc.PushClippingRectangle(dirtyRect);
             if (!dc.ClippingRectangle.IsZero)
@@ -319,7 +330,7 @@ namespace MFE.Graphics
             }
             dc.PopClippingRectangle();
             dc.Close();
-            //ts = DateTime.Now - dt0;
+            //ts = DateTime.Now - dt;
 
             if (OnRenderRequest != null)
                 OnRenderRequest(bitmap, dirtyRect);
@@ -330,13 +341,12 @@ namespace MFE.Graphics
             //Rect dirtyRect2 = new Rect(0, 0, 300, 20);
             //dc = new DrawingContext(screen);
             //dc.PushClippingRectangle(dirtyRect2);
-            //Font font = Resources.GetFont(Resources.FontResources.Regular);
+            //Font font = Resources.GetFont(Resources.FontResources.CourierNew_10);
             //dc.DrawRectangle(new SolidColorBrush(Color.White), null, 0, 0, 300, 20);
             //dc.DrawText(dirtyRect.ToString() + "; Render: " + ts.ToString(), font, Color.Red, 3, 3);
             //dc.PopClippingRectangle();
             //dc.Close();
             //screen.Flush(dirtyRect2.X, dirtyRect2.Y, dirtyRect2.Width, dirtyRect2.Height);
-
             //Debug.Print("Render task: " + ts.ToString());
         }
         #endregion

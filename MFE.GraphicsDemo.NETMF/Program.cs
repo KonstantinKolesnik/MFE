@@ -23,7 +23,10 @@ namespace MFE.GraphicsDemo.NETMF
             //    Microsoft.SPOT.Hardware.PowerState.RebootDevice(false);
             //}
 
-            demo = new Demo(800, 480, null);
+            //demo = new Demo(800, 480);
+            //demo.QuickDemo();
+
+            demo = new Demo(320, 240);
             demo.QuickDemo();
         }
 

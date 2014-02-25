@@ -1,4 +1,5 @@
 using MFE.Graphics.Media;
+using Microsoft.SPOT;
 
 namespace MFE.Graphics.Controls
 {
@@ -6,6 +7,7 @@ namespace MFE.Graphics.Controls
     {
         #region Fields
         private GraphicsManager gm = null;
+        private Font font;
         #endregion
 
         #region Properties
@@ -35,6 +37,8 @@ namespace MFE.Graphics.Controls
 
             Name = "Desktop";
             Background = new SolidColorBrush(Color.Black);
+
+            font = Resources.GetFont(Resources.FontResources.CourierNew_10);
         }
         #endregion
 
@@ -48,7 +52,8 @@ namespace MFE.Graphics.Controls
         {
             base.OnPostRender(dc);
 
-            // draw trial version text here
+            if (gm.IsTrial)
+                dc.DrawText("Demo version", font, Color.Red, 0, 0);
         }
         #endregion
     }

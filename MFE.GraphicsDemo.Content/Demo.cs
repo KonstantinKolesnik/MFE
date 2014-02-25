@@ -12,18 +12,17 @@ namespace MFE.GraphicsDemo.Content
 {
     public class Demo
     {
-        private GraphicsManager gm;
-        private Desktop desktop;
+        private static GraphicsManager gm;
+        public static Desktop desktop;
 
-        private Font fontRegular;
-        private Font fontCourierNew10;
-        private Font fontTitle;
-        private Point p;
-        private Panel panelPresentation;
-        private Panel tlb2;
-        private Label lblActiveDemo;
-        private Panel panelActiveDemo;
-
+        public static Font fontRegular;
+        public static Font fontCourierNew10;
+        public static Font fontTitle;
+        //private Point p;
+        //private Panel panelPresentation;
+        //private Panel tlb2;
+        //private Label lblActiveDemo;
+        //private Panel panelActiveDemo;
 
         public Demo(int width, int height, RenderRequestEventHandler renderHandler = null)
         {
@@ -265,7 +264,7 @@ namespace MFE.GraphicsDemo.Content
             //    }
             //}).Start();
         }
-        private void DisplayDemo()
+        public void DisplayDemo()
         {
             //GT.Modules.Module.DisplayModule.SimpleGraphicsInterface graphics = display.SimpleGraphics;
             //int buf[318];
@@ -557,6 +556,12 @@ namespace MFE.GraphicsDemo.Content
             //  graphics.printNumI(millis(), CENTER, 225);
 
             Thread.Sleep(10000);
+        }
+        public void LibraryDemo()
+        {
+
+
+
         }
 
         private void CheckCalibration()
