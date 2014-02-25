@@ -2,3 +2,5 @@ obj
 
 bin
 /*.suo
+/MFE.GraphicsDemo.NETMF/OnBoardFlash.dat
+/MFE.GraphicsDemo.NETMF/OnBoardFlash.dat.smd

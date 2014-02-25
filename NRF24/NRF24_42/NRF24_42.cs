@@ -21,14 +21,14 @@ namespace Gadgeteer.Modules.KKS
     public class NRF24 : GTM.Module
     {
         // NRF24L01Plus interface:      S-socket interface:
-        // 1 - GND                      10
-        // 2 - Vcc                      1
+        // 1 - GND                      10 !
+        // 2 - Vcc                      1 !
         // 3 - CE                       6
         // 4 - CSN                      5
-        // 5 - SCK                      9
-        // 6 - MOSI                     7
-        // 7 - MISO                     8
-        // 8 - IRQ                      3
+        // 5 - SCK                      9 !
+        // 6 - MOSI                     7 !
+        // 7 - MISO                     8 !
+        // 8 - IRQ                      3 !
 
         #region Delegates
         public delegate void OnDataRecievedHandler(byte[] data);
