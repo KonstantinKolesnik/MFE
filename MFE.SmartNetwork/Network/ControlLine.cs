@@ -26,7 +26,7 @@ namespace SmartNetwork.Network
             get;
             private set;
         }
-        public byte Number
+        public byte Address
         {
             get;
             private set;
@@ -39,21 +39,14 @@ namespace SmartNetwork.Network
 
                 switch (Type)
                 {
-                    case ControlLineType.Relay: type = "Relay"; break;
-                    case ControlLineType.WaterSensor: type = "Water sensor"; break;
-                    case ControlLineType.PHSensor: type = "PH sensor"; break;
-                    case ControlLineType.ORPSensor: type = "ORP sensor"; break;
-                    case ControlLineType.ConductivitySensor: type = "Conductivity sensor"; break;
-                    case ControlLineType.TemperatureSensor: type = "Temperature sensor"; break;
-                    case ControlLineType.Dimmer: type = "Dimmer"; break;
-
-
-
-
+                    case ControlLineType.PWM: type = "PWM"; break;
+                    case ControlLineType.Digital: type = "Digital"; break;
+                    case ControlLineType.Analog: type = "Analog"; break;
+                    case ControlLineType.OneWire: type = "OneWire"; break;
                     default: type = "[Unknown]"; break;
                 }
 
-                return "[" + (BusHub != null ? BusHub.Address.ToString() : "-") + "][" + (BusModule != null ? BusModule.Address.ToString() : "-") + "] " + type + " #" + Number;
+                return "[" + (BusHub != null ? BusHub.Address.ToString() : "-") + "][" + (BusModule != null ? BusModule.Address.ToString() : "-") + "] " + type + " #" + Address;
             }
         }
         public string Name
@@ -92,15 +85,20 @@ namespace SmartNetwork.Network
 
         #region Events
         public event PropertyChangeEventHandler PropertyChanged;
+        protected void NotifyPropertyChanged(string propertyName)
+        {
+            if (PropertyChanged != null)
+                PropertyChanged(this, propertyName);
+        }
         #endregion
 
         #region Constructor
-        public ControlLine(BusHub busMaster, BusModule busModule, ControlLineType type, byte number)
+        public ControlLine(BusHub busHub, BusModule busModule, ControlLineType type, byte address)
         {
-            BusHub = busMaster;
+            BusHub = busHub;
             BusModule = busModule;
             Type = type;
-            Number = number;
+            Address = address;
 
             for (byte i = 0; i < state.Length; i++)
                 state[i] = 0;
@@ -110,35 +108,27 @@ namespace SmartNetwork.Network
         #region Public methods
         public void QueryState()
         {
-            if (BusHub != null)
+            if (BusHub != null && BusModule != null)
             {
                 byte[] response = new byte[state.Length];
-                if (BusHub.BusModuleWriteRead(BusModule, new byte[] { BusModuleAPI.CmdGetControlLineState, (byte)Type, Number }, response))
-                    State = response;
+                if (BusHub.BusModuleWriteRead(BusModule, new byte[] { BusModuleAPI.CmdGetControlLineState, (byte)Type, Address }, response))
+                    state = response;
             }
         }
         public void SetState(byte[] state)
         {
-            if (BusHub != null)
+            if (BusHub != null && BusModule != null)
             {
                 byte[] data = new byte[3 + state.Length];
                 data[0] = BusModuleAPI.CmdSetControlLineState;
                 data[1] = (byte)Type;
-                data[2] = Number;
+                data[2] = Address;
                 Array.Copy(state, 0, data, 3, state.Length);
 
                 byte[] response = new byte[state.Length];
                 if (BusHub.BusModuleWriteRead(BusModule, data, response))
                     State = response;
             }
-        }
-        #endregion
-
-        #region Private methods
-        protected void NotifyPropertyChanged(string propertyName)
-        {
-            if (PropertyChanged != null)
-                PropertyChanged(this, propertyName);
         }
         #endregion
     }
