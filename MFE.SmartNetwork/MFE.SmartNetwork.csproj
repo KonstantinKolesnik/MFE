@@ -34,7 +34,7 @@
     <Compile Include="Controllers\Controller.cs" />
     <Compile Include="Controllers\FunctionalController.cs" />
     <Compile Include="Controllers\MonitorController.cs" />
-    <Compile Include="Network\BusConfiguration.cs" />
+    <Compile Include="Network\BusConfigurationI2C.cs" />
     <Compile Include="Network\BusHub.cs" />
     <Compile Include="Network\BusHubI2C.cs" />
     <Compile Include="Network\BusHubRF.cs" />

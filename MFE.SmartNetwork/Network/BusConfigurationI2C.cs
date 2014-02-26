@@ -2,14 +2,14 @@ using Microsoft.SPOT.Hardware;
 
 namespace SmartNetwork.Network
 {
-    public class BusConfiguration
+    public class BusConfigurationI2C
     {
         public const int ClockRate = 400; // 100 kHz
         public const int Timeout = 1000; // 1 sec
         
         public I2CDevice Bus;
 
-        public BusConfiguration(I2CDevice bus)
+        public BusConfigurationI2C(I2CDevice bus)
         {
             Bus = bus;
         }

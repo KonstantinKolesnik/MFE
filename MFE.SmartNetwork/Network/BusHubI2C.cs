@@ -7,11 +7,11 @@ namespace SmartNetwork.Network
     public class BusHubI2C : BusHub
     {
         #region Fields
-        private BusConfiguration busConfig;
+        private BusConfigurationI2C busConfig;
         #endregion
 
         #region Constructor
-        public BusHubI2C(BusConfiguration busConfig)
+        public BusHubI2C(BusConfigurationI2C busConfig)
             : base(0)
         {
             this.busConfig = busConfig;
@@ -28,8 +28,8 @@ namespace SmartNetwork.Network
             {
                 byte type = 255;
 
-                I2CDevice.Configuration config = new I2CDevice.Configuration(address, BusConfiguration.ClockRate);
-                if (busConfig.Bus.TryGetRegister(config, BusConfiguration.Timeout, BusModuleAPI.CmdGetType, out type))
+                I2CDevice.Configuration config = new I2CDevice.Configuration(address, BusConfigurationI2C.ClockRate);
+                if (busConfig.Bus.TryGetRegister(config, BusConfigurationI2C.Timeout, BusModuleAPI.CmdGetType, out type))
                 {
                     // address is online
 
@@ -67,8 +67,8 @@ namespace SmartNetwork.Network
         }
         internal override bool BusModuleWriteRead(BusModule busModule, byte[] request, byte[] response)
         {
-            I2CDevice.Configuration config = new I2CDevice.Configuration(busModule.Address, BusConfiguration.ClockRate);
-            return busConfig.Bus.TryGet(config, BusConfiguration.Timeout, request, response);
+            I2CDevice.Configuration config = new I2CDevice.Configuration(busModule.Address, BusConfigurationI2C.ClockRate);
+            return busConfig.Bus.TryGet(config, BusConfigurationI2C.Timeout, request, response);
         }
         //internal override bool BusModuleWrite(BusModule busModule, byte[] request)
         //{

@@ -26,7 +26,7 @@ namespace SmartNetwork.Network
             get;
             private set;
         }
-        public byte Address
+        public byte Address // up to 256 lines in a single module
         {
             get;
             private set;
