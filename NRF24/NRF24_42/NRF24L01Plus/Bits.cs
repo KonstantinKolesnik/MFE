@@ -251,42 +251,43 @@ namespace Gadgeteer.Modules.KKS.NRF24L01Plus
         /// <summary>
         ///   Carrier detect
         /// </summary>
-        public static byte CD = 0;
+        public static byte CD = 0; // 24L01
+        public static byte RPD = 0; // 24L01+
         #endregion
 
         #region FIFO_STATUS (0x17) bits
         /// <summary>
-        ///   Used for a PTX device Pulse the rfce high for at least 10?s to Reuse last transmitted payload. 
+        ///   Used for a PTX device Pulse the rfce high for at least 10us to Reuse last transmitted payload. 
         ///   TX payload reuse is active until W_TX_PAYLOAD or FLUSH TX is executed. 
         ///   TX_REUSE is set by the SPI command REUSE_TX_PL, and is reset by the SPI commands W_TX_PAYLOAD or FLUSH TX
         /// </summary>
-        public static byte TX_REUSE = 6;
+        public static byte TX_REUSE = 6; // readonly
 
         /// <summary>
         ///   TX FIFO full flag. 1: TX FIFO full. 0: Available locations in TX FIFO.
         /// </summary>
-        public static byte TX_FIFO_FULL = 5;
+        public static byte TX_FIFO_FULL = 5; // readonly
 
         /// <summary>
         ///   TX FIFO empty flag. 
         ///   1: TX FIFO empty.
         ///   0: Data in TX FIFO.
         /// </summary>
-        public static byte TX_EMPTY = 4;
+        public static byte TX_EMPTY = 4; // readonly
 
         /// <summary>
         ///   RX FIFO full flag. 
         ///   1: RX FIFO full.
         ///   0: Available locations in RX FIFO.
         /// </summary>
-        public static byte RX_FULL = 1;
+        public static byte RX_FULL = 1; // readonly
 
         /// <summary>
         ///   RX FIFO empty flag.
         ///   1: RX FIFO empty.
         ///   0: Data in RX FIFO.
         /// </summary>
-        public static byte RX_EMPTY = 0;
+        public static byte RX_EMPTY = 0; // readonly
         #endregion
 
         #region DYNPD (0x1C) bits. (Requires EN_DPL and ENAA_Px)

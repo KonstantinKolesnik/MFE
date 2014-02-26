@@ -20,6 +20,11 @@ namespace Gadgeteer.Modules.KKS
     /// </summary>
     public class NRF24 : GTM.Module
     {
+        #region Pins mapping
+        // Serial peripheral interface (SPI).
+        // Pin 7 is MOSI line, pin 8 is MISO line, pin 9 is SCK line.
+        // In addition, pins 3, 4 and 5 are general-purpose input/outputs, with pin 3 supporting interrupt capabilities.
+        
         // NRF24L01Plus interface:      S-socket interface:
         // 1 - GND                      10 !
         // 2 - Vcc                      1 !
@@ -29,18 +34,26 @@ namespace Gadgeteer.Modules.KKS
         // 6 - MOSI                     7 !
         // 7 - MISO                     8 !
         // 8 - IRQ                      3 !
-
-        #region Delegates
-        public delegate void OnDataRecievedHandler(byte[] data);
-        public delegate void OnInterruptHandler(StatusInfo status);
         #endregion
 
+        #region Delegates
+        public delegate void DataRecievedEventHandler(byte[] data);
+        public delegate void InterruptEventHandler(StatusInfo status);
+        #endregion
+
+        #region Inner types definitions
         public enum CRCLength
         {
-            CRC1Byte = 0,
-            CRC2Bytes = 1
+            CRC1 = 0, // 1 byte
+            CRC2 = 1 // 2 bytes
         }
-
+        public enum AddressLength
+        {
+            Illegal  = 0,
+            Address3 = 1, // 3 bytes
+            Address4 = 2, // 4 bytes
+            Address5 = 3  // 5 bytes
+        }
         public class StatusInfo
         {
             private byte reg;
@@ -97,15 +110,11 @@ namespace Gadgeteer.Modules.KKS
                        "\nDataPipeNotUsed: " + DataPipeNotUsed;
             }
         }
-
-
-
-
-
+        #endregion
 
         #region Fields
         private GT.Socket socket;
-        private uint spiSpeed = 2000; // kHz; 10 Mbps max
+        private uint spiSpeed = 2000; // kHz; 8...10 Mbps max
         private GTI.SPI spi;
 
         private GTI.DigitalOutput pinCE; // chip enable, active high
@@ -141,43 +150,124 @@ namespace Gadgeteer.Modules.KKS
         {
             get { return status; }
         }
-        public CRCLength CRCType
-        {
-            get
-            {
-                var bit = ReadRegisterBit(Registers.CONFIG, Bits.CRCO);
-                return bit ? CRCLength.CRC2Bytes : CRCLength.CRC1Byte;
-            }
-            set
-            {
-                WriteRegisterBit(Registers.CONFIG, Bits.CRCO, value == CRCLength.CRC2Bytes);
-            }
-        }
-        public bool IsCRCEnabled
-        {
-            get { return ReadRegisterBit(Registers.CONFIG, Bits.EN_CRC); }
-            set { WriteRegisterBit(Registers.CONFIG, Bits.EN_CRC, value); }
-        }
-        public bool IsDataReceivedInterruptEnabled
+
+        public bool IsDataReceivedInterruptEnabled // default true
         {
             get { return !ReadRegisterBit(Registers.CONFIG, Bits.MASK_RX_DR); }
             set { WriteRegisterBit(Registers.CONFIG, Bits.MASK_RX_DR, !value); }
         }
-        public bool IsDataSentInterruptEnabled
+        public bool IsDataSentInterruptEnabled // default true
         {
             get { return !ReadRegisterBit(Registers.CONFIG, Bits.MASK_TX_DS); }
             set { WriteRegisterBit(Registers.CONFIG, Bits.MASK_TX_DS, !value); }
         }
-        public bool IsResendLimitReachedInterruptEnabled
+        public bool IsResendLimitReachedInterruptEnabled // default true
         {
             get { return !ReadRegisterBit(Registers.CONFIG, Bits.MASK_MAX_RT); }
             set { WriteRegisterBit(Registers.CONFIG, Bits.MASK_MAX_RT, !value); }
         }
-        public bool IsPowerOn
+        public bool IsCRCEnabled // default true
+        {
+            get { return ReadRegisterBit(Registers.CONFIG, Bits.EN_CRC); }
+            set { WriteRegisterBit(Registers.CONFIG, Bits.EN_CRC, value); }
+        }
+        public CRCLength CRCType // default 1 byte
+        {
+            get
+            {
+                var bit = ReadRegisterBit(Registers.CONFIG, Bits.CRCO);
+                return bit ? CRCLength.CRC2 : CRCLength.CRC1;
+            }
+            set
+            {
+                WriteRegisterBit(Registers.CONFIG, Bits.CRCO, value == CRCLength.CRC2);
+            }
+        }
+        public bool IsPowerOn // default false
         {
             get { return ReadRegisterBit(Registers.CONFIG, Bits.PWR_UP); }
             set { WriteRegisterBit(Registers.CONFIG, Bits.PWR_UP, value); }
         }
+        public bool IsReceiver // default false
+        {
+            get { return ReadRegisterBit(Registers.CONFIG, Bits.PRIM_RX); }
+            set { WriteRegisterBit(Registers.CONFIG, Bits.PRIM_RX, value); }
+        }
+
+        public bool IsAckEnabledP0 // default true
+        {
+            get { return ReadRegisterBit(Registers.EN_AA, Bits.ENAA_P0); }
+            set { WriteRegisterBit(Registers.EN_AA, Bits.ENAA_P0, value); }
+        }
+        public bool IsAckEnabledP1 // default true
+        {
+            get { return ReadRegisterBit(Registers.EN_AA, Bits.ENAA_P1); }
+            set { WriteRegisterBit(Registers.EN_AA, Bits.ENAA_P1, value); }
+        }
+        public bool IsAckEnabledP2 // default true
+        {
+            get { return ReadRegisterBit(Registers.EN_AA, Bits.ENAA_P2); }
+            set { WriteRegisterBit(Registers.EN_AA, Bits.ENAA_P2, value); }
+        }
+        public bool IsAckEnabledP3 // default true
+        {
+            get { return ReadRegisterBit(Registers.EN_AA, Bits.ENAA_P3); }
+            set { WriteRegisterBit(Registers.EN_AA, Bits.ENAA_P3, value); }
+        }
+        public bool IsAckEnabledP4 // default true
+        {
+            get { return ReadRegisterBit(Registers.EN_AA, Bits.ENAA_P4); }
+            set { WriteRegisterBit(Registers.EN_AA, Bits.ENAA_P4, value); }
+        }
+        public bool IsAckEnabledP5 // default true
+        {
+            get { return ReadRegisterBit(Registers.EN_AA, Bits.ENAA_P5); }
+            set { WriteRegisterBit(Registers.EN_AA, Bits.ENAA_P5, value); }
+        }
+
+        public bool IsReceiverAddressEnabled0 // default true
+        {
+            get { return ReadRegisterBit(Registers.EN_RXADDR, Bits.ERX_P0); }
+            set { WriteRegisterBit(Registers.EN_RXADDR, Bits.ERX_P0, value); }
+        }
+        public bool IsReceiverAddressEnabled1 // default true
+        {
+            get { return ReadRegisterBit(Registers.EN_RXADDR, Bits.ERX_P1); }
+            set { WriteRegisterBit(Registers.EN_RXADDR, Bits.ERX_P1, value); }
+        }
+        public bool IsReceiverAddressEnabled2 // default false
+        {
+            get { return ReadRegisterBit(Registers.EN_RXADDR, Bits.ERX_P2); }
+            set { WriteRegisterBit(Registers.EN_RXADDR, Bits.ERX_P2, value); }
+        }
+        public bool IsReceiverAddressEnabled3 // default false
+        {
+            get { return ReadRegisterBit(Registers.EN_RXADDR, Bits.ERX_P3); }
+            set { WriteRegisterBit(Registers.EN_RXADDR, Bits.ERX_P3, value); }
+        }
+        public bool IsReceiverAddressEnabled4 // default false
+        {
+            get { return ReadRegisterBit(Registers.EN_RXADDR, Bits.ERX_P4); }
+            set { WriteRegisterBit(Registers.EN_RXADDR, Bits.ERX_P4, value); }
+        }
+        public bool IsReceiverAddressEnabled5 // default false
+        {
+            get { return ReadRegisterBit(Registers.EN_RXADDR, Bits.ERX_P5); }
+            set { WriteRegisterBit(Registers.EN_RXADDR, Bits.ERX_P5, value); }
+        }
+
+        public AddressLength AddressType
+        {
+            get
+            {
+                byte read = ReadRegister(Registers.SETUP_AW);
+                return (AddressLength)read;
+            }
+            // don't give access to set!
+        }
+
+        // TODO: SETUP_RETR register
+
         /// <summary>
         /// Gets or sets RF communication channel
         /// </summary>
@@ -187,6 +277,22 @@ namespace Gadgeteer.Modules.KKS
             get { return ReadRegister(Registers.RF_CH); }
             set { WriteRegister(Registers.RF_CH, (byte)(value & 0x7F)); } // channel is 7 bits
         }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
         public byte PayloadSize
@@ -200,22 +306,22 @@ namespace Gadgeteer.Modules.KKS
         /// <summary>
         ///   Called on every IRQ interrupt
         /// </summary>
-        public event OnInterruptHandler OnInterrupt;
+        public event InterruptEventHandler Interrupt;
 
         /// <summary>
         ///   Occurs when data packet has been received
         /// </summary>
-        public event OnDataRecievedHandler OnDataReceived;
+        public event DataRecievedEventHandler DataReceived;
 
         /// <summary>
         ///   Occurs when ack has been received for send packet
         /// </summary>
-        public event EventHandler OnTransmitSuccess;
+        public event EventHandler TransmitSuccess;
 
         /// <summary>
         ///   Occurs when no ack has been received for send packet
         /// </summary>
-        public event EventHandler OnTransmitFailed;
+        public event EventHandler TransmitFailed;
         #endregion
 
         #region Constructor
@@ -238,11 +344,7 @@ namespace Gadgeteer.Modules.KKS
             socket.ReservePin(Socket.Pin.Eight, this); // MISO
             socket.ReservePin(Socket.Pin.Nine, this); // SCK
 
-            // Serial peripheral interface (SPI).
-            // Pin 7 is MOSI line, pin 8 is MISO line, pin 9 is SCK line.
-            // In addition, pins 3, 4 and 5 are general-purpose input/outputs, with pin 3 supporting interrupt capabilities.
-
-            GTI.SPI.Configuration spiConfig = new GTI.SPI.Configuration(false, 0, 0, false, false, spiSpeed);
+            GTI.SPI.Configuration spiConfig = new GTI.SPI.Configuration(false, 0, 0, false, true, spiSpeed);
             spi = new GTI.SPI(socket, spiConfig, GTI.SPI.Sharing.Shared, socket, pinCSN, this);
 
             pinCE = new GTI.DigitalOutput(socket, Socket.Pin.Six, false, this); // pin 6
@@ -260,6 +362,9 @@ namespace Gadgeteer.Modules.KKS
 
             IsEnabled = false;
 
+            
+            // from RF24s -----------------------------------------------------------
+            
             // Set 1500uS (minimum for 32B payload in ESB@250KBPS) timeouts, to make testing a little easier
             // WARNING: If this is ever lowered, either 250KBS mode with AA is broken or maximum packet
             // sizes must never be used. See documentation for a more complete explanation.
@@ -296,7 +401,61 @@ namespace Gadgeteer.Modules.KKS
 
             // Set up default configuration. Callers can always change it later.
             // This channel should be universally safe and not bleed over into adjacent spectrum.
-            Channel = 76;
+            //Channel = 76;
+
+            // from .net -----------------------------------------------------------
+            // Enable dynamic payload length
+            Execute(Commands.W_REGISTER, Registers.FEATURE,
+                    new[]
+                        {
+                            (byte) (1 << Bits.EN_DPL)
+                        });
+
+            //// Set auto-ack
+            //Execute(Commands.W_REGISTER, Registers.EN_AA,
+            //        new[]
+            //            {
+            //                (byte) (1 << Bits.ENAA_P0 |
+            //                        1 << Bits.ENAA_P1)
+            //            });
+
+            // Set dynamic payload length for pipes
+            Execute(Commands.W_REGISTER, Registers.DYNPD,
+                    new[]
+                        {
+                            (byte) (1 << Bits.DPL_P0 |
+                                    1 << Bits.DPL_P1)
+                        });
+
+
+
+
+            // from Gus -----------------------------------------------------------
+            // Setup, CRC enabled, Power Up, PRX
+            WriteRegister(Registers.CONFIG, new byte[] { (byte)((1 << Bits.EN_CRC) | (1 << Bits.PWR_UP) | (1 << Bits.PRIM_RX)) });
+
+            // Write transmit adres to TX_ADDR register. 
+            //WriteRegister(Registers.TX_ADDR, TX_Adress);
+
+            // Write transmit adres to RX_ADDRESS_P0 (Pipe0) (For Auto ACK)
+            //WriteRegister(Registers.RX_ADDR_P0, TX_Adress);
+            // Write recieve adres to RX_ADDRESS_P1 (Pipe1)
+            WriteRegister(Registers.RX_ADDR_P1, RX_Adress);
+
+            // Set Reciever, Pipe0 Payload size 
+            //WriteRegister(Registers.RX_PW_P0, new byte[] { 1 });
+            // Set Reciever, Pipe1 Payload size 
+            //WriteRegister(Registers.RX_PW_P1, new byte[] { 1 });
+
+            // Setup, CRC enabled, Power Up, PRX
+            WriteRegister(Registers.CONFIG, new byte[] { (byte)((1 << Bits.EN_CRC) | (1 << Bits.PWR_UP) | (1 << Bits.PRIM_RX)) });
+
+            // Enable RX/TX
+            IsEnabled = true;
+
+            // Clear IRQ Masks
+            WriteRegister(Registers.STATUS, new byte[] { 0x70 });
+            // ----------------------------------------------------------------
 
             // Flush buffers
             FlushRX();
@@ -398,31 +557,27 @@ namespace Gadgeteer.Modules.KKS
             SetTransmitMode(); // Setup PTX (Primary TX)
             WriteRegister(Registers.TX_ADDR, address); // Write transmit address to TX_ADDR register. 
             WriteRegister(Registers.RX_ADDR_P0, address); // Write transmit address to RX_ADDRESS_P0 (Pipe0) (For Auto ACK)
-            WriteCommand(Commands.W_TX_PAYLOAD, bytes); // Send payload
+            WriteCommand(Commands.W_TX_PAYLOAD, bytes); // Write payload
 
             IsEnabled = true; // Pulse for CE -> starts the transmission.
         }
 
-        // scanning all channels in the 2.4GHz band
-        // Data is packed into RAWDATA reading
-        public void ScanChannels()
+        /// <summary>
+        ///   Scanning all 128 channels in the 2.4GHz band
+        /// </summary>
+        public byte[] ScanChannels()
         {
-            int numberOfChannels = 126; // 0 to 125
+            int numberOfChannels = 128; // 0 to 127
             byte curConfig = ReadRegister(Registers.CONFIG);
             bool isEnabled = IsEnabled;
             byte curChannel = Channel;
 
+            byte[] result = new byte[numberOfChannels];
+
             IsEnabled = false;
             
-            //Set RX mode
-            //nrf24l01_set_config(nrf24l01_get_config() | 0x01);
-
-            //clear RAWDATA
-            //for (i = 0; i < RAWDATASIZE; i++){
-            //    RAWDATA[i] = 0;
-            //}
-
-            //RAWDATA[0] = (BYTE) numberOfChannels;
+            //IsReceiver = true;
+            SetReceiveMode();
 
             IsEnabled = false;
             for (int j = 0; j < 40; j++)
@@ -432,14 +587,13 @@ namespace Gadgeteer.Modules.KKS
                     IsEnabled = false;
                     //recomended at least 258uS but I found 350uS is need for reliability
                     //Delay10uS(26);
+                    //Thread.Sleep(1);
 
                     // received power > -64dBm
-                    //if (nrf24l01_cd_active())
-                    //{
-                    //    RAWDATA[i + 1]++;
-                    //}
+                    if (ReadRegisterBit(Registers.RPD, Bits.CD))
+                        result[i]++;
 
-                    ////this seems to be needed after the timeout not before
+                    //this seems to be needed after the timeout not before
                     IsEnabled = false;
                     //Delay10uS(4); //may not be needed
                 }
@@ -449,6 +603,8 @@ namespace Gadgeteer.Modules.KKS
             Channel = curChannel;
             IsEnabled = isEnabled;
             //Delay10uS(20); //may not be needed
+
+            return result;
         }
         #endregion
 
@@ -457,16 +613,15 @@ namespace Gadgeteer.Modules.KKS
         {
             return ReadRegister(register, 1)[0];
         }
-        private byte[] ReadRegister(byte register, int byteCount)
+        private byte[] ReadRegister(byte register, int size)
         {
-            var read = Execute(Commands.R_REGISTER, register, new byte[byteCount]);
+            var read = Execute(Commands.R_REGISTER, register, new byte[size]);
             return ParseResponseData(read);
         }
         private bool ReadRegisterBit(byte register, byte bitNumber)
         {
-            var read = Execute(Commands.R_REGISTER, register, new byte[1] { 0xff });
-            var registerValue = ParseResponseData(read)[0];
-            return (registerValue & (1 << Bits.CRCO)) > 0;
+            var registerValue = ReadRegister(register, 1)[0];
+            return (registerValue & (1 << bitNumber)) > 0;
         }
 
         private byte[] WriteRegister(byte register, byte value)
@@ -485,13 +640,13 @@ namespace Gadgeteer.Modules.KKS
             Execute(Commands.W_REGISTER, register, new[] { newValue });
         }
 
-        private void WriteCommand(byte command)
+        private byte[] WriteCommand(byte command)
         {
-            Execute(command, 0x00, new byte[0]);
+            return Execute(command, 0x00, new byte[0]);
         }
-        private void WriteCommand(byte command, byte[] data)
+        private byte[] WriteCommand(byte command, byte[] data)
         {
-            Execute(command, 0x00, data);
+            return Execute(command, 0x00, data);
         }
 
         /// <summary>
@@ -508,12 +663,12 @@ namespace Gadgeteer.Modules.KKS
             if (command == Commands.W_REGISTER)
                 IsEnabled = false;
 
-            // Create SPI Buffers with Size of Data + 1 (For Command)
-            var writeBuffer = new byte[data.Length + 1];
+            var writeBuffer = new byte[1 + data.Length]; // Create SPI Buffers with Size of Data + 1 (For Command)
             writeBuffer[0] = (byte)(command | register); // Add command and register to SPI buffer
             Array.Copy(data, 0, writeBuffer, 1, data.Length); // Add data to SPI buffer
 
-            var readBuffer = new byte[data.Length + 1];
+            var readBuffer = new byte[1 + data.Length]; // STATUS + data
+            
             spi.WriteRead(writeBuffer, readBuffer); // Do SPI Read/Write
 
             // Enable module back if it was disabled
@@ -526,7 +681,6 @@ namespace Gadgeteer.Modules.KKS
 
         private void pinIRQ_Interrupt(GTI.InterruptInput sender, bool value)
         {
-            // Disable RX/TX
             IsEnabled = false;
 
             // Set PRX
@@ -538,8 +692,8 @@ namespace Gadgeteer.Modules.KKS
             byte payloadCount = 0;
             var payloadCorrupted = false;
 
-            if (OnInterrupt != null)
-                OnInterrupt(status);
+            if (Interrupt != null)
+                Interrupt(status);
 
             if (status.DataReady)
             {
@@ -570,14 +724,14 @@ namespace Gadgeteer.Modules.KKS
             if (status.ResendLimitReached)
             {
                 FlushTX();
-                Execute(Commands.W_REGISTER, Registers.STATUS, new[] { (byte)(1 << Bits.MAX_RT) });// Clear MAX_RT bit in status register
+                Execute(Commands.W_REGISTER, Registers.STATUS, new[] { (byte)(1 << Bits.MAX_RT) }); // Clear MAX_RT bit in status register
             }
 
             if (status.TxFull)
                 FlushTX();
 
             if (status.DataSent)
-                Execute(Commands.W_REGISTER, Registers.STATUS, new[] { (byte)(1 << Bits.TX_DS) });// Clear TX_DS bit in status register
+                Execute(Commands.W_REGISTER, Registers.STATUS, new[] { (byte)(1 << Bits.TX_DS) }); // Clear TX_DS bit in status register
 
 
             // Enable RX
@@ -592,26 +746,34 @@ namespace Gadgeteer.Modules.KKS
                     var payload = payloads[i];
                     var payloadWithoutCommand = new byte[payload.Length - 1];
                     Array.Copy(payload, 1, payloadWithoutCommand, 0, payload.Length - 1);
-                    OnDataReceived(payloadWithoutCommand);
+                    DataReceived(payloadWithoutCommand);
                 }
             }
             else if (status.DataSent)
             {
-                if (OnTransmitSuccess != null)
-                    OnTransmitSuccess(this, EventArgs.Empty);
+                if (TransmitSuccess != null)
+                    TransmitSuccess(this, EventArgs.Empty);
             }
             else
             {
-                if (OnTransmitFailed != null)
-                    OnTransmitFailed(this, EventArgs.Empty);
+                if (TransmitFailed != null)
+                    TransmitFailed(this, EventArgs.Empty);
             }
         }
 
+        /// <summary>
+        /// Adres for recieving data
+        /// </summary>
+        public byte[] RX_Adress = new byte[] { 0x05, 0x06, 0x07, 0x08, 0x09 };
+
+        /// <summary>
+        /// Adres to send data to
+        /// </summary>
+        public byte[] TX_Adress = new byte[] { 0x05, 0x06, 0x07, 0x08, 0x09 };
+
         private void GetStatus()
         {
-            var readBuffer = new byte[1];
-            spi.WriteRead(new[] { Commands.NOP }, readBuffer);
-            status.Update(readBuffer[0]);
+            status.Update(WriteCommand(Commands.NOP)[0]);
         }
         private void FlushRX()
         {
@@ -627,7 +789,7 @@ namespace Gadgeteer.Modules.KKS
         }
         private void SetReceiveMode()
         {
-            WriteRegister(Registers.RX_ADDR_P0, slot0Address);
+            WriteRegister(Registers.RX_ADDR_P0, RX_Adress);//slot0Address);
             Execute(Commands.W_REGISTER, Registers.CONFIG, new[] { (byte)(1 << Bits.PWR_UP | 1 << Bits.EN_CRC | 1 << Bits.PRIM_RX) });
         }
 
@@ -635,9 +797,13 @@ namespace Gadgeteer.Modules.KKS
         {
             status.Update(response[0]);
 
-            var result = new byte[response.Length - 1];
-            Array.Copy(response, 1, result, 0, result.Length);
-            return result;
+            if (response.Length > 1)
+            {
+                var result = new byte[response.Length - 1];
+                Array.Copy(response, 1, result, 0, result.Length);
+                return result;
+            }
+            return null;
         }
         #endregion
     }
