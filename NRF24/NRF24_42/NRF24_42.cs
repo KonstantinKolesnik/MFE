@@ -1,20 +1,12 @@
-﻿using System;
-using Microsoft.SPOT;
-using GT = Gadgeteer;
-using GTM = Gadgeteer.Modules;
-using GTI = Gadgeteer.Interfaces;
+﻿using Microsoft.SPOT;
+using System;
 using System.Threading;
-using Gadgeteer.Modules.KKS.NRF24L01Plus;
+using GT = Gadgeteer;
+using GTI = Gadgeteer.Interfaces;
+using GTM = Gadgeteer.Modules;
 
 namespace Gadgeteer.Modules.KKS
 {
-    // -- CHANGE FOR MICRO FRAMEWORK 4.2 --
-    // If you want to use Serial, SPI, or DaisyLink (which includes GTI.SoftwareI2C), you must do a few more steps
-    // since these have been moved to separate assemblies for NETMF 4.2 (to reduce the minimum memory footprint of Gadgeteer)
-    // 1) add a reference to the assembly (named Gadgeteer.[interfacename])
-    // 2) in GadgeteerHardware.xml, uncomment the lines under <Assemblies> so that end user apps using this module also add a reference.
-
-
     /// <summary>
     /// A NRF24 module for Microsoft .NET Gadgeteer
     /// </summary>
@@ -36,13 +28,583 @@ namespace Gadgeteer.Modules.KKS
         // 8 - IRQ                      3 !
         #endregion
 
+        #region Commands
+        /// <summary>
+        ///   Commands for NRF24L01Plus
+        /// </summary>
+        public static class Commands
+        {
+            /// <summary>
+            ///   Read command and status registers. 
+            ///   AAAAA = 5 bit Register Map Address
+            ///   Data bytes: 1 to 5 (LSByte first)
+            /// </summary>
+            public const byte R_REGISTER = 0x00;
+
+            /// <summary>
+            ///   Write command and status registers. 
+            ///   AAAAA = 5 bit Register Map Address Executable in power down or standby modes only.
+            ///   Data bytes: 1 to 5 (LSByte first)
+            /// </summary>
+            public const byte W_REGISTER = 0x20;
+
+            /// <summary>
+            ///   Read RX-payload: 1 – 32 bytes. 
+            ///   A read operation always starts at byte 0. 
+            ///   Payload is deleted from FIFO after it is read. Used in RX mode.
+            ///   Data bytes: 1 to 32 (LSByte first)
+            /// </summary>
+            public const byte R_RX_PAYLOAD = 0x61;
+
+            /// <summary>
+            ///   Write TX-payload: 1 – 32 bytes. 
+            ///   A write operation always starts at byte 0 used in TX payload.
+            ///   Data bytes: 1 to 32 (LSByte first)
+            /// </summary>
+            public const byte W_TX_PAYLOAD = 0xA0;
+
+            /// <summary>
+            ///   Flush TX FIFO, used in TX mode
+            ///   Data bytes: 0
+            /// </summary>
+            public const byte FLUSH_TX = 0xE1;
+
+            /// <summary>
+            ///   Flush RX FIFO, used in RX mode Should not be executed during transmission of acknowledge. 
+            ///   Acknowledge package will not be completed.
+            ///   Data bytes: 0
+            /// </summary>
+            public const byte FLUSH_RX = 0xE2;
+
+            /// <summary>
+            ///   Used for a PTX device Reuse last transmitted payload. 
+            ///   TX payload reuse is active until W_TX_PAYLOAD or FLUSH TX is executed. 
+            ///   TX payload reuse must not be activated or deactivated during package transmission.
+            ///   Data bytes: 0
+            /// </summary>
+            public const byte REUSE_TX_PL = 0xE3;
+
+            /// <summary>
+            ///   Read RX payload width for the top R_RX_PAYLOAD in the RX FIFO.
+            ///   Flush RX FIFO if the read value is larger than 32 bytes.
+            ///   Data bytes: 1
+            /// </summary>
+            public const byte R_RX_PL_WID = 0x60;
+
+            /// <summary>
+            ///   Used in RX mode.
+            ///   Write Payload to be transmitted together with ACK packet on PIPE PPP.
+            ///   PPP valid in the range from 000 to 101.
+            ///   Maximum three ACK packet payloads can be pending. 
+            ///   Payloads with same PPP are handled using first in - first out principle. 
+            ///   Write payload: 1– 32 bytes. 
+            ///   A write operation always starts at byte 0.
+            ///   Data bytes: 1 to 32 (LSByte first)
+            /// </summary>
+            public const byte W_ACK_PAYLOAD = 0xA8;
+
+            /// <summary>
+            ///   Used in TX mode. Disables AUTOACK on this specific packet.
+            ///   Data bytes: 1 to 32 (LSByte first)
+            /// </summary>
+            public const byte W_TX_PAYLOAD_NO_ACK = 0xB0;
+
+            /// <summary>
+            ///   No Operation. Might be used to read the STATUS register
+            ///   Data bytes: 0
+            /// </summary>
+            public const byte NOP = 0xFF;
+        }
+        #endregion
+
+        #region Registers
+        /// <summary>
+        ///   Registers for NRF24L01+
+        ///   Can be read with Commands.R_REGISTER and written by Commands.W_REGISTER
+        /// </summary>
+        public static class Registers
+        {
+            /// <summary>
+            ///   Configuration Register
+            /// </summary>
+            public const byte CONFIG = 0x00;
+
+            /// <summary>
+            ///   Enable 'Auto Acknowledgment' Function. Disable this functionality to be compatible with nRF2401.
+            /// </summary>
+            public const byte EN_AA = 0x01;
+
+            /// <summary>
+            ///   Enabled RX Addresses
+            /// </summary>
+            public const byte EN_RXADDR = 0x02;
+
+            /// <summary>
+            ///   Setup of Address Widths (common for all data pipes)
+            /// </summary>
+            public const byte SETUP_AW = 0x03;
+
+            /// <summary>
+            ///   Setup of Automatic Retransmission
+            /// </summary>
+            public const byte SETUP_RETR = 0x04;
+
+            /// <summary>
+            ///   RF Channel
+            /// </summary>
+            public const byte RF_CH = 0x05;
+
+            /// <summary>
+            ///   RF Setup Register
+            /// </summary>
+            public const byte RF_SETUP = 0x06;
+
+            /// <summary>
+            ///   Status Register (In parallel to the SPI command word applied on the MOSI pin, the STATUS register is shifted serially out on the MISO pin)
+            /// </summary>
+            public const byte STATUS = 0x07;
+
+            /// <summary>
+            ///   Transmit observe register
+            /// </summary>
+            public const byte OBSERVE_TX = 0x08;
+
+            /// <summary>
+            ///   Received Power Detector.
+            /// </summary>
+            public const byte RPD = 0x09;
+
+            /// <summary>
+            ///   Receive address data pipe 0. 5 Bytes maximum length. (LSByte is written first. Write the number of bytes defined by SETUP_AW)
+            /// </summary>
+            public const byte RX_ADDR_P0 = 0x0A;
+
+            /// <summary>
+            ///   Receive address data pipe 1. 5 Bytes maximum length. (LSByte is written first. Write the number of bytes defined by SETUP_AW)
+            /// </summary>
+            public const byte RX_ADDR_P1 = 0x0B;
+
+            /// <summary>
+            ///   Receive address data pipe 2. Only LSB. MSBytes are equal to RX_ADDR_P1
+            /// </summary>
+            public const byte RX_ADDR_P2 = 0x0C;
+
+            /// <summary>
+            ///   Receive address data pipe 3. Only LSB. MSBytes are equal to RX_ADDR_P1
+            /// </summary>
+            public const byte RX_ADDR_P3 = 0x0D;
+
+            /// <summary>
+            ///   Receive address data pipe 4. Only LSB. MSBytes are equal to RX_ADDR_P1
+            /// </summary>
+            public const byte RX_ADDR_P4 = 0x0E;
+
+            /// <summary>
+            ///   Receive address data pipe 5. Only LSB. MSBytes are equal to RX_ADDR_P1
+            /// </summary>
+            public const byte RX_ADDR_P5 = 0x0F;
+
+            /// <summary>
+            ///   Transmit address. Used for a PTX device only. (LSByte is written first) 
+            ///   Set RX_ADDR_P0 equal to this address to handle automatic acknowledge if this is a PTX device with Enhanced ShockBurst™ enabled.
+            /// </summary>
+            public const byte TX_ADDR = 0x10;
+
+            /// <summary>
+            ///   Number of bytes in RX payload in data pipe 0
+            /// </summary>
+            public const byte RX_PW_P0 = 0x11;
+
+            /// <summary>
+            ///   Number of bytes in RX payload in data pipe 1
+            /// </summary>
+            public const byte RX_PW_P1 = 0x12;
+
+            /// <summary>
+            ///   Number of bytes in RX payload in data pipe 2
+            /// </summary>
+            public const byte RX_PW_P2 = 0x13;
+
+            /// <summary>
+            ///   Number of bytes in RX payload in data pipe 3
+            /// </summary>
+            public const byte RX_PW_P3 = 0x14;
+
+            /// <summary>
+            ///   Number of bytes in RX payload in data pipe 4
+            /// </summary>
+            public const byte RX_PW_P4 = 0x15;
+
+            /// <summary>
+            ///   Number of bytes in RX payload in data pipe 5
+            /// </summary>
+            public const byte RX_PW_P5 = 0x16;
+
+            /// <summary>
+            ///   FIFO Status Register
+            /// </summary>
+            public const byte FIFO_STATUS = 0x17;
+
+            /// <summary>
+            ///   Enable dynamic payload length
+            /// </summary>
+            public const byte DYNPD = 0x1C;
+
+            /// <summary>
+            ///   Feature Register
+            /// </summary>
+            public const byte FEATURE = 0x1D;
+        }
+        #endregion
+
+        #region Bits
+        /// <summary>
+        ///   Mnemonics for the NRF24L01+ registers bits
+        /// </summary>
+        public static class Bits
+        {
+            #region CONFIG (0x00) bits
+            #region Interrupt masks
+            /// <summary>
+            ///   Mask interrupt caused by RX_DR
+            ///   1: Interrupt not reflected on the IRQ pin
+            ///   0: Reflect RX_DR as active low interrupt on the IRQ pin
+            /// </summary>
+            public static byte MASK_RX_DR = 6;
+
+            /// <summary>
+            ///   Mask interrupt caused by TX_DS
+            ///   1: Interrupt not reflected on the IRQ pin
+            ///   0: Reflect TX_DS as active low interrupt on the IRQ pin
+            /// </summary>
+            public static byte MASK_TX_DS = 5;
+
+            /// <summary>
+            ///   Mask interrupt caused by MAX_RT
+            ///   1: Interrupt not reflected on the IRQ pin
+            ///   0: Reflect MAX_RT as active low interrupt on the IRQ pin
+            /// </summary>
+            public static byte MASK_MAX_RT = 4;
+            #endregion
+
+            /// <summary>
+            ///   Enable CRC. Forced high if one of the bits in the EN_AA is high
+            /// </summary>
+            public static byte EN_CRC = 3;
+
+            /// <summary>
+            ///   CRC encoding scheme
+            ///   '0' - 1 byte
+            ///   '1' – 2 bytes
+            /// </summary>
+            public static byte CRCO = 2;
+
+            /// <summary>
+            ///   1: POWER UP, 0:POWER DOWN
+            /// </summary>
+            public static byte PWR_UP = 1;
+
+            /// <summary>
+            ///   RX/TX control
+            ///   1: PRX, 0: PTX
+            /// </summary>
+            public static byte PRIM_RX;
+            #endregion
+
+            #region EN_AA (0x01) bits
+            /// <summary>
+            ///   Enable auto acknowledgement data pipe 5
+            /// </summary>
+            public static byte ENAA_P5 = 5;
+
+            /// <summary>
+            ///   Enable auto acknowledgement data pipe 4
+            /// </summary>
+            public static byte ENAA_P4 = 4;
+
+            /// <summary>
+            ///   Enable auto acknowledgement data pipe 3
+            /// </summary>
+            public static byte ENAA_P3 = 3;
+
+            /// <summary>
+            ///   Enable auto acknowledgement data pipe 2
+            /// </summary>
+            public static byte ENAA_P2 = 2;
+
+            /// <summary>
+            ///   Enable auto acknowledgement data pipe 1
+            /// </summary>
+            public static byte ENAA_P1 = 1;
+
+            /// <summary>
+            ///   Enable auto acknowledgement data pipe 0
+            /// </summary>
+            public static byte ENAA_P0 = 0;
+            #endregion
+
+            #region EN_RXADDR (0x02) bits
+            /// <summary>
+            ///   Enable data pipe 5
+            /// </summary>
+            public static byte ERX_P5 = 5;
+
+            /// <summary>
+            ///   Enable data pipe 4
+            /// </summary>
+            public static byte ERX_P4 = 4;
+
+            /// <summary>
+            ///   Enable data pipe 3
+            /// </summary>
+            public static byte ERX_P3 = 3;
+
+            /// <summary>
+            ///   Enable data pipe 2
+            /// </summary>
+            public static byte ERX_P2 = 2;
+
+            /// <summary>
+            ///   Enable data pipe 1
+            /// </summary>
+            public static byte ERX_P1 = 1;
+
+            /// <summary>
+            ///   Enable data pipe 0
+            /// </summary>
+            public static byte ERX_P0 = 0;
+            #endregion
+
+            #region SETUP_AW (0x03) bits
+            /// <summary>
+            ///   RX/TX Address field width
+            ///   '00' - Illegal
+            ///   '01' - 3 bytes
+            ///   '10' - 4 bytes
+            ///   '11' – 5 bytes
+            ///   LSByte is used if address width is below 5 bytes
+            /// </summary>
+            public static byte AW; // 0...1
+            #endregion
+
+            #region SETUP_RETR (0x04) bits
+            /// <summary>
+            ///   Auto Retransmit Delay
+            ///   '0000' – Wait 250uS
+            ///   '0001' – Wait 500uS
+            ///   '0010' – Wait 750uS
+            ///   ...
+            ///   '1111' – Wait 4000uS
+            ///   (Delay defined from end of transmission to start of next transmission)
+            /// </summary>
+            public static byte ARD = 4; // 4...7
+
+            /// <summary>
+            ///   Auto Retransmit Count
+            ///   '0000' –Re-Transmit disabled
+            ///   '0001' – Up to 1 Re-Transmit on fail of AA
+            ///   ...
+            ///   '1111' – Up to 15 Re-Transmit on fail of AA
+            /// </summary>
+            public static byte ARC = 0; // 0...3
+            #endregion
+
+            #region RF_SETUP (0x06) bits
+            /// <summary>
+            ///   Enables continuous carrier transmit when high.
+            /// </summary>
+            public static byte CONT_WAVE = 7;
+
+            /// <summary>
+            ///   Set RF Data Rate to 250kbps. See RF_DR_HIGH for encoding.
+            /// </summary>
+            public static byte RF_DR_LOW = 5;
+
+            /// <summary>
+            ///   Force PLL lock signal. Only used in test
+            /// </summary>
+            public static byte PLL_LOCK = 4;
+
+            /// <summary>
+            ///   Select between the high speed data rates. This bit is don’t care if RF_DR_LOW is set. Encoding:
+            ///   [RF_DR_LOW, RF_DR_HIGH]:
+            ///   '00' – 1Mbps
+            ///   '01' – 2Mbps
+            ///   '10' – 250kbps
+            ///   '11' – Reserved
+            /// </summary>
+            public static byte RF_DR_HIGH = 3;
+
+            /// <summary>
+            ///   Set RF output power in TX mode
+            ///   '00' – -18dBm
+            ///   '01' – -12dBm
+            ///   '10' – -6dBm
+            ///   '11' – 0dBm
+            /// </summary>
+            public static byte RF_PWR = 1; // 1...2
+
+            // Obsolet for Plus version
+            ///// <summary>
+            /////   Setup LNA gain
+            ///// </summary>
+            //public static byte LNA_HCURR = 0;
+            #endregion
+
+            #region STATUS (0x07) bits
+            /// <summary>
+            ///   Data Ready RX FIFO interrupt. 
+            ///   Asserted when new data arrives RX FIFOc. 
+            ///   Write 1 to clear bit.
+            /// </summary>
+            public static byte RX_DR = 6;
+
+            /// <summary>
+            ///   Data Sent TX FIFO interrupt. Asserted when packet transmitted on TX. 
+            ///   If AUTO_ACK is activated, this bit is set high only when ACK is received. 
+            ///   Write 1 to clear bit.
+            /// </summary>
+            public static byte TX_DS = 5;
+
+            /// <summary>
+            ///   Maximum number of TX retransmits interrupt 
+            ///   Write 1 to clear bit. 
+            ///   If MAX_RT is asserted it must be cleared to enable further communication.
+            /// </summary>
+            public static byte MAX_RT = 4;
+
+            /// <summary>
+            ///   Data pipe number for the payload available for reading from RX_FIFO
+            ///   000-101: Data Pipe Number
+            ///   110: Not Used
+            ///   111: RX FIFO Empty
+            ///   Updated during the IRQ pin high to low transition
+            /// </summary>
+            public static byte RX_P_NO = 1; // 1...3
+
+            /// <summary>
+            ///   TX FIFO full flag.
+            ///   1: TX FIFO full.
+            ///   0: Available locations in TX FIFO.
+            /// </summary>
+            public static byte TX_FULL;
+            #endregion
+
+            #region OBSERVE_TX (0x08) bits
+            /// <summary>
+            ///   Count lost packets. 
+            ///   The counter is overflow protected to 15, and discontinues at max until reset.
+            ///   The counter is reset by writing to RF_CH.
+            /// </summary>
+            public static byte PLOS_CNT = 4; // readonly; 4...7
+
+            /// <summary>
+            ///   Count retransmitted packets. The counter is reset when transmission of a new packet starts.
+            /// </summary>
+            public static byte ARC_CNT; // readonly; 0...3
+            #endregion
+
+            #region RPD (0x09) bits
+            /// <summary>
+            ///   Carrier detect
+            /// </summary>
+            //public static byte CD = 0; // 24L01
+            public static byte RPD = 0; // 24L01+
+            #endregion
+
+            #region FIFO_STATUS (0x17) bits
+            /// <summary>
+            ///   Used for a PTX device Pulse the rfce high for at least 10us to Reuse last transmitted payload. 
+            ///   TX payload reuse is active until W_TX_PAYLOAD or FLUSH TX is executed. 
+            ///   TX_REUSE is set by the SPI command REUSE_TX_PL, and is reset by the SPI commands W_TX_PAYLOAD or FLUSH TX
+            /// </summary>
+            public static byte TX_REUSE = 6; // readonly
+
+            /// <summary>
+            ///   TX FIFO full flag. 1: TX FIFO full. 0: Available locations in TX FIFO.
+            /// </summary>
+            public static byte TX_FIFO_FULL = 5; // readonly
+
+            /// <summary>
+            ///   TX FIFO empty flag. 
+            ///   1: TX FIFO empty.
+            ///   0: Data in TX FIFO.
+            /// </summary>
+            public static byte TX_EMPTY = 4; // readonly
+
+            /// <summary>
+            ///   RX FIFO full flag. 
+            ///   1: RX FIFO full.
+            ///   0: Available locations in RX FIFO.
+            /// </summary>
+            public static byte RX_FULL = 1; // readonly
+
+            /// <summary>
+            ///   RX FIFO empty flag.
+            ///   1: RX FIFO empty.
+            ///   0: Data in RX FIFO.
+            /// </summary>
+            public static byte RX_EMPTY = 0; // readonly
+            #endregion
+
+            #region DYNPD (0x1C) bits. (Requires EN_DPL and ENAA_Px)
+            /// <summary>
+            ///   Enable dynamic payload length data pipe 5. (Requires EN_DPL and ENAA_P5)
+            /// </summary>
+            public static byte DPL_P5 = 5;
+
+            /// <summary>
+            ///   Enable dynamic payload length data pipe 4. (Requires EN_DPL and ENAA_P4)
+            /// </summary>
+            public static byte DPL_P4 = 4;
+
+            /// <summary>
+            ///   Enable dynamic payload length data pipe 3. (Requires EN_DPL and ENAA_P3)
+            /// </summary>
+            public static byte DPL_P3 = 3;
+
+            /// <summary>
+            ///   Enable dynamic payload length data pipe 2. (Requires EN_DPL and ENAA_P2)
+            /// </summary>
+            public static byte DPL_P2 = 2;
+
+            /// <summary>
+            ///   Enable dynamic payload length data pipe 1. (Requires EN_DPL and ENAA_P1)
+            /// </summary>
+            public static byte DPL_P1 = 1;
+
+            /// <summary>
+            ///   Enable dynamic payload length data pipe 0. (Requires EN_DPL and ENAA_P0)
+            /// </summary>
+            public static byte DPL_P0;
+            #endregion
+
+            #region FEATURE (0x1D) bits
+            /// <summary>
+            ///   Enables Dynamic Payload Length
+            /// </summary>
+            public static byte EN_DPL = 2;
+
+            /// <summary>
+            ///   Enables Payload with ACK
+            /// </summary>
+            public static byte EN_ACK_PAY = 1;
+
+            /// <summary>
+            ///   Enables the W_TX_PAYLOAD_NOACK command
+            /// </summary>
+            public static byte EN_DYN_ACK;
+            #endregion
+        }
+        #endregion
+
         #region Delegates
         public delegate void DataRecievedEventHandler(byte[] data);
         public delegate void InterruptEventHandler(StatusInfo status);
         #endregion
 
         #region Inner types definitions
-        public enum CRCLength
+        public enum CRCType
         {
             CRC1 = 0, // 1 byte
             CRC2 = 1 // 2 bytes
@@ -53,6 +615,34 @@ namespace Gadgeteer.Modules.KKS
             Address3 = 1, // 3 bytes
             Address4 = 2, // 4 bytes
             Address5 = 3  // 5 bytes
+        }
+        public enum AutoRetransmitDelayType
+        {
+            Wait250us,
+            Wait500us,
+            Wait750us,
+            Wait1000us,
+            Wait1250us,
+            Wait1500us,
+            Wait1750us,
+            Wait2000us,
+            Wait2250us,
+            Wait2500us,
+            Wait2750us,
+            Wait3000us,
+            Wait3250us,
+            Wait3500us,
+            Wait3750us,
+            Wait4000us
+        }
+        public enum RXAddressSlot
+        {
+            Zero = Registers.RX_ADDR_P0,
+            One = Registers.RX_ADDR_P1,
+            Two = Registers.RX_ADDR_P2,
+            Three = Registers.RX_ADDR_P3,
+            Four = Registers.RX_ADDR_P4,
+            Five = Registers.RX_ADDR_P5,
         }
         public class StatusInfo
         {
@@ -110,6 +700,27 @@ namespace Gadgeteer.Modules.KKS
                        "\nDataPipeNotUsed: " + DataPipeNotUsed;
             }
         }
+        public static class AddressWidth
+        {
+            public const int Min = 3;
+            public const int Max = 5;
+
+            public static byte GetCorrespondingRegisterValue(byte[] address)
+            {
+                Check(address);
+                return (byte)(address.Length - 2);
+            }
+
+            public static void Check(byte[] address)
+            {
+                Check(address.Length);
+            }
+            public static void Check(int addressWidth)
+            {
+                if (addressWidth < Min || addressWidth > Max)
+                    throw new ArgumentException("Address width needs to be 3-5 bytes");
+            }
+        }
         #endregion
 
         #region Fields
@@ -121,15 +732,16 @@ namespace Gadgeteer.Modules.KKS
         private Socket.Pin pinCSN = Socket.Pin.Five; // chip select, active low
         private GTI.InterruptInput pinIRQ; // active low
 
-        private byte[] slot0Address;
+        //private byte[] slot0Address;
         private byte payloadSize = 32; // fixed size of payloads
 
-        private bool wide_band = true; /* 2Mbs data rate in use? */
-        private bool p_variant = false; /* False for RF24L01 and true for RF24L01P */
-        private bool ack_payload_available = false; /* Whether there is an ack payload waiting */
-        private bool dynamic_payloads_enabled = false; /**< Whether dynamic payloads are enabled. */
+        //private bool wide_band = true; /* 2Mbs data rate in use? */
+        //private bool p_variant = false; /* False for RF24L01 and true for RF24L01P */
+        //private bool ack_payload_available = false; /* Whether there is an ack payload waiting */
+        //private bool dynamic_payloads_enabled = false; /**< Whether dynamic payloads are enabled. */
         //uint8_t ack_payload_length; /**< Dynamic size of pending ack payload. */
-        //uint64_t pipe0_reading_address = 0; /**< Last address set on pipe 0 for reading. */
+
+        byte[] pipe0_reading_address = new byte[5]; /* Last address set on pipe 0 for reading. */
 
         private StatusInfo status = new StatusInfo(0);
         #endregion
@@ -144,7 +756,7 @@ namespace Gadgeteer.Modules.KKS
             set { pinCE.Write(value); }
         }
         /// <summary>
-        ///   Gets module basic status information
+        ///   Gets module status information
         /// </summary>
         public StatusInfo Status
         {
@@ -171,16 +783,16 @@ namespace Gadgeteer.Modules.KKS
             get { return ReadRegisterBit(Registers.CONFIG, Bits.EN_CRC); }
             set { WriteRegisterBit(Registers.CONFIG, Bits.EN_CRC, value); }
         }
-        public CRCLength CRCType // default 1 byte
+        public CRCType CRCLength // default 1 byte
         {
             get
             {
                 var bit = ReadRegisterBit(Registers.CONFIG, Bits.CRCO);
-                return bit ? CRCLength.CRC2 : CRCLength.CRC1;
+                return bit ? CRCType.CRC2 : CRCType.CRC1;
             }
             set
             {
-                WriteRegisterBit(Registers.CONFIG, Bits.CRCO, value == CRCLength.CRC2);
+                WriteRegisterBit(Registers.CONFIG, Bits.CRCO, value == CRCType.CRC2);
             }
         }
         public bool IsPowerOn // default false
@@ -194,32 +806,32 @@ namespace Gadgeteer.Modules.KKS
             set { WriteRegisterBit(Registers.CONFIG, Bits.PRIM_RX, value); }
         }
 
-        public bool IsAckEnabledP0 // default true
+        public bool IsAckEnabled0 // default true
         {
             get { return ReadRegisterBit(Registers.EN_AA, Bits.ENAA_P0); }
             set { WriteRegisterBit(Registers.EN_AA, Bits.ENAA_P0, value); }
         }
-        public bool IsAckEnabledP1 // default true
+        public bool IsAckEnabled1 // default true
         {
             get { return ReadRegisterBit(Registers.EN_AA, Bits.ENAA_P1); }
             set { WriteRegisterBit(Registers.EN_AA, Bits.ENAA_P1, value); }
         }
-        public bool IsAckEnabledP2 // default true
+        public bool IsAckEnabled2 // default true
         {
             get { return ReadRegisterBit(Registers.EN_AA, Bits.ENAA_P2); }
             set { WriteRegisterBit(Registers.EN_AA, Bits.ENAA_P2, value); }
         }
-        public bool IsAckEnabledP3 // default true
+        public bool IsAckEnabled3 // default true
         {
             get { return ReadRegisterBit(Registers.EN_AA, Bits.ENAA_P3); }
             set { WriteRegisterBit(Registers.EN_AA, Bits.ENAA_P3, value); }
         }
-        public bool IsAckEnabledP4 // default true
+        public bool IsAckEnabled4 // default true
         {
             get { return ReadRegisterBit(Registers.EN_AA, Bits.ENAA_P4); }
             set { WriteRegisterBit(Registers.EN_AA, Bits.ENAA_P4, value); }
         }
-        public bool IsAckEnabledP5 // default true
+        public bool IsAckEnabled5 // default true
         {
             get { return ReadRegisterBit(Registers.EN_AA, Bits.ENAA_P5); }
             set { WriteRegisterBit(Registers.EN_AA, Bits.ENAA_P5, value); }
@@ -256,17 +868,34 @@ namespace Gadgeteer.Modules.KKS
             set { WriteRegisterBit(Registers.EN_RXADDR, Bits.ERX_P5, value); }
         }
 
-        public AddressLength AddressType
+        public AddressLength AddressType // default 5 bytes
         {
-            get
-            {
-                byte read = ReadRegister(Registers.SETUP_AW);
-                return (AddressLength)read;
-            }
-            // don't give access to set!
+            get { return (AddressLength)ReadRegister(Registers.SETUP_AW); }
+            set { WriteRegister(Registers.SETUP_AW, (byte)value); }
         }
 
-        // TODO: SETUP_RETR register
+        public byte AutoRetransmitCount // default 3
+        {
+            get { return (byte)((ReadRegister(Registers.SETUP_RETR) >> Bits.ARC) & 0x0F); }
+            set
+            {
+                byte reg = ReadRegister(Registers.SETUP_RETR);
+                byte ard = (byte)((reg >> Bits.ARD) & 0x0F);
+                byte newReg = (byte)((ard & 0x0F) << Bits.ARD | (value & 0x0F) << Bits.ARC);
+                WriteRegister(Registers.SETUP_RETR, newReg);
+            }
+        }
+        public AutoRetransmitDelayType AutoRetransmitDelay // default Wait250us
+        {
+            get { return (AutoRetransmitDelayType)(byte)((ReadRegister(Registers.SETUP_RETR) >> Bits.ARD) & 0x0F); }
+            set
+            {
+                byte reg = ReadRegister(Registers.SETUP_RETR);
+                byte arc = (byte)((reg >> Bits.ARC) & 0x0F);
+                byte newReg = (byte)(((byte)value & 0x0F) << Bits.ARD | (arc & 0x0F) << Bits.ARC);
+                WriteRegister(Registers.SETUP_RETR, newReg);
+            }
+        }
 
         /// <summary>
         /// Gets or sets RF communication channel
@@ -278,27 +907,155 @@ namespace Gadgeteer.Modules.KKS
             set { WriteRegister(Registers.RF_CH, (byte)(value & 0x7F)); } // channel is 7 bits
         }
 
+        // TODO: RF_SETUP
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        public byte PayloadSize
+        public byte RetransmittedPacketsCount
         {
-            get { return payloadSize; }
-            set { payloadSize = (byte)System.Math.Max(value, 32); }
+            get { return (byte)((ReadRegister(Registers.OBSERVE_TX) >> Bits.ARC_CNT) & 0x0F); }
+        }
+        public byte LostPacketsCount
+        {
+            get { return (byte)((ReadRegister(Registers.OBSERVE_TX) >> Bits.PLOS_CNT) & 0x0F); }
+        }
+
+        public bool RPD
+        {
+            get { return ReadRegisterBit(Registers.RPD, Bits.RPD); }
+        }
+
+        public byte[] TransmitAddress // 3...5 bytes
+        {
+            get { return ReadRegister(Registers.TX_ADDR, 5); }
+            set { WriteRegister(Registers.TX_ADDR, value); }
+        }
+        public byte[] ReceiveAddress0
+        {
+            get { return ReadRegister(Registers.RX_ADDR_P0, 5); }
+            set { WriteRegister(Registers.RX_ADDR_P0, value); }
+        }
+        public byte[] ReceiveAddress1
+        {
+            get { return ReadRegister(Registers.RX_ADDR_P1, 5); }
+            set { WriteRegister(Registers.RX_ADDR_P1, value); }
+        }
+        public byte ReceiveAddress2
+        {
+            get { return ReadRegister(Registers.RX_ADDR_P2); }
+            set { WriteRegister(Registers.RX_ADDR_P2, value); }
+        }
+        public byte ReceiveAddress3
+        {
+            get { return ReadRegister(Registers.RX_ADDR_P3); }
+            set { WriteRegister(Registers.RX_ADDR_P3, value); }
+        }
+        public byte ReceiveAddress4
+        {
+            get { return ReadRegister(Registers.RX_ADDR_P4); }
+            set { WriteRegister(Registers.RX_ADDR_P4, value); }
+        }
+        public byte ReceiveAddress5
+        {
+            get { return ReadRegister(Registers.RX_ADDR_P5); }
+            set { WriteRegister(Registers.RX_ADDR_P5, value); }
+        }
+
+        public byte ReceiverPayloadWidth0 // default 0
+        {
+            get { return ReadRegister(Registers.RX_PW_P0); }
+            set { WriteRegister(Registers.RX_PW_P0, (byte)(value & 0x3F)); }
+        }
+        public byte ReceiverPayloadWidth1 // default 0
+        {
+            get { return ReadRegister(Registers.RX_PW_P1); }
+            set { WriteRegister(Registers.RX_PW_P1, (byte)(value & 0x3F)); }
+        }
+        public byte ReceiverPayloadWidth2 // default 0
+        {
+            get { return ReadRegister(Registers.RX_PW_P2); }
+            set { WriteRegister(Registers.RX_PW_P2, (byte)(value & 0x3F)); }
+        }
+        public byte ReceiverPayloadWidth3 // default 0
+        {
+            get { return ReadRegister(Registers.RX_PW_P3); }
+            set { WriteRegister(Registers.RX_PW_P3, (byte)(value & 0x3F)); }
+        }
+        public byte ReceiverPayloadWidth4 // default 0
+        {
+            get { return ReadRegister(Registers.RX_PW_P4); }
+            set { WriteRegister(Registers.RX_PW_P4, (byte)(value & 0x3F)); }
+        }
+        public byte ReceiverPayloadWidth5 // default 0
+        {
+            get { return ReadRegister(Registers.RX_PW_P5); }
+            set { WriteRegister(Registers.RX_PW_P5, (byte)(value & 0x3F)); }
+        }
+
+        public bool IsReceiverFifoEmpty
+        {
+            get { return ReadRegisterBit(Registers.FIFO_STATUS, Bits.RX_EMPTY); }
+        }
+        public bool IsReceiverFifoFull
+        {
+            get { return ReadRegisterBit(Registers.FIFO_STATUS, Bits.RX_FULL); }
+        }
+        public bool IsTransmitterFifoEmpty
+        {
+            get { return ReadRegisterBit(Registers.FIFO_STATUS, Bits.TX_EMPTY); }
+        }
+        public bool IsTransmitterFifoFull
+        {
+            get { return ReadRegisterBit(Registers.FIFO_STATUS, Bits.TX_FIFO_FULL); }
+        }
+        public bool IsTransmitterFifoReuse
+        {
+            get { return ReadRegisterBit(Registers.FIFO_STATUS, Bits.TX_REUSE); }
+        }
+
+        public bool IsDynamicPayloadEnabled0 // default true
+        {
+            get { return ReadRegisterBit(Registers.DYNPD, Bits.DPL_P0); }
+            set { WriteRegisterBit(Registers.DYNPD, Bits.DPL_P0, value); }
+        }
+        public bool IsDynamicPayloadEnabled1 // default true
+        {
+            get { return ReadRegisterBit(Registers.DYNPD, Bits.DPL_P1); }
+            set { WriteRegisterBit(Registers.DYNPD, Bits.DPL_P1, value); }
+        }
+        public bool IsDynamicPayloadEnabled2 // default false
+        {
+            get { return ReadRegisterBit(Registers.DYNPD, Bits.DPL_P2); }
+            set { WriteRegisterBit(Registers.DYNPD, Bits.DPL_P2, value); }
+        }
+        public bool IsDynamicPayloadEnabled3 // default false
+        {
+            get { return ReadRegisterBit(Registers.DYNPD, Bits.DPL_P3); }
+            set { WriteRegisterBit(Registers.DYNPD, Bits.DPL_P3, value); }
+        }
+        public bool IsDynamicPayloadEnabled4 // default false
+        {
+            get { return ReadRegisterBit(Registers.DYNPD, Bits.DPL_P4); }
+            set { WriteRegisterBit(Registers.DYNPD, Bits.DPL_P4, value); }
+        }
+        public bool IsDynamicPayloadEnabled5 // default false
+        {
+            get { return ReadRegisterBit(Registers.DYNPD, Bits.DPL_P5); }
+            set { WriteRegisterBit(Registers.DYNPD, Bits.DPL_P5, value); }
+        }
+
+        public bool IsDynamicPayloadEnabled // default true
+        {
+            get { return ReadRegisterBit(Registers.FEATURE, Bits.EN_DPL); }
+            set { WriteRegisterBit(Registers.FEATURE, Bits.EN_DPL, value); }
+        }
+        public bool IsAckPayloadEnabled // default false
+        {
+            get { return ReadRegisterBit(Registers.FEATURE, Bits.EN_ACK_PAY); }
+            set { WriteRegisterBit(Registers.FEATURE, Bits.EN_ACK_PAY, value); }
+        }
+        public bool IsDynamicAckEnabled // default false
+        {
+            get { return ReadRegisterBit(Registers.FEATURE, Bits.EN_DYN_ACK); }
+            set { WriteRegisterBit(Registers.FEATURE, Bits.EN_DYN_ACK, value); }
         }
         #endregion
 
@@ -362,169 +1119,205 @@ namespace Gadgeteer.Modules.KKS
 
             IsEnabled = false;
 
-            
-            // from RF24s -----------------------------------------------------------
-            
-            // Set 1500uS (minimum for 32B payload in ESB@250KBPS) timeouts, to make testing a little easier
-            // WARNING: If this is ever lowered, either 250KBS mode with AA is broken or maximum packet
-            // sizes must never be used. See documentation for a more complete explanation.
-            //write_register(SETUP_RETR, (B0100 << ARD) | (B1111 << ARC));
-
-
-            // Restore our default PA level
-            //setPALevel(RF24_PA_MAX);
-
-
-            // Determine if this is a p or non-p RF24 module and then
-            // reset our data rate back to default value. This works
-            // because a non-P variant won't allow the data rate to
-            // be set to 250Kbps.
-            //if (setDataRate(RF24_250KBPS))
-            //    p_variant = true;
-
-            // Then set the data rate to the slowest (and most reliable) speed supported by all
-            // hardware.
-            //setDataRate(RF24_1MBPS);
-
-
-            // Initialize CRC and request 2-byte (16bit) CRC
-            //setCRCLength(RF24_CRC_16);
-
-            // Disable dynamic payloads, to match dynamic_payloads_enabled setting
-            //write_register(DYNPD, 0);
-
-
-            // Reset current status
-            // Notice reset and flush is the last thing we do
-            //write_register(STATUS, _BV(RX_DR) | _BV(TX_DS) | _BV(MAX_RT));
-
-
-            // Set up default configuration. Callers can always change it later.
-            // This channel should be universally safe and not bleed over into adjacent spectrum.
-            //Channel = 76;
-
-            // from .net -----------------------------------------------------------
-            // Enable dynamic payload length
-            Execute(Commands.W_REGISTER, Registers.FEATURE,
-                    new[]
-                        {
-                            (byte) (1 << Bits.EN_DPL)
-                        });
-
-            //// Set auto-ack
-            //Execute(Commands.W_REGISTER, Registers.EN_AA,
-            //        new[]
-            //            {
-            //                (byte) (1 << Bits.ENAA_P0 |
-            //                        1 << Bits.ENAA_P1)
-            //            });
-
-            // Set dynamic payload length for pipes
-            Execute(Commands.W_REGISTER, Registers.DYNPD,
-                    new[]
-                        {
-                            (byte) (1 << Bits.DPL_P0 |
-                                    1 << Bits.DPL_P1)
-                        });
-
-
-
-
-            // from Gus -----------------------------------------------------------
-            // Setup, CRC enabled, Power Up, PRX
-            WriteRegister(Registers.CONFIG, new byte[] { (byte)((1 << Bits.EN_CRC) | (1 << Bits.PWR_UP) | (1 << Bits.PRIM_RX)) });
-
-            // Write transmit adres to TX_ADDR register. 
-            //WriteRegister(Registers.TX_ADDR, TX_Adress);
-
-            // Write transmit adres to RX_ADDRESS_P0 (Pipe0) (For Auto ACK)
-            //WriteRegister(Registers.RX_ADDR_P0, TX_Adress);
-            // Write recieve adres to RX_ADDRESS_P1 (Pipe1)
-            WriteRegister(Registers.RX_ADDR_P1, RX_Adress);
-
-            // Set Reciever, Pipe0 Payload size 
-            //WriteRegister(Registers.RX_PW_P0, new byte[] { 1 });
-            // Set Reciever, Pipe1 Payload size 
-            //WriteRegister(Registers.RX_PW_P1, new byte[] { 1 });
-
-            // Setup, CRC enabled, Power Up, PRX
-            WriteRegister(Registers.CONFIG, new byte[] { (byte)((1 << Bits.EN_CRC) | (1 << Bits.PWR_UP) | (1 << Bits.PRIM_RX)) });
-
-            // Enable RX/TX
-            IsEnabled = true;
-
-            // Clear IRQ Masks
-            WriteRegister(Registers.STATUS, new byte[] { 0x70 });
-            // ----------------------------------------------------------------
-
-            // Flush buffers
-            FlushRX();
-            FlushTX();
+            Initialize();
         }
         #endregion
 
         #region Public methods
+        public void SetAutoAck(bool value)
+        {
+            IsAckEnabled0 = value;
+            IsAckEnabled1 = value;
+            IsAckEnabled2 = value;
+            IsAckEnabled3 = value;
+            IsAckEnabled4 = value;
+            IsAckEnabled5 = value;
+        }
+        public void EnableAckPayload()
+        {
+            IsAckPayloadEnabled = true;
+            IsDynamicPayloadEnabled = true;
+
+            IsDynamicPayloadEnabled0 = true;
+            IsDynamicPayloadEnabled1 = true;
+        }
+
+        public void OpenWritingPipe(byte[] address)
+        {
+            TransmitAddress = address;
+            ReceiveAddress0 = address;
+            ReceiverPayloadWidth0 = (byte)System.Math.Min(payloadSize, 32);
+        }
+        public void OpenReadingPipe(byte idx, byte[] address)
+        {
+            // If this is pipe 0, cache the address. This is needed because
+            // openWritingPipe() will overwrite the pipe 0 address, so
+            // startListening() will have to restore it.
+            if (idx == 0)
+                pipe0_reading_address = address;
+
+            if (idx <= 6)
+            {
+                // For pipes 2-5, only write the LSB
+                switch (idx)
+                {
+                    case 0:
+                        ReceiveAddress0 = address;
+                        ReceiverPayloadWidth0 = payloadSize;
+                        IsReceiverAddressEnabled0 = true;
+                        break;
+                    case 1:
+                        ReceiveAddress1 = address;
+                        ReceiverPayloadWidth1 = payloadSize;
+                        IsReceiverAddressEnabled1 = true;
+                        break;
+                    case 2:
+                        ReceiveAddress2 = address[0];
+                        ReceiverPayloadWidth2 = payloadSize;
+                        IsReceiverAddressEnabled2 = true;
+                        break;
+                    case 3:
+                        ReceiveAddress3 = address[0];
+                        ReceiverPayloadWidth3 = payloadSize;
+                        IsReceiverAddressEnabled3 = true;
+                        break;
+                    case 4:
+                        ReceiveAddress4 = address[0];
+                        ReceiverPayloadWidth4 = payloadSize;
+                        IsReceiverAddressEnabled4 = true;
+                        break;
+                    case 5:
+                        ReceiveAddress5 = address[0];
+                        ReceiverPayloadWidth5 = payloadSize;
+                        IsReceiverAddressEnabled5 = true;
+                        break;
+                }
+            }
+        }
+
+        public void StartListening()
+        {
+            SetReceiveMode();
+            ResetStatus();
+
+            // Restore the pipe0 adddress, if exists
+            //if (pipe0_reading_address != 0)
+                ReceiveAddress0 = pipe0_reading_address;
+
+            // Flush buffers
+            FlushTX();
+            FlushRX();
+
+            // Go!
+            IsEnabled = true;
+
+            // wait for the radio to come up (130us actually only needed)
+            //delayMicroseconds(130);
+            Thread.Sleep(1);
+        }
+        public void StopListening()
+        {
+            IsEnabled = false;
+            FlushTX();
+            FlushRX();
+        }
+
+        public void StartWrite(byte[] data)
+        {
+            SetTransmitMode();
+
+            //delayMicroseconds(150);
+            Thread.Sleep(1);
+
+            //// Send the payload
+            //write_payload( buf, len );
+
+            //const uint8_t* current = reinterpret_cast<const uint8_t*>(buf);
+            //uint8_t data_len = min(len,payload_size);
+            //uint8_t blank_len = dynamic_payloads_enabled ? 0 : payload_size - data_len;
+            //csn(LOW);
+            //status = SPI.transfer( W_TX_PAYLOAD );
+            //while ( data_len-- )
+            //SPI.transfer(*current++);
+            //while ( blank_len-- )
+            //SPI.transfer(0);
+            //csn(HIGH);
+
+            WriteCommand(Commands.W_TX_PAYLOAD, data);
+
+
+
+            //// Allons!
+            IsEnabled = true;
+            //delayMicroseconds(15);
+            Thread.Sleep(1);
+            IsEnabled = false;
+        }
+
+
+
+
         /// <summary>
         /// Configure the module basic settings. Module needs to be initiaized.
         /// </summary>
         /// <param name="address">RF address (3-5 bytes). The width of this address determins the width of all addresses used for sending/receiving.</param>
         /// <param name="channel">RF channel (0-127)</param>
-        public void Configure(byte[] address, byte channel)
-        {
-            AddressWidth.Check(address);
+        //public void Configure(byte[] address, byte channel)
+        //{
+        //    AddressWidth.Check(address);
 
-            // Set radio channel
-            Channel = channel;
+        //    // Set radio channel
+        //    Channel = channel;
 
-            // Enable dynamic payload length
-            Execute(Commands.W_REGISTER, Registers.FEATURE,
-                    new[]
-                        {
-                            (byte) (1 << Bits.EN_DPL)
-                        });
+        //    // Enable dynamic payload length
+        //    Execute(Commands.W_REGISTER, Registers.FEATURE,
+        //            new[]
+        //                {
+        //                    (byte) (1 << Bits.EN_DPL)
+        //                });
 
-            // Set auto-ack
-            Execute(Commands.W_REGISTER, Registers.EN_AA,
-                    new[]
-                        {
-                            (byte) (1 << Bits.ENAA_P0 |
-                                    1 << Bits.ENAA_P1)
-                        });
+        //    // Set auto-ack
+        //    Execute(Commands.W_REGISTER, Registers.EN_AA,
+        //            new[]
+        //                {
+        //                    (byte) (1 << Bits.ENAA_P0 |
+        //                            1 << Bits.ENAA_P1)
+        //                });
 
-            // Set dynamic payload length for pipes
-            Execute(Commands.W_REGISTER, Registers.DYNPD,
-                    new[]
-                        {
-                            (byte) (1 << Bits.DPL_P0 |
-                                    1 << Bits.DPL_P1)
-                        });
+        //    // Set dynamic payload length for pipes
+        //    Execute(Commands.W_REGISTER, Registers.DYNPD,
+        //            new[]
+        //                {
+        //                    (byte) (1 << Bits.DPL_P0 |
+        //                            1 << Bits.DPL_P1)
+        //                });
 
-            FlushRX();
-            FlushTX();
+        //    FlushRX();
+        //    FlushTX();
 
-            // Clear IRQ Masks
-            Execute(Commands.W_REGISTER, Registers.STATUS,
-                    new[]
-                        {
-                            (byte) (1 << Bits.MASK_RX_DR |
-                                    1 << Bits.MASK_TX_DS |
-                                    1 << Bits.MAX_RT)
-                        });
+        //    // Clear IRQ Masks
+        //    Execute(Commands.W_REGISTER, Registers.STATUS,
+        //            new[]
+        //                {
+        //                    (byte) (1 << Bits.MASK_RX_DR |
+        //                            1 << Bits.MASK_TX_DS |
+        //                            1 << Bits.MAX_RT)
+        //                });
 
-            // Set default address
-            Execute(Commands.W_REGISTER, Registers.SETUP_AW,
-                    new[]
-                        {
-                            AddressWidth.GetCorrespondingRegisterValue(address)
-                        });
+        //    // Set default address
+        //    Execute(Commands.W_REGISTER, Registers.SETUP_AW,
+        //            new[]
+        //                {
+        //                    AddressWidth.GetCorrespondingRegisterValue(address)
+        //                });
 
-            // Set module address
-            slot0Address = address;
-            Execute(Commands.W_REGISTER, (byte)RXAddressSlot.Zero, address);
+        //    // Set module address
+        //    slot0Address = address;
+        //    Execute(Commands.W_REGISTER, (byte)RXAddressSlot.Zero, address);
 
-            // Setup, CRC enabled, Power Up, PRX
-            SetReceiveMode();
-        }
+        //    // Setup, CRC enabled, Power Up, PRX
+        //    SetReceiveMode();
+        //}
 
         /// <summary>
         /// Set one of 6 available module addresses
@@ -534,8 +1327,8 @@ namespace Gadgeteer.Modules.KKS
             AddressWidth.Check(address);
             WriteRegister((byte)slot, address);
 
-            if (slot == RXAddressSlot.Zero)
-                slot0Address = address;
+            //if (slot == RXAddressSlot.Zero)
+            //    slot0Address = address;
         }
 
         /// <summary>
@@ -555,8 +1348,8 @@ namespace Gadgeteer.Modules.KKS
             IsEnabled = false; // Chip enable low
 
             SetTransmitMode(); // Setup PTX (Primary TX)
-            WriteRegister(Registers.TX_ADDR, address); // Write transmit address to TX_ADDR register. 
-            WriteRegister(Registers.RX_ADDR_P0, address); // Write transmit address to RX_ADDRESS_P0 (Pipe0) (For Auto ACK)
+            TransmitAddress = address; // Write transmit address to TX_ADDR register. 
+            ReceiveAddress0 = address; // Write transmit address to RX_ADDRESS_P0 (Pipe0) (For Auto ACK)
             WriteCommand(Commands.W_TX_PAYLOAD, bytes); // Write payload
 
             IsEnabled = true; // Pulse for CE -> starts the transmission.
@@ -590,7 +1383,7 @@ namespace Gadgeteer.Modules.KKS
                     //Thread.Sleep(1);
 
                     // received power > -64dBm
-                    if (ReadRegisterBit(Registers.RPD, Bits.CD))
+                    if (RPD)
                         result[i]++;
 
                     //this seems to be needed after the timeout not before
@@ -626,18 +1419,18 @@ namespace Gadgeteer.Modules.KKS
 
         private byte[] WriteRegister(byte register, byte value)
         {
-            return Execute(Commands.W_REGISTER, register, new byte[] { value });
+            return WriteRegister(register, new byte[] { value });
         }
-        private void WriteRegister(byte register, byte[] value)
+        private byte[] WriteRegister(byte register, byte[] value)
         {
-            Execute(Commands.W_REGISTER, register, value);
+            return Execute(Commands.W_REGISTER, register, value);
         }
-        private void WriteRegisterBit(byte register, byte bitNumber, bool value)
+        private byte[] WriteRegisterBit(byte register, byte bitNumber, bool value)
         {
             var read = Execute(Commands.R_REGISTER, register, new byte[1] { 0xff });
             var oldRegisterValue = ParseResponseData(read)[0];
             byte newValue = (value == true ? (byte)(oldRegisterValue | (1 << bitNumber)) : (byte)(oldRegisterValue & ~(1 << bitNumber)));
-            Execute(Commands.W_REGISTER, register, new[] { newValue });
+            return Execute(Commands.W_REGISTER, register, new[] { newValue });
         }
 
         private byte[] WriteCommand(byte command)
@@ -700,7 +1493,7 @@ namespace Gadgeteer.Modules.KKS
                 while (!status.RxEmpty)
                 {
                     // Read payload size
-                    var payloadLength = Execute(Commands.R_RX_PL_WID, 0x00, new byte[1]);
+                    var payloadLength = WriteCommand(Commands.R_RX_PL_WID, new byte[1]);
 
                     // this indicates corrupted data
                     if (payloadLength[1] > 32)
@@ -716,23 +1509,22 @@ namespace Gadgeteer.Modules.KKS
                     }
 
                     // Clear RX_DR bit 
-                    var result = WriteRegister(Registers.STATUS, (byte)(1 << Bits.RX_DR));
-                    status.Update(result[0]);
+                    var result = WriteRegisterBit(Registers.STATUS, Bits.RX_DR, true);
+                    status.Update(result[0]); // ???
                 }
             }
 
             if (status.ResendLimitReached)
             {
                 FlushTX();
-                Execute(Commands.W_REGISTER, Registers.STATUS, new[] { (byte)(1 << Bits.MAX_RT) }); // Clear MAX_RT bit in status register
+                WriteRegisterBit(Registers.STATUS, Bits.MAX_RT, true); // Clear MAX_RT bit in status register
             }
 
             if (status.TxFull)
                 FlushTX();
 
             if (status.DataSent)
-                Execute(Commands.W_REGISTER, Registers.STATUS, new[] { (byte)(1 << Bits.TX_DS) }); // Clear TX_DS bit in status register
-
+                WriteRegisterBit(Registers.STATUS, Bits.TX_DS, true); // Clear TX_DS bit in status register
 
             // Enable RX
             IsEnabled = true;
@@ -761,20 +1553,120 @@ namespace Gadgeteer.Modules.KKS
             }
         }
 
-        /// <summary>
-        /// Adres for recieving data
-        /// </summary>
-        public byte[] RX_Adress = new byte[] { 0x05, 0x06, 0x07, 0x08, 0x09 };
+        private void Initialize()
+        {
+            // from RF24s -----------------------------------------------------------
 
-        /// <summary>
-        /// Adres to send data to
-        /// </summary>
-        public byte[] TX_Adress = new byte[] { 0x05, 0x06, 0x07, 0x08, 0x09 };
+            // Set 1500uS (minimum for 32B payload in ESB@250KBPS) timeouts, to make testing a little easier
+            // WARNING: If this is ever lowered, either 250KBS mode with AA is broken or maximum packet
+            // sizes must never be used. See documentation for a more complete explanation.
+            AutoRetransmitCount = 15;
+            AutoRetransmitDelay = AutoRetransmitDelayType.Wait1500us;
 
+            // Restore our default PA level
+            //setPALevel(RF24_PA_MAX);
+
+            // Determine if this is a p or non-p RF24 module and then
+            // reset our data rate back to default value. This works
+            // because a non-P variant won't allow the data rate to
+            // be set to 250Kbps.
+            //if (setDataRate(RF24_250KBPS))
+            //    p_variant = true;
+
+            // Then set the data rate to the slowest (and most reliable) speed supported by all
+            // hardware.
+            //setDataRate(RF24_1MBPS);
+
+            // Initialize CRC and request 2-byte (16bit) CRC
+            CRCLength = CRCType.CRC2;
+
+            // Disable dynamic payloads, to match dynamic_payloads_enabled setting
+            IsDynamicPayloadEnabled0 = false;
+            IsDynamicPayloadEnabled1 = false;
+            IsDynamicPayloadEnabled2 = false;
+            IsDynamicPayloadEnabled3 = false;
+            IsDynamicPayloadEnabled4 = false;
+            IsDynamicPayloadEnabled5 = false;
+
+            // Reset current status
+            // Notice reset and flush is the last thing we do
+            ResetStatus();
+
+            // Set up default configuration. Callers can always change it later.
+            // This channel should be universally safe and not bleed over into adjacent spectrum.
+            Channel = 76;
+
+
+
+            // from .net -----------------------------------------------------------
+            //// Enable dynamic payload length
+            //Execute(Commands.W_REGISTER, Registers.FEATURE,
+            //        new[]
+            //            {
+            //                (byte) (1 << Bits.EN_DPL)
+            //            });
+
+            //// Set auto-ack
+            //Execute(Commands.W_REGISTER, Registers.EN_AA,
+            //        new[]
+            //            {
+            //                (byte) (1 << Bits.ENAA_P0 |
+            //                        1 << Bits.ENAA_P1)
+            //            });
+
+            //// Set dynamic payload length for pipes
+            //Execute(Commands.W_REGISTER, Registers.DYNPD,
+            //        new[]
+            //            {
+            //                (byte) (1 << Bits.DPL_P0 |
+            //                        1 << Bits.DPL_P1)
+            //            });
+
+
+
+
+            // from Gus -----------------------------------------------------------
+            //// Setup, CRC enabled, Power Up, PRX
+            //WriteRegister(Registers.CONFIG, new byte[] { (byte)((1 << Bits.EN_CRC) | (1 << Bits.PWR_UP) | (1 << Bits.PRIM_RX)) });
+
+            //// Write transmit adres to TX_ADDR register. 
+            ////WriteRegister(Registers.TX_ADDR, TX_Adress);
+
+            //// Write transmit adres to RX_ADDRESS_P0 (Pipe0) (For Auto ACK)
+            ////WriteRegister(Registers.RX_ADDR_P0, TX_Adress);
+            //// Write recieve adres to RX_ADDRESS_P1 (Pipe1)
+            //WriteRegister(Registers.RX_ADDR_P1, RX_Adress);
+
+            //// Set Reciever, Pipe0 Payload size 
+            ////WriteRegister(Registers.RX_PW_P0, new byte[] { 1 });
+            //// Set Reciever, Pipe1 Payload size 
+            ////WriteRegister(Registers.RX_PW_P1, new byte[] { 1 });
+
+            //// Setup, CRC enabled, Power Up, PRX
+            //WriteRegister(Registers.CONFIG, new byte[] { (byte)((1 << Bits.EN_CRC) | (1 << Bits.PWR_UP) | (1 << Bits.PRIM_RX)) });
+
+            //// Enable RX/TX
+            //IsEnabled = true;
+
+            //// Clear IRQ Masks
+            //WriteRegister(Registers.STATUS, new byte[] { 0x70 });
+            // ----------------------------------------------------------------
+
+            // Flush buffers
+            FlushRX();
+            FlushTX();
+        }
         private void GetStatus()
         {
             status.Update(WriteCommand(Commands.NOP)[0]);
         }
+        private void ResetStatus()
+        {
+            WriteRegisterBit(Registers.STATUS, Bits.RX_DR, true);
+            WriteRegisterBit(Registers.STATUS, Bits.TX_DS, true);
+            WriteRegisterBit(Registers.STATUS, Bits.MAX_RT, true);
+        }
+        
         private void FlushRX()
         {
             WriteCommand(Commands.FLUSH_RX);
@@ -783,14 +1675,15 @@ namespace Gadgeteer.Modules.KKS
         {
             WriteCommand(Commands.FLUSH_TX);
         }
+        
         private void SetTransmitMode()
         {
-            Execute(Commands.W_REGISTER, Registers.CONFIG, new[] { (byte)(1 << Bits.PWR_UP | 1 << Bits.EN_CRC | 0 << Bits.PRIM_RX) });
+            Execute(Commands.W_REGISTER, Registers.CONFIG, new[] { (byte)(1 << Bits.PWR_UP | 0 << Bits.PRIM_RX) });// | 1 << Bits.EN_CRC
         }
         private void SetReceiveMode()
         {
-            WriteRegister(Registers.RX_ADDR_P0, RX_Adress);//slot0Address);
-            Execute(Commands.W_REGISTER, Registers.CONFIG, new[] { (byte)(1 << Bits.PWR_UP | 1 << Bits.EN_CRC | 1 << Bits.PRIM_RX) });
+            //WriteRegister(Registers.RX_ADDR_P0, RX_Adress);//slot0Address);
+            Execute(Commands.W_REGISTER, Registers.CONFIG, new[] { (byte)(1 << Bits.PWR_UP | 1 << Bits.PRIM_RX) });// | 1 << Bits.EN_CRC
         }
 
         private byte[] ParseResponseData(byte[] response)
