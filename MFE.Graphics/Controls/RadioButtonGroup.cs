@@ -2,7 +2,7 @@ using Microsoft.SPOT;
 
 namespace MFE.Graphics.Controls
 {
-    public class RadioButtonGroup : Container
+    public class RadioButtonGroup : Panel
     {
         #region Fields
         private int selectedIndex = -1;

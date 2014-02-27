@@ -2,14 +2,27 @@ using MFE.Graphics.Media;
 
 namespace MFE.Graphics.Controls
 {
-    public class Panel : Container
+    public class Panel : Control
     {
         #region Fields
+        private Brush background = null;
         private int borderRadius = 0;
-        private Pen border;
+        private Pen border = null;
         #endregion
 
         #region Properties
+        public Brush Background
+        {
+            get { return background; }
+            set
+            {
+                if (background != value)
+                {
+                    background = value;
+                    Invalidate();
+                }
+            }
+        }
         public int BorderRadius
         {
             get { return borderRadius; }
@@ -45,8 +58,7 @@ namespace MFE.Graphics.Controls
 
         protected override void OnRender(DrawingContext dc)
         {
-            //base.OnRender(dc);
-            dc.DrawRectangle(Background, border, 0, 0, Width, Height, borderRadius, borderRadius);
+            dc.DrawRectangle(background, border, 0, 0, Width, Height, borderRadius, borderRadius);
         }
     }
 }

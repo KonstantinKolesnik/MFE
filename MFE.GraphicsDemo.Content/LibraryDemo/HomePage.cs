@@ -33,7 +33,7 @@ namespace MFE.GraphicsDemo.Content.LibraryDemo
 
             int x = 5;
             int w = panelNavigation.Width - 2 * x;
-            int h = 18;
+            int h = 24;
             int y = 35;
             int step = h + 5;
 

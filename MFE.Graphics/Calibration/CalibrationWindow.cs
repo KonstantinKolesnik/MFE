@@ -6,7 +6,7 @@ using System.Threading;
 
 namespace MFE.Graphics.Calibration
 {
-    public sealed class CalibrationWindow : Container
+    public sealed class CalibrationWindow : Panel
     {
         #region Fields
         private GraphicsManager gm;

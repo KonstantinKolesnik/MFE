@@ -3,7 +3,7 @@ using Microsoft.SPOT;
 
 namespace MFE.Graphics.Controls
 {
-    public class Desktop : Container
+    public class Desktop : Panel
     {
         #region Fields
         private GraphicsManager gm = null;

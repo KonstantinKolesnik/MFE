@@ -36,7 +36,6 @@
     <Compile Include="Controls\Button.cs" />
     <Compile Include="Calibration\CalibrationWindow.cs" />
     <Compile Include="Controls\Checkbox.cs" />
-    <Compile Include="Controls\Container.cs" />
     <Compile Include="Controls\Control.cs">
       <SubType>Code</SubType>
     </Compile>
