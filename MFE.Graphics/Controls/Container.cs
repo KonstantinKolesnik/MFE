@@ -36,8 +36,7 @@ namespace MFE.Graphics.Controls
 
         protected override void OnRender(DrawingContext dc)
         {
-            if (background != null)
-                dc.DrawRectangle(background, null, 0, 0, Width, Height);
+            dc.DrawRectangle(background, null, 0, 0, Width, Height);
         }
     }
 }

@@ -19,17 +19,15 @@ namespace MFE.GraphicsDemo.Content
         public static Font FontRegular;
         public static Font FontCourierNew10;
         public static Font FontTitle;
-        //private Point p;
-        //private Panel panelPresentation;
-        //private Panel tlb2;
-        //private Label lblActiveDemo;
-        //private Panel panelActiveDemo;
+        public static ImageBrush Bar;
 
         public DemoManager(int width, int height, RenderRequestEventHandler renderHandler = null)
         {
             FontRegular = Resources.GetFont(Resources.FontResources.LucidaSansUnicode_8);
             FontCourierNew10 = Resources.GetFont(Resources.FontResources.CourierNew_10);
             FontTitle = Resources.GetFont(Resources.FontResources.SegoeUI_BoldItalian_32);
+
+            Bar = new ImageBrush(GetBitmap(Resources.BinaryResources.Bar, Bitmap.BitmapImageType.Bmp));
 
             gm = new GraphicsManager(width, height);
             Desktop = gm.Desktop;
@@ -560,25 +558,24 @@ namespace MFE.GraphicsDemo.Content
         }
         public void LibraryDemo()
         {
-            ImageBrush brush = new ImageBrush(GetBitmap(Resources.BinaryResources.reWalls, Bitmap.BitmapImageType.Jpeg)) { Stretch = Stretch.Fill, Opacity = 0 };
-            Desktop.Background = brush;
+            Desktop.Background = new ImageBrush(GetBitmap(Resources.BinaryResources.reWalls, Bitmap.BitmapImageType.Jpeg)) { Stretch = Stretch.Fill, Opacity = 0 };
+            //Desktop.Background = new SolidColorBrush(Color.White);
 
-            while (brush.Opacity < 256)
-            {
-                brush.Opacity += 2;
-                Desktop.Invalidate();
-                Thread.Sleep(5);
-            }
+            //while (Desktop.Background.Opacity < 127)
+            //{
+            //    Desktop.Background.Opacity += 1;
+            //    Desktop.Invalidate();
+            //    Thread.Sleep(10);
+            //}
+            Desktop.Background.Opacity = 256;
+            Desktop.Invalidate();
 
+            //SplashPage page = new SplashPage();
+            //Desktop.Children.Add(page);
+            //Thread.Sleep(6000);
+            //Desktop.Children.Remove(page);
 
-            SplashPage page = new SplashPage();
-            Desktop.Children.Add(page);
-            Thread.Sleep(6000);
-            Desktop.Children.Remove(page);
-
-            //Desktop.Children.Add(UIManager.DebugPage);
-
-
+            Desktop.Children.Add(new HomePage());
         }
 
         private void CheckCalibration()

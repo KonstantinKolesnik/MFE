@@ -16,19 +16,30 @@ namespace MFE.Graphics.Media
             Color = color;
         }
 
-        protected internal override void RenderRectangle(Bitmap bmp, Pen pen, int x, int y, int width, int height)
+        protected internal override void RenderRectangle(Bitmap bmp, Pen pen, int x, int y, int width, int height, int xCornerRadius, int yCornerRadius)
         {
             Color outlineColor = (pen != null) ? pen.Color : (Color)0x0;
             ushort outlineThickness = (pen != null) ? pen.Thickness : (ushort)0;
 
-            bmp.DrawRectangle((MSMedia.Color)outlineColor, outlineThickness, x, y, width, height, 0, 0, (MSMedia.Color)Color, 0, 0, (MSMedia.Color)Color, 0, 0, Opacity);
+            if (bmp != null)
+            {
+                if (xCornerRadius > 0 && yCornerRadius > 0)
+                {
+                    // background color doesn't render when corners != 0
+                    // render background w/o corners:
+                    bmp.DrawRectangle((MSMedia.Color)outlineColor, 0, x, y, width, height, 0, 0, (MSMedia.Color)Color, 0, 0, (MSMedia.Color)Color, 0, 0, Opacity);
+                }
+                
+                bmp.DrawRectangle((MSMedia.Color)outlineColor, outlineThickness, x, y, width, height, xCornerRadius, yCornerRadius, (MSMedia.Color)Color, 0, 0, (MSMedia.Color)Color, 0, 0, Opacity);
+            }
         }
         protected internal override void RenderEllipse(Bitmap bmp, Pen pen, int x, int y, int xRadius, int yRadius)
         {
             Color outlineColor = (pen != null) ? pen.Color : (Color)0x0;
             ushort outlineThickness = (pen != null) ? pen.Thickness : (ushort)0;
 
-            bmp.DrawEllipse((MSMedia.Color)outlineColor, outlineThickness, x, y, xRadius, yRadius, (MSMedia.Color)Color, 0, 0, (MSMedia.Color)Color, 0, 0, Opacity);
+            if (bmp != null)
+                bmp.DrawEllipse((MSMedia.Color)outlineColor, outlineThickness, x, y, xRadius, yRadius, (MSMedia.Color)Color, 0, 0, (MSMedia.Color)Color, 0, 0, Opacity);
         }
 
         class LineSegment
@@ -60,7 +71,6 @@ namespace MFE.Graphics.Media
         {
             return a < 0 ? -a : a;
         }
-
 
         /// <summary>
         /// Basic algorithm uses scan lines to fill the polygon.
@@ -303,7 +313,8 @@ namespace MFE.Graphics.Media
 
                     if ((ix1 == c_XValueMask) || (ix2 == c_XValueMask)) break;
 
-                    bmp.DrawLine((MSMedia.Color)Color, 1, ix1, y, ix2, y);
+                    if (bmp != null)
+                        bmp.DrawLine((MSMedia.Color)Color, 1, ix1, y, ix2, y);
                 }
             }
         }

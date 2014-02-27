@@ -5,11 +5,23 @@ namespace MFE.Graphics.Controls
     public class Panel : Container
     {
         #region Fields
+        private int borderRadius = 0;
         private Pen border;
-        private int borderCorner = 2;
         #endregion
 
         #region Properties
+        public int BorderRadius
+        {
+            get { return borderRadius; }
+            set
+            {
+                if (borderRadius != value)
+                {
+                    borderRadius = value;
+                    Invalidate();
+                }
+            }
+        }
         public Pen Border
         {
             get { return border; }
@@ -33,10 +45,8 @@ namespace MFE.Graphics.Controls
 
         protected override void OnRender(DrawingContext dc)
         {
-            base.OnRender(dc);
-
-            if (border != null)
-                dc.DrawFrame(border, 0, 0, Width, Height, borderCorner, borderCorner);
+            //base.OnRender(dc);
+            dc.DrawRectangle(Background, border, 0, 0, Width, Height, borderRadius, borderRadius);
         }
     }
 }

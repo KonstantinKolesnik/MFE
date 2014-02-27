@@ -19,11 +19,7 @@ namespace MFE.Graphics.Media
             : this(startColor, endColor, 0, 0, RelativeBoundingBoxSize, RelativeBoundingBoxSize)
         {
         }
-        public LinearGradientBrush(Color startColor, Color endColor, int startX, int startY, int endX, int endY)
-            : this(startColor, endColor, 0, 0, RelativeBoundingBoxSize, RelativeBoundingBoxSize, Bitmap.OpacityOpaque)
-        {
-        }
-        public LinearGradientBrush(Color startColor, Color endColor, int startX, int startY, int endX, int endY, ushort opacity)
+        public LinearGradientBrush(Color startColor, Color endColor, int startX, int startY, int endX, int endY, ushort opacity = Bitmap.OpacityOpaque)
         {
             StartColor = startColor;
             EndColor = endColor;
@@ -34,7 +30,7 @@ namespace MFE.Graphics.Media
             Opacity = opacity;
         }
 
-        protected internal override void RenderRectangle(Bitmap bmp, Pen pen, int x, int y, int width, int height)
+        protected internal override void RenderRectangle(Bitmap bmp, Pen pen, int x, int y, int width, int height, int xCornerRadius, int yCornerRadius)
         {
             Color outlineColor = (pen != null) ? pen.Color : (Color)0x0;
             ushort outlineThickness = (pen != null) ? pen.Thickness : (ushort)0;
@@ -58,7 +54,17 @@ namespace MFE.Graphics.Media
                     break;
             }
 
-            bmp.DrawRectangle((MSMedia.Color)outlineColor, outlineThickness, x, y, width, height, 0, 0, (MSMedia.Color)StartColor, x1, y1, (MSMedia.Color)EndColor, x2, y2, Opacity);
+            if (bmp != null)
+            {
+                if (xCornerRadius > 0 && yCornerRadius > 0)
+                {
+                    // background color doesn't render when corners != 0
+                    // render background w/o corners:
+                    bmp.DrawRectangle((MSMedia.Color)outlineColor, 0, x, y, width, height, 0, 0, (MSMedia.Color)StartColor, x1, y1, (MSMedia.Color)EndColor, x2, y2, Opacity);
+                }
+                
+                bmp.DrawRectangle((MSMedia.Color)outlineColor, outlineThickness, x, y, width, height, xCornerRadius, yCornerRadius, (MSMedia.Color)StartColor, x1, y1, (MSMedia.Color)EndColor, x2, y2, Opacity);
+            }
         }
     }
 }

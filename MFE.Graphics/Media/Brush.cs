@@ -20,7 +20,7 @@ namespace MFE.Graphics.Media
             }
         }
 
-        protected internal virtual void RenderRectangle(Bitmap bmp, Pen outline, int x, int y, int width, int height)
+        protected internal virtual void RenderRectangle(Bitmap bmp, Pen outline, int x, int y, int width, int height, int xCornerRadius, int yCornerRadius)
         {
             throw new NotSupportedException("RenderRectangle is not supported with this brush.");
         }

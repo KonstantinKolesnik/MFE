@@ -184,11 +184,11 @@ namespace MFE.Graphics.Controls
             }
 
             #region Border
-            if (border != null)
-            {
-                int corner = 3;
-                dc.DrawFrame(border, 0, 0, Width, Height, corner, corner);
-            }
+            //if (border != null)
+            //{
+            //    int corner = 3;
+            //    dc.DrawFrame(border, 0, 0, Width, Height, corner, corner);
+            //}
             #endregion
         }
 

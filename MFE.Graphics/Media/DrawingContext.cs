@@ -83,18 +83,10 @@ namespace MFE.Graphics.Media
             return (Color)bitmap.GetPixel(translationX + x, translationY + y);
         }
 
-        public void DrawRectangle(Brush brush, Pen pen, int x, int y, int width, int height)
+        public void DrawRectangle(Brush brush, Pen pen, int x, int y, int width, int height, int xCornerRadius = 0, int yCornerRadius = 0)
         {
             if (brush != null)
-                brush.RenderRectangle(bitmap, pen, translationX + x, translationY + y, width, height);
-
-            if (pen != null && pen.Thickness > 0)
-                bitmap.DrawRectangle((MSMedia.Color)pen.Color, pen.Thickness, translationX + x, translationY + y, width, height, 0, 0, (MSMedia.Color)0, 0, 0, (MSMedia.Color)0, 0, 0, 0);
-        }
-        public void DrawFrame(Pen pen, int x, int y, int width, int height, int xCornerRadius, int yCornerRadius)
-        {
-            if (pen != null && pen.Thickness > 0)
-                bitmap.DrawRectangle((MSMedia.Color)pen.Color, pen.Thickness, translationX + x, translationY + y, width, height, xCornerRadius, yCornerRadius, (MSMedia.Color)0, 0, 0, (MSMedia.Color)0, 0, 0, 0);
+                brush.RenderRectangle(bitmap, pen, translationX + x, translationY + y, width, height, xCornerRadius, yCornerRadius);
         }
         public void DrawPolygon(Brush brush, Pen pen, int[] pts)
         {

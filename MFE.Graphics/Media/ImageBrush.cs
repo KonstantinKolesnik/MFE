@@ -13,7 +13,7 @@ namespace MFE.Graphics.Media
             BitmapSource = bmp;
         }
 
-        protected internal override void RenderRectangle(Bitmap bmp, Pen pen, int x, int y, int width, int height)
+        protected internal override void RenderRectangle(Bitmap bmp, Pen pen, int x, int y, int width, int height, int xCornerRadius, int yCornerRadius)
         {
             if (Stretch == Stretch.None)
                 bmp.DrawImage(x, y, BitmapSource, 0, 0, BitmapSource.Width, BitmapSource.Height, Opacity);
@@ -23,7 +23,7 @@ namespace MFE.Graphics.Media
                 bmp.StretchImage(x, y, BitmapSource, width, height, Opacity);
 
             if (pen != null && pen.Thickness > 0)
-                bmp.DrawRectangle((MSMedia.Color)pen.Color, pen.Thickness, x, y, width, height, 0, 0, (MSMedia.Color)0, 0, 0, (MSMedia.Color)0, 0, 0, 0);
+                bmp.DrawRectangle((MSMedia.Color)pen.Color, pen.Thickness, x, y, width, height, xCornerRadius, yCornerRadius, (MSMedia.Color)0, 0, 0, (MSMedia.Color)0, 0, 0, 0);
         }
     }
 }
