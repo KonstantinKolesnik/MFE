@@ -10,7 +10,7 @@ namespace MFE.GraphicsDemo.ArgonR1
     {
         bool on = false;
         private DisplayS22 display;
-        private Demo demo;
+        private DemoManager demo;
 
         // This method is run when the mainboard is powered up or reset.   
         void ProgramStarted()
@@ -32,7 +32,7 @@ namespace MFE.GraphicsDemo.ArgonR1
         {
             display = new DisplayS22(5);
 
-            demo = new Demo(240, 320, delegate(Bitmap bitmap, Rect dirtyArea)
+            demo = new DemoManager(240, 320, delegate(Bitmap bitmap, Rect dirtyArea)
             {
                 display.SimpleGraphics.DisplayImage(bitmap, (uint)dirtyArea.X, (uint)dirtyArea.Y, (uint)dirtyArea.X, (uint)dirtyArea.Y, (uint)dirtyArea.Width, (uint)dirtyArea.Height);
             });

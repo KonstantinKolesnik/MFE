@@ -13,7 +13,7 @@ namespace MFE.GraphicsDemo
 {
     public partial class Program
     {
-        private Demo demo;
+        private DemoManager demo;
         private DisplayS22 display;
 
         void ProgramStarted()
@@ -30,7 +30,7 @@ namespace MFE.GraphicsDemo
         {
             display = new DisplayS22(11);
 
-            demo = new Demo(240, 320, delegate(Bitmap bitmap, Rect dirtyArea)
+            demo = new DemoManager(240, 320, delegate(Bitmap bitmap, Rect dirtyArea)
             {
                 display.SimpleGraphics.DisplayImage(bitmap, (uint)dirtyArea.X, (uint)dirtyArea.Y, (uint)dirtyArea.X, (uint)dirtyArea.Y, (uint)dirtyArea.Width, (uint)dirtyArea.Height);
             });
@@ -54,7 +54,7 @@ namespace MFE.GraphicsDemo
             //    }
             //}
 
-            demo = new Demo(320, 240);
+            demo = new DemoManager(320, 240);
             //demo.QuickDemo();
             demo.CrashDemo();
         }
@@ -62,7 +62,7 @@ namespace MFE.GraphicsDemo
         {
             //Configuration.LCD.EnableLCDBootupMessages(false);
 
-            demo = new Demo(320, 240);
+            demo = new DemoManager(320, 240);
             demo.VideoDemo();
         }
     }

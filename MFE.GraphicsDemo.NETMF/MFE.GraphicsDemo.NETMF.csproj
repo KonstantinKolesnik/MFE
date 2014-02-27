@@ -46,5 +46,9 @@
       <Project>{15BC644C-B4B5-4801-9026-5CC496265C08}</Project>
       <Name>MFE.Graphics</Name>
     </ProjectReference>
+    <ProjectReference Include="..\MFE.LCD\MFE.LCD.csproj">
+      <Project>{C1665195-8494-4964-A440-736834D0D402}</Project>
+      <Name>MFE.LCD</Name>
+    </ProjectReference>
   </ItemGroup>
 </Project>

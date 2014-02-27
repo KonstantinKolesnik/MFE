@@ -7,31 +7,32 @@ using MFE.Graphics.Media;
 using System.Threading;
 using System.IO;
 using GHI.Premium.IO;
+using MFE.GraphicsDemo.Content.LibraryDemo;
 
 namespace MFE.GraphicsDemo.Content
 {
-    public class Demo
+    public class DemoManager
     {
         private static GraphicsManager gm;
-        public static Desktop desktop;
+        public static Desktop Desktop;
 
-        public static Font fontRegular;
-        public static Font fontCourierNew10;
-        public static Font fontTitle;
+        public static Font FontRegular;
+        public static Font FontCourierNew10;
+        public static Font FontTitle;
         //private Point p;
         //private Panel panelPresentation;
         //private Panel tlb2;
         //private Label lblActiveDemo;
         //private Panel panelActiveDemo;
 
-        public Demo(int width, int height, RenderRequestEventHandler renderHandler = null)
+        public DemoManager(int width, int height, RenderRequestEventHandler renderHandler = null)
         {
-            fontRegular = Resources.GetFont(Resources.FontResources.LucidaSansUnicode_8);
-            fontCourierNew10 = Resources.GetFont(Resources.FontResources.CourierNew_10);
-            fontTitle = Resources.GetFont(Resources.FontResources.SegoeUI_BoldItalian_32);
+            FontRegular = Resources.GetFont(Resources.FontResources.LucidaSansUnicode_8);
+            FontCourierNew10 = Resources.GetFont(Resources.FontResources.CourierNew_10);
+            FontTitle = Resources.GetFont(Resources.FontResources.SegoeUI_BoldItalian_32);
 
             gm = new GraphicsManager(width, height);
-            desktop = gm.Desktop;
+            Desktop = gm.Desktop;
             if (renderHandler != null)
                 gm.OnRenderRequest += renderHandler;
         }
@@ -40,20 +41,20 @@ namespace MFE.GraphicsDemo.Content
         {
             //CheckCalibration();
 
-            desktop.SuspendLayout();
+            Desktop.SuspendLayout();
 
             ImageBrush brush = new ImageBrush(GetBitmap(Resources.BinaryResources.reWalls, Bitmap.BitmapImageType.Jpeg));
             brush.Stretch = Stretch.Fill;
-            desktop.Background = brush;
+            Desktop.Background = brush;
 
             ImageBrush bar = new ImageBrush(GetBitmap(Resources.BinaryResources.Bar, Bitmap.BitmapImageType.Bmp));
 
             int statusbarHeight = 24;
-            Panel statusbar = new Panel(0, desktop.Height - statusbarHeight, desktop.Width, statusbarHeight);
+            Panel statusbar = new Panel(0, Desktop.Height - statusbarHeight, Desktop.Width, statusbarHeight);
             statusbar.Background = bar;
-            desktop.Children.Add(statusbar);
+            Desktop.Children.Add(statusbar);
 
-            Label lblClock = new Label(statusbar.Width - 50, 4, fontRegular, "00:00:00");
+            Label lblClock = new Label(statusbar.Width - 50, 4, FontRegular, "00:00:00");
             lblClock.ForeColor = Color.White;
             statusbar.Children.Add(lblClock);
 
@@ -80,7 +81,7 @@ namespace MFE.GraphicsDemo.Content
                 Opacity = 210,
                 Background = new LinearGradientBrush(Color.LimeGreen, Color.CornflowerBlue) { Opacity = 180 }
             };
-            desktop.Children.Add(img);
+            Desktop.Children.Add(img);
 
             Slider sl = new Slider(160, 20, 30, 100, 12, Orientation.Vertical)
             {
@@ -88,7 +89,7 @@ namespace MFE.GraphicsDemo.Content
                 //Background = new SolidColorBrush(Color.CornflowerBlue) { Opacity = 100 }
                 Background = bar,
             };
-            desktop.Children.Add(sl);
+            Desktop.Children.Add(sl);
 
             Level lvl = new Level(20, 150, 30, 60, Orientation.Vertical, 10)
             {
@@ -96,11 +97,11 @@ namespace MFE.GraphicsDemo.Content
                 Background = new LinearGradientBrush(Color.LimeGreen, Color.CornflowerBlue) { Opacity = 180 },
                 Foreground = new LinearGradientBrush(Color.Blue, Color.Red) { Opacity = 210 }
             };
-            desktop.Children.Add(lvl);
+            Desktop.Children.Add(lvl);
 
-            desktop.Children.Add(new Button(120, 170, 90, 24, fontRegular, "Click me", Color.White) { BackgroundUnpressed = bar });
+            Desktop.Children.Add(new Button(120, 170, 90, 24, FontRegular, "Click me", Color.White) { BackgroundUnpressed = bar });
 
-            desktop.ResumeLayout();
+            Desktop.ResumeLayout();
 
 
 
@@ -113,7 +114,7 @@ namespace MFE.GraphicsDemo.Content
 
                 while (true)
                 {
-                    desktop.SuspendLayout();
+                    Desktop.SuspendLayout();
 
                     //DateTime dt = RealTimeClock.GetTime();
                     DateTime dt = DateTime.Now;
@@ -136,7 +137,7 @@ namespace MFE.GraphicsDemo.Content
                     ((LinearGradientBrush)img.Background).StartColor = ((LinearGradientBrush)img.Background).EndColor;
                     ((LinearGradientBrush)img.Background).EndColor = temp;
 
-                    desktop.ResumeLayout();
+                    Desktop.ResumeLayout();
 
                     //Thread.Sleep(200);
                 }
@@ -205,18 +206,18 @@ namespace MFE.GraphicsDemo.Content
 
             int translateValue = 3;
 
-            desktop.SuspendLayout();
+            Desktop.SuspendLayout();
             for (int i = 0; i < 10; i++)
-                pnl.Children.Add(new TextBlock(10, 15 * i, 140, 20, fontRegular, "label" + i.ToString()) { ForeColor = Color.Brown });
-            desktop.Children.Add(pnl);
-            desktop.ResumeLayout();
+                pnl.Children.Add(new TextBlock(10, 15 * i, 140, 20, FontRegular, "label" + i.ToString()) { ForeColor = Color.Brown });
+            Desktop.Children.Add(pnl);
+            Desktop.ResumeLayout();
 
             new Thread(delegate()
             {
                 //int n = 0;
                 while (true)
                 {
-                    desktop.SuspendLayout();
+                    Desktop.SuspendLayout();
 
                     DateTime dt = DateTime.Now;
                     int c = pnl.Children.Count;
@@ -239,12 +240,12 @@ namespace MFE.GraphicsDemo.Content
                     }
 
                     pnl.Translate(translateValue, translateValue);
-                    if (pnl.X + pnl.Width >= desktop.Width - 1)
+                    if (pnl.X + pnl.Width >= Desktop.Width - 1)
                         pnl.X = 0;
-                    if (pnl.Y + pnl.Height >= desktop.Height - 1)
+                    if (pnl.Y + pnl.Height >= Desktop.Height - 1)
                         pnl.Y = 0;
 
-                    desktop.ResumeLayout();
+                    Desktop.ResumeLayout();
                 }
             }
             ).Start();
@@ -559,7 +560,23 @@ namespace MFE.GraphicsDemo.Content
         }
         public void LibraryDemo()
         {
+            ImageBrush brush = new ImageBrush(GetBitmap(Resources.BinaryResources.reWalls, Bitmap.BitmapImageType.Jpeg)) { Stretch = Stretch.Fill, Opacity = 0 };
+            Desktop.Background = brush;
 
+            while (brush.Opacity < 256)
+            {
+                brush.Opacity += 2;
+                Desktop.Invalidate();
+                Thread.Sleep(5);
+            }
+
+
+            SplashPage page = new SplashPage();
+            Desktop.Children.Add(page);
+            Thread.Sleep(6000);
+            Desktop.Children.Remove(page);
+
+            //Desktop.Children.Add(UIManager.DebugPage);
 
 
         }
@@ -584,7 +601,7 @@ namespace MFE.GraphicsDemo.Content
                 cw.Show();
             }
         }
-        private Bitmap GetBitmap(Resources.BinaryResources id, Bitmap.BitmapImageType type)
+        internal static Bitmap GetBitmap(Resources.BinaryResources id, Bitmap.BitmapImageType type)
         {
             return new Bitmap(Resources.GetBytes(id), type);
         }

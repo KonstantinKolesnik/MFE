@@ -1,11 +1,12 @@
 ﻿using GHI.Premium.Hardware;
 using MFE.GraphicsDemo.Content;
+using MFE.LCD;
 
 namespace MFE.GraphicsDemo.NETMF
 {
     public class Program
     {
-        private Demo demo;
+        private DemoManager demo;
 
         public static void Main()
         {
@@ -16,7 +17,7 @@ namespace MFE.GraphicsDemo.NETMF
         {
             //bool reset = false;
             //if (reset)
-            //    SetLCDConfiguration_800_480();
+            //    LCDManager.SetLCDConfiguration_800_480();
             //if (reset)
             //{
             //    Util.FlushExtendedWeakReferences();
@@ -26,38 +27,8 @@ namespace MFE.GraphicsDemo.NETMF
             //demo = new Demo(800, 480);
             //demo.QuickDemo();
 
-            demo = new Demo(320, 240);
-            demo.QuickDemo();
-        }
-
-        private bool SetLCDConfiguration_800_480() // 7" LCD with resolution of 800x480
-        {
-            Configuration.LCD.Configurations lcdConfig = new Configuration.LCD.Configurations();
-
-            lcdConfig.Width = 800;
-            lcdConfig.Height = 480;
-
-            //lcdConfig.PriorityEnable = true;
-            lcdConfig.OutputEnableIsFixed = false;
-            lcdConfig.OutputEnablePolarity = true;
-            lcdConfig.PixelPolarity = false;
-
-            lcdConfig.HorizontalSyncPolarity = false;
-            lcdConfig.VerticalSyncPolarity = false;
-
-            lcdConfig.HorizontalSyncPulseWidth = 150; // For EMX
-            // lcdConfig.HorizontalSyncPulseWidth = 60; // On ChipworkX, there is a limited range for the HorizontalSyncPulseWidth. Set it to 60 instead.
-            lcdConfig.HorizontalBackPorch = 150;
-            lcdConfig.HorizontalFrontPorch = 150;
-
-            lcdConfig.VerticalSyncPulseWidth = 2;
-            lcdConfig.VerticalBackPorch = 2;
-            lcdConfig.VerticalFrontPorch = 2;
-
-            //lcdConfig.PixelClockDivider = 4;
-            lcdConfig.PixelClockRateKHz = 18000;
-
-            return Configuration.LCD.Set(lcdConfig);
+            demo = new DemoManager(320, 240);
+            demo.LibraryDemo();
         }
     }
 }
