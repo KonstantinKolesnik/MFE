@@ -576,7 +576,7 @@ namespace Gadgeteer.Modules.KKS
             /// <summary>
             ///   Enable dynamic payload length data pipe 0. (Requires EN_DPL and ENAA_P0)
             /// </summary>
-            public static byte DPL_P0;
+            public static byte DPL_P0 = 0;
             #endregion
 
             #region FEATURE (0x1D) bits
@@ -635,15 +635,6 @@ namespace Gadgeteer.Modules.KKS
             Wait3750us,
             Wait4000us
         }
-        public enum RXAddressSlot
-        {
-            Zero = Registers.RX_ADDR_P0,
-            One = Registers.RX_ADDR_P1,
-            Two = Registers.RX_ADDR_P2,
-            Three = Registers.RX_ADDR_P3,
-            Four = Registers.RX_ADDR_P4,
-            Five = Registers.RX_ADDR_P5,
-        }
         public class StatusInfo
         {
             private byte reg;
@@ -685,10 +676,6 @@ namespace Gadgeteer.Modules.KKS
                 this.reg = reg;
             }
 
-            internal void Update(byte reg)
-            {
-                this.reg = reg;
-            }
             public override string ToString()
             {
                 return "DataReady: " + DataReady +
@@ -699,26 +686,9 @@ namespace Gadgeteer.Modules.KKS
                        "\nDataPipe #: " + DataPipe +
                        "\nDataPipeNotUsed: " + DataPipeNotUsed;
             }
-        }
-        public static class AddressWidth
-        {
-            public const int Min = 3;
-            public const int Max = 5;
-
-            public static byte GetCorrespondingRegisterValue(byte[] address)
+            internal void Update(byte reg)
             {
-                Check(address);
-                return (byte)(address.Length - 2);
-            }
-
-            public static void Check(byte[] address)
-            {
-                Check(address.Length);
-            }
-            public static void Check(int addressWidth)
-            {
-                if (addressWidth < Min || addressWidth > Max)
-                    throw new ArgumentException("Address width needs to be 3-5 bytes");
+                this.reg = reg;
             }
         }
         #endregion
@@ -732,18 +702,8 @@ namespace Gadgeteer.Modules.KKS
         private Socket.Pin pinCSN = Socket.Pin.Five; // chip select, active low
         private GTI.InterruptInput pinIRQ; // active low
 
-        //private byte[] slot0Address;
-        private byte payloadSize = 32; // fixed size of payloads
-
-        //private bool wide_band = true; /* 2Mbs data rate in use? */
-        //private bool p_variant = false; /* False for RF24L01 and true for RF24L01P */
-        //private bool ack_payload_available = false; /* Whether there is an ack payload waiting */
-        //private bool dynamic_payloads_enabled = false; /**< Whether dynamic payloads are enabled. */
-        //uint8_t ack_payload_length; /**< Dynamic size of pending ack payload. */
-
-        byte[] pipe0_reading_address = new byte[5]; /* Last address set on pipe 0 for reading. */
-
         private StatusInfo status = new StatusInfo(0);
+        private byte[] pipe0ReadingAddress = null; // Last address set on pipe 0 for reading
         #endregion
 
         #region Properties
@@ -806,32 +766,32 @@ namespace Gadgeteer.Modules.KKS
             set { WriteRegisterBit(Registers.CONFIG, Bits.PRIM_RX, value); }
         }
 
-        public bool IsAckEnabled0 // default true
+        public bool IsAutoAckEnabled0 // default true
         {
             get { return ReadRegisterBit(Registers.EN_AA, Bits.ENAA_P0); }
             set { WriteRegisterBit(Registers.EN_AA, Bits.ENAA_P0, value); }
         }
-        public bool IsAckEnabled1 // default true
+        public bool IsAutoAckEnabled1 // default true
         {
             get { return ReadRegisterBit(Registers.EN_AA, Bits.ENAA_P1); }
             set { WriteRegisterBit(Registers.EN_AA, Bits.ENAA_P1, value); }
         }
-        public bool IsAckEnabled2 // default true
+        public bool IsAutoAckEnabled2 // default true
         {
             get { return ReadRegisterBit(Registers.EN_AA, Bits.ENAA_P2); }
             set { WriteRegisterBit(Registers.EN_AA, Bits.ENAA_P2, value); }
         }
-        public bool IsAckEnabled3 // default true
+        public bool IsAutoAckEnabled3 // default true
         {
             get { return ReadRegisterBit(Registers.EN_AA, Bits.ENAA_P3); }
             set { WriteRegisterBit(Registers.EN_AA, Bits.ENAA_P3, value); }
         }
-        public bool IsAckEnabled4 // default true
+        public bool IsAutoAckEnabled4 // default true
         {
             get { return ReadRegisterBit(Registers.EN_AA, Bits.ENAA_P4); }
             set { WriteRegisterBit(Registers.EN_AA, Bits.ENAA_P4, value); }
         }
-        public bool IsAckEnabled5 // default true
+        public bool IsAutoAckEnabled5 // default true
         {
             get { return ReadRegisterBit(Registers.EN_AA, Bits.ENAA_P5); }
             set { WriteRegisterBit(Registers.EN_AA, Bits.ENAA_P5, value); }
@@ -1042,7 +1002,7 @@ namespace Gadgeteer.Modules.KKS
             set { WriteRegisterBit(Registers.DYNPD, Bits.DPL_P5, value); }
         }
 
-        public bool IsDynamicPayloadEnabled // default true
+        public bool IsDynamicPayloadFeatureEnabled // default true
         {
             get { return ReadRegisterBit(Registers.FEATURE, Bits.EN_DPL); }
             set { WriteRegisterBit(Registers.FEATURE, Bits.EN_DPL, value); }
@@ -1124,29 +1084,29 @@ namespace Gadgeteer.Modules.KKS
         #endregion
 
         #region Public methods
-        public void SetAutoAck(bool value)
+        public void SetAutoAckEnabled(bool value)
         {
-            IsAckEnabled0 = value;
-            IsAckEnabled1 = value;
-            IsAckEnabled2 = value;
-            IsAckEnabled3 = value;
-            IsAckEnabled4 = value;
-            IsAckEnabled5 = value;
+            IsAutoAckEnabled0 = value;
+            IsAutoAckEnabled1 = value;
+            IsAutoAckEnabled2 = value;
+            IsAutoAckEnabled3 = value;
+            IsAutoAckEnabled4 = value;
+            IsAutoAckEnabled5 = value;
         }
         public void EnableAckPayload()
         {
             IsAckPayloadEnabled = true;
-            IsDynamicPayloadEnabled = true;
-
-            IsDynamicPayloadEnabled0 = true;
-            IsDynamicPayloadEnabled1 = true;
+            
+            //IsDynamicPayloadFeatureEnabled = true;
+            //IsDynamicPayloadEnabled0 = true;
+            //IsDynamicPayloadEnabled1 = true;
         }
 
         public void OpenWritingPipe(byte[] address)
         {
             TransmitAddress = address;
             ReceiveAddress0 = address;
-            ReceiverPayloadWidth0 = (byte)System.Math.Min(payloadSize, 32);
+            //ReceiverPayloadWidth0 = (byte)System.Math.Min(payloadSize, 32);
         }
         public void OpenReadingPipe(byte idx, byte[] address)
         {
@@ -1154,7 +1114,7 @@ namespace Gadgeteer.Modules.KKS
             // openWritingPipe() will overwrite the pipe 0 address, so
             // startListening() will have to restore it.
             if (idx == 0)
-                pipe0_reading_address = address;
+                pipe0ReadingAddress = address;
 
             if (idx <= 6)
             {
@@ -1163,32 +1123,32 @@ namespace Gadgeteer.Modules.KKS
                 {
                     case 0:
                         ReceiveAddress0 = address;
-                        ReceiverPayloadWidth0 = payloadSize;
+                        //ReceiverPayloadWidth0 = payloadSize;
                         IsReceiverAddressEnabled0 = true;
                         break;
                     case 1:
                         ReceiveAddress1 = address;
-                        ReceiverPayloadWidth1 = payloadSize;
+                        //ReceiverPayloadWidth1 = payloadSize;
                         IsReceiverAddressEnabled1 = true;
                         break;
                     case 2:
                         ReceiveAddress2 = address[0];
-                        ReceiverPayloadWidth2 = payloadSize;
+                        //ReceiverPayloadWidth2 = payloadSize;
                         IsReceiverAddressEnabled2 = true;
                         break;
                     case 3:
                         ReceiveAddress3 = address[0];
-                        ReceiverPayloadWidth3 = payloadSize;
+                        //ReceiverPayloadWidth3 = payloadSize;
                         IsReceiverAddressEnabled3 = true;
                         break;
                     case 4:
                         ReceiveAddress4 = address[0];
-                        ReceiverPayloadWidth4 = payloadSize;
+                        //ReceiverPayloadWidth4 = payloadSize;
                         IsReceiverAddressEnabled4 = true;
                         break;
                     case 5:
                         ReceiveAddress5 = address[0];
-                        ReceiverPayloadWidth5 = payloadSize;
+                        //ReceiverPayloadWidth5 = payloadSize;
                         IsReceiverAddressEnabled5 = true;
                         break;
                 }
@@ -1201,10 +1161,9 @@ namespace Gadgeteer.Modules.KKS
             ResetStatus();
 
             // Restore the pipe0 adddress, if exists
-            //if (pipe0_reading_address != 0)
-                ReceiveAddress0 = pipe0_reading_address;
+            if (pipe0ReadingAddress != null)
+                ReceiveAddress0 = pipe0ReadingAddress;
 
-            // Flush buffers
             FlushTX();
             FlushRX();
 
@@ -1212,7 +1171,6 @@ namespace Gadgeteer.Modules.KKS
             IsEnabled = true;
 
             // wait for the radio to come up (130us actually only needed)
-            //delayMicroseconds(130);
             Thread.Sleep(1);
         }
         public void StopListening()
@@ -1224,8 +1182,8 @@ namespace Gadgeteer.Modules.KKS
 
         public void StartWrite(byte[] data)
         {
+            IsEnabled = false;
             SetTransmitMode();
-
             //delayMicroseconds(150);
             Thread.Sleep(1);
 
@@ -1245,115 +1203,37 @@ namespace Gadgeteer.Modules.KKS
 
             WriteCommand(Commands.W_TX_PAYLOAD, data);
 
-
-
-            //// Allons!
             IsEnabled = true;
             //delayMicroseconds(15);
             Thread.Sleep(1);
             IsEnabled = false;
         }
 
-
-
-
-        /// <summary>
-        /// Configure the module basic settings. Module needs to be initiaized.
-        /// </summary>
-        /// <param name="address">RF address (3-5 bytes). The width of this address determins the width of all addresses used for sending/receiving.</param>
-        /// <param name="channel">RF channel (0-127)</param>
-        //public void Configure(byte[] address, byte channel)
-        //{
-        //    AddressWidth.Check(address);
-
-        //    // Set radio channel
-        //    Channel = channel;
-
-        //    // Enable dynamic payload length
-        //    Execute(Commands.W_REGISTER, Registers.FEATURE,
-        //            new[]
-        //                {
-        //                    (byte) (1 << Bits.EN_DPL)
-        //                });
-
-        //    // Set auto-ack
-        //    Execute(Commands.W_REGISTER, Registers.EN_AA,
-        //            new[]
-        //                {
-        //                    (byte) (1 << Bits.ENAA_P0 |
-        //                            1 << Bits.ENAA_P1)
-        //                });
-
-        //    // Set dynamic payload length for pipes
-        //    Execute(Commands.W_REGISTER, Registers.DYNPD,
-        //            new[]
-        //                {
-        //                    (byte) (1 << Bits.DPL_P0 |
-        //                            1 << Bits.DPL_P1)
-        //                });
-
-        //    FlushRX();
-        //    FlushTX();
-
-        //    // Clear IRQ Masks
-        //    Execute(Commands.W_REGISTER, Registers.STATUS,
-        //            new[]
-        //                {
-        //                    (byte) (1 << Bits.MASK_RX_DR |
-        //                            1 << Bits.MASK_TX_DS |
-        //                            1 << Bits.MAX_RT)
-        //                });
-
-        //    // Set default address
-        //    Execute(Commands.W_REGISTER, Registers.SETUP_AW,
-        //            new[]
-        //                {
-        //                    AddressWidth.GetCorrespondingRegisterValue(address)
-        //                });
-
-        //    // Set module address
-        //    slot0Address = address;
-        //    Execute(Commands.W_REGISTER, (byte)RXAddressSlot.Zero, address);
-
-        //    // Setup, CRC enabled, Power Up, PRX
-        //    SetReceiveMode();
-        //}
-
-        /// <summary>
-        /// Set one of 6 available module addresses
-        /// </summary>
-        public void SetRXAddress(RXAddressSlot slot, byte[] address)
+        public void WriteAckPayload(byte idx, byte[] data)
         {
-            AddressWidth.Check(address);
-            WriteRegister((byte)slot, address);
+            WriteCommand((byte)(Commands.W_ACK_PAYLOAD | (idx & 0x07)), data);
 
-            //if (slot == RXAddressSlot.Zero)
-            //    slot0Address = address;
-        }
-
-        /// <summary>
-        /// Read one of 6 available module addresses
-        /// </summary>
-        public byte[] GetRXAddress(RXAddressSlot slot, int width)
-        {
-            AddressWidth.Check(width);
-            return ReadRegister((byte)slot, width);
+            //SPI.transfer(W_ACK_PAYLOAD | (pipe & B111));
+            //const uint8_t max_payload_size = 32;
+            //uint8_t data_len = min(len, max_payload_size);
+            //while (data_len--)
+            //    SPI.transfer(*current++);
         }
 
         /// <summary>
         ///   Send <param name = "bytes">bytes</param> to given <param name = "address">address</param>
         /// </summary>
-        public void SendTo(byte[] address, byte[] bytes)
-        {
-            IsEnabled = false; // Chip enable low
+        //public void SendTo(byte[] address, byte[] bytes)
+        //{
+        //    IsEnabled = false; // Chip enable low
 
-            SetTransmitMode(); // Setup PTX (Primary TX)
-            TransmitAddress = address; // Write transmit address to TX_ADDR register. 
-            ReceiveAddress0 = address; // Write transmit address to RX_ADDRESS_P0 (Pipe0) (For Auto ACK)
-            WriteCommand(Commands.W_TX_PAYLOAD, bytes); // Write payload
+        //    SetTransmitMode(); // Setup PTX (Primary TX)
+        //    TransmitAddress = address; // Write transmit address to TX_ADDR register. 
+        //    ReceiveAddress0 = address; // Write transmit address to RX_ADDRESS_P0 (Pipe0) (For Auto ACK)
+        //    WriteCommand(Commands.W_TX_PAYLOAD, bytes); // Write payload
 
-            IsEnabled = true; // Pulse for CE -> starts the transmission.
-        }
+        //    IsEnabled = true; // Pulse for CE -> starts the transmission.
+        //}
 
         /// <summary>
         ///   Scanning all 128 channels in the 2.4GHz band
@@ -1367,196 +1247,73 @@ namespace Gadgeteer.Modules.KKS
 
             byte[] result = new byte[numberOfChannels];
 
-            IsEnabled = false;
-            
-            //IsReceiver = true;
-            SetReceiveMode();
+            SetAutoAckEnabled(false);
+            StartListening();
+            StopListening();
 
             IsEnabled = false;
             for (int j = 0; j < 40; j++)
                 for (byte i = 0; i < numberOfChannels; i++)
                 {
-                    Channel = i; //will do every second one;
-                    IsEnabled = false;
-                    //recomended at least 258uS but I found 350uS is need for reliability
-                    //Delay10uS(26);
-                    //Thread.Sleep(1);
+                    Channel = i;
+                    StartListening();
+                    Thread.Sleep(1);
+                    StopListening();
 
                     // received power > -64dBm
                     if (RPD)
                         result[i]++;
-
-                    //this seems to be needed after the timeout not before
-                    IsEnabled = false;
-                    //Delay10uS(4); //may not be needed
                 }
 
             //restore values
             WriteRegister(Registers.CONFIG, curConfig);
             Channel = curChannel;
             IsEnabled = isEnabled;
-            //Delay10uS(20); //may not be needed
 
             return result;
         }
         #endregion
 
         #region Private methods
+        private byte[] ReadRegister(byte register, int size)
+        {
+            return Execute(Commands.R_REGISTER, register, new byte[size]);
+        }
         private byte ReadRegister(byte register)
         {
             return ReadRegister(register, 1)[0];
         }
-        private byte[] ReadRegister(byte register, int size)
-        {
-            var read = Execute(Commands.R_REGISTER, register, new byte[size]);
-            return ParseResponseData(read);
-        }
         private bool ReadRegisterBit(byte register, byte bitNumber)
         {
-            var registerValue = ReadRegister(register, 1)[0];
-            return (registerValue & (1 << bitNumber)) > 0;
+            return (ReadRegister(register) & (1 << bitNumber)) > 0;
         }
 
-        private byte[] WriteRegister(byte register, byte value)
+        private void WriteRegister(byte register, byte[] value)
         {
-            return WriteRegister(register, new byte[] { value });
+            Execute(Commands.W_REGISTER, register, value);
         }
-        private byte[] WriteRegister(byte register, byte[] value)
+        private void WriteRegister(byte register, byte value)
         {
-            return Execute(Commands.W_REGISTER, register, value);
+            WriteRegister(register, new byte[] { value });
         }
-        private byte[] WriteRegisterBit(byte register, byte bitNumber, bool value)
+        private void WriteRegisterBit(byte register, byte bitNumber, bool value)
         {
-            var read = Execute(Commands.R_REGISTER, register, new byte[1] { 0xff });
-            var oldRegisterValue = ParseResponseData(read)[0];
-            byte newValue = (value == true ? (byte)(oldRegisterValue | (1 << bitNumber)) : (byte)(oldRegisterValue & ~(1 << bitNumber)));
-            return Execute(Commands.W_REGISTER, register, new[] { newValue });
+            var reg = ReadRegister(register);
+            byte newReg = (value == true ? (byte)(reg | (1 << bitNumber)) : (byte)(reg & ~(1 << bitNumber)));
+            WriteRegister(register, newReg);
         }
 
         private byte[] WriteCommand(byte command)
         {
-            return Execute(command, 0x00, new byte[0]);
+            return WriteCommand(command, new byte[0]);
         }
         private byte[] WriteCommand(byte command, byte[] data)
         {
             return Execute(command, 0x00, data);
         }
 
-        /// <summary>
-        ///   Executes a command in NRF24L01+ (for details see module datasheet)
-        /// </summary>
-        /// <param name = "command">Command</param>
-        /// <param name = "register">Register to write to</param>
-        /// <param name = "data">Data to write</param>
-        /// <returns>Response byte array. First byte is the status register</returns>
-        private byte[] Execute(byte command, byte register, byte[] data)
-        {
-            // This command requires module to be in power down or standby mode
-            var wasEnabled = IsEnabled;
-            if (command == Commands.W_REGISTER)
-                IsEnabled = false;
-
-            var writeBuffer = new byte[1 + data.Length]; // Create SPI Buffers with Size of Data + 1 (For Command)
-            writeBuffer[0] = (byte)(command | register); // Add command and register to SPI buffer
-            Array.Copy(data, 0, writeBuffer, 1, data.Length); // Add data to SPI buffer
-
-            var readBuffer = new byte[1 + data.Length]; // STATUS + data
-            
-            spi.WriteRead(writeBuffer, readBuffer); // Do SPI Read/Write
-
-            // Enable module back if it was disabled
-            if (command == Commands.W_REGISTER && wasEnabled)
-                IsEnabled = true;
-
-            // Return ReadBuffer
-            return readBuffer;
-        }
-
-        private void pinIRQ_Interrupt(GTI.InterruptInput sender, bool value)
-        {
-            IsEnabled = false;
-
-            // Set PRX
-            SetReceiveMode();
-
-            GetStatus();
-            
-            var payloads = new byte[3][];
-            byte payloadCount = 0;
-            var payloadCorrupted = false;
-
-            if (Interrupt != null)
-                Interrupt(status);
-
-            if (status.DataReady)
-            {
-                while (!status.RxEmpty)
-                {
-                    // Read payload size
-                    var payloadLength = WriteCommand(Commands.R_RX_PL_WID, new byte[1]);
-
-                    // this indicates corrupted data
-                    if (payloadLength[1] > 32)
-                    {
-                        payloadCorrupted = true;
-                        FlushRX(); // Flush anything that remains in buffer
-                    }
-                    else
-                    {
-                        // Read payload data
-                        payloads[payloadCount] = Execute(Commands.R_RX_PAYLOAD, 0x00, new byte[payloadLength[1]]);
-                        payloadCount++;
-                    }
-
-                    // Clear RX_DR bit 
-                    var result = WriteRegisterBit(Registers.STATUS, Bits.RX_DR, true);
-                    status.Update(result[0]); // ???
-                }
-            }
-
-            if (status.ResendLimitReached)
-            {
-                FlushTX();
-                WriteRegisterBit(Registers.STATUS, Bits.MAX_RT, true); // Clear MAX_RT bit in status register
-            }
-
-            if (status.TxFull)
-                FlushTX();
-
-            if (status.DataSent)
-                WriteRegisterBit(Registers.STATUS, Bits.TX_DS, true); // Clear TX_DS bit in status register
-
-            // Enable RX
-            IsEnabled = true;
-
-            if (payloadCorrupted)
-                Debug.Print("Corrupted data received");
-            else if (payloadCount > 0)
-            {
-                for (var i = 0; i < payloadCount; i++)
-                {
-                    var payload = payloads[i];
-                    var payloadWithoutCommand = new byte[payload.Length - 1];
-                    Array.Copy(payload, 1, payloadWithoutCommand, 0, payload.Length - 1);
-                    DataReceived(payloadWithoutCommand);
-                }
-            }
-            else if (status.DataSent)
-            {
-                if (TransmitSuccess != null)
-                    TransmitSuccess(this, EventArgs.Empty);
-            }
-            else
-            {
-                if (TransmitFailed != null)
-                    TransmitFailed(this, EventArgs.Empty);
-            }
-        }
-
         private void Initialize()
         {
-            // from RF24s -----------------------------------------------------------
-
             // Set 1500uS (minimum for 32B payload in ESB@250KBPS) timeouts, to make testing a little easier
             // WARNING: If this is ever lowered, either 250KBS mode with AA is broken or maximum packet
             // sizes must never be used. See documentation for a more complete explanation.
@@ -1580,85 +1337,34 @@ namespace Gadgeteer.Modules.KKS
             // Initialize CRC and request 2-byte (16bit) CRC
             CRCLength = CRCType.CRC2;
 
-            // Disable dynamic payloads, to match dynamic_payloads_enabled setting
-            IsDynamicPayloadEnabled0 = false;
-            IsDynamicPayloadEnabled1 = false;
-            IsDynamicPayloadEnabled2 = false;
-            IsDynamicPayloadEnabled3 = false;
-            IsDynamicPayloadEnabled4 = false;
-            IsDynamicPayloadEnabled5 = false;
+            IsAutoAckEnabled0 = true;
+            IsAutoAckEnabled1= true;
+            IsAutoAckEnabled2 = true;
+            IsAutoAckEnabled3 = true;
+            IsAutoAckEnabled4 = true;
+            IsAutoAckEnabled5 = true;
+            //SetAutoAck(true);
 
-            // Reset current status
-            // Notice reset and flush is the last thing we do
-            ResetStatus();
+            IsDynamicPayloadFeatureEnabled = true;
+            IsDynamicPayloadEnabled0 = true;
+            IsDynamicPayloadEnabled1 = true;
+            IsDynamicPayloadEnabled2 = true;
+            IsDynamicPayloadEnabled3 = true;
+            IsDynamicPayloadEnabled4 = true;
+            IsDynamicPayloadEnabled5 = true;
 
             // Set up default configuration. Callers can always change it later.
             // This channel should be universally safe and not bleed over into adjacent spectrum.
             Channel = 76;
 
-
-
-            // from .net -----------------------------------------------------------
-            //// Enable dynamic payload length
-            //Execute(Commands.W_REGISTER, Registers.FEATURE,
-            //        new[]
-            //            {
-            //                (byte) (1 << Bits.EN_DPL)
-            //            });
-
-            //// Set auto-ack
-            //Execute(Commands.W_REGISTER, Registers.EN_AA,
-            //        new[]
-            //            {
-            //                (byte) (1 << Bits.ENAA_P0 |
-            //                        1 << Bits.ENAA_P1)
-            //            });
-
-            //// Set dynamic payload length for pipes
-            //Execute(Commands.W_REGISTER, Registers.DYNPD,
-            //        new[]
-            //            {
-            //                (byte) (1 << Bits.DPL_P0 |
-            //                        1 << Bits.DPL_P1)
-            //            });
-
-
-
-
-            // from Gus -----------------------------------------------------------
-            //// Setup, CRC enabled, Power Up, PRX
-            //WriteRegister(Registers.CONFIG, new byte[] { (byte)((1 << Bits.EN_CRC) | (1 << Bits.PWR_UP) | (1 << Bits.PRIM_RX)) });
-
-            //// Write transmit adres to TX_ADDR register. 
-            ////WriteRegister(Registers.TX_ADDR, TX_Adress);
-
-            //// Write transmit adres to RX_ADDRESS_P0 (Pipe0) (For Auto ACK)
-            ////WriteRegister(Registers.RX_ADDR_P0, TX_Adress);
-            //// Write recieve adres to RX_ADDRESS_P1 (Pipe1)
-            //WriteRegister(Registers.RX_ADDR_P1, RX_Adress);
-
-            //// Set Reciever, Pipe0 Payload size 
-            ////WriteRegister(Registers.RX_PW_P0, new byte[] { 1 });
-            //// Set Reciever, Pipe1 Payload size 
-            ////WriteRegister(Registers.RX_PW_P1, new byte[] { 1 });
-
-            //// Setup, CRC enabled, Power Up, PRX
-            //WriteRegister(Registers.CONFIG, new byte[] { (byte)((1 << Bits.EN_CRC) | (1 << Bits.PWR_UP) | (1 << Bits.PRIM_RX)) });
-
-            //// Enable RX/TX
-            //IsEnabled = true;
-
-            //// Clear IRQ Masks
-            //WriteRegister(Registers.STATUS, new byte[] { 0x70 });
-            // ----------------------------------------------------------------
-
-            // Flush buffers
+            // Notice reset and flush is the last thing we do
+            ResetStatus();
             FlushRX();
             FlushTX();
         }
         private void GetStatus()
         {
-            status.Update(WriteCommand(Commands.NOP)[0]);
+            WriteCommand(Commands.NOP);
         }
         private void ResetStatus()
         {
@@ -1678,25 +1384,114 @@ namespace Gadgeteer.Modules.KKS
         
         private void SetTransmitMode()
         {
-            Execute(Commands.W_REGISTER, Registers.CONFIG, new[] { (byte)(1 << Bits.PWR_UP | 0 << Bits.PRIM_RX) });// | 1 << Bits.EN_CRC
+            WriteRegisterBit(Registers.CONFIG, Bits.PRIM_RX, false);
+            WriteRegisterBit(Registers.CONFIG, Bits.PWR_UP, true);
         }
         private void SetReceiveMode()
         {
-            //WriteRegister(Registers.RX_ADDR_P0, RX_Adress);//slot0Address);
-            Execute(Commands.W_REGISTER, Registers.CONFIG, new[] { (byte)(1 << Bits.PWR_UP | 1 << Bits.PRIM_RX) });// | 1 << Bits.EN_CRC
+            WriteRegisterBit(Registers.CONFIG, Bits.PRIM_RX, true);
+            WriteRegisterBit(Registers.CONFIG, Bits.PWR_UP, true);
         }
 
-        private byte[] ParseResponseData(byte[] response)
+        private byte[] Execute(byte command, byte register, byte[] data)
         {
-            status.Update(response[0]);
+            var wasEnabled = IsEnabled;
+            if (command == Commands.W_REGISTER) // This command requires module to be in power down or standby mode
+                IsEnabled = false;
 
-            if (response.Length > 1)
+            var writeBuffer = new byte[1 + data.Length]; // Create SPI Buffers with Size of Data + 1 (For Command)
+            writeBuffer[0] = (byte)(command | register); // Add command and register to SPI buffer
+            Array.Copy(data, 0, writeBuffer, 1, data.Length); // Add data to SPI buffer
+
+            var readBuffer = new byte[1 + data.Length]; // STATUS + data
+            
+            spi.WriteRead(writeBuffer, readBuffer); // Do SPI Write/Read
+
+            if (command == Commands.W_REGISTER && wasEnabled) // Enable module back if it was disabled
+                IsEnabled = true;
+
+            status.Update(readBuffer[0]); // update status with value from byte #0
+
+            if (readBuffer.Length > 1)
             {
-                var result = new byte[response.Length - 1];
-                Array.Copy(response, 1, result, 0, result.Length);
+                var result = new byte[readBuffer.Length - 1];
+                Array.Copy(readBuffer, 1, result, 0, result.Length);
                 return result;
             }
+
             return null;
+        }
+
+        private void pinIRQ_Interrupt(GTI.InterruptInput sender, bool value)
+        {
+            bool wasEnabled = IsEnabled;
+            IsEnabled = false;
+
+            GetStatus();
+            
+            if (Interrupt != null)
+                Interrupt(status);
+
+            var payloads = new byte[3][];
+            byte payloadIdx = 0;
+            var payloadCorrupted = false;
+
+            if (status.DataReady)
+            {
+                while (!status.RxEmpty)
+                {
+                    // Read payload size
+                    var payloadLength = WriteCommand(Commands.R_RX_PL_WID, new byte[1])[0];
+
+                    // this indicates corrupted data
+                    if (payloadLength > 32)
+                    {
+                        payloadCorrupted = true;
+                        FlushRX(); // Flush anything that remains in buffer
+                    }
+                    else
+                    {
+                        // Read payload data
+                        payloads[payloadIdx] = WriteCommand(Commands.R_RX_PAYLOAD, new byte[payloadLength]);
+                        payloadIdx++;
+                    }
+
+                    WriteRegisterBit(Registers.STATUS, Bits.RX_DR, true); // Clear RX_DR bit in status register
+                }
+            }
+
+            if (status.ResendLimitReached)
+            {
+                FlushTX();
+                WriteRegisterBit(Registers.STATUS, Bits.MAX_RT, true); // Clear MAX_RT bit in status register
+            }
+
+            if (status.TxFull)
+                FlushTX();
+
+            if (status.DataSent)
+                WriteRegisterBit(Registers.STATUS, Bits.TX_DS, true); // Clear TX_DS bit in status register
+
+
+            IsEnabled = true;// wasEnabled;
+
+            if (payloadCorrupted)
+                Debug.Print("Corrupted data received");
+            else if (payloadIdx > 0)
+            {
+                for (var i = 0; i < payloadIdx; i++)
+                    DataReceived(payloads[i]);
+            }
+            else if (status.DataSent)
+            {
+                if (TransmitSuccess != null)
+                    TransmitSuccess(this, EventArgs.Empty);
+            }
+            else
+            {
+                if (TransmitFailed != null)
+                    TransmitFailed(this, EventArgs.Empty);
+            }
         }
         #endregion
     }
