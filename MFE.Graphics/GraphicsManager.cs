@@ -284,6 +284,8 @@ namespace MFE.Graphics
         }
         private Control FindTouchTarget(Control root, Point p)
         {
+            return root.GetValidChildFromScreenPoint(p);
+
             if (lastEventTarget != null)
             {
                 // old:

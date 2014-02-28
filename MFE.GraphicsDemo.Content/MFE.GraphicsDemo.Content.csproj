@@ -31,7 +31,11 @@
   </PropertyGroup>
   <Import Project="$(NetMfTargetsBaseDir)$(TargetFrameworkVersion)\CSharp.Targets" />
   <ItemGroup>
+    <Compile Include="LibraryDemo\ImageDemoPage.cs" />
+    <Compile Include="LibraryDemo\ProgressBarDemoPage.cs" />
+    <Compile Include="LibraryDemo\DemoPage.cs" />
     <Compile Include="LibraryDemo\HomePage.cs" />
+    <Compile Include="LibraryDemo\LevelDemoPage.cs" />
     <Compile Include="LibraryDemo\SplashPage.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="DemoManager.cs" />

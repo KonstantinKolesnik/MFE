@@ -110,6 +110,12 @@ namespace Gadgeteer.Modules.KKS
             public const byte W_TX_PAYLOAD_NO_ACK = 0xB0;
 
             /// <summary>
+            ///   Lock/unlock exclusive features.
+            ///   Data bytes: 1 (0x73)
+            /// </summary>
+            public const byte LOCK_UNLOCK = 0x50;
+			
+            /// <summary>
             ///   No Operation. Might be used to read the STATUS register
             ///   Data bytes: 0
             /// </summary>
@@ -609,12 +615,12 @@ namespace Gadgeteer.Modules.KKS
             CRC1 = 0, // 1 byte
             CRC2 = 1 // 2 bytes
         }
-        public enum AddressLength
+        public enum AddressLengthType
         {
             Illegal  = 0,
-            Address3 = 1, // 3 bytes
-            Address4 = 2, // 4 bytes
-            Address5 = 3  // 5 bytes
+            AddressLength3 = 1, // 3 bytes
+            AddressLength4 = 2, // 4 bytes
+            AddressLength5 = 3  // 5 bytes
         }
         public enum AutoRetransmitDelayType
         {
@@ -704,6 +710,7 @@ namespace Gadgeteer.Modules.KKS
 
         private StatusInfo status = new StatusInfo(0);
         private byte[] pipe0ReadingAddress = null; // Last address set on pipe 0 for reading
+        private byte payloadSize = 32;
         #endregion
 
         #region Properties
@@ -721,6 +728,12 @@ namespace Gadgeteer.Modules.KKS
         public StatusInfo Status
         {
             get { return status; }
+        }
+
+        public byte PayloadSize // for fixed payload width
+        {
+            get { return payloadSize; }
+            set { payloadSize = (byte)System.Math.Min(value, 32); }
         }
 
         public bool IsDataReceivedInterruptEnabled // default true
@@ -828,9 +841,9 @@ namespace Gadgeteer.Modules.KKS
             set { WriteRegisterBit(Registers.EN_RXADDR, Bits.ERX_P5, value); }
         }
 
-        public AddressLength AddressType // default 5 bytes
+        public AddressLengthType AddressType // default 5 bytes
         {
-            get { return (AddressLength)ReadRegister(Registers.SETUP_AW); }
+            get { return (AddressLengthType)ReadRegister(Registers.SETUP_AW); }
             set { WriteRegister(Registers.SETUP_AW, (byte)value); }
         }
 
@@ -883,37 +896,37 @@ namespace Gadgeteer.Modules.KKS
             get { return ReadRegisterBit(Registers.RPD, Bits.RPD); }
         }
 
-        public byte[] TransmitAddress // 3...5 bytes
+        public byte[] TransmitterAddress // 3...5 bytes
         {
             get { return ReadRegister(Registers.TX_ADDR, 5); }
             set { WriteRegister(Registers.TX_ADDR, value); }
         }
-        public byte[] ReceiveAddress0
+        public byte[] ReceiverAddress0
         {
             get { return ReadRegister(Registers.RX_ADDR_P0, 5); }
             set { WriteRegister(Registers.RX_ADDR_P0, value); }
         }
-        public byte[] ReceiveAddress1
+        public byte[] ReceiverAddress1
         {
             get { return ReadRegister(Registers.RX_ADDR_P1, 5); }
             set { WriteRegister(Registers.RX_ADDR_P1, value); }
         }
-        public byte ReceiveAddress2
+        public byte ReceiverAddress2
         {
             get { return ReadRegister(Registers.RX_ADDR_P2); }
             set { WriteRegister(Registers.RX_ADDR_P2, value); }
         }
-        public byte ReceiveAddress3
+        public byte ReceiverAddress3
         {
             get { return ReadRegister(Registers.RX_ADDR_P3); }
             set { WriteRegister(Registers.RX_ADDR_P3, value); }
         }
-        public byte ReceiveAddress4
+        public byte ReceiverAddress4
         {
             get { return ReadRegister(Registers.RX_ADDR_P4); }
             set { WriteRegister(Registers.RX_ADDR_P4, value); }
         }
-        public byte ReceiveAddress5
+        public byte ReceiverAddress5
         {
             get { return ReadRegister(Registers.RX_ADDR_P5); }
             set { WriteRegister(Registers.RX_ADDR_P5, value); }
@@ -1102,12 +1115,6 @@ namespace Gadgeteer.Modules.KKS
             //IsDynamicPayloadEnabled1 = true;
         }
 
-        public void OpenWritingPipe(byte[] address)
-        {
-            TransmitAddress = address;
-            ReceiveAddress0 = address;
-            //ReceiverPayloadWidth0 = (byte)System.Math.Min(payloadSize, 32);
-        }
         public void OpenReadingPipe(byte idx, byte[] address)
         {
             // If this is pipe 0, cache the address. This is needed because
@@ -1122,39 +1129,38 @@ namespace Gadgeteer.Modules.KKS
                 switch (idx)
                 {
                     case 0:
-                        ReceiveAddress0 = address;
-                        //ReceiverPayloadWidth0 = payloadSize;
+                        ReceiverAddress0 = address;
+                        ReceiverPayloadWidth0 = payloadSize;
                         IsReceiverAddressEnabled0 = true;
                         break;
                     case 1:
-                        ReceiveAddress1 = address;
-                        //ReceiverPayloadWidth1 = payloadSize;
+                        ReceiverAddress1 = address;
+                        ReceiverPayloadWidth1 = payloadSize;
                         IsReceiverAddressEnabled1 = true;
                         break;
                     case 2:
-                        ReceiveAddress2 = address[0];
-                        //ReceiverPayloadWidth2 = payloadSize;
+                        ReceiverAddress2 = address[0];
+                        ReceiverPayloadWidth2 = payloadSize;
                         IsReceiverAddressEnabled2 = true;
                         break;
                     case 3:
-                        ReceiveAddress3 = address[0];
-                        //ReceiverPayloadWidth3 = payloadSize;
+                        ReceiverAddress3 = address[0];
+                        ReceiverPayloadWidth3 = payloadSize;
                         IsReceiverAddressEnabled3 = true;
                         break;
                     case 4:
-                        ReceiveAddress4 = address[0];
-                        //ReceiverPayloadWidth4 = payloadSize;
+                        ReceiverAddress4 = address[0];
+                        ReceiverPayloadWidth4 = payloadSize;
                         IsReceiverAddressEnabled4 = true;
                         break;
                     case 5:
-                        ReceiveAddress5 = address[0];
-                        //ReceiverPayloadWidth5 = payloadSize;
+                        ReceiverAddress5 = address[0];
+                        ReceiverPayloadWidth5 = payloadSize;
                         IsReceiverAddressEnabled5 = true;
                         break;
                 }
             }
         }
-
         public void StartListening()
         {
             SetReceiveMode();
@@ -1162,7 +1168,7 @@ namespace Gadgeteer.Modules.KKS
 
             // Restore the pipe0 adddress, if exists
             if (pipe0ReadingAddress != null)
-                ReceiveAddress0 = pipe0ReadingAddress;
+                ReceiverAddress0 = pipe0ReadingAddress;
 
             FlushTX();
             FlushRX();
@@ -1180,32 +1186,21 @@ namespace Gadgeteer.Modules.KKS
             FlushRX();
         }
 
+        public void OpenWritingPipe(byte[] address)
+        {
+            TransmitterAddress = address;
+            ReceiverAddress0 = address;
+            ReceiverPayloadWidth0 = (byte)System.Math.Min(payloadSize, 32);
+        }
         public void StartWrite(byte[] data)
         {
-            IsEnabled = false;
             SetTransmitMode();
-            //delayMicroseconds(150);
-            Thread.Sleep(1);
+            Thread.Sleep(1); //delayMicroseconds(150);
 
-            //// Send the payload
-            //write_payload( buf, len );
-
-            //const uint8_t* current = reinterpret_cast<const uint8_t*>(buf);
-            //uint8_t data_len = min(len,payload_size);
-            //uint8_t blank_len = dynamic_payloads_enabled ? 0 : payload_size - data_len;
-            //csn(LOW);
-            //status = SPI.transfer( W_TX_PAYLOAD );
-            //while ( data_len-- )
-            //SPI.transfer(*current++);
-            //while ( blank_len-- )
-            //SPI.transfer(0);
-            //csn(HIGH);
-
-            WriteCommand(Commands.W_TX_PAYLOAD, data);
+            WritePayload(data);
 
             IsEnabled = true;
-            //delayMicroseconds(15);
-            Thread.Sleep(1);
+            Thread.Sleep(1); //delayMicroseconds(15);
             IsEnabled = false;
         }
 
@@ -1214,8 +1209,7 @@ namespace Gadgeteer.Modules.KKS
             WriteCommand((byte)(Commands.W_ACK_PAYLOAD | (idx & 0x07)), data);
 
             //SPI.transfer(W_ACK_PAYLOAD | (pipe & B111));
-            //const uint8_t max_payload_size = 32;
-            //uint8_t data_len = min(len, max_payload_size);
+            //uint8_t data_len = min(len, 32);
             //while (data_len--)
             //    SPI.transfer(*current++);
         }
@@ -1393,6 +1387,25 @@ namespace Gadgeteer.Modules.KKS
             WriteRegisterBit(Registers.CONFIG, Bits.PWR_UP, true);
         }
 
+        private void WritePayload(byte[] data)
+        {
+            int dataSize = System.Math.Min(data.Length, payloadSize);
+            byte[] buffer = new byte[IsDynamicPayloadFeatureEnabled ? dataSize : payloadSize];
+            Array.Copy(data, buffer, dataSize);
+  
+            WriteCommand(Commands.W_TX_PAYLOAD, buffer);
+        }
+        private byte[] ReadPayload(byte size)
+        {
+            int dataSize = System.Math.Min(size, payloadSize);
+            return WriteCommand(Commands.R_RX_PAYLOAD, new byte[IsDynamicPayloadFeatureEnabled ? dataSize : payloadSize]);
+        }
+
+        private byte GetDynamicPayloadSize()
+        {
+            return WriteCommand(Commands.R_RX_PL_WID, new byte[1])[0];
+        }
+
         private byte[] Execute(byte command, byte register, byte[] data)
         {
             var wasEnabled = IsEnabled;
@@ -1441,10 +1454,8 @@ namespace Gadgeteer.Modules.KKS
                 while (!status.RxEmpty)
                 {
                     // Read payload size
-                    var payloadLength = WriteCommand(Commands.R_RX_PL_WID, new byte[1])[0];
-
-                    // this indicates corrupted data
-                    if (payloadLength > 32)
+                    var payloadLength = GetDynamicPayloadSize();
+                    if (payloadLength > 32) // this indicates corrupted data
                     {
                         payloadCorrupted = true;
                         FlushRX(); // Flush anything that remains in buffer
@@ -1452,23 +1463,20 @@ namespace Gadgeteer.Modules.KKS
                     else
                     {
                         // Read payload data
-                        payloads[payloadIdx] = WriteCommand(Commands.R_RX_PAYLOAD, new byte[payloadLength]);
+                        payloads[payloadIdx] = ReadPayload(payloadLength);
                         payloadIdx++;
                     }
 
                     WriteRegisterBit(Registers.STATUS, Bits.RX_DR, true); // Clear RX_DR bit in status register
                 }
             }
-
             if (status.ResendLimitReached)
             {
                 FlushTX();
                 WriteRegisterBit(Registers.STATUS, Bits.MAX_RT, true); // Clear MAX_RT bit in status register
             }
-
             if (status.TxFull)
                 FlushTX();
-
             if (status.DataSent)
                 WriteRegisterBit(Registers.STATUS, Bits.TX_DS, true); // Clear TX_DS bit in status register
 

@@ -13,7 +13,6 @@ namespace MFE.Net.Managers
     public class GadgeteerEthernetManager : INetworkManager
     {
         #region Fields
-        //private PWM portNetworkLED = null;
         private ManualResetEvent blocker = null;
 
         // if you were to use ENC28J60-based Ethernet connection
@@ -23,8 +22,7 @@ namespace MFE.Net.Managers
 
         private Ethernet_ENC28 ethernetModule = null;
         private EthernetENC28J60 ethernet = null;
-
-        //static EthernetBuiltIn ethernet;
+        //private static EthernetBuiltIn ethernet;
         #endregion
 
         #region Events
@@ -33,14 +31,17 @@ namespace MFE.Net.Managers
         #endregion
 
         #region Constructor
-        public GadgeteerEthernetManager(Ethernet_ENC28 ethernet_ENC28)//Cpu.PWMChannel pinNetworkStatusLED)
+        public GadgeteerEthernetManager(Ethernet_ENC28 gtm)
+            : this(gtm.Interface)
+        {
+            ethernetModule = gtm;
+        }
+
+        public GadgeteerEthernetManager(EthernetENC28J60 driver)
         {
             blocker = new ManualResetEvent(false);
-            //portNetworkLED = new PWM(pinNetworkStatusLED, 1, 50, false); // blink LED with 1 Hz
 
-            ethernetModule = ethernet_ENC28;
-            ethernet = ethernet_ENC28.Interface;
-
+            ethernet = driver;
             //ethernet = new EthernetBuiltIn();
 
             ethernet.CableConnectivityChanged += ethernet_CableConnectivityChanged;
@@ -51,8 +52,6 @@ namespace MFE.Net.Managers
         #region Public methods
         public void Start()
         {
-            //portNetworkLED.Start();
-
             if (!ethernet.IsOpen)
                 ethernet.Open();
 
@@ -79,12 +78,8 @@ namespace MFE.Net.Managers
             Debug.Print("Ethernet start completed");
 
             if (ethernet.IsActivated)
-            {
                 if (Started != null)
                     Started(this, EventArgs.Empty);
-            }
-
-            //portNetworkLED.Frequency = 0;//.Set(false);
         }
         #endregion
 
@@ -100,7 +95,6 @@ namespace MFE.Net.Managers
                     //Debug.Print("Ethernet connection was established! IPAddress = " + wifiModule.NetworkSettings.IPAddress);
 
                     blocker.Set();
-                    //portNetworkLED.DutyCycle = 0;
 
                     if (Started != null)
                         Started(this, EventArgs.Empty);
@@ -110,8 +104,6 @@ namespace MFE.Net.Managers
                     Debug.Print("Ethernet connection was dropped or disconnected!");
 
                     blocker.Set();
-                    //portNetworkLED.DutyCycle = 1;
-                    //portNetworkLED.Stop();
 
                     if (Stopped != null)
                         Stopped(this, EventArgs.Empty);

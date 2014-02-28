@@ -79,14 +79,10 @@ namespace MFE.Graphics.Controls
         #region Event handlers
         protected override void OnRender(DrawingContext dc)
         {
-            if (background != null)
-                dc.DrawRectangle(background, null, 0, 0, Width, Height);
+            dc.DrawRectangle(background, border, 0, 0, Width, Height);
 
             if (Bitmap != null)
-                dc.DrawRectangle(brush, null, 0, 0, Width, Height);
-
-            if (border != null)
-                dc.DrawRectangle(null, border, 0, 0, Width, Height);
+                dc.DrawRectangle(brush, border, 0, 0, Width, Height);
         }
         #endregion
     }

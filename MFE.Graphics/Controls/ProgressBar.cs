@@ -93,20 +93,19 @@ namespace MFE.Graphics.Controls
 
         protected override void OnRender(DrawingContext dc)
         {
-            if (background != null)
-                dc.DrawRectangle(background, null, 0, 0, Width, Height);
+            dc.DrawRectangle(background, null, 0, 0, Width, Height);
 
             if (foreground != null)
             {
                 bool horizontal = orientation == Orientation.Horizontal;
                 int w = horizontal ? Width * value / 100 : Width;
                 int h = horizontal ? Height : Height * value / 100;
+                int y = horizontal ? 0 : Height - h;
 
-                dc.DrawRectangle(foreground, null, 0, 0, w, h);
+                dc.DrawRectangle(foreground, null, 0, y, w, h);
             }
 
-            if (border != null)
-                dc.DrawRectangle(null, border, 0, 0, Width, Height);
+            dc.DrawRectangle(null, border, 0, 0, Width, Height);
         }
     }
 }
