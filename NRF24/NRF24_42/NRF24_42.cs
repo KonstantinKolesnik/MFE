@@ -641,6 +641,20 @@ namespace Gadgeteer.Modules.KKS
             Wait3750us,
             Wait4000us
         }
+        public enum DataRateType
+        {
+            Speed1Mbps,
+            Speed2Mbps,
+            Speed250kbps,
+            Reserved
+        }
+        public enum TransmitPowerType
+        {
+            Power18dBm,
+            Power12dBm,
+            Power6dBm,
+            Power0dBm
+        }
         public class StatusInfo
         {
             private byte reg;
@@ -880,7 +894,54 @@ namespace Gadgeteer.Modules.KKS
             set { WriteRegister(Registers.RF_CH, (byte)(value & 0x7F)); } // channel is 7 bits
         }
 
-        // TODO: RF_SETUP
+        public bool IsContinuousCarrierTransmitEnabled // default false
+        {
+            get { return ReadRegisterBit(Registers.RF_SETUP, Bits.CONT_WAVE); }
+            set { WriteRegisterBit(Registers.RF_SETUP, Bits.CONT_WAVE, value); }
+        }
+        public bool IsPllLockEnabled // default false
+        {
+            get { return ReadRegisterBit(Registers.RF_SETUP, Bits.PLL_LOCK); }
+            set { WriteRegisterBit(Registers.RF_SETUP, Bits.PLL_LOCK, value); }
+        }
+        public DataRateType DataRate // default 2 Mbps
+        {
+            get
+            {
+                var reg = ReadRegister(Registers.RF_SETUP);
+                var val = ((reg >> Bits.RF_DR_HIGH) & 0x01) + ((reg >> Bits.RF_DR_LOW - 1) & 0x02);
+                return (DataRateType)val;
+            }
+            set
+            {
+                bool bitHigh = ((byte)value & (1 << 0)) > 0;
+                bool bitLow = ((byte)value & (1 << 1)) > 0;
+                
+                var reg = ReadRegister(Registers.RF_SETUP);
+                reg = (bitHigh ? (byte)(reg | (1 << Bits.RF_DR_HIGH)) : (byte)(reg & ~(1 << Bits.RF_DR_HIGH)));
+                reg = (bitLow ? (byte)(reg | (1 << Bits.RF_DR_LOW)) : (byte)(reg & ~(1 << Bits.RF_DR_LOW)));
+                WriteRegister(Registers.RF_SETUP, reg);
+            }
+        }
+        public TransmitPowerType TransmitPower // default 0 dBm
+        {
+            get
+            {
+                var reg = ReadRegister(Registers.RF_SETUP);
+                var val = (reg >> Bits.RF_PWR) & 0x03;
+                return (TransmitPowerType)val;
+            }
+            set
+            {
+                //bool bitHigh = ((byte)value & (1 << 0)) > 0;
+                //bool bitLow = ((byte)value & (1 << 1)) > 0;
+
+                //var reg = ReadRegister(Registers.RF_SETUP);
+                //reg = (bitHigh ? (byte)(reg | (1 << Bits.RF_DR_HIGH)) : (byte)(reg & ~(1 << Bits.RF_DR_HIGH)));
+                //reg = (bitLow ? (byte)(reg | (1 << Bits.RF_DR_LOW)) : (byte)(reg & ~(1 << Bits.RF_DR_LOW)));
+                //WriteRegister(Registers.RF_SETUP, reg);
+            }
+        }
 
         public byte RetransmittedPacketsCount
         {
@@ -1030,6 +1091,12 @@ namespace Gadgeteer.Modules.KKS
             get { return ReadRegisterBit(Registers.FEATURE, Bits.EN_DYN_ACK); }
             set { WriteRegisterBit(Registers.FEATURE, Bits.EN_DYN_ACK, value); }
         }
+
+        public object Tag
+        {
+            get;
+            set;
+        }
         #endregion
 
         #region Events
@@ -1117,45 +1184,41 @@ namespace Gadgeteer.Modules.KKS
 
         public void OpenReadingPipe(byte idx, byte[] address)
         {
-            // If this is pipe 0, cache the address. This is needed because
-            // openWritingPipe() will overwrite the pipe 0 address, so
-            // startListening() will have to restore it.
-            if (idx == 0)
-                pipe0ReadingAddress = address;
-
             if (idx <= 6)
             {
                 // For pipes 2-5, only write the LSB
                 switch (idx)
                 {
                     case 0:
+                        // For pipe 0, cache the address. It's needed because OpenWritingPipe() will overwrite the pipe 0 address, so StartListening() will have to restore it.
+                        pipe0ReadingAddress = address;
                         ReceiverAddress0 = address;
-                        ReceiverPayloadWidth0 = payloadSize;
+                        ReceiverPayloadWidth0 = (byte)System.Math.Min(payloadSize, 32);
                         IsReceiverAddressEnabled0 = true;
                         break;
                     case 1:
                         ReceiverAddress1 = address;
-                        ReceiverPayloadWidth1 = payloadSize;
+                        ReceiverPayloadWidth1 = (byte)System.Math.Min(payloadSize, 32);
                         IsReceiverAddressEnabled1 = true;
                         break;
                     case 2:
                         ReceiverAddress2 = address[0];
-                        ReceiverPayloadWidth2 = payloadSize;
+                        ReceiverPayloadWidth2 = (byte)System.Math.Min(payloadSize, 32);
                         IsReceiverAddressEnabled2 = true;
                         break;
                     case 3:
                         ReceiverAddress3 = address[0];
-                        ReceiverPayloadWidth3 = payloadSize;
+                        ReceiverPayloadWidth3 = (byte)System.Math.Min(payloadSize, 32);
                         IsReceiverAddressEnabled3 = true;
                         break;
                     case 4:
                         ReceiverAddress4 = address[0];
-                        ReceiverPayloadWidth4 = payloadSize;
+                        ReceiverPayloadWidth4 = (byte)System.Math.Min(payloadSize, 32);
                         IsReceiverAddressEnabled4 = true;
                         break;
                     case 5:
                         ReceiverAddress5 = address[0];
-                        ReceiverPayloadWidth5 = payloadSize;
+                        ReceiverPayloadWidth5 = (byte)System.Math.Min(payloadSize, 32);
                         IsReceiverAddressEnabled5 = true;
                         break;
                 }
@@ -1217,17 +1280,34 @@ namespace Gadgeteer.Modules.KKS
         /// <summary>
         ///   Send <param name = "bytes">bytes</param> to given <param name = "address">address</param>
         /// </summary>
-        //public void SendTo(byte[] address, byte[] bytes)
-        //{
-        //    IsEnabled = false; // Chip enable low
+        public void SendTo(byte[] address, byte[] bytes)
+        {
+            IsEnabled = false; // Chip enable low
 
-        //    SetTransmitMode(); // Setup PTX (Primary TX)
-        //    TransmitAddress = address; // Write transmit address to TX_ADDR register. 
-        //    ReceiveAddress0 = address; // Write transmit address to RX_ADDRESS_P0 (Pipe0) (For Auto ACK)
-        //    WriteCommand(Commands.W_TX_PAYLOAD, bytes); // Write payload
+            SetTransmitMode();
+            Thread.Sleep(1); //delayMicroseconds(150);
 
-        //    IsEnabled = true; // Pulse for CE -> starts the transmission.
-        //}
+            TransmitterAddress = address; // Write transmit address to TX_ADDR register. 
+            ReceiverAddress0 = address; // Write transmit address to RX_ADDRESS_P0 (Pipe0) (For Auto ACK)
+            
+            WritePayload(bytes);
+
+            IsEnabled = true; // Pulse for CE -> starts the transmission.
+        }
+        public void Configure(byte[] address)
+        {
+            Initialize();
+
+            // Set module address
+            pipe0ReadingAddress = address;
+            ReceiverAddress0 = address;
+
+            // Setup, CRC enabled, Power Up, PRX
+            SetReceiveMode();
+
+            IsEnabled = true;
+        }
+
 
         /// <summary>
         ///   Scanning all 128 channels in the 2.4GHz band
@@ -1315,7 +1395,7 @@ namespace Gadgeteer.Modules.KKS
             AutoRetransmitDelay = AutoRetransmitDelayType.Wait1500us;
 
             // Restore our default PA level
-            //setPALevel(RF24_PA_MAX);
+            TransmitPower = TransmitPowerType.Power0dBm;
 
             // Determine if this is a p or non-p RF24 module and then
             // reset our data rate back to default value. This works
@@ -1323,16 +1403,24 @@ namespace Gadgeteer.Modules.KKS
             // be set to 250Kbps.
             //if (setDataRate(RF24_250KBPS))
             //    p_variant = true;
-
             // Then set the data rate to the slowest (and most reliable) speed supported by all
             // hardware.
             //setDataRate(RF24_1MBPS);
+            DataRate = DataRateType.Speed2Mbps;
 
             // Initialize CRC and request 2-byte (16bit) CRC
+            IsCRCEnabled = true;
             CRCLength = CRCType.CRC2;
 
+            IsReceiverAddressEnabled0 = true;
+            IsReceiverAddressEnabled1 = true;
+            IsReceiverAddressEnabled2 = true;
+            IsReceiverAddressEnabled3 = true;
+            IsReceiverAddressEnabled4 = true;
+            IsReceiverAddressEnabled5 = true;
+
             IsAutoAckEnabled0 = true;
-            IsAutoAckEnabled1= true;
+            IsAutoAckEnabled1 = true;
             IsAutoAckEnabled2 = true;
             IsAutoAckEnabled3 = true;
             IsAutoAckEnabled4 = true;
@@ -1350,6 +1438,8 @@ namespace Gadgeteer.Modules.KKS
             // Set up default configuration. Callers can always change it later.
             // This channel should be universally safe and not bleed over into adjacent spectrum.
             Channel = 76;
+
+            AddressType = AddressLengthType.AddressLength5;
 
             // Notice reset and flush is the last thing we do
             ResetStatus();
@@ -1378,13 +1468,32 @@ namespace Gadgeteer.Modules.KKS
         
         private void SetTransmitMode()
         {
-            WriteRegisterBit(Registers.CONFIG, Bits.PRIM_RX, false);
-            WriteRegisterBit(Registers.CONFIG, Bits.PWR_UP, true);
+            //WriteRegisterBit(Registers.CONFIG, Bits.PRIM_RX, false);
+            //WriteRegisterBit(Registers.CONFIG, Bits.PWR_UP, true);
+
+            Execute(Commands.W_REGISTER, Registers.CONFIG,
+        new[]
+                        {
+                            (byte) (1 << Bits.PWR_UP |
+                                    1 << Bits.CRCO)
+                        });
+
         }
         private void SetReceiveMode()
         {
-            WriteRegisterBit(Registers.CONFIG, Bits.PRIM_RX, true);
-            WriteRegisterBit(Registers.CONFIG, Bits.PWR_UP, true);
+            ReceiverAddress0 = pipe0ReadingAddress;
+
+            //WriteRegisterBit(Registers.CONFIG, Bits.PRIM_RX, true);
+            //WriteRegisterBit(Registers.CONFIG, Bits.PWR_UP, true);
+
+            Execute(Commands.W_REGISTER, Registers.CONFIG,
+                    new[]
+                        {
+                            (byte) (1 << Bits.PWR_UP |
+                                    1 << Bits.CRCO |
+                                    1 << Bits.PRIM_RX)
+                        });
+
         }
 
         private void WritePayload(byte[] data)
@@ -1437,11 +1546,18 @@ namespace Gadgeteer.Modules.KKS
 
         private void pinIRQ_Interrupt(GTI.InterruptInput sender, bool value)
         {
-            bool wasEnabled = IsEnabled;
             IsEnabled = false;
 
+
             GetStatus();
-            
+
+            //bool isDataReady = status.DataReady;
+            //bool isResendLimitReached = status.ResendLimitReached;
+            //bool isDataSent = status.DataSent;
+
+            SetReceiveMode();
+            //ResetStatus();
+
             if (Interrupt != null)
                 Interrupt(status);
 
@@ -1466,9 +1582,10 @@ namespace Gadgeteer.Modules.KKS
                         payloads[payloadIdx] = ReadPayload(payloadLength);
                         payloadIdx++;
                     }
-
-                    WriteRegisterBit(Registers.STATUS, Bits.RX_DR, true); // Clear RX_DR bit in status register
+                    GetStatus();
+                WriteRegisterBit(Registers.STATUS, Bits.RX_DR, true); // Clear RX_DR bit in status register
                 }
+
             }
             if (status.ResendLimitReached)
             {
@@ -1480,8 +1597,7 @@ namespace Gadgeteer.Modules.KKS
             if (status.DataSent)
                 WriteRegisterBit(Registers.STATUS, Bits.TX_DS, true); // Clear TX_DS bit in status register
 
-
-            IsEnabled = true;// wasEnabled;
+            IsEnabled = true;
 
             if (payloadCorrupted)
                 Debug.Print("Corrupted data received");

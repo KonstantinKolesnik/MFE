@@ -558,6 +558,8 @@ namespace MFE.GraphicsDemo.Content
         }
         public void LibraryDemo()
         {
+            //CheckCalibration();
+
             Desktop.Background = new ImageBrush(GetBitmap(Resources.BinaryResources.reWalls, Bitmap.BitmapImageType.Jpeg)) { Stretch = Stretch.Fill, Opacity = 0 };
             //Desktop.Background = new SolidColorBrush(Color.White);
 
