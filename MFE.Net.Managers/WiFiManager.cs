@@ -1,11 +1,10 @@
+using GHI.Premium.Net;
+using MFE.Core;
+using Microsoft.SPOT;
+using Microsoft.SPOT.Net.NetworkInformation;
 using System;
 //using System.Net.Sockets;
 using System.Threading;
-using GHI.Premium.Net;
-using Microsoft.SPOT;
-using Microsoft.SPOT.Hardware;
-using Gadgeteer.Modules.GHIElectronics;
-using MFE.Core;
 //using System.Net;
 
 namespace MFE.Net.Managers
@@ -22,11 +21,9 @@ namespace MFE.Net.Managers
     {
         #region Fields
         private ManualResetEvent blocker = null;
-        //private PWM portNetworkLED = null;
+        private WiFiRS9110 wifi = null;
         private string ssid;
         private string password;
-        private WiFiRS9110 wifi = null;
-        private WiFiRS21 wifi_RS21 = null;
 
         // ChipworkX Developement System V1.5 UEXT header with WiFi RS21 Module: P/N:GHI-WIFIEXP2-298
         //private SPI.SPI_module _spi = SPI.SPI_module.SPI2; /*SPI bus*/
@@ -53,34 +50,139 @@ namespace MFE.Net.Managers
         #endregion
 
         #region Constructor
-        public WiFiManager(WiFiRS21 wifi_RS21, string ssid, string password)//, Cpu.PWMChannel pinNetworkStatusLED)
+        public WiFiManager(WiFiRS9110 wifi, string ssid, string password)
         {
-            blocker = new ManualResetEvent(false);
-            //portNetworkLED = new PWM(pinNetworkStatusLED, 1, 0.5, ledToVcc); // blink LED with 1 Hz
+            //blocker = new ManualResetEvent(false);
 
-            wifi = wifi_RS21.Interface;
-            wifi.WirelessConnectivityChanged += new WiFiRS9110.WirelessConnectivityChangedEventHandler(wifi_WirelessConnectivityChanged);
-            //wifi.NetworkAddressChanged += new NetworkInterfaceExtension.NetworkAddressChangedEventHandler(wifi_NetworkAddressChanged);
-
+            this.wifi = wifi;
             this.ssid = ssid;
             this.password = password;
+
+            wifi.WirelessConnectivityChanged += new WiFiRS9110.WirelessConnectivityChangedEventHandler(wifi_WirelessConnectivityChanged);
+            wifi.NetworkAddressChanged += new NetworkInterfaceExtension.NetworkAddressChangedEventHandler(wifi_NetworkAddressChanged);
         }
         #endregion
 
         #region Public methods
         public void Start()
         {
-            if (EnableWiFi())
-            {
-                //WiFiNetworkInfo ni = Scan();
-                WiFiNetworkInfo ni = Scan2();
+            //wifi.Open();
+            //wifi.EnableDhcp();
+            //wifi.EnableDynamicDns();
+            //wifi.Join("SSID", "Password");
 
-                if (Connect(ni) && EnableDHCP())
+            //while (wifi.NetworkInterface.IPAddress == "0.0.0.0")
+            //{
+            //    Debug.Print("Waiting for DHCP");
+            //    Thread.Sleep(250);
+            //}
+
+            //return;
+
+            try
+            {
+                if (!wifi.IsOpen)
+                    wifi.Open();
+
+                //if (!wifi.NetworkInterface.IsDynamicDnsEnabled)
+                //    wifi.NetworkInterface.EnableDynamicDns();
+
+                if (!wifi.NetworkInterface.IsDhcpEnabled)
+                    wifi.NetworkInterface.EnableDhcp();
+                else
+                    wifi.NetworkInterface.RenewDhcpLease();
+
+                NetworkInterfaceExtension.AssignNetworkingStackTo(wifi);
+
+                #region scan for network with required SSID:
+                WiFiNetworkInfo[] nis = wifi.Scan(ssid);
+                while (nis == null)
                 {
-                    if (Started != null)
-                        Started(this, EventArgs.Empty);
+                    Thread.Sleep(500);
+                    Debug.Print("Searching for WiFi access point with required SSID...\n");
+                    nis = wifi.Scan(ssid);
                 }
+                Debug.Print(WiFiNetworkInfoToString(nis[0]));
+                #endregion
+
+                #region scan for all networks:
+                //WiFiNetworkInfo myNi = null;
+                //while (myNi == null)
+                //{
+                //    // scan for all networks:
+                //    WiFiNetworkInfo[] nis = null;
+                //    while (nis == null)
+                //    {
+                //        Thread.Sleep(500);
+                //        Debug.Print("Searching for WiFi access points...");
+                //        nis = wifi.Scan();
+                //    }
+                //    // output networks info:
+                //    Debug.Print("Found " + nis.Length.ToString() + " network(s):");
+                //    foreach (WiFiNetworkInfo ni in nis)
+                //    {
+                //        Debug.Print("-----------------------------------------------------");
+                //        Debug.Print(WiFiNetworkInfoToString(ni));
+                //    }
+                //    Debug.Print("-----------------------------------------------------");
+                //}
+                #endregion
+
+                try
+                {
+                    Debug.Print("Connecting to " + nis[0].SSID + "...");
+                    wifi.Join(nis[0], password);
+
+                    //while (wifi.NetworkInterface.IPAddress == "0.0.0.0")
+                    //{
+                    //    Debug.Print("Waiting for DHCP");
+                    //    Thread.Sleep(250);
+                    //}
+
+                }
+                catch (NetworkInterfaceExtensionException e)
+                {
+                    switch (e.errorCode)
+                    {
+                        case NetworkInterfaceExtensionException.ErrorCode.AuthenticationFailed: Debug.Print("AuthenticationFailed"); break;
+                        //case NetworkInterfaceExtensionException.ErrorCode.AlreadyActivated: break;
+                        default: Debug.Print(e.errorCode.ToString()); break;
+                    }
+                    //Debug.Print("Error Message: " + e.ErrorMsg);
+                    //if (e.errorCode != NetworkInterfaceExtensionException.ErrorCode.AlreadyActivated)
+                }
+                catch (Exception e)
+                {
+                    Debug.Print("Join failed: " + e.Message);
+                }
+
+                Debug.Print("WiFi start completed");
             }
+            catch (Exception ex)//(NetworkInterfaceExtensionException ex)
+            {
+                Debug.Print("WiFi start failed: " + ex.Message);
+            }
+
+
+            //int a = 0;
+            //int b = a;
+
+
+
+
+
+
+            //if (EnableWiFi())
+            //{
+            //    //WiFiNetworkInfo ni = Scan();
+            //    WiFiNetworkInfo ni = Scan2();
+
+            //    if (Connect(ni) && EnableDHCP())
+            //    {
+            //        if (Started != null)
+            //            Started(this, EventArgs.Empty);
+            //    }
+            //}
         }
         #endregion
 
@@ -114,8 +216,10 @@ namespace MFE.Net.Managers
                 if (wifi.IsActivated) // make sure that the event is fired by WiFi interface, not other networking interface.
                     if (wifi.IsLinkConnected)
                     {
-                        blocker.Set();
+                        //blocker.Set();
                         Debug.Print("WiFi connection was established!");
+                        if (Started != null)
+                            Started(this, EventArgs.Empty);
                     }
             }
             else
@@ -123,7 +227,7 @@ namespace MFE.Net.Managers
                 if (wifi.IsActivated) // make sure that the event is fired by WiFi interface, not other networking interface.
                     if (!wifi.IsLinkConnected)
                     {
-                        blocker.Set();
+                        //blocker.Set();
                         Debug.Print("WiFi connection was dropped or disconnected!");
                         if (Stopped != null)
                             Stopped(this, EventArgs.Empty);
@@ -148,6 +252,11 @@ namespace MFE.Net.Managers
         private void wifi_NetworkAddressChanged(object sender, EventArgs e)
         {
             //Debug.Print("AddressChanged");
+            Debug.Print("**** Network Address Changed ******");
+            Debug.Print("IP: " + wifi.NetworkInterface.IPAddress);
+            Debug.Print("GatewayAddress: " + wifi.NetworkInterface.GatewayAddress);
+            for (int i = 0; i < wifi.NetworkInterface.DnsAddresses.Length; i++)
+                Debug.Print("DnsAddress " + i.ToString() + ": " + wifi.NetworkInterface.DnsAddresses[i]);
         }
         #endregion
 
@@ -350,3 +459,36 @@ namespace MFE.Net.Managers
         }
     }
 }
+
+/*
+    private static WiFiRS9110 netif;
+
+    public static void Main()
+    {
+        NetworkChange.NetworkAvailabilityChanged += NetworkChange_NetworkAvailabilityChanged;
+        NetworkChange.NetworkAddressChanged += NetworkChange_NetworkAddressChanged;
+
+        netif = new WiFiRS9110(SPI.SPI_module.SPI1, Cpu.Pin.GPIO_Pin1, Cpu.Pin.GPIO_Pin2, Cpu.Pin.GPIO_Pin3);
+        netif.Open();
+        netif.EnableDhcp();
+        netif.EnableDynamicDns();
+        netif.Join("SSID", "Password");
+
+        while (netif.IPAddress == "0.0.0.0")
+        {
+            Debug.Print("Waiting for DHCP");
+            Thread.Sleep(250);
+        }
+
+        //The network is now ready to use.
+    }
+
+    private static void NetworkChange_NetworkAddressChanged(object sender, Microsoft.SPOT.EventArgs e)
+    {
+        Debug.Print("Network address changed");
+    }
+    private static void NetworkChange_NetworkAvailabilityChanged(object sender, NetworkAvailabilityEventArgs e)
+    {
+        Debug.Print("Network availability: " + e.IsAvailable.ToString());
+    }
+*/
