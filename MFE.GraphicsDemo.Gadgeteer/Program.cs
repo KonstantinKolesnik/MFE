@@ -7,6 +7,7 @@ using MFE.LCD;
 using Microsoft.SPOT;
 using Microsoft.SPOT.Hardware;
 using System.Threading;
+using Gadgeteer.Modules.GHIElectronics;
 
 namespace MFE.GraphicsDemo
 {
@@ -30,7 +31,8 @@ namespace MFE.GraphicsDemo
 
             demo = new DemoManager(240, 320, delegate(Bitmap bitmap, Rect dirtyArea)
             {
-                display.SimpleGraphics.DisplayImage(bitmap, dirtyArea.X, dirtyArea.Y, dirtyArea.X, dirtyArea.Y, dirtyArea.Width, dirtyArea.Height);
+                //display.SimpleGraphics.DisplayImage(bitmap, dirtyArea.X, dirtyArea.Y, dirtyArea.X, dirtyArea.Y, dirtyArea.Width, dirtyArea.Height);
+                display.SimpleGraphics.DisplayImage(bitmap, (uint)dirtyArea.X, (uint)dirtyArea.Y, (uint)dirtyArea.X, (uint)dirtyArea.Y, (uint)dirtyArea.Width, (uint)dirtyArea.Height);
             });
             demo.QuickDemo();
         }

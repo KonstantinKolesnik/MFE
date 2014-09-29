@@ -15,7 +15,6 @@ namespace MFE.Net.Managers
     
 #elif MF_FRAMEWORK_VERSION_V4_3
 
-    biphpi
 #endif
 
 
