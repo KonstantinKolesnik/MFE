@@ -10,6 +10,15 @@ using MFE.Core;
 
 namespace MFE.Net.Managers
 {
+#if MF_FRAMEWORK_VERSION_V4_2
+
+    
+#elif MF_FRAMEWORK_VERSION_V4_3
+
+    biphpi
+#endif
+
+
     public class WiFiManager : INetworkManager
     {
         #region Fields

@@ -40,6 +40,7 @@
   </ItemGroup>
   <ItemGroup>
     <Reference Include="Gadgeteer, Version=2.42.0.0, Culture=neutral, processorArchitecture=MSIL" />
+    <Reference Include="GHI.Networking, Version=4.3.4.0, Culture=neutral, processorArchitecture=MSIL" />
     <Reference Include="GHI.Premium.Net, Version=4.2.11.1, Culture=neutral, processorArchitecture=MSIL" />
     <Reference Include="GTM.GHIElectronics.EthernetENC28, Version=4.2.106.0, Culture=neutral, processorArchitecture=MSIL" />
     <Reference Include="GTM.GHIElectronics.WiFiRS21, Version=4.2.106.0, Culture=neutral, processorArchitecture=MSIL" />

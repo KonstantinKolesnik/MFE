@@ -3,6 +3,7 @@ using GHI.Premium.Net;
 using MFE.Core;
 using Microsoft.SPOT;
 using Microsoft.SPOT.Hardware;
+using Microsoft.SPOT.Net.NetworkInformation;
 using System;
 //using System.Net.Sockets;
 using System.Threading;
@@ -31,6 +32,9 @@ namespace MFE.Net.Managers
             wifi = wifi_RS21.Interface;
             wifi.WirelessConnectivityChanged += wifi_WirelessConnectivityChanged;
             wifi.NetworkAddressChanged += wifi_NetworkAddressChanged;
+
+            //NetworkChange.NetworkAvailabilityChanged += NetworkChange_NetworkAvailabilityChanged;
+            //NetworkChange.NetworkAddressChanged += NetworkChange_NetworkAddressChanged;
 
             this.ssid = ssid;
             this.password = password;
@@ -197,3 +201,37 @@ namespace MFE.Net.Managers
         }
     }
 }
+
+/*
+    private static WiFiRS9110 netif;
+
+    public static void Main()
+    {
+        NetworkChange.NetworkAvailabilityChanged += NetworkChange_NetworkAvailabilityChanged;
+        NetworkChange.NetworkAddressChanged += NetworkChange_NetworkAddressChanged;
+
+        netif = new WiFiRS9110(SPI.SPI_module.SPI1, Cpu.Pin.GPIO_Pin1, Cpu.Pin.GPIO_Pin2, Cpu.Pin.GPIO_Pin3);
+        netif.Open();
+        netif.EnableDhcp();
+        netif.EnableDynamicDns();
+        netif.Join("SSID", "Password");
+
+        while (netif.IPAddress == "0.0.0.0")
+        {
+            Debug.Print("Waiting for DHCP");
+            Thread.Sleep(250);
+        }
+
+        //The network is now ready to use.
+    }
+
+    private static void NetworkChange_NetworkAddressChanged(object sender, Microsoft.SPOT.EventArgs e)
+    {
+        Debug.Print("Network address changed");
+    }
+
+    private static void NetworkChange_NetworkAvailabilityChanged(object sender, NetworkAvailabilityEventArgs e)
+    {
+        Debug.Print("Network availability: " + e.IsAvailable.ToString());
+    }
+*/
