@@ -15,7 +15,7 @@ namespace MFE.Net.Managers
         //private PWM portNetworkLED = null;
         private string ssid;
         private string password;
-        private WiFi_RS21 wifiModule = null;
+        private WiFiRS21 wifiModule = null;
         private WiFiRS9110 wifi = null;
         #endregion
 
@@ -25,7 +25,7 @@ namespace MFE.Net.Managers
         #endregion
 
         #region Constructor
-        public GadgeteerWiFiManager(WiFi_RS21 wifi_RS21, string ssid, string password)
+        public GadgeteerWiFiManager(WiFiRS21 wifi_RS21, string ssid, string password)
         {
             wifiModule = wifi_RS21;
             wifi = wifi_RS21.Interface;

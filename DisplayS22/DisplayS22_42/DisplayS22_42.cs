@@ -201,11 +201,12 @@ namespace Gadgeteer.Modules.KKS
         }
         private void ConfigureDisplay()
         {
-            Mainboard.LCDConfiguration lcdConfig = new Mainboard.LCDConfiguration();
-            lcdConfig.LCDControllerEnabled = false;
-            lcdConfig.Width = Width;
-            lcdConfig.Height = Height;
-            DisplayModule.SetLCDConfig(lcdConfig);
+            DisplayModule.SetLCDConfig(new Mainboard.LCDConfiguration()
+            {
+                LCDControllerEnabled = false,
+                Width = Width,
+                Height = Height
+            });
 
             WriteCommand(0xCB);
             WriteData(0x39);

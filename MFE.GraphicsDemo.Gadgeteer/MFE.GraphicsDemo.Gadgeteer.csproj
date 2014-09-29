@@ -9,7 +9,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>MFE.GraphicsDemo</RootNamespace>
     <AssemblyName>MFE.GraphicsDemo</AssemblyName>
-    <TargetFrameworkVersion>v4.2</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.3</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <!--Identify this as a MicroFramework, CSharp project-->
     <ProjectTypeGuids>{b69e3092-b931-443c-abe7-7e7b65f2a37f};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
@@ -18,6 +18,7 @@
     <!-- Default transport and device-->
     <DeployDevice>Gadgeteer</DeployDevice>
     <DeployTransport>USB</DeployTransport>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -50,17 +51,14 @@
   <ItemGroup>
     <Reference Include="Gadgeteer" />
     <Reference Include="GHI.Premium.Hardware, Version=4.2.11.1, Culture=neutral, processorArchitecture=MSIL" />
-    <Reference Include="GHI.Premium.IO, Version=4.2.11.1, Culture=neutral, processorArchitecture=MSIL" />
     <Reference Include="GHI.Premium.System, Version=4.2.11.1, Culture=neutral, processorArchitecture=MSIL" />
     <Reference Include="GHIElectronics.Gadgeteer.FEZRaptor, Version=4.2.102.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="GTM.GHIElectronics.Display_TE35, Version=4.2.102.0, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="GTM.GHIElectronics.DisplayTE35, Version=4.3.4.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="GTM.GHIElectronics.UsbClientDP, Version=4.2.102.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-    </Reference>
+    <Reference Include="GTM.GHIElectronics.USBClientDP, Version=4.3.4.0, Culture=neutral, processorArchitecture=MSIL" />
     <Reference Include="Microsoft.SPOT.Graphics" />
     <Reference Include="Microsoft.SPOT.Hardware" />
     <Reference Include="Microsoft.SPOT.Native" />
@@ -79,9 +77,9 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\DisplayS22\DisplayS22_42\DisplayS22_42.csproj">
-      <Project>{CEE343DA-F678-4EB7-8D0D-D6F0762A8A89}</Project>
-      <Name>DisplayS22_42</Name>
+    <ProjectReference Include="..\DisplayS22\DisplayS22_43\DisplayS22_43.csproj">
+      <Project>{0F8B9090-F49A-4D22-85D4-8C66FFFB9019}</Project>
+      <Name>DisplayS22_43</Name>
     </ProjectReference>
     <ProjectReference Include="..\MFE.Core\MFE.Core.csproj">
       <Project>{8EE96EBA-F6D8-4433-A72E-AED3A5A0EFDA}</Project>

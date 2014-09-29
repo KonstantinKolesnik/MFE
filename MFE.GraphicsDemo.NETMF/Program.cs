@@ -1,6 +1,4 @@
-﻿using GHI.Premium.Hardware;
-using MFE.GraphicsDemo.Content;
-using MFE.LCD;
+﻿using MFE.GraphicsDemo.Content;
 
 namespace MFE.GraphicsDemo.NETMF
 {
@@ -23,6 +21,8 @@ namespace MFE.GraphicsDemo.NETMF
             //    Util.FlushExtendedWeakReferences();
             //    Microsoft.SPOT.Hardware.PowerState.RebootDevice(false);
             //}
+
+
 
             //demo = new Demo(800, 480);
             //demo.QuickDemo();

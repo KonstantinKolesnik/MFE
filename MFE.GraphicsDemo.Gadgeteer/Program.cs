@@ -1,5 +1,4 @@
 ﻿using Gadgeteer.Modules.KKS;
-using GHI.Premium.Hardware;
 using GHI.Premium.System;
 using MFE.Core;
 using MFE.Graphics.Geometry;
@@ -18,7 +17,6 @@ namespace MFE.GraphicsDemo
 
         void ProgramStarted()
         {
-
             //Demo22SPI();
             Demo35();
             //Demo35Video();
@@ -32,7 +30,7 @@ namespace MFE.GraphicsDemo
 
             demo = new DemoManager(240, 320, delegate(Bitmap bitmap, Rect dirtyArea)
             {
-                display.SimpleGraphics.DisplayImage(bitmap, (uint)dirtyArea.X, (uint)dirtyArea.Y, (uint)dirtyArea.X, (uint)dirtyArea.Y, (uint)dirtyArea.Width, (uint)dirtyArea.Height);
+                display.SimpleGraphics.DisplayImage(bitmap, dirtyArea.X, dirtyArea.Y, dirtyArea.X, dirtyArea.Y, dirtyArea.Width, dirtyArea.Height);
             });
             demo.QuickDemo();
         }
@@ -53,6 +51,9 @@ namespace MFE.GraphicsDemo
             //        PowerState.RebootDevice(false);
             //    }
             //}
+
+
+
 
             demo = new DemoManager(320, 240);
             //demo.QuickDemo();

@@ -50,15 +50,15 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\DisplayS22_41\DisplayS22_41.csproj">
-      <Project>{5F494CB2-2660-4A1C-B25E-2CBA111944BA}</Project>
+      <Project>{5f494cb2-2660-4a1c-b25e-2cba111944ba}</Project>
       <Name>DisplayS22_41</Name>
     </ProjectReference>
     <ProjectReference Include="..\DisplayS22_42\DisplayS22_42.csproj">
-      <Project>{CEE343DA-F678-4EB7-8D0D-D6F0762A8A89}</Project>
+      <Project>{cee343da-f678-4eb7-8d0d-d6f0762a8a89}</Project>
       <Name>DisplayS22_42</Name>
     </ProjectReference>
     <ProjectReference Include="..\DisplayS22_43\DisplayS22_43.csproj">
-      <Project>{0F8B9090-F49A-4D22-85D4-8C66FFFB9019}</Project>
+      <Project>{0f8b9090-f49a-4d22-85d4-8c66fffb9019}</Project>
       <Name>DisplayS22_43</Name>
     </ProjectReference>
   </ItemGroup>

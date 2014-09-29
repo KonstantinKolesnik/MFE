@@ -1,9 +1,8 @@
-﻿
-
-using Gadgeteer.Modules.KKS;
+﻿using Gadgeteer.Modules.KKS;
 using MFE.Graphics.Geometry;
 using MFE.GraphicsDemo.Content;
 using Microsoft.SPOT;
+
 namespace MFE.GraphicsDemo.ArgonR1
 {
     public partial class Program
@@ -24,8 +23,6 @@ namespace MFE.GraphicsDemo.ArgonR1
             //t.Start();
 
             Demo22SPI();
-
-
         }
 
         private void Demo22SPI()
@@ -38,6 +35,5 @@ namespace MFE.GraphicsDemo.ArgonR1
             });
             demo.QuickDemo();
         }
-
     }
 }

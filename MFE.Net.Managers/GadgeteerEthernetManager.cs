@@ -20,7 +20,7 @@ namespace MFE.Net.Managers
         // wifi is same thing
         // static WiFiRS9110 wifi = new WiFiRS9110(......);
 
-        private Ethernet_ENC28 ethernetModule = null;
+        private EthernetENC28 ethernetModule = null;
         private EthernetENC28J60 ethernet = null;
         //private static EthernetBuiltIn ethernet;
         #endregion
@@ -31,7 +31,7 @@ namespace MFE.Net.Managers
         #endregion
 
         #region Constructor
-        public GadgeteerEthernetManager(Ethernet_ENC28 gtm)
+        public GadgeteerEthernetManager(EthernetENC28 gtm)
             : this(gtm.Interface)
         {
             ethernetModule = gtm;

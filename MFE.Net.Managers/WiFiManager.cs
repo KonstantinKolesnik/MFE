@@ -18,7 +18,7 @@ namespace MFE.Net.Managers
         private string ssid;
         private string password;
         private WiFiRS9110 wifi = null;
-        private WiFi_RS21 wifi_RS21 = null;
+        private WiFiRS21 wifi_RS21 = null;
 
         // ChipworkX Developement System V1.5 UEXT header with WiFi RS21 Module: P/N:GHI-WIFIEXP2-298
         //private SPI.SPI_module _spi = SPI.SPI_module.SPI2; /*SPI bus*/
@@ -45,7 +45,7 @@ namespace MFE.Net.Managers
         #endregion
 
         #region Constructor
-        public WiFiManager(WiFi_RS21 wifi_RS21, string ssid, string password)//, Cpu.PWMChannel pinNetworkStatusLED)
+        public WiFiManager(WiFiRS21 wifi_RS21, string ssid, string password)//, Cpu.PWMChannel pinNetworkStatusLED)
         {
             blocker = new ManualResetEvent(false);
             //portNetworkLED = new PWM(pinNetworkStatusLED, 1, 0.5, ledToVcc); // blink LED with 1 Hz
