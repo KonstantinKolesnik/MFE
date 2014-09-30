@@ -41,6 +41,7 @@
     <Compile Include="Tcp\TcpSession.cs" />
     <Compile Include="Tcp\TcpSessionDataReceivedEventHandler.cs" />
     <Compile Include="Tcp\TcpSessionEventHandler.cs" />
+    <Compile Include="Udp\DiscoveryListener.cs" />
     <Compile Include="Udp\FixedTimeService.cs" />
     <Compile Include="WebSocket\WSServer.cs" />
     <Compile Include="WebSocket\WSConstants.cs" />
