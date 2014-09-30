@@ -1,26 +1,15 @@
 using GHI.Premium.Net;
 using MFE.Core;
 using Microsoft.SPOT;
-using Microsoft.SPOT.Net.NetworkInformation;
 using System;
-//using System.Net.Sockets;
 using System.Threading;
-//using System.Net;
 
 namespace MFE.Net.Managers
 {
-#if MF_FRAMEWORK_VERSION_V4_2
-
-    
-#elif MF_FRAMEWORK_VERSION_V4_3
-
-#endif
-
-
     public class WiFiManager : INetworkManager
     {
         #region Fields
-        private ManualResetEvent blocker = null;
+        //private ManualResetEvent blocker = new ManualResetEvent(false);
         private WiFiRS9110 wifi = null;
         private string ssid;
         private string password;
@@ -52,8 +41,6 @@ namespace MFE.Net.Managers
         #region Constructor
         public WiFiManager(WiFiRS9110 wifi, string ssid, string password)
         {
-            //blocker = new ManualResetEvent(false);
-
             this.wifi = wifi;
             this.ssid = ssid;
             this.password = password;
@@ -66,192 +53,53 @@ namespace MFE.Net.Managers
         #region Public methods
         public void Start()
         {
-            //wifi.Open();
-            //wifi.EnableDhcp();
-            //wifi.EnableDynamicDns();
-            //wifi.Join("SSID", "Password");
-
-            //while (wifi.NetworkInterface.IPAddress == "0.0.0.0")
-            //{
-            //    Debug.Print("Waiting for DHCP");
-            //    Thread.Sleep(250);
-            //}
-
-            //return;
-
-            try
+            if (OpenWiFi() && EnableDHCP())
             {
-                if (!wifi.IsOpen)
-                    wifi.Open();
-
-                //if (!wifi.NetworkInterface.IsDynamicDnsEnabled)
-                //    wifi.NetworkInterface.EnableDynamicDns();
-
-                if (!wifi.NetworkInterface.IsDhcpEnabled)
-                    wifi.NetworkInterface.EnableDhcp();
-                else
-                    wifi.NetworkInterface.RenewDhcpLease();
-
                 NetworkInterfaceExtension.AssignNetworkingStackTo(wifi);
 
-                #region scan for network with required SSID:
-                WiFiNetworkInfo[] nis = wifi.Scan(ssid);
-                while (nis == null)
-                {
-                    Thread.Sleep(500);
-                    Debug.Print("Searching for WiFi access point with required SSID...\n");
-                    nis = wifi.Scan(ssid);
-                }
-                Debug.Print(WiFiNetworkInfoToString(nis[0]));
-                #endregion
+                WiFiNetworkInfo ni = SearchForNetwork();
 
-                #region scan for all networks:
-                //WiFiNetworkInfo myNi = null;
-                //while (myNi == null)
-                //{
-                //    // scan for all networks:
-                //    WiFiNetworkInfo[] nis = null;
-                //    while (nis == null)
-                //    {
-                //        Thread.Sleep(500);
-                //        Debug.Print("Searching for WiFi access points...");
-                //        nis = wifi.Scan();
-                //    }
-                //    // output networks info:
-                //    Debug.Print("Found " + nis.Length.ToString() + " network(s):");
-                //    foreach (WiFiNetworkInfo ni in nis)
-                //    {
-                //        Debug.Print("-----------------------------------------------------");
-                //        Debug.Print(WiFiNetworkInfoToString(ni));
-                //    }
-                //    Debug.Print("-----------------------------------------------------");
-                //}
-                #endregion
-
-                try
-                {
-                    Debug.Print("Connecting to " + nis[0].SSID + "...");
-                    wifi.Join(nis[0], password);
-
-                    //while (wifi.NetworkInterface.IPAddress == "0.0.0.0")
-                    //{
-                    //    Debug.Print("Waiting for DHCP");
-                    //    Thread.Sleep(250);
-                    //}
-
-                }
-                catch (NetworkInterfaceExtensionException e)
-                {
-                    switch (e.errorCode)
-                    {
-                        case NetworkInterfaceExtensionException.ErrorCode.AuthenticationFailed: Debug.Print("AuthenticationFailed"); break;
-                        //case NetworkInterfaceExtensionException.ErrorCode.AlreadyActivated: break;
-                        default: Debug.Print(e.errorCode.ToString()); break;
-                    }
-                    //Debug.Print("Error Message: " + e.ErrorMsg);
-                    //if (e.errorCode != NetworkInterfaceExtensionException.ErrorCode.AlreadyActivated)
-                }
-                catch (Exception e)
-                {
-                    Debug.Print("Join failed: " + e.Message);
-                }
-
-                Debug.Print("WiFi start completed");
+                if (!Join(ni))
+                    if (Stopped != null)
+                        Stopped(this, EventArgs.Empty);
             }
-            catch (Exception ex)//(NetworkInterfaceExtensionException ex)
-            {
-                Debug.Print("WiFi start failed: " + ex.Message);
-            }
-
-
-            //int a = 0;
-            //int b = a;
-
-
-
-
-
-
-            //if (EnableWiFi())
-            //{
-            //    //WiFiNetworkInfo ni = Scan();
-            //    WiFiNetworkInfo ni = Scan2();
-
-            //    if (Connect(ni) && EnableDHCP())
-            //    {
-            //        if (Started != null)
-            //            Started(this, EventArgs.Empty);
-            //    }
-            //}
         }
         #endregion
 
         #region Event handlers
-        //private void wifi_NetworkUp(Gadgeteer.Modules.Module.NetworkModule sender, Gadgeteer.Modules.Module.NetworkModule.NetworkState state)
-        //{
-        //    if (state == Gadgeteer.Modules.Module.NetworkModule.NetworkState.Up)
-        //        Debug.Print("Network Up event; state = Up");
-        //    else
-        //        Debug.Print("Network Up event; state = Down");
-        //}
-        //private void wifi_NetworkDown(Gadgeteer.Modules.Module.NetworkModule sender, Gadgeteer.Modules.Module.NetworkModule.NetworkState state)
-        //{
-        //    if (state == Gadgeteer.Modules.Module.NetworkModule.NetworkState.Down)
-        //    {
-        //        Debug.Print("Network Up event; state = Down");
-        //        //if (Stopped != null)
-        //        //    Stopped(this, EventArgs.Empty);
-        //        //Start();
-        //    }
-        //    else
-        //        Debug.Print("Network Up event; state = Up");
-        //}
-
         private void wifi_WirelessConnectivityChanged(object sender, WiFiRS9110.WirelessConnectivityEventArgs e)
         {
             Debug.Print("Network Availability Event Triggered");
 
-            if (e.IsConnected)
+            if (wifi.IsActivated) // make sure that the event is fired by WiFi interface, not other networking interface.
             {
-                if (wifi.IsActivated) // make sure that the event is fired by WiFi interface, not other networking interface.
+
+                if (e.IsConnected)
+                {
                     if (wifi.IsLinkConnected)
                     {
                         //blocker.Set();
                         Debug.Print("WiFi connection was established!");
+
                         if (Started != null)
                             Started(this, EventArgs.Empty);
                     }
-            }
-            else
-            {
-                if (wifi.IsActivated) // make sure that the event is fired by WiFi interface, not other networking interface.
+                }
+                else
+                {
                     if (!wifi.IsLinkConnected)
                     {
                         //blocker.Set();
                         Debug.Print("WiFi connection was dropped or disconnected!");
+
                         if (Stopped != null)
                             Stopped(this, EventArgs.Empty);
-
-                        Start();
                     }
+                }
             }
-
-
-
-
-            //if (!e.IsConnected && wifi.IsActivated)// We need to try to reconnect because the TCPIP stack is assigned to wifi
-            //{
-            //    Debug.Print(e.IsConnected ? " WiFi link is connected" : "WiFi connection was lost");
-            //    //if (!ConnectWiFiThread.IsAlive)
-            //    {
-            //        ConnectWiFi();
-            //        //NetworkInterfaceExtension.AssignNetworkingStackTo(wifi);
-            //    }
-            //}
         }
         private void wifi_NetworkAddressChanged(object sender, EventArgs e)
         {
-            //Debug.Print("AddressChanged");
             Debug.Print("**** Network Address Changed ******");
             Debug.Print("IP: " + wifi.NetworkInterface.IPAddress);
             Debug.Print("GatewayAddress: " + wifi.NetworkInterface.GatewayAddress);
@@ -261,13 +109,12 @@ namespace MFE.Net.Managers
         #endregion
 
         #region Private methods
-        private bool EnableWiFi()
+        private bool OpenWiFi()
         {
             try
             {
-                Thread.Sleep(2000);
-                wifi.Open();
-                NetworkInterfaceExtension.AssignNetworkingStackTo(wifi);
+                if (!wifi.IsOpen)
+                    wifi.Open();
             }
             catch (NetworkInterfaceExtensionException e)
             {
@@ -300,55 +147,60 @@ namespace MFE.Net.Managers
             Debug.Print("\nEnabled successfully!\nAt this point, the on-board LED on RS9110_N_11_21_1_Compatible module is ON.\n");
             return true;
         }
-        //private WiFiNetworkInfo Scan()
-        //{
-        //    WiFiNetworkInfo myNi = null;
-        //    while (myNi == null)
-        //    {
-        //        // scan for all networks:
-        //        WiFiNetworkInfo[] nis = null;
-        //        while (nis == null)
-        //        {
-        //            Thread.Sleep(500);
-        //            Debug.Print("Searching for WiFi access points...");
-        //            nis = wifi.Scan();
-        //        }
-
-        //        // output networks info:
-        //        Debug.Print("Found " + nis.Length.ToString() + " network(s):");
-        //        foreach (WiFiNetworkInfo ni in nis)
-        //        {
-        //            Debug.Print("-----------------------------------------------------");
-        //            Debug.Print(WiFiNetworkInfoToString(ni));
-        //        }
-        //        Debug.Print("-----------------------------------------------------");
-
-        //        // check for required SSID:
-        //        Debug.Print("Check for required SSID...");
-        //        foreach (WiFiNetworkInfo ni in nis)
-        //            if (string.Compare(ni.SSID, ssid) == 0)
-        //            {
-        //                myNi = ni;
-        //                break;
-        //            }
-        //    }
-
-        //    return myNi;
-        //}
-        private WiFiNetworkInfo Scan2()
+        private bool EnableDHCP()
         {
-            // scan for network with required SSID:
-            WiFiNetworkInfo[] nis = wifi.Scan(ssid);
+            Debug.Print("Enable DHCP...\n");
+
+            try
+            {
+                #region Dynamic IP
+                if (!wifi.NetworkInterface.IsDynamicDnsEnabled)
+                    wifi.NetworkInterface.EnableDynamicDns();
+
+                if (!wifi.NetworkInterface.IsDhcpEnabled)
+                    wifi.NetworkInterface.EnableDhcp(); // This function is blocking
+                else
+                    wifi.NetworkInterface.RenewDhcpLease(); // This function is blocking
+                #endregion
+
+                #region Static IP
+                // Uncomment the following line if you want to use a static IP address, and comment out the DHCP code region above
+                //wifi.NetworkInterface.EnableStaticIP("192.168.1.110", "255.255.255.0", "192.168.1.1");
+                //wifi.NetworkInterface.EnableStaticDns(new string[] { "10.1.10.1" });
+                #endregion
+
+                Debug.Print("Network settings:");
+                Debug.Print("IP Address: " + wifi.NetworkInterface.IPAddress);
+                Debug.Print("Subnet Mask: " + wifi.NetworkInterface.SubnetMask);
+                Debug.Print("Default Getway: " + wifi.NetworkInterface.GatewayAddress);
+                Debug.Print("DNS Server: " + wifi.NetworkInterface.DnsAddresses[0]);
+            }
+            catch (Exception e)//SocketException e
+            {
+                Debug.Print("DHCP faild");
+                //if (e.ErrorCode == 11003)
+                //    Debug.Print("Re-Enable the module.");
+
+                return false;
+            }
+
+            return true;
+        }
+        private WiFiNetworkInfo SearchForNetwork()
+        {
+            WiFiNetworkInfo[] nis = null;
+
             while (nis == null)
             {
-                Thread.Sleep(500);
+                Thread.Sleep(250);
                 Debug.Print("Searching for WiFi access point with required SSID...\n");
                 nis = wifi.Scan(ssid);
             }
+
             Debug.Print(WiFiNetworkInfoToString(nis[0]));
             return nis[0];
         }
-        private bool Connect(WiFiNetworkInfo ni)
+        private bool Join(WiFiNetworkInfo ni)
         {
             if (wifi.IsLinkConnected)
                 return true;
@@ -356,8 +208,14 @@ namespace MFE.Net.Managers
             try
             {
                 Debug.Print("Connecting to " + ni.SSID + "...");
-                blocker.Reset();
+                //blocker.Reset();
                 wifi.Join(ni, password);
+
+                while (wifi.NetworkInterface.IPAddress == "0.0.0.0")
+                {
+                    Debug.Print("Waiting for IPAddress");
+                    Thread.Sleep(250);
+                }
             }
             catch (NetworkInterfaceExtensionException e)
             {
@@ -378,53 +236,16 @@ namespace MFE.Net.Managers
             }
 
             Debug.Print("Done connecting...\n");
-            blocker.WaitOne();
+            //blocker.WaitOne();
             Debug.Print("We got NetworkAvailable event. WiFi link is ready!\n");
+
             return true;
-        }
-        private bool EnableDHCP()
-        {
-            Debug.Print("Enable DHCP...\n");
-
-            try
-            {
-                #region DHCP Code (dynamic IP)
-                if (!wifi.NetworkInterface.IsDhcpEnabled)
-                    wifi.NetworkInterface.EnableDhcp(); // This function is blocking
-                else
-                    wifi.NetworkInterface.RenewDhcpLease(); // This function is blocking
-                #endregion
-
-                #region Static IP code
-                // Uncomment the following line if you want to use a static IP address, and comment out the DHCP code region above
-                //wifi.NetworkInterface.EnableStaticIP("192.168.0.110", "255.255.255.0", "192.168.0.1");
-                //wifi.NetworkInterface.EnableStaticDns(new string[] { "10.1.10.1" });
-                #endregion
-
-                Debug.Print("Network settings:");
-                Debug.Print("IP Address: " + wifi.NetworkInterface.IPAddress);
-                Debug.Print("Subnet Mask: " + wifi.NetworkInterface.SubnetMask);
-                Debug.Print("Default Getway: " + wifi.NetworkInterface.GatewayAddress);
-                Debug.Print("DNS Server: " + wifi.NetworkInterface.DnsAddresses[0]);
-
-                return true;
-            }
-            catch (Exception e)//SocketException e
-            {
-                Debug.Print("DHCP faild");
-                //if (e.ErrorCode == 11003)
-                //    Debug.Print("Re-Enable the module.");
-            }
-
-            return false;
         }
         private void Disconnect()
         {
             if (wifi.IsLinkConnected)
                 wifi.Disconnect();
         }
-        #endregion
-
         private static string WiFiNetworkInfoToString(WiFiNetworkInfo info)
         {
             string str = "SSID: " + info.SSID + "\n";
@@ -457,6 +278,7 @@ namespace MFE.Net.Managers
 
             return str;
         }
+        #endregion
     }
 }
 

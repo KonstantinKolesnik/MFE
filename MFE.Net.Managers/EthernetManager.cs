@@ -1,23 +1,16 @@
-using System;
-using Microsoft.SPOT;
-//using System.Net;
-using System.Text;
-using System.Threading;
 using GHI.Premium.Net;
-using Microsoft.SPOT.Hardware;
+using Microsoft.SPOT;
+using System;
+using System.Threading;
 
 namespace MFE.Net.Managers
 {
     public class EthernetManager : INetworkManager
     {
         #region Fields
-        // if you were to use ENC28J60-based Ethernet connection
-        //static EthernetENC28J60 Eth1 = new EthernetENC28J60(add code here to configure it);
-        // wifi is same thing
-        // static WiFiRS9110 wifi = new WiFiRS9110(......);
-        static EthernetBuiltIn ethernet;// = new EthernetBuiltIn();
-        private ManualResetEvent blocker = null;
-        //private PWM portNetworkLED = null;
+        private ManualResetEvent blocker = new ManualResetEvent(false);
+        private bool isBuiltIn = false;
+        private NetworkInterfaceExtension ethernet;
         #endregion
 
         #region Events
@@ -26,127 +19,108 @@ namespace MFE.Net.Managers
         #endregion
 
         #region Constructor
-        public EthernetManager()//Cpu.PWMChannel pinNetworkStatusLED)
+        public EthernetManager()
         {
-            blocker = new ManualResetEvent(false);
-            //portNetworkLED = new PWM(pinNetworkStatusLED, 1, 50, false); // blink LED with 1 Hz
-
+            isBuiltIn = true;
             ethernet = new EthernetBuiltIn();
-
-            ethernet.CableConnectivityChanged += new EthernetBuiltIn.CableConnectivityChangedEventHandler(Eth1_CableConnectivityChanged);
-            ethernet.NetworkAddressChanged += new NetworkInterfaceExtension.NetworkAddressChangedEventHandler(Eth1_NetworkAddressChanged);
-            //NetworkChange.NetworkAvailabilityChanged += new NetworkAvailabilityChangedEventHandler(NetworkChange_NetworkAvailabilityChanged);
+            (ethernet as EthernetBuiltIn).CableConnectivityChanged += new EthernetBuiltIn.CableConnectivityChangedEventHandler(ethernetBuiltIn_CableConnectivityChanged);
+            (ethernet as EthernetBuiltIn).NetworkAddressChanged += new NetworkInterfaceExtension.NetworkAddressChangedEventHandler(ethernet_NetworkAddressChanged);
+        }
+        public EthernetManager(EthernetENC28J60 ethernetInterface)
+        {
+            isBuiltIn = false;
+            ethernet = ethernetInterface;
+            (ethernet as EthernetENC28J60).CableConnectivityChanged += new EthernetENC28J60.CableConnectivityChangedEventHandler(ethernetENC28J60_CableConnectivityChanged);
+            (ethernet as EthernetENC28J60).NetworkAddressChanged += new NetworkInterfaceExtension.NetworkAddressChangedEventHandler(ethernet_NetworkAddressChanged);
         }
         #endregion
 
         #region Public methods
         public void Start()
         {
-            if (!ethernet.IsOpen)
-                ethernet.Open();
-
-            if (!ethernet.NetworkInterface.IsDhcpEnabled)
-                ethernet.NetworkInterface.EnableDhcp();
-            //ethernet.NetworkInterface.EnableStaticIP("192.168.0.110", "255.255.255.0", "192.168.0.1");
-
-            NetworkInterfaceExtension.AssignNetworkingStackTo(ethernet);
-
-            // wait for cable:
-            if (!ethernet.IsCableConnected)
+            if (OpenEthernet() && EnableDHCP())
             {
-                do
+                NetworkInterfaceExtension.AssignNetworkingStackTo(ethernet);
+
+                // wait for cable:
+                if (isBuiltIn)
                 {
-                    if (!ethernet.IsCableConnected)
-                        Debug.Print("Waiting for ethernet cable...");
-                    else
-                        break;
+                    if (!(ethernet as EthernetBuiltIn).IsCableConnected)
+                    {
+                        do
+                        {
+                            if (!(ethernet as EthernetBuiltIn).IsCableConnected)
+                                Debug.Print("Waiting for ethernet cable...");
+                            else
+                                break;
+                        }
+                        while (!blocker.WaitOne(500, false));
+                    }
                 }
-                while (!blocker.WaitOne(500, false));
+                else
+                {
+                    if (!(ethernet as EthernetENC28J60).IsCableConnected)
+                    {
+                        do
+                        {
+                            if (!(ethernet as EthernetENC28J60).IsCableConnected)
+                                Debug.Print("Waiting for ethernet cable...");
+                            else
+                                break;
+                        }
+                        while (!blocker.WaitOne(500, false));
+                    }
+                }
+
+                while (ethernet.NetworkInterface.IPAddress == "0.0.0.0")
+                {
+                    Debug.Print("Waiting for IPAddress");
+                    Thread.Sleep(250);
+                }
             }
-
-            // wait for ip-address set:
-            //while (IPAddress.GetDefaultLocalAddress() == IPAddress.Any)
-            //{
-            //    Debug.Print("IP address is not set yet.");
-            //}
-
-            Debug.Print("IP address is set");
-
-            if (Started != null)
-                Started(this, EventArgs.Empty);
-
-
-
-
-
-
-
-
-
-
-
-
-
-            //portNetworkLED.Start();
-
-            //if (!Ethernet.IsEnabled)
-            //    Ethernet.Enable();
-
-            //if (!Ethernet.IsCableConnected)
-            //{
-            //    blocker.Reset();
-            //    while (!blocker.WaitOne(500, false))
-            //    {
-            //        if (Ethernet.IsCableConnected)
-            //            break;
-            //    }
-            //}
-
-            //NetworkInterface[] nis = NetworkInterface.GetAllNetworkInterfaces();
-            //foreach (NetworkInterface ni in nis)
-            //{
-            //    if (ni.NetworkInterfaceType == NetworkInterfaceType.Ethernet)
-            //    {
-            //        #region DHCP Code (dynamic IP)
-            //        if (!ni.IsDhcpEnabled)
-            //            ni.EnableDhcp();
-            //        else
-            //            ni.RenewDhcpLease();
-            //        #endregion
-
-            //        #region Static IP code
-            //        // Uncomment the following line if you want to use a static IP address, and comment out the DHCP code region above
-            //        //string ip = "192.168.0.150";
-            //        //string subnet = "255.255.255.0";
-            //        //string gateway = "192.168.0.1";
-            //        ////byte[] mac = ni.PhysicalAddress;// { 0x00, 0x26, 0x1C, 0x7B, 0x29, 0xE8 };
-
-            //        //ni.EnableStaticIP(ip, subnet, gateway);
-            //        //ni.EnableStaticDns(gateway);
-            //        #endregion
-
-            //        portNetworkLED.Frequency = 1000;//.Set(true);
-            //        if (Started != null)
-            //            Started(this, EventArgs.Empty);
-
-            //        return;
-            //    }
-            //}
-
-            //portNetworkLED.Frequency = 0;//.Set(false);
         }
         #endregion
 
         #region Event handlers
-        void Eth1_CableConnectivityChanged(object sender, EthernetBuiltIn.CableConnectivityEventArgs e)
+        private void ethernetBuiltIn_CableConnectivityChanged(object sender, EthernetBuiltIn.CableConnectivityEventArgs e)
         {
-            Debug.Print("Built-in Ethernet Cable is " + (e.IsConnected ? "Connected!" : "Disconnected!"));
-
-            if (e.IsConnected)
-                blocker.Set();
+            ethernet_CableConnectivityChanged(sender, e.IsConnected);
+        }
+        private void ethernetENC28J60_CableConnectivityChanged(object sender, EthernetENC28J60.CableConnectivityEventArgs e)
+        {
+            ethernet_CableConnectivityChanged(sender, e.IsConnected);
         }
 
-        static void Eth1_NetworkAddressChanged(object sender, EventArgs e)
+        private void ethernet_CableConnectivityChanged(object sender, bool isConnected)
+        {
+            Debug.Print("Built-in Ethernet Cable is " + (isConnected ? "Connected!" : "Disconnected!"));
+
+            if (ethernet.IsActivated) // make sure that the event is fired by ethernet interface, not other networking interface.
+            {
+                if (isConnected)
+                {
+                    //Debug.Print("Ethernet connection was established! IPAddress = " + wifiModule.NetworkSettings.IPAddress);
+
+                    blocker.Set();
+
+                    if (Started != null)
+                        Started(this, EventArgs.Empty);
+                }
+                else
+                {
+                    Debug.Print("Ethernet connection was dropped or disconnected!");
+
+                    blocker.Set();
+
+                    if (Stopped != null)
+                        Stopped(this, EventArgs.Empty);
+                }
+            }
+
+            //if (e.IsConnected)
+            //    blocker.Set();
+        }
+        private void ethernet_NetworkAddressChanged(object sender, EventArgs e)
         {
             Debug.Print("New address for The built-in Ethernet Network Interface ");
 
@@ -164,27 +138,85 @@ namespace MFE.Net.Managers
 
             Debug.Print("------------------------------------------------------");
         }
+        #endregion
 
+        #region Private methods
+        private bool OpenEthernet()
+        {
+            try
+            {
+                if (!ethernet.IsOpen)
+                    ethernet.Open();
+            }
+            catch (NetworkInterfaceExtensionException e)
+            {
+                switch (e.errorCode)
+                {
+                    case NetworkInterfaceExtensionException.ErrorCode.AlreadyActivated: break;
+                    case NetworkInterfaceExtensionException.ErrorCode.HardwareFirmwareVersionMismatch:
+                        ethernet.Open();
+                        break;
+                    case NetworkInterfaceExtensionException.ErrorCode.HardwareCommunicationFailure:
+                    case NetworkInterfaceExtensionException.ErrorCode.HardwareNotEnabled:
+                    case NetworkInterfaceExtensionException.ErrorCode.HardwareCommunicationTimeout:
+                        Debug.Print("Error Message: " + e.ErrorMsg);
+                        ethernet.Open();
+                        break;
+                    default:
+                        Debug.Print("Error Message: " + e.ErrorMsg);
+                        return false;
+                }
+            }
+            catch (Exception e)
+            {
+                Debug.Print("Open Error: " + e.Message);
+                return false;
+            }
 
+            //NetworkInterfaceExtension.AssignNetworkingStackTo(wifi);
+            Debug.Print("\nOpened successfully!");
 
+            return true;
+        }
+        private bool EnableDHCP()
+        {
+            Debug.Print("Enable DHCP...\n");
 
+            try
+            {
+                #region Dynamic IP
+                if (!ethernet.NetworkInterface.IsDynamicDnsEnabled)
+                    ethernet.NetworkInterface.EnableDynamicDns();
 
-        //private void NetworkChange_NetworkAvailabilityChanged(object sender, NetworkAvailabilityEventArgs e)
-        //{
-        //    if (e.IsAvailable)
-        //    {
-        //        if (Ethernet.IsCableConnected)
-        //            blocker.Set();
-        //    }
-        //    else
-        //    {
-        //        blocker.Set();
-        //        if (Stopped != null)
-        //            Stopped(this, EventArgs.Empty);
+                if (!ethernet.NetworkInterface.IsDhcpEnabled)
+                    ethernet.NetworkInterface.EnableDhcp(); // This function is blocking
+                else
+                    ethernet.NetworkInterface.RenewDhcpLease(); // This function is blocking
+                #endregion
 
-        //        Start();
-        //    }
-        //}
+                #region Static IP
+                // Uncomment the following line if you want to use a static IP address, and comment out the DHCP code region above
+                //ethernet.NetworkInterface.EnableStaticIP("192.168.1.110", "255.255.255.0", "192.168.1.1");
+                //ethernet.NetworkInterface.EnableStaticDns(new string[] { "10.1.10.1" });
+                #endregion
+
+                Debug.Print("Network settings:");
+                Debug.Print("IP Address: " + ethernet.NetworkInterface.IPAddress);
+                Debug.Print("Subnet Mask: " + ethernet.NetworkInterface.SubnetMask);
+                Debug.Print("Default Getway: " + ethernet.NetworkInterface.GatewayAddress);
+                Debug.Print("DNS Server: " + ethernet.NetworkInterface.DnsAddresses[0]);
+            }
+            catch (Exception e)//SocketException e
+            {
+                Debug.Print("DHCP faild");
+                //if (e.ErrorCode == 11003)
+                //    Debug.Print("Re-Enable the module.");
+
+                return false;
+            }
+
+            return true;
+        }
         #endregion
     }
 }

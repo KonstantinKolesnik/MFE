@@ -31,9 +31,7 @@
   </PropertyGroup>
   <Import Project="$(NetMfTargetsBaseDir)$(TargetFrameworkVersion)\CSharp.Targets" />
   <ItemGroup>
-    <Compile Include="GadgeteerEthernetManager.cs" />
     <Compile Include="EthernetManager.cs" />
-    <Compile Include="GadgeteerWiFiManager.cs" />
     <Compile Include="INetworkManager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="WiFiManager.cs" />
