@@ -9,8 +9,9 @@ namespace MFE.Net.Udp
     public class DiscoveryListener
     {
         #region Fields
-        private const int pollPeriodMsec = 200; // poll period in milliseconds
+        //private const int pollPeriodMsec = 200; // poll period in milliseconds
         private Socket socket;
+        //private int port;
         private string name;
         private byte[] response;
         #endregion
@@ -23,12 +24,16 @@ namespace MFE.Net.Udp
         public void Start(int port, string name)
         {
             this.name = name;
+            //this.port = port;
+
             response = Encoding.UTF8.GetBytes(name + "OK");
 
             if (socket == null)
             {
                 socket = new Socket(AddressFamily.InterNetwork, SocketType.Dgram, ProtocolType.Udp);
+                //socket.SetSocketOption(SocketOptionLevel.Socket, SocketOptionName.Broadcast, true);
                 socket.Bind(new IPEndPoint(IPAddress.Any, port));
+
                 new Thread(Listen).Start();
             }
         }
@@ -43,7 +48,8 @@ namespace MFE.Net.Udp
                 {
                     try
                     {
-                        if (socket.Poll(pollPeriodMsec * 1000, SelectMode.SelectRead))
+                        //if (socket.Poll(pollPeriodMsec * 1000, SelectMode.SelectRead))
+                        if (socket.Poll(-1, SelectMode.SelectRead))
                         {
                             EndPoint remoteEP = new IPEndPoint(IPAddress.Any, 0); // any endpoint
                             byte[] buffer = new byte[socket.Available];
@@ -53,9 +59,11 @@ namespace MFE.Net.Udp
                             {
                                 string request = new string(Encoding.UTF8.GetChars(buffer));
                                 if (String.Compare(request, name) == 0)
-                                    socket.SendTo(response, response.Length, SocketFlags.None, remoteEP);
+                                    socket.SendTo(response, remoteEP);
                             }
                         }
+                        else
+                            Thread.Sleep(10);
                     }
                     catch
                     {
