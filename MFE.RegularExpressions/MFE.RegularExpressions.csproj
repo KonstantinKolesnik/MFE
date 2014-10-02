@@ -1,0 +1,70 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <AssemblyName>MFE.RegularExpressions</AssemblyName>
+    <OutputType>Library</OutputType>
+    <RootNamespace>MFE.RegularExpressions</RootNamespace>
+    <ProjectTypeGuids>{b69e3092-b931-443c-abe7-7e7b65f2a37f};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <ProductVersion>9.0.21022</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{91D091F9-E1E1-42D8-9101-C4306E20758F}</ProjectGuid>
+    <TargetFrameworkVersion>v4.2</TargetFrameworkVersion>
+    <NetMfTargetsBaseDir Condition="'$(NetMfTargetsBaseDir)'==''">$(MSBuildExtensionsPath32)\Microsoft\.NET Micro Framework\</NetMfTargetsBaseDir>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <Import Project="$(NetMfTargetsBaseDir)$(TargetFrameworkVersion)\CSharp.Targets" />
+  <ItemGroup>
+    <Compile Include="Classes\Capture.cs" />
+    <Compile Include="Classes\CharacterClass.cs" />
+    <Compile Include="Classes\CharacterRange.cs" />
+    <Compile Include="Classes\Group.cs" />
+    <Compile Include="Classes\Match.cs" />
+    <Compile Include="Classes\MatchEvaluator.cs" />
+    <Compile Include="Classes\Regex.cs" />
+    <Compile Include="Classes\RegexProgram.cs" />
+    <Compile Include="Classes\StreamCharacterIterator.cs" />
+    <Compile Include="Classes\StringCharacterIterator.cs" />
+    <Compile Include="Collections\CaptureCollection.cs" />
+    <Compile Include="Collections\CaptureEnumerator.cs" />
+    <Compile Include="Collections\GroupCollection.cs" />
+    <Compile Include="Collections\GroupEnumerator.cs" />
+    <Compile Include="Collections\MatchCollection.cs" />
+    <Compile Include="Collections\MatchEnumerator.cs" />
+    <Compile Include="Enumerations\EscapeCode.cs" />
+    <Compile Include="Interfaces\ICharacterIterator.cs" />
+    <Compile Include="Enumerations\OpCode.cs" />
+    <Compile Include="Enumerations\POSIXCharacterClass.cs" />
+    <Compile Include="Enumerations\ProgramOptions.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Exceptions\RegexpSyntaxException.cs" />
+    <Compile Include="Exceptions\RegexExecutionTimeException.cs" />
+    <Compile Include="Enumerations\RegexOptions.cs" />
+    <Compile Include="Enumerations\ReplaceOptions.cs" />
+    <Compile Include="Enumerations\SpecialEscape.cs" />
+    <Compile Include="Compiler\RegexCompiler.cs" />
+    <Compile Include="Compiler\RegexDebugCompiler.cs" />
+    <Compile Include="Compiler\RegexPrecompiler.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="Microsoft.SPOT.Native">
+    </Reference>
+    <Reference Include="System.IO" />
+  </ItemGroup>
+</Project>
