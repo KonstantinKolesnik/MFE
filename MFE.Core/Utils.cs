@@ -1,4 +1,5 @@
-﻿using Microsoft.SPOT.Hardware;
+﻿using Microsoft.SPOT;
+using Microsoft.SPOT.Hardware;
 using System;
 using System.Text;
 
@@ -89,6 +90,130 @@ namespace MFE.Core
             string hex = "0123456789ABCDEF";
             return new string(new char[] { hex[(number & 0xF0) >> 4], hex[number & 0x0F] });
         }
+        public static string bytesToHex(byte[] input)
+        {
+            string r = "";
+            foreach (byte b in input)
+            {
+                r += ByteToHex(b);
+            }
+            return r;
+        }
+
+        public static bool IsWithinRectangle(int x, int y, int rectWidth, int rectHeight)
+        {
+            return x >= 0 && x < rectWidth && y >= 0 && y < rectHeight;
+        }
+
+        public static string FreeRAM(bool formatOutput)
+        {
+            uint iFree = Debug.GC(false);
+
+            if (!formatOutput)
+                return iFree.ToString();
+            else
+                return FormatSize(iFree);
+        }
+
+        public static string FormatSize(uint size)
+        {
+            byte index = 0;
+            while (size > 1024)
+            {
+                size = size / 1024;
+                index++;
+                if (index == 4)
+                    break;
+            }
+
+            string[] sSize = new string[] { " bytes", " KB", " MB", "GB", " TB" };
+            string sFree = size.ToString();
+            if (sFree.IndexOf('.') > 0)
+                sFree = sFree.Substring(0, sFree.IndexOf('.') + 3);
+            return sFree + sSize[index];
+        }
+        public static string FormatSize(long size)
+        {
+            byte index = 0;
+            while (size > 1024)
+            {
+                size = size / 1024;
+                index++;
+                if (index == 4)
+                    break;
+            }
+
+            string[] sSize = new string[] { " bytes", " KB", " MB", "GB", " TB" };
+            string sFree = size.ToString();
+            if (sFree.IndexOf('.') > 0)
+                sFree = sFree.Substring(0, sFree.IndexOf('.') + 3);
+            return sFree + sSize[index];
+        }
+
+        //public static int TextWidth(string text, Font font)
+        //{
+        //    int width = 0;
+
+        //    char[] chars = text.ToCharArray();
+        //    for (int i = 0; i < chars.Length; i++)
+        //        width += font.CharWidth(chars[i]);
+
+        //    return width;
+        //}
+        //public static bool ContainsPoint(this UIElement el, TouchEventArgs e)
+        //{
+        //    return el.ContainsPoint(e.Touches[0].X, e.Touches[0].Y);
+        //}
+
+
+
+        //public static DateTime GetNetworkTime()//double timeZone)
+        //{
+        //    byte[] ip = { 129, 6, 15, 28 }; //time-a.nist.gov            
+        //    IPEndPoint ep = new IPEndPoint(new IPAddress(ip), 123);
+        //    Socket s = new Socket(AddressFamily.InterNetwork, SocketType.Dgram, ProtocolType.Udp);
+        //    s.Connect(ep);
+
+        //    byte[] ntpData = new byte[48]; // RFC 2030
+        //    ntpData[0] = 0x1B;
+        //    for (int i = 1; i < 48; i++)
+        //        ntpData[i] = 0;
+
+        //    s.Send(ntpData);
+        //    s.Receive(ntpData);
+
+        //    byte offsetTransmitTime = 40;
+        //    ulong intpart = 0;
+        //    ulong fractpart = 0;
+        //    for (int i = 0; i <= 3; i++)
+        //        intpart = 256 * intpart + ntpData[offsetTransmitTime + i];
+
+        //    for (int i = 4; i <= 7; i++)
+        //        fractpart = 256 * fractpart + ntpData[offsetTransmitTime + i];
+
+        //    ulong milliseconds = (intpart * 1000 + (fractpart * 1000) / 0x100000000L);
+
+        //    s.Close();
+
+        //    TimeSpan timeSpan = TimeSpan.FromTicks((long)milliseconds * TimeSpan.TicksPerMillisecond);
+        //    DateTime dateTime = new DateTime(1900, 1, 1);
+        //    dateTime += timeSpan;
+
+        //    return dateTime;//.AddHours(timeZone);
+        //}
+
+
+        //public static Bitmap ImageFromBytes(byte[] data)
+        //{
+        //    if (data[0] == 0xFF && data[1] == 0xD8)// JPEG
+        //        return new Bitmap(data, Bitmap.BitmapImageType.Jpeg);
+        //    if (data[0] == 0x42 && data[1] == 0x4D)// BMP
+        //        return new Bitmap(data, Bitmap.BitmapImageType.Bmp);
+        //    if (data[0] == 0x47 && data[1] == 0x49 && data[2] == 0x46 && data[3] == 0x38)// GIF
+        //        return new Bitmap(data, Bitmap.BitmapImageType.Gif);
+
+        //    return null;
+        //}
     }
 
     static class ConvertBase64My
