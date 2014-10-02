@@ -60,7 +60,7 @@ namespace SmartNetwork.Network
         #region Events
         public event CollectionChangedEventHandler BusModulesCollectionChanged;
         public event CollectionChangedEventHandler BusControlLinesCollectionChanged;
-        public event PropertyChangeEventHandler PropertyChanged;
+        public event PropertyChangedEventHandler PropertyChanged;
         #endregion
 
         #region Constructors

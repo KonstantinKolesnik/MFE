@@ -84,7 +84,7 @@ namespace SmartNetwork.Network
         #endregion
 
         #region Events
-        public event PropertyChangeEventHandler PropertyChanged;
+        public event PropertyChangedEventHandler PropertyChanged;
         protected void NotifyPropertyChanged(string propertyName)
         {
             if (PropertyChanged != null)

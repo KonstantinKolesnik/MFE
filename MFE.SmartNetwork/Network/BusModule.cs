@@ -49,7 +49,7 @@ namespace SmartNetwork.Network
         #endregion
 
         #region Events
-        public event PropertyChangeEventHandler PropertyChanged;
+        public event PropertyChangedEventHandler PropertyChanged;
         #endregion
 
         #region Constructor

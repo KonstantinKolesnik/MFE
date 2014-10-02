@@ -54,7 +54,7 @@ namespace MFE.Net.Udp
                 {
                     try
                     {
-                        if (socket.Poll(100, SelectMode.SelectRead))
+                        if (socket.Poll(10, SelectMode.SelectRead))
                         {
                             if (socket.Available > 0)
                             {
@@ -76,8 +76,6 @@ namespace MFE.Net.Udp
                                 }
                             }
                         }
-                        else
-                            Thread.Sleep(10);
                     }
                     catch (Exception e)
                     {
