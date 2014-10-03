@@ -1,12 +1,12 @@
-
 using System.Collections;
+
 namespace MFE.SmartNetwork.Network
 {
-    public class BusHubRF : BusHubBase
+    public class BusHubUSB : BusHubBase
     {
         #region Constructor
-        public BusHubRF(uint address)
-            : base(address)
+        public BusHubUSB()
+            : base(0)
         {
         }
         #endregion

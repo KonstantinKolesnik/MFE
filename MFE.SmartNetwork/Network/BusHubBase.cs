@@ -7,12 +7,13 @@ namespace MFE.SmartNetwork.Network
     public abstract class BusHubBase : INotifyPropertyChanged
     {
         #region Fields
+        private const int updateInterval = 3000;
+
         private uint address = 0;
         private string name = "";
         private ArrayList busModules = new ArrayList();
         private ArrayList busControlLines = new ArrayList();
         private Timer timerUpdate = null;
-        private const int updateInterval = 2000;
         #endregion
 
         #region Properties
@@ -36,6 +37,7 @@ namespace MFE.SmartNetwork.Network
                 }
             }
         }
+
         public ArrayList BusModules
         {
             get { return busModules; }
@@ -51,6 +53,7 @@ namespace MFE.SmartNetwork.Network
                 return null;
             }
         }
+        
         public ArrayList BusControlLines // control lines of all bus modules
         {
             get { return busControlLines; }
@@ -58,9 +61,9 @@ namespace MFE.SmartNetwork.Network
         #endregion
 
         #region Events
+        public event PropertyChangedEventHandler PropertyChanged;
         public event CollectionChangedEventHandler BusModulesCollectionChanged;
         public event CollectionChangedEventHandler BusControlLinesCollectionChanged;
-        public event PropertyChangedEventHandler PropertyChanged;
         #endregion
 
         #region Constructors
@@ -71,65 +74,68 @@ namespace MFE.SmartNetwork.Network
         }
         #endregion
 
-        #region Private methods
-        protected abstract void Scan();
-        internal abstract bool BusModuleWriteRead(BusModule busModule, byte[] request, byte[] response);
-        //internal abstract bool BusModuleWrite(BusModule busModule, byte[] request);
-
-        protected void NotifyBusModulesCollectionChanged(ArrayList addressesAdded, ArrayList addressesRemoved)
-        {
-            ArrayList controlLinesAdded = new ArrayList();
-            ArrayList controlLinesRemoved = new ArrayList();
-
-            // removed control lines
-            foreach (ushort address in addressesAdded)
-                foreach (ControlLine controlLine in busControlLines)
-                {
-                    if (controlLine.BusModule.Address == address)
-                    {
-                        controlLinesRemoved.Add(controlLine);
-                        busControlLines.Remove(controlLine);
-                    }
-                }
-
-            // added control lines
-            foreach (ushort address in addressesAdded)
-            {
-                BusModule busModule = this[address];
-                foreach (ControlLine controlLine in busModule.ControlLines)
-                {
-                    controlLinesAdded.Add(controlLine);
-                    busControlLines.Add(controlLine);
-                }
-            }
-
-            // BusModulesCollectionChanged
-            if (BusModulesCollectionChanged != null && (addressesAdded.Count != 0 || addressesRemoved.Count != 0))
-                BusModulesCollectionChanged(addressesAdded, addressesRemoved);
-
-            // BusControlLinesCollectionChanged
-            if (BusControlLinesCollectionChanged != null && (controlLinesAdded.Count != 0 || controlLinesRemoved.Count != 0))
-                BusControlLinesCollectionChanged(controlLinesAdded, controlLinesRemoved);
-        }
+        #region Protected methods
+        protected abstract void ScanModules(out ArrayList modulesAdded, out ArrayList modulesRemoved);
         protected void NotifyPropertyChanged(string propertyName)
         {
             if (PropertyChanged != null)
                 PropertyChanged(this, propertyName);
         }
+        #endregion
+
+        #region Private methods
+        internal abstract bool BusModuleWriteRead(BusModule busModule, byte[] request, byte[] response);
+        //internal abstract bool BusModuleWrite(BusModule busModule, byte[] request);
 
         private void StartTimer()
         {
-            timerUpdate = new Timer(new TimerCallback(Update), null, updateInterval, updateInterval);
+            timerUpdate = new Timer((state) => {
+                StopTimer();
+                Update();
+                StartTimer();
+            }, null, updateInterval, updateInterval);
         }
         private void StopTimer()
         {
             timerUpdate.Change(Timeout.Infinite, Timeout.Infinite);
         }
-        private void Update(object state)
+        private void Update()
         {
-            StopTimer();
-            Scan();
-            StartTimer();
+            ArrayList modulesAdded, modulesRemoved;
+            ScanModules(out modulesAdded, out modulesRemoved);
+
+            ArrayList controlLinesAdded = new ArrayList();
+            ArrayList controlLinesRemoved = new ArrayList();
+
+            // removed control lines:
+            foreach (BusModule moduleRemoved in modulesRemoved)
+                foreach (ControlLine controlLine in busControlLines)
+                {
+                    if (controlLine.BusModule.Address == moduleRemoved.Address)
+                    {
+                        busControlLines.Remove(controlLine);
+                        controlLinesRemoved.Add(controlLine);
+                    }
+                }
+
+            // added control lines:
+            foreach (BusModule moduleAdded in modulesAdded)
+            {
+                BusModule busModule = this[moduleAdded.Address];
+                foreach (ControlLine controlLine in busModule.ControlLines)
+                {
+                    busControlLines.Add(controlLine);
+                    controlLinesAdded.Add(controlLine);
+                }
+            }
+
+            // BusModulesCollectionChanged:
+            if (BusModulesCollectionChanged != null && (modulesAdded.Count != 0 || modulesRemoved.Count != 0))
+                BusModulesCollectionChanged(modulesAdded, modulesRemoved);
+
+            // BusControlLinesCollectionChanged:
+            if (BusControlLinesCollectionChanged != null && (controlLinesAdded.Count != 0 || controlLinesRemoved.Count != 0))
+                BusControlLinesCollectionChanged(controlLinesAdded, controlLinesRemoved);
         }
         #endregion
     }

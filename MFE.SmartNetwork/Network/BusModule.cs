@@ -88,7 +88,7 @@ namespace MFE.SmartNetwork.Network
         //            Type = response[0];
         //    }
         //}
-        //internal void QueryControlLines()
+        //internal void QueryControlLines(bool updateState = false)
         //{
         //    if (busHub != null)
         //    {
@@ -103,7 +103,8 @@ namespace MFE.SmartNetwork.Network
         //                    ControlLines.Add(controlLine);
 
         //                    // query control line state:
-        //                    controlLine.QueryState();
+        //                    if (updateState)
+        //                        controlLine.QueryState();
         //                }
         //            }
         //        }

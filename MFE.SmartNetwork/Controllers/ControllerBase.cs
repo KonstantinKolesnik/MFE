@@ -1,9 +1,7 @@
-using System;
-using Microsoft.SPOT;
 
 namespace MFE.SmartNetwork.Controllers
 {
-    public abstract class Controller
+    public abstract class ControllerBase
     {
         //type
         //private bool isManualMode = false;

@@ -19,51 +19,53 @@ namespace MFE.SmartNetwork.Network
         #endregion
 
         #region Private methods
-        protected override void Scan()
+        protected override void ScanModules(out ArrayList modulesAdded, out ArrayList modulesRemoved)
         {
-            ArrayList addressesAdded = new ArrayList();
-            ArrayList addressesRemoved = new ArrayList();
+            modulesAdded = new ArrayList();
+            modulesRemoved = new ArrayList();
 
             for (ushort address = 1; address <= 127; address++)
             {
                 byte type = (byte)BusModuleType.Unknown;
 
-                I2CDevice.Configuration config = new I2CDevice.Configuration(address, BusConfigurationI2C.ClockRate);
-                if (busConfig.Bus.TryGetRegister(config, BusConfigurationI2C.Timeout, BusModuleAPI.CmdGetType, out type))
+                I2CDevice.Configuration config = new I2CDevice.Configuration(address, BusConfigurationI2C.ClockRate); // config for I2C-module with "address"
+                if (busConfig.Bus.TryGetRegister(config, BusConfigurationI2C.Timeout, BusModuleAPI.CmdGetType, out type)) // query module
                 {
-                    // address is online
+                    // module with this address is online;
+                    // check if it's already registered in BusModules:
 
                     BusModule busModule = this[address];
 
-                    if (busModule == null) // no registered module with this address
+                    if (busModule == null) // module with this address isn't registered
                     {
                         busModule = new BusModule(this, address, (BusModuleType)type);
 
-                        // query control lines count:
-                        //busModule.QueryControlLines();
+                        // query module control lines count with updating lines states:
+                        //busModule.QueryControlLines(true);
 
-                        addressesAdded.Add(address);
+                        // register this module in BusModules:
+                        modulesAdded.Add(busModule);
                         BusModules.Add(busModule);
                     }
-                    else // module with this address is registered
+                    else // module with this address is already registered
                     {
                         // updated when added;
                     }
                 }
                 else
                 {
-                    // address is offline
+                    // module with this address is offline;
+                    // check if it's already registered in BusModules:
                     
                     BusModule busModule = this[address];
+
                     if (busModule != null) // offline module
                     {
-                        addressesRemoved.Add(address);
+                        modulesRemoved.Add(busModule);
                         BusModules.Remove(busModule);
                     }
                 }
             }
-
-            NotifyBusModulesCollectionChanged(addressesAdded, addressesRemoved);
         }
         internal override bool BusModuleWriteRead(BusModule busModule, byte[] request, byte[] response)
         {
