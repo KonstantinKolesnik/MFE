@@ -18,7 +18,7 @@ namespace MFE.SmartNetwork.Network
         }
         #endregion
 
-        #region Private methods
+        #region Protected methods
         protected override void ScanModules(out ArrayList modulesAdded, out ArrayList modulesRemoved)
         {
             modulesAdded = new ArrayList();
@@ -28,7 +28,7 @@ namespace MFE.SmartNetwork.Network
             {
                 byte type = (byte)BusModuleType.Unknown;
 
-                I2CDevice.Configuration config = new I2CDevice.Configuration(address, BusConfigurationI2C.ClockRate); // config for I2C-module with "address"
+                var config = new I2CDevice.Configuration(address, BusConfigurationI2C.ClockRate); // config for I2C-module with "address"
                 if (busConfig.Bus.TryGetRegister(config, BusConfigurationI2C.Timeout, BusModuleAPI.CmdGetType, out type)) // query module
                 {
                     // module with this address is online;
@@ -67,16 +67,17 @@ namespace MFE.SmartNetwork.Network
                 }
             }
         }
+        
         internal override bool BusModuleWriteRead(BusModule busModule, byte[] request, byte[] response)
         {
             I2CDevice.Configuration config = new I2CDevice.Configuration(busModule.Address, BusConfigurationI2C.ClockRate);
             return busConfig.Bus.TryGet(config, BusConfigurationI2C.Timeout, request, response);
         }
-        //internal override bool BusModuleWrite(BusModule busModule, byte[] request)
-        //{
-        //    I2CDevice.Configuration config = new I2CDevice.Configuration(busModule.Address, BusConfiguration.ClockRate);
-        //    return busConfig.Bus.TrySet(config, BusConfiguration.Timeout, request);
-        //}
+        internal override bool BusModuleWrite(BusModule busModule, byte[] request)
+        {
+            I2CDevice.Configuration config = new I2CDevice.Configuration(busModule.Address, BusConfigurationI2C.ClockRate);
+            return busConfig.Bus.TrySet(config, BusConfigurationI2C.Timeout, request);
+        }
         #endregion
     }
 }

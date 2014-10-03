@@ -22,10 +22,10 @@ namespace MFE.SmartNetwork.Network
         {
             return false;
         }
-        //internal override bool BusModuleWrite(BusModule busModule, byte[] request)
-        //{
-        //    return false;
-        //}
+        internal override bool BusModuleWrite(BusModule busModule, byte[] request)
+        {
+            return false;
+        }
         #endregion
     }
 }

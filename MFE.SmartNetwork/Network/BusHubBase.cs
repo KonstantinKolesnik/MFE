@@ -81,12 +81,12 @@ namespace MFE.SmartNetwork.Network
             if (PropertyChanged != null)
                 PropertyChanged(this, propertyName);
         }
+        
+        internal abstract bool BusModuleWriteRead(BusModule busModule, byte[] request, byte[] response);
+        internal abstract bool BusModuleWrite(BusModule busModule, byte[] request);
         #endregion
 
         #region Private methods
-        internal abstract bool BusModuleWriteRead(BusModule busModule, byte[] request, byte[] response);
-        //internal abstract bool BusModuleWrite(BusModule busModule, byte[] request);
-
         private void StartTimer()
         {
             timerUpdate = new Timer((state) => {
