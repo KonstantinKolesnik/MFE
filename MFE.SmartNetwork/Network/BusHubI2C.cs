@@ -4,7 +4,7 @@ using System.Collections;
 
 namespace SmartNetwork.Network
 {
-    public class BusHubI2C : BusHub
+    public class BusHubI2C : BusHubBase
     {
         #region Fields
         private BusConfigurationI2C busConfig;

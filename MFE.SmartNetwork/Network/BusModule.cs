@@ -6,7 +6,7 @@ namespace SmartNetwork.Network
     public class BusModule : INotifyPropertyChanged
     {
         #region Fields
-        private BusHub busHub;
+        private BusHubBase busHub;
         private ushort address = 0;
         private byte type = 255; // unknown
         private ArrayList controlLines = new ArrayList();
@@ -14,7 +14,7 @@ namespace SmartNetwork.Network
         #endregion
 
         #region Properties
-        public BusHub BusHub
+        public BusHubBase BusHub
         {
             get { return busHub; }
         }
@@ -53,7 +53,7 @@ namespace SmartNetwork.Network
         #endregion
 
         #region Constructor
-        public BusModule(BusHub busHub, ushort address, byte type)
+        public BusModule(BusHubBase busHub, ushort address, byte type)
         {
             this.busHub = busHub;
             this.address = address;

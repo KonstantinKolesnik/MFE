@@ -11,7 +11,7 @@ namespace SmartNetwork.Network
         #endregion
 
         #region Properties
-        public BusHub BusHub
+        public BusHubBase BusHub
         {
             get;
             private set;
@@ -93,7 +93,7 @@ namespace SmartNetwork.Network
         #endregion
 
         #region Constructor
-        public ControlLine(BusHub busHub, BusModule busModule, ControlLineType type, byte address)
+        public ControlLine(BusHubBase busHub, BusModule busModule, ControlLineType type, byte address)
         {
             BusHub = busHub;
             BusModule = busModule;

@@ -4,7 +4,7 @@ using System.Threading;
 
 namespace SmartNetwork.Network
 {
-    public abstract class BusHub : INotifyPropertyChanged
+    public abstract class BusHubBase : INotifyPropertyChanged
     {
         #region Fields
         private uint address = 0;
@@ -64,7 +64,7 @@ namespace SmartNetwork.Network
         #endregion
 
         #region Constructors
-        public BusHub(uint address)
+        public BusHubBase(uint address)
         {
             this.address = address;
             StartTimer();

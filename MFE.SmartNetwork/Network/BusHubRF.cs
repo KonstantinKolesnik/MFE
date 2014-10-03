@@ -1,7 +1,7 @@
 
 namespace SmartNetwork.Network
 {
-    public class BusHubRF : BusHub
+    public class BusHubRF : BusHubBase
     {
         #region Constructor
         public BusHubRF(uint address)
