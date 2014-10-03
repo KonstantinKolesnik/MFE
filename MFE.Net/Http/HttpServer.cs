@@ -344,22 +344,30 @@ namespace MFE.Net.Http
                         HttpListenerContext context = listener.GetContext();
 
                         // see http://netmf.codeplex.com/workitem/2157
-                        new Thread(() =>
+                        //new Thread(() =>
                         {
-                            if (OnRequest != null)
-                                OnRequest(context.Request);
-
-                            switch (context.Request.HttpMethod.ToUpper())
+                            try
                             {
-                                case "GET": ProcessClientGetRequest(context); break;
-                                case "POST": ProcessClientPostRequest(context); break;
+                                if (OnRequest != null)
+                                    OnRequest(context.Request);
+
+                                switch (context.Request.HttpMethod.ToUpper())
+                                {
+                                    case "GET": ProcessClientGetRequest(context); break;
+                                    case "POST": ProcessClientPostRequest(context); break;
+                                }
+
+                                // for test:
+                                //SendStream(Encoding.UTF8.GetBytes("<html><body>" + DateTime.Now + "</body></html>"), "text/html", context.Response);
+
+                                context.Close();
                             }
-
-                            // for test:
-                            //SendStream(Encoding.UTF8.GetBytes("<html><body>" + DateTime.Now + "</body></html>"), "text/html", context.Response);
-
-                            context.Close();
-                        }).Start();
+                            catch (Exception e)
+                            {
+                                Debug.Print(e.Message);
+                            }
+                        }
+                        //).Start();
                     }
                     //catch (InvalidOperationException ex)
                     //{
