@@ -2,7 +2,7 @@ using MFE.Hardware;
 using Microsoft.SPOT.Hardware;
 using System.Collections;
 
-namespace SmartNetwork.Network
+namespace MFE.SmartNetwork.Network
 {
     public class BusHubI2C : BusHubBase
     {
@@ -26,7 +26,7 @@ namespace SmartNetwork.Network
 
             for (ushort address = 1; address <= 127; address++)
             {
-                byte type = 255;
+                byte type = (byte)BusModuleType.Unknown;
 
                 I2CDevice.Configuration config = new I2CDevice.Configuration(address, BusConfigurationI2C.ClockRate);
                 if (busConfig.Bus.TryGetRegister(config, BusConfigurationI2C.Timeout, BusModuleAPI.CmdGetType, out type))
@@ -37,10 +37,10 @@ namespace SmartNetwork.Network
 
                     if (busModule == null) // no registered module with this address
                     {
-                        busModule = new BusModule(this, address, type);
+                        busModule = new BusModule(this, address, (BusModuleType)type);
 
                         // query control lines count:
-                        busModule.QueryControlLines();
+                        //busModule.QueryControlLines();
 
                         addressesAdded.Add(address);
                         BusModules.Add(busModule);

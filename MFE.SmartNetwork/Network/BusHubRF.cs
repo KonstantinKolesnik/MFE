@@ -1,5 +1,5 @@
 
-namespace SmartNetwork.Network
+namespace MFE.SmartNetwork.Network
 {
     public class BusHubRF : BusHubBase
     {

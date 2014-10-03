@@ -1,7 +1,7 @@
 using MFE.Core;
 using System;
 
-namespace SmartNetwork.Network
+namespace MFE.SmartNetwork.Network
 {
     public class ControlLine : INotifyPropertyChanged
     {

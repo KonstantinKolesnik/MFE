@@ -2,7 +2,7 @@ using MFE.Core;
 using System.Collections;
 using System.Threading;
 
-namespace SmartNetwork.Network
+namespace MFE.SmartNetwork.Network
 {
     public abstract class BusHubBase : INotifyPropertyChanged
     {

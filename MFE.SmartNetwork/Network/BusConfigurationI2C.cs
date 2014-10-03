@@ -1,6 +1,6 @@
 using Microsoft.SPOT.Hardware;
 
-namespace SmartNetwork.Network
+namespace MFE.SmartNetwork.Network
 {
     public class BusConfigurationI2C
     {

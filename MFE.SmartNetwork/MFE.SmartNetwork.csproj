@@ -40,7 +40,7 @@
     <Compile Include="Network\BusHubRF.cs" />
     <Compile Include="Network\BusModule.cs" />
     <Compile Include="Network\BusModuleAPI.cs" />
-    <Compile Include="Network\BusModuleProductName.cs" />
+    <Compile Include="Network\BusModuleType.cs" />
     <Compile Include="Network\ControlLine.cs" />
     <Compile Include="Network\ControlLineType.cs" />
     <Compile Include="Network\NetworkCoordinator.cs" />

@@ -1,16 +1,16 @@
 using MFE.Core;
 using System.Collections;
 
-namespace SmartNetwork.Network
+namespace MFE.SmartNetwork.Network
 {
     public class BusModule : INotifyPropertyChanged
     {
         #region Fields
         private BusHubBase busHub;
         private ushort address = 0;
-        private byte type = 255; // unknown
-        private ArrayList controlLines = new ArrayList();
+        private BusModuleType type = BusModuleType.Unknown; // unknown
         private string name = "";
+        private ArrayList controlLines = new ArrayList();
         #endregion
 
         #region Properties
@@ -22,13 +22,23 @@ namespace SmartNetwork.Network
         {
             get { return address; }
         }
-        public byte Type
+        public BusModuleType Type
         {
             get { return type; }
         }
-        public string ProductName
+        public string TypeName
         {
-            get { return BusModuleProductName.Get(type); }
+            get
+            {
+                switch (type)
+                {
+                    case BusModuleType.Test: return "AE test full module";
+                    case BusModuleType.AER8: return "AE-R8";
+
+
+                    default: return type.ToString() + " [Unknown]";
+                }
+            }
         }
         public string Name
         {
@@ -50,14 +60,21 @@ namespace SmartNetwork.Network
 
         #region Events
         public event PropertyChangedEventHandler PropertyChanged;
+        protected void NotifyPropertyChanged(string propertyName)
+        {
+            if (PropertyChanged != null)
+                PropertyChanged(this, propertyName);
+        }
         #endregion
 
         #region Constructor
-        public BusModule(BusHubBase busHub, ushort address, byte type)
+        public BusModule(BusHubBase busHub, ushort address, BusModuleType type)
         {
             this.busHub = busHub;
             this.address = address;
             this.type = type;
+
+            PopulateControlLines();
         }
         #endregion
 
@@ -71,31 +88,55 @@ namespace SmartNetwork.Network
         //            Type = response[0];
         //    }
         //}
-        internal void QueryControlLines()
-        {
-            if (busHub != null)
-            {
-                for (byte type = 0; type < BusModuleAPI.ControlLineTypesToRequest; type++)
-                {
-                    byte[] response = new byte[1]; // up to 256 numbers for one type
-                    if (busHub.BusModuleWriteRead(this, new byte[] { BusModuleAPI.CmdGetControlLineCount, type }, response))
-                    {
-                        for (byte number = 0; number < response[0]; number++)
-                        {
-                            ControlLine controlLine = new ControlLine(busHub, this, (ControlLineType)type, number);
-                            ControlLines.Add(controlLine);
+        //internal void QueryControlLines()
+        //{
+        //    if (busHub != null)
+        //    {
+        //        for (byte type = 0; type < BusModuleAPI.ControlLineTypesToRequest; type++)
+        //        {
+        //            byte[] response = new byte[1]; // up to 256 numbers for one type
+        //            if (busHub.BusModuleWriteRead(this, new byte[] { BusModuleAPI.CmdGetControlLineCount, type }, response))
+        //            {
+        //                for (byte number = 0; number < response[0]; number++)
+        //                {
+        //                    ControlLine controlLine = new ControlLine(busHub, this, (ControlLineType)type, number);
+        //                    ControlLines.Add(controlLine);
 
-                            // query control line state:
-                            controlLine.QueryState();
-                        }
-                    }
-                }
+        //                    // query control line state:
+        //                    controlLine.QueryState();
+        //                }
+        //            }
+        //        }
+        //    }
+        //}
+        private void PopulateControlLines()
+        {
+            switch (type)
+            {
+                case BusModuleType.Test:
+                    AddControlLines(ControlLineType.Digital, 8);
+                    AddControlLines(ControlLineType.Analog, 3);
+                    AddControlLines(ControlLineType.OneWire, 1);
+                    break;
+                case BusModuleType.AER8:
+
+
+
+                    break;
+                default:
+                    break;
             }
         }
-        protected void NotifyPropertyChanged(string propertyName)
+        private void AddControlLines(ControlLineType type, int count)
         {
-            if (PropertyChanged != null)
-                PropertyChanged(this, propertyName);
+            for (byte i = 0; i < count; i++)
+            {
+                ControlLine controlLine = new ControlLine(busHub, this, (ControlLineType)type, i);
+                ControlLines.Add(controlLine);
+
+                // query control line state:
+                //controlLine.QueryState();
+            }
         }
         #endregion
     }

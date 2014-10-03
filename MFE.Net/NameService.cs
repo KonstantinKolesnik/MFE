@@ -1,3 +1,5 @@
+using Microsoft.SPOT;
+using Microsoft.SPOT.Net.NetworkInformation;
 //
 //   Copyright 2011 Fastload-Media.be
 //
@@ -19,8 +21,6 @@ using System.Net;
 using System.Net.Sockets;
 using System.Text;
 using System.Threading;
-using Microsoft.SPOT;
-using Microsoft.SPOT.Net.NetworkInformation;
 
 namespace MFE.Net
 {
