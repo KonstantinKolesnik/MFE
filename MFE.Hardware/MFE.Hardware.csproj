@@ -33,6 +33,7 @@
   <ItemGroup>
     <Compile Include="I2CExtension.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SPIExtension.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="Microsoft.SPOT.Hardware" />
