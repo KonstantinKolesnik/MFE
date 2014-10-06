@@ -74,7 +74,7 @@ namespace MFE.SmartNetwork.Network
             this.address = address;
             this.type = type;
 
-            PopulateControlLines();
+            //PopulateControlLines();
         }
         #endregion
 
@@ -110,35 +110,35 @@ namespace MFE.SmartNetwork.Network
         //        }
         //    }
         //}
-        private void PopulateControlLines()
-        {
-            switch (type)
-            {
-                case BusModuleType.Test:
-                    AddControlLines(ControlLineType.Digital, 8);
-                    AddControlLines(ControlLineType.Analog, 3);
-                    AddControlLines(ControlLineType.OneWire, 1);
-                    break;
-                case BusModuleType.AER8:
+        //private void PopulateControlLines()
+        //{
+        //    switch (type)
+        //    {
+        //        case BusModuleType.Test:
+        //            AddControlLines(ControlLineType.Digital, 8);
+        //            AddControlLines(ControlLineType.Analog, 5);
+        //            AddControlLines(ControlLineType.OneWire, 1);
+        //            break;
+        //        case BusModuleType.AER8:
 
 
 
-                    break;
-                default:
-                    break;
-            }
-        }
-        private void AddControlLines(ControlLineType type, int count)
-        {
-            for (byte i = 0; i < count; i++)
-            {
-                ControlLine controlLine = new ControlLine(busHub, this, (ControlLineType)type, i);
-                ControlLines.Add(controlLine);
+        //            break;
+        //        default:
+        //            break;
+        //    }
+        //}
+        //private void AddControlLines(ControlLineType type, int count)
+        //{
+        //    for (byte i = 0; i < count; i++)
+        //    {
+        //        ControlLine controlLine = new ControlLine(busHub, this, (ControlLineType)type, i);
+        //        ControlLines.Add(controlLine);
 
-                // query control line state:
-                //controlLine.QueryState();
-            }
-        }
+        //        // query control line state:
+        //        //controlLine.QueryState();
+        //    }
+        //}
         #endregion
     }
 }

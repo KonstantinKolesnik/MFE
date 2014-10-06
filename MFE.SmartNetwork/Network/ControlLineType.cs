@@ -3,11 +3,14 @@ namespace MFE.SmartNetwork.Network
 {
     public enum ControlLineType : byte
     {
-        //Relay, WaterSensor, PHSensor, ORPSensor, TemperatureSensor, ConductivitySensor + SalinitySensor
-
-        Digital,
-        Analog,
+        Relay,
         PWM,
-        OneWire
+        Temperature,
+        Liquid,
+        Ph,
+        ORP,
+        Conductivity, // + Salinity
+
+
     }
 }

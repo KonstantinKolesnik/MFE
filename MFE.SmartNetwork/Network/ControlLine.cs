@@ -31,7 +31,7 @@ namespace MFE.SmartNetwork.Network
             get;
             private set;
         }
-        public string ProductName
+        public string TypeName
         {
             get
             {
@@ -40,9 +40,9 @@ namespace MFE.SmartNetwork.Network
                 switch (Type)
                 {
                     case ControlLineType.PWM: type = "PWM"; break;
-                    case ControlLineType.Digital: type = "Digital"; break;
-                    case ControlLineType.Analog: type = "Analog"; break;
-                    case ControlLineType.OneWire: type = "OneWire"; break;
+                    case ControlLineType.Relay: type = "Relay"; break;
+                    case ControlLineType.Liquid: type = "Liquid"; break;
+                    case ControlLineType.Ph: type = "Ph"; break;
                     default: type = "[Unknown]"; break;
                 }
 
