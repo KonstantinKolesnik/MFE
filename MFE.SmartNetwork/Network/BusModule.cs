@@ -33,7 +33,7 @@ namespace MFE.SmartNetwork.Network
                 switch (type)
                 {
                     case BusModuleType.Test: return "AE test full module";
-                    case BusModuleType.AER8: return "AE-R8";
+                    case BusModuleType.AER8: return "AE-D8";
 
 
                     default: return type.ToString() + " [Unknown]";
@@ -79,15 +79,15 @@ namespace MFE.SmartNetwork.Network
         #endregion
 
         #region Private methods
-        //internal void QueryType()
-        //{
-        //    if (busMaster != null)
-        //    {
-        //        byte[] response = new byte[1];
-        //        if (busMaster.BusModuleWriteRead(this, new byte[] { BusModule.CmdGetType }, response))
-        //            Type = response[0];
-        //    }
-        //}
+        internal void QueryType()
+        {
+            if (busHub != null)
+            {
+                byte[] response = new byte[1];
+                if (busHub.BusModuleWriteRead(this, new byte[] { BusModuleAPI.CmdGetType }, response))
+                    Type = (BusModuleType)response[0];
+            }
+        }
         //internal void QueryControlLines(bool updateState = false)
         //{
         //    if (busHub != null)
