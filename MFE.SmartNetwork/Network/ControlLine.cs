@@ -6,7 +6,7 @@ namespace MFE.SmartNetwork.Network
     public class ControlLine : INotifyPropertyChanged
     {
         #region Fields
-        private short[] state = new short[2];
+        private byte[] state = new byte[4];
         private string name = "";
         #endregion
 
@@ -61,11 +61,11 @@ namespace MFE.SmartNetwork.Network
                 }
             }
         }
-        public short[] State
+        public byte[] State
         {
             get
             {
-                short[] result = new short[state.Length];
+                byte[] result = new byte[state.Length];
                 Array.Copy(state, result, state.Length);
                 return result;
             }
@@ -110,7 +110,7 @@ namespace MFE.SmartNetwork.Network
         {
             if (BusHub != null && BusModule != null)
             {
-                short[] response = new short[state.Length];
+                byte[] response = new byte[state.Length];
                 if (BusHub.BusModuleWriteRead(BusModule, new byte[] { BusModuleAPI.CmdGetControlLineState, (byte)Type, Address }, response))
                     state = response;
             }

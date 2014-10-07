@@ -25,6 +25,14 @@ namespace MFE.SmartNetwork.Network
         public BusModuleType Type
         {
             get { return type; }
+            //private set
+            //{
+            //    if (type != value)
+            //    {
+            //        type = value;
+            //        NotifyPropertyChanged("Type");
+            //    }
+            //}
         }
         public string TypeName
         {
@@ -73,21 +81,19 @@ namespace MFE.SmartNetwork.Network
             this.busHub = busHub;
             this.address = address;
             this.type = type;
-
-            //PopulateControlLines();
         }
         #endregion
 
         #region Private methods
-        internal void QueryType()
-        {
-            if (busHub != null)
-            {
-                byte[] response = new byte[1];
-                if (busHub.BusModuleWriteRead(this, new byte[] { BusModuleAPI.CmdGetType }, response))
-                    Type = (BusModuleType)response[0];
-            }
-        }
+        //internal void QueryType()
+        //{
+        //    if (busHub != null)
+        //    {
+        //        byte[] response = new byte[1];
+        //        if (busHub.BusModuleWriteRead(this, new byte[] { BusModuleAPI.CmdGetType }, response))
+        //            Type = (BusModuleType)response[0];
+        //    }
+        //}
         //internal void QueryControlLines(bool updateState = false)
         //{
         //    if (busHub != null)
@@ -108,35 +114,6 @@ namespace MFE.SmartNetwork.Network
         //                }
         //            }
         //        }
-        //    }
-        //}
-        //private void PopulateControlLines()
-        //{
-        //    switch (type)
-        //    {
-        //        case BusModuleType.Test:
-        //            AddControlLines(ControlLineType.Digital, 8);
-        //            AddControlLines(ControlLineType.Analog, 5);
-        //            AddControlLines(ControlLineType.OneWire, 1);
-        //            break;
-        //        case BusModuleType.AER8:
-
-
-
-        //            break;
-        //        default:
-        //            break;
-        //    }
-        //}
-        //private void AddControlLines(ControlLineType type, int count)
-        //{
-        //    for (byte i = 0; i < count; i++)
-        //    {
-        //        ControlLine controlLine = new ControlLine(busHub, this, (ControlLineType)type, i);
-        //        ControlLines.Add(controlLine);
-
-        //        // query control line state:
-        //        //controlLine.QueryState();
         //    }
         //}
         #endregion
