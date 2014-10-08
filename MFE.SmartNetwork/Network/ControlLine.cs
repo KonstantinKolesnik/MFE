@@ -110,8 +110,9 @@ namespace MFE.SmartNetwork.Network
         {
             if (BusHub != null && BusModule != null)
             {
+                byte[] request = new byte[] { BusModuleAPI.CmdGetControlLineState, (byte)Type, Address };
                 byte[] response = new byte[state.Length];
-                if (BusHub.BusModuleWriteRead(BusModule, new byte[] { BusModuleAPI.CmdGetControlLineState, (byte)Type, Address }, response))
+                if (BusHub.BusModuleWriteRead(BusModule, request, response))
                     state = response;
             }
         }
