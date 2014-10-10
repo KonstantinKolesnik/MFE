@@ -2,16 +2,22 @@
 using System.Collections;
 namespace MFE.SmartNetwork.Network
 {
-    public class BusHubRF : BusHubBase
+    public class BusMasterRF : BusMasterBase
     {
         #region Constructor
-        public BusHubRF(uint address)
+        public BusMasterRF(uint address)
             : base(address)
         {
         }
         #endregion
 
         #region Private methods
+        protected override ArrayList GetOnlineModules()
+        {
+            ArrayList result = new ArrayList();
+
+            return result;
+        }
         protected override void ScanModules(out ArrayList modulesAdded, out ArrayList modulesRemoved)
         {
             modulesAdded = new ArrayList();

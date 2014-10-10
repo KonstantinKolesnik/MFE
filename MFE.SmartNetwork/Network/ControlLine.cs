@@ -11,7 +11,7 @@ namespace MFE.SmartNetwork.Network
         #endregion
 
         #region Properties
-        public BusHubBase BusHub
+        public BusMasterBase BusHub
         {
             get;
             private set;
@@ -93,7 +93,7 @@ namespace MFE.SmartNetwork.Network
         #endregion
 
         #region Constructor
-        public ControlLine(BusHubBase busHub, BusModule busModule, ControlLineType type, byte address)
+        public ControlLine(BusMasterBase busHub, BusModule busModule, ControlLineType type, byte address)
         {
             BusHub = busHub;
             BusModule = busModule;

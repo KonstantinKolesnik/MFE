@@ -35,10 +35,10 @@
     <Compile Include="Controllers\FunctionalController.cs" />
     <Compile Include="Controllers\MonitorController.cs" />
     <Compile Include="Network\BusConfigurationI2C.cs" />
-    <Compile Include="Network\BusHubBase.cs" />
-    <Compile Include="Network\BusHubI2C.cs" />
-    <Compile Include="Network\BusHubRF.cs" />
-    <Compile Include="Network\BusHubUSB.cs" />
+    <Compile Include="Network\BusMasterBase.cs" />
+    <Compile Include="Network\BusMasterI2C.cs" />
+    <Compile Include="Network\BusMasterRF.cs" />
+    <Compile Include="Network\BusMasterOneWire.cs" />
     <Compile Include="Network\BusModule.cs" />
     <Compile Include="Network\BusModuleAPI.cs" />
     <Compile Include="Network\BusModuleType.cs" />
@@ -49,6 +49,7 @@
   </ItemGroup>
   <ItemGroup>
     <Reference Include="Microsoft.SPOT.Hardware" />
+    <Reference Include="Microsoft.SPOT.Hardware.OneWire" />
     <Reference Include="Microsoft.SPOT.Native">
     </Reference>
   </ItemGroup>

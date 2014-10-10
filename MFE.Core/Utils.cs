@@ -52,6 +52,26 @@ namespace MFE.Core
         }
         #endregion
 
+        public static bool AreArraysEqual(byte[] a1, byte[] a2)
+        {
+            if (a1.Length == a2.Length)
+            {
+                bool equal = true;
+
+                for (ushort i = 0; i < a1.Length; i++)
+                    if (a1[i] != a2[i])
+                    {
+                        equal = false;
+                        break;
+                    }
+
+                if (equal)
+                    return true;
+            }
+
+            return false;
+        }
+
         #region Base64 string utils
         public static string ToBase64String(byte[] value)
         {

@@ -6,33 +6,25 @@ namespace MFE.SmartNetwork.Network
     public class BusModule : INotifyPropertyChanged
     {
         #region Fields
-        private BusHubBase busHub;
-        private ushort address = 0;
-        private BusModuleType type = BusModuleType.Unknown; // unknown
+        private BusMasterBase busMaster;
+        private byte[] address;
+        private BusModuleType type = BusModuleType.Unknown;
         private string name = "";
         private ArrayList controlLines = new ArrayList();
         #endregion
 
         #region Properties
-        public BusHubBase BusHub
+        public BusMasterBase BusMaster
         {
-            get { return busHub; }
+            get { return busMaster; }
         }
-        public ushort Address
+        public byte[] Address
         {
             get { return address; }
         }
         public BusModuleType Type
         {
             get { return type; }
-            //private set
-            //{
-            //    if (type != value)
-            //    {
-            //        type = value;
-            //        NotifyPropertyChanged("Type");
-            //    }
-            //}
         }
         public string TypeName
         {
@@ -40,8 +32,10 @@ namespace MFE.SmartNetwork.Network
             {
                 switch (type)
                 {
-                    case BusModuleType.Test: return "AE test full module";
-                    case BusModuleType.AER8: return "AE-D8";
+                    case BusModuleType.Unknown: return "AE test module";
+                    case BusModuleType.D5: return "AE-D5";
+                    case BusModuleType.D6: return "AE-D6";
+                    case BusModuleType.D8: return "AE-D8";
 
 
                     default: return type.ToString() + " [Unknown]";
@@ -76,9 +70,9 @@ namespace MFE.SmartNetwork.Network
         #endregion
 
         #region Constructor
-        public BusModule(BusHubBase busHub, ushort address, BusModuleType type)
+        public BusModule(BusMasterBase busMaster, byte[] address, BusModuleType type)
         {
-            this.busHub = busHub;
+            this.busMaster = busMaster;
             this.address = address;
             this.type = type;
         }
@@ -87,10 +81,10 @@ namespace MFE.SmartNetwork.Network
         #region Private methods
         //internal void QueryType()
         //{
-        //    if (busHub != null)
+        //    if (busMaster != null)
         //    {
         //        byte[] response = new byte[1];
-        //        if (busHub.BusModuleWriteRead(this, new byte[] { BusModuleAPI.CmdGetType }, response))
+        //        if (busMaster.BusModuleWriteRead(this, new byte[] { BusModuleAPI.CmdGetType }, response))
         //            Type = (BusModuleType)response[0];
         //    }
         //}

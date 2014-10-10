@@ -5,12 +5,12 @@ namespace MFE.SmartNetwork.Network
 {
     public enum BusModuleType : byte
     {
-        Test, //AE test full module
-        AER8,
+        Unknown,	// test full module
+        D5,			// AE-D5
+        D6,			// AE-D6
+        D8,			// AE-D8
 
 
 
-
-        Unknown = 255,
     }
 }

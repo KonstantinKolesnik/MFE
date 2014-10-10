@@ -7,7 +7,7 @@ namespace MFE.SmartNetwork.Network
     public class NetworkCoordinator
     {
         #region Fields
-        private ArrayList busHubs = new ArrayList();
+        private ArrayList busMasters = new ArrayList();
         private ArrayList busModules = new ArrayList();
         private ArrayList busControlLines = new ArrayList();
         private Timer timerUpdate = null;
@@ -15,9 +15,9 @@ namespace MFE.SmartNetwork.Network
         #endregion
 
         #region Properties
-        public ArrayList BusHubs
+        public ArrayList BusMasters
         {
-            get { return busHubs; }
+            get { return busMasters; }
         }
         public ArrayList BusModules
         {
@@ -30,11 +30,11 @@ namespace MFE.SmartNetwork.Network
         #endregion
 
         #region Events
-        public event CollectionChangedEventHandler BusHubsCollectionChanged;
-        private void NotifyBusHubsCollectionChanged(ArrayList addressesAdded, ArrayList addressesRemoved)
+        public event CollectionChangedEventHandler BusMastersCollectionChanged;
+        private void NotifyBusMastersCollectionChanged(ArrayList addressesAdded, ArrayList addressesRemoved)
         {
-            if (BusHubsCollectionChanged != null && (addressesAdded.Count != 0 || addressesRemoved.Count != 0))
-                BusHubsCollectionChanged(addressesAdded, addressesRemoved);
+            if (BusMastersCollectionChanged != null && (addressesAdded.Count != 0 || addressesRemoved.Count != 0))
+                BusMastersCollectionChanged(addressesAdded, addressesRemoved);
         }
         #endregion
 

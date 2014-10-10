@@ -4,7 +4,7 @@ using System.Threading;
 
 namespace MFE.SmartNetwork.Network
 {
-    public abstract class BusHubBase : INotifyPropertyChanged
+    public abstract class BusMasterBase : INotifyPropertyChanged
     {
         #region Fields
         private const int updateInterval = 3000;
@@ -20,10 +20,6 @@ namespace MFE.SmartNetwork.Network
         public uint Address
         {
             get { return address; }
-        }
-        public string ProductName
-        {
-            get { return (this is BusHubI2C) ?  "Integrated Hub" : "RF Hub"; }
         }
         public string Name
         {
@@ -42,12 +38,12 @@ namespace MFE.SmartNetwork.Network
         {
             get { return busModules; }
         }
-        public BusModule this[ushort busModuleAddress]
+        public BusModule this[byte[] busModuleAddress]
         {
             get
             {
                 foreach (BusModule busModule in busModules)
-                    if (busModule.Address == busModuleAddress)
+                    if (Utils.AreArraysEqual(busModule.Address, busModuleAddress))
                         return busModule;
 
                 return null;
@@ -67,7 +63,7 @@ namespace MFE.SmartNetwork.Network
         #endregion
 
         #region Constructors
-        public BusHubBase(uint address)
+        public BusMasterBase(uint address)
         {
             this.address = address;
             StartTimer();
@@ -75,7 +71,9 @@ namespace MFE.SmartNetwork.Network
         #endregion
 
         #region Protected methods
+        protected abstract ArrayList GetOnlineModules();
         protected abstract void ScanModules(out ArrayList modulesAdded, out ArrayList modulesRemoved);
+        
         protected void NotifyPropertyChanged(string propertyName)
         {
             if (PropertyChanged != null)
@@ -101,41 +99,51 @@ namespace MFE.SmartNetwork.Network
         }
         private void Update()
         {
-            ArrayList modulesAdded, modulesRemoved;
-            ScanModules(out modulesAdded, out modulesRemoved);
+            ArrayList modulesOnline = GetOnlineModules();
 
-            ArrayList controlLinesAdded = new ArrayList();
-            ArrayList controlLinesRemoved = new ArrayList();
 
-            // removed control lines:
-            foreach (BusModule moduleRemoved in modulesRemoved)
-                foreach (ControlLine controlLine in busControlLines)
-                {
-                    if (controlLine.BusModule.Address == moduleRemoved.Address)
-                    {
-                        busControlLines.Remove(controlLine);
-                        controlLinesRemoved.Add(controlLine);
-                    }
-                }
 
-            // added control lines:
-            foreach (BusModule moduleAdded in modulesAdded)
-            {
-                BusModule busModule = this[moduleAdded.Address];
-                foreach (ControlLine controlLine in busModule.ControlLines)
-                {
-                    busControlLines.Add(controlLine);
-                    controlLinesAdded.Add(controlLine);
-                }
-            }
 
-            // BusModulesCollectionChanged:
-            if (BusModulesCollectionChanged != null && (modulesAdded.Count != 0 || modulesRemoved.Count != 0))
-                BusModulesCollectionChanged(modulesAdded, modulesRemoved);
 
-            // BusControlLinesCollectionChanged:
-            if (BusControlLinesCollectionChanged != null && (controlLinesAdded.Count != 0 || controlLinesRemoved.Count != 0))
-                BusControlLinesCollectionChanged(controlLinesAdded, controlLinesRemoved);
+
+
+
+
+            //ArrayList modulesAdded, modulesRemoved;
+            //ScanModules(out modulesAdded, out modulesRemoved);
+
+            //ArrayList controlLinesAdded = new ArrayList();
+            //ArrayList controlLinesRemoved = new ArrayList();
+
+            //// removed control lines:
+            //foreach (BusModule moduleRemoved in modulesRemoved)
+            //    foreach (ControlLine controlLine in busControlLines)
+            //    {
+            //        if (controlLine.BusModule.Address == moduleRemoved.Address)
+            //        {
+            //            busControlLines.Remove(controlLine);
+            //            controlLinesRemoved.Add(controlLine);
+            //        }
+            //    }
+
+            //// added control lines:
+            //foreach (BusModule moduleAdded in modulesAdded)
+            //{
+            //    BusModule busModule = this[moduleAdded.Address];
+            //    foreach (ControlLine controlLine in busModule.ControlLines)
+            //    {
+            //        busControlLines.Add(controlLine);
+            //        controlLinesAdded.Add(controlLine);
+            //    }
+            //}
+
+            //// BusModulesCollectionChanged:
+            //if (BusModulesCollectionChanged != null && (modulesAdded.Count != 0 || modulesRemoved.Count != 0))
+            //    BusModulesCollectionChanged(modulesAdded, modulesRemoved);
+
+            //// BusControlLinesCollectionChanged:
+            //if (BusControlLinesCollectionChanged != null && (controlLinesAdded.Count != 0 || controlLinesRemoved.Count != 0))
+            //    BusControlLinesCollectionChanged(controlLinesAdded, controlLinesRemoved);
         }
         #endregion
     }
